@@ -9,6 +9,15 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project team
 
+### Ong Xinyi
+
+<img src="images/ongxinyii.png" width="200px">
+
+[[github](https://github.com/ongxinyii)]
+
+* Role: Developer
+* Responsibilities: Documentation
+
 ### Chang Jia Yang
 
 <img src="images/changjy81.png" width="200px">
