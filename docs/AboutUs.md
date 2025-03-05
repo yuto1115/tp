@@ -25,3 +25,12 @@ We are a team based in the [School of Computing, National University of Singapor
 [[portfolio](team/nikingoda.md)]
 
 * Role: Developer
+
+### Yuto Watanabe
+
+<img src="images/yuto1115.png" width="200px">
+
+[[github](https://github.com/yuto1115)]
+[[portfolio](team/yuto1115.md)]
+
+* Role: Code Quality
