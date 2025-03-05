@@ -1,13 +1,30 @@
 ---
-layout: page
-title: About Us
+  layout: default.md
+  title: "About Us"
 ---
 
-We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
+# About Us
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
+We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project team
+
+### Chang Jia Yang
+
+<img src="images/changjy81.png" width="200px">
+
+[[github](https://github.com/changjy81)]
+
+* Role: Team Lead, Scheduling and Tracking
+
+### Ngo Duc Anh
+
+<img src="images/nikingoda.png" width="200px">
+
+[[github](https://github.com/nikingoda)]
+[[portfolio](team/nikingoda.md)]
+
+* Role: Developer
 
 ### Yuto Watanabe
 
@@ -16,44 +33,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/yuto1115)]
 [[portfolio](team/yuto1115.md)]
 
-* Role: Developer
-* Responsibilities: Code Quality
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: UI
+* Role: Code Quality
