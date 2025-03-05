@@ -43,3 +43,12 @@ We are a team based in the [School of Computing, National University of Singapor
 [[portfolio](team/yuto1115.md)]
 
 * Role: Code Quality
+
+### Sanya Sanghavi
+
+<img src="images/sunpterodactyl.png" width="200px">
+
+[[github](http://github.com/sunpterodactyl)]
+
+* Role: Developer
+* Responsibilities: Integration
