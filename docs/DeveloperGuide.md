@@ -287,43 +287,110 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a …​                       | I want to …​                                                          | So that I can…​                                                        |
+|----------|-------------------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | loan issuer                   | keep track of the total amount of money owed to me                    | I can see how much I am due to collect                                 |
+| `* * *`  | user                          | add a new loan                                                        | I can track new loans that are given out                               |
+| `* * *`  | user                          | delete a loan                                                         | remove loans that are no longer relevant                               |
+| `* * *`  | user                          | view current loans                                                    | I can see the full list of loans that need to be returned              |
+| `* *`    | user                          | edit loans                                                            | I can update loan information if necessary                             |
+| `* *`    | user                          | mark loans as returned                                                | I can keep track of whether a loan was repayed                         |
+| `* *`    | forgetful user                | track the number of days since the loan was given                     | I can remind friends to return their loans                             |
+| `* *`    | frequent loaner               | view a history of all loans that have been fulfilled                  | I can keep track of past lending habits                                |
+| `* *`    | user                          | set deadlines to receive loans                                        | I can follow up with lenders on time                                   |
+| `* *`    | cash-strapped user            | track the number of days since the loan was given                     | I can remind friends to return their loans                             |
+| `* *`    | new user                      | go through a new user guide                                           | I learn how to use the program                                         |
+| `* *`    | new user                      | view example entries                                                  | I can learn how to use from the examples                               |
+| `* *`    | forgetful user                | add address of people who owe me money                                | I can look for them if necessary                                       |
+| `* *`    | forgetful user                | add phone numbers of people who owe me money                          | I can contact them if necessary                                        |
+| `* *`    | user                          | blacklist people who are always late to return money                  | I can avoid loaning to particular individuals                          |
+| `* *`    | user                          | set limits of how much i should loan to others                        | I can prevent excessive money lost                                     |
+| `* *`    | user                          | tag individuals based on the amount of money lent                     | I can prioritise users that have larger ticket size loans              |
+| `* *`    | user                          | tag individuals based on loan duration                                | I can group friends by loan durations                                  |
+| `* *`    | user                          | tag individuals based on their spending habits                        | I can avoid lending to high risk individuals                           |
+| `* *`    | user                          | add loans of items                                                    | I can keep track of loaned items                                       |
+| `* *`    | user                          | delete loans of items                                                 | I cam delete item loans that are no longer relevant                    |
+| `* *`    | user                          | edit loans of items                                                   | I can make relevant modifications to item loans                        |
+| `* *`    | user                          | add a description of loaned item                                      | I can remember the specific item that was loaned out                   |
+| `* *`    | user                          | view a leaderboard of those with highest or longest unreturned loans  | I can have a visual representation of who needs to be chased for loans |
+| `* *`    | user                          | see past loans categorised by month and loan type                     | I can project loaning for future months                                |
+| `* *`    | user                          | delete all records                                                    | I can purge examples                                                   |
+| `* *`    | user                          | sort records, by loan amount, period, priority etc.                   | I can see the most 'important' records for me                          |
+| `*`      | forgetful user                | upload photos of people who owe me money                              | I can match their appearance to their loans                            |
+| `*`      | user                          | have notifications for those who have loaned for longer than duration | I can prompt them to return that it has been past a grace period       |
+| `*`      | user                          | send messages to send to people who owe me money                      | I can efficiently prod them to return the money                        |
+| `*`      | user                          | customize the autogenerated message sent to those who owe money       | I can better persuade them to return my money                          |
+| `*`      | user                          | upload pictures of loaned items                                       | I can remember what was loaned to others                               |
+| `*`      | user                          | set/calculate interest if necessary                                   | I can benefit from loaning out to people                               |
+| `*`      | user who also takes out loans | keep track of how much I am borrowing from others                     | I can match their appearance to their loans                            |
+| `*`      | user                          | set/calculate interest if necessary                                   | I can return what I owe others                                         |
+| `*`      | cash strapped user            | calculate projected returns if everyone was to return loans           | I can see how much I can earn back from chasing people for loans       |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `LoanBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Track total amount of money owed**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Loan issuer requests to view the total amount of money owed.
+2.  System calculates and displays the total outstanding loan amount.
+
+    Use Case Ends.
+
+**Extensions**
+
+* 2a. No outstanding loans exists. 
+  2a.1. System displays a message indicating that there are no outstanding loans.
+Use Case Ends.
+
+**Use case: Add a New Loan**
+
+**MSS**
+
+1. User requests to add a new loan with details (e.g. amount, borrower, due date).
+2. System records the new loan in the loan list.
+3. System confirms that the loan has been successfully added.
+Use case ends.
+
+**Extensions**
+
+* 2a. The loan details are incomplete or invalid.
+  2a.1. System displays an error message and tells the user the correct format to enter.
+Use Case Resumes at Step 1.
+
+**Use case: Delete a loan**
+
+**MSS**
+
+1. User requests to delete a specific loan.
+2. System removes the loan from the loan list.
+3. System confirms that the loan has been successfully deleted.
+    
+    Use case ends.
+
+**Extensions**
+
+* 2a. The loan does not exist in the system.
+  2a.1. System displays a message indicating that the loan is not found.
+  Use Case Ends.
+
+**Use case: View Current Loans**
+
+**MSS**
+
+1. User requests to view the list of current loans.
+2. System retrieves and displays the list of outstanding loans.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. No outstanding loans exists.
+  2a.1. System displays a message indicating that there are no loans that need to be returned.
 
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. AddressBook shows an error message.
-
-      Use case resumes at step 2.
+    Use Case Ends.
 
 *{More to be added}*
 
@@ -338,7 +405,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Loan Issuer**: The person who lends money or items to others and expects repayment or return.
+* **User**: A general term for anyone using the system, including loan issuers and those managing their loans.
+* **Forgetful User**: A user who needs additional reminders and tracking features to recall outstanding loans.
+* **Frequent Loaner**: A user who frequently lends money or items and needs an organized record of past and present loans.
+* **Cash-Strapped User**: A user who urgently needs to recover loaned money to maintain financial stability.
+* **New User**: Someone who has just started using the system and may require guidance on how to navigate it.
+* **Loan Amount**: The total sum of money lent to a borrower.
+* **Loan Duration**: The time period between when a loan is given and when it is expected to be returned.
+* **Loan Type**: The category of a loan, such as money or physical items.
+* **Blacklist**: A feature allowing users to mark individuals who frequently delay or fail to return loans, so they can avoid lending to them in the future.
+* **Loan Limits**: A restriction set by the user to prevent lending beyond a specified amount to manage risk.
+* **Tagging**: A method of categorizing individuals based on different attributes such as loan amount, duration, or spending habits.
+* **Leaderboard**: A visual ranking system displaying individuals with the highest or longest overdue loans.
+* **Loan History**: A record of all past fulfilled loans, categorized by time or type.
+* **Interest Calculation**: A feature to determine how much extra money should be repaid based on a percentage applied to the loan over time.
+* **Grace Period**: A specified duration after which a loan becomes overdue and reminders may be sent.
+* **Projected Returns**: An estimate of the total amount the user would recover if all outstanding loans were repaid.
+* **Autogenerated Message**: A pre-written notification that can be sent to remind borrowers about their pending repayments.
+* **Purge Records**: The ability to delete all stored loan data, often used to clear test or example entries.
+* **Loaned Item Description**: A detailed note about an item that has been lent out to help identify it later.
+* **Sorting**: Organizing loan records based on factors such as amount, duration, priority, or borrower.
+* **Upload Photos**: The ability to attach images of borrowers or loaned items for visual reference.
+* **Notifications**: Alerts sent to remind users of overdue loans or outstanding repayments.
+* **Example Entries**: Pre-filled sample data to help new users understand how the system works.
+* **Fulfilled Loan**: A loan that has been completely repaid or returned.
 
 --------------------------------------------------------------------------------------------------------------------
 
