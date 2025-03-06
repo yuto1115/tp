@@ -326,34 +326,71 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | user                          | set/calculate interest if necessary                                   | I can return what I owe others                                         |
 | `*`      | cash strapped user            | calculate projected returns if everyone was to return loans           | I can see how much I can earn back from chasing people for loans       |
 
-*{More to be added}*
-
 ### Use cases
 
 (For all use cases below, the **System** is the `LoanBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Track total amount of money owed**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Loan issuer requests to view the total amount of money owed.
+2.  System calculates and displays the total outstanding loan amount.
+
+    Use Case Ends.
+
+**Extensions**
+
+* 2a. No outstanding loans exists. 
+  2a.1. System displays a message indicating that there are no outstanding loans.
+Use Case Ends.
+
+**Use case: Add a New Loan**
+
+**MSS**
+
+1. User requests to add a new loan with details (e.g. amount, borrower, due date).
+2. System records the new loan in the loan list.
+3. System confirms that the loan has been successfully added.
+Use case ends.
+
+**Extensions**
+
+* 2a. The loan details are incomplete or invalid.
+  2a.1. System displays an error message and tells the user the correct format to enter.
+Use Case Resumes at Step 1.
+
+**Use case: Delete a loan**
+
+**MSS**
+
+1. User requests to delete a specific loan.
+2. System removes the loan from the loan list.
+3. System confirms that the loan has been successfully deleted.
+    
+    Use case ends.
+
+**Extensions**
+
+* 2a. The loan does not exist in the system.
+  2a.1. System displays a message indicating that the loan is not found.
+  Use Case Ends.
+
+**Use case: View Current Loans**
+
+**MSS**
+
+1. User requests to view the list of current loans.
+2. System retrieves and displays the list of outstanding loans.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. No outstanding loans exists.
+  2a.1. System displays a message indicating that there are no loans that need to be returned.
 
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. AddressBook shows an error message.
-
-      Use case resumes at step 2.
+    Use Case Ends.
 
 
 ### Non-Functional Requirements
