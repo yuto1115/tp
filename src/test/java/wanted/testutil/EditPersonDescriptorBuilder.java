@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
 import wanted.model.loan.Address;
 import wanted.model.loan.Email;
-import wanted.model.loan.Name;
 import wanted.model.loan.Loan;
+import wanted.model.loan.Name;
 import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 

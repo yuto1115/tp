@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 
 import wanted.model.LoanBook;
 import wanted.model.ReadOnlyLoanBook;
-import wanted.model.loan.*;
+import wanted.model.loan.Address;
+import wanted.model.loan.Email;
 import wanted.model.loan.Loan;
+import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**

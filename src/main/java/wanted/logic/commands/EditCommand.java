@@ -21,8 +21,11 @@ import wanted.commons.util.ToStringBuilder;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
-import wanted.model.loan.*;
+import wanted.model.loan.Address;
+import wanted.model.loan.Email;
 import wanted.model.loan.Loan;
+import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**

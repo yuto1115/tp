@@ -37,8 +37,11 @@ import org.junit.jupiter.api.Test;
 
 import wanted.logic.Messages;
 import wanted.logic.commands.AddCommand;
-import wanted.model.loan.*;
+import wanted.model.loan.Address;
+import wanted.model.loan.Email;
 import wanted.model.loan.Loan;
+import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 import wanted.testutil.PersonBuilder;
 
