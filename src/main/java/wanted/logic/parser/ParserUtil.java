@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import wanted.commons.core.date.Date;
 import wanted.commons.core.index.Index;
 import wanted.commons.util.StringUtil;
 import wanted.logic.parser.exceptions.ParseException;
@@ -33,6 +34,19 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        // todo: We should have a validity check in the future.
+        return new Date(trimmedDate);
     }
 
     /**
