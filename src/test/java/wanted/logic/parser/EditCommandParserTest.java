@@ -34,7 +34,7 @@ import static wanted.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Index;
 import wanted.logic.Messages;
 import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;

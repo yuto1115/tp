@@ -1,6 +1,6 @@
 package wanted.testutil;
 
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Index;
 
 /**
  * A utility class containing a list of {@code Index} objects to be used in tests.

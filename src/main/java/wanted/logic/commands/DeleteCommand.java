@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Index;
 import wanted.commons.util.ToStringBuilder;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;

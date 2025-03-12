@@ -2,7 +2,7 @@ package wanted.logic.parser;
 
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Index;
 import wanted.logic.commands.DeleteCommand;
 import wanted.logic.parser.exceptions.ParseException;
 

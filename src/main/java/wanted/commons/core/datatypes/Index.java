@@ -1,4 +1,4 @@
-package wanted.commons.core.index;
+package wanted.commons.core.datatypes;
 
 import wanted.commons.util.ToStringBuilder;
 

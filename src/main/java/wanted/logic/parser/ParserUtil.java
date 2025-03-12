@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import wanted.commons.core.date.Date;
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Date;
+import wanted.commons.core.datatypes.Index;
 import wanted.commons.util.StringUtil;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Address;
