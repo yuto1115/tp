@@ -92,18 +92,15 @@ public class EditCommand extends Command {
         assert loanToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(loanToEdit.getName());
-        /*
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(loanToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(loanToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(loanToEdit.getAddress());
-
-         */
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(loanToEdit.getTags());
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(loanToEdit.getAmount());
-        Date updatedDate = editPersonDescriptor.getDate().orElse(loanToEdit.getLoanDate());
+        LoanDate updatedDate = editPersonDescriptor.getDate().orElse(loanToEdit.getLoanDate());
 
 
-        return new Loan(updatedName, updatedAmount, updatedDate, updatedTags);
+        return new Loan(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedAmount, updatedDate, updatedTags);
     }
 
     @Override
@@ -141,7 +138,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
         private Amount amount;
-        private Date date;
+        private LoanDate date;
 
         public EditPersonDescriptor() {}
 
@@ -206,11 +203,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(amount);
         }
 
-        public void setDate(Date date) {
+        public void setDate(LoanDate date) {
             this.date = date;
         }
 
-        public Optional<Date> getDate() {
+        public Optional<LoanDate> getDate() {
             return Optional.ofNullable(date);
         }
 
@@ -247,7 +244,9 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(amount, otherEditPersonDescriptor.amount)
+                    && Objects.equals(date, otherEditPersonDescriptor.date);
         }
 
         @Override
@@ -258,6 +257,8 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("tags", tags)
+                    .add("amount", amount)
+                    .add("date", date)
                     .toString();
         }
     }

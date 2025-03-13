@@ -54,7 +54,7 @@ public class LoanCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         amount.setText(String.valueOf(person.getAmount().value));
-        date.setText(person.getLoanDate().value);
+        date.setText(person.getLoanDate().value.toString());
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

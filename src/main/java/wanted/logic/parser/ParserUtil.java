@@ -8,6 +8,7 @@ import java.util.Set;
 
 import wanted.commons.core.datatypes.Date;
 import wanted.commons.core.datatypes.Index;
+import wanted.commons.exceptions.IllegalValueException;
 import wanted.commons.util.StringUtil;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.*;
@@ -39,7 +40,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Amount parseAmount(String amount) throws ParseException {
+    public static Amount parseAmount(String amount) throws IllegalValueException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
         if(!Amount.isValidAmount(trimmedAmount)) {
@@ -47,8 +48,6 @@ public class ParserUtil {
         }
         return new Amount(trimmedAmount);
     }
-
-
 
     /**
      * Parses a {@code String date} into a {@code Date}.

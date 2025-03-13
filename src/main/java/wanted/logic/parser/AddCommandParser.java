@@ -6,6 +6,7 @@ import static wanted.logic.parser.CliSyntax.*;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import wanted.commons.exceptions.IllegalValueException;
 import wanted.logic.commands.AddCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Address;
@@ -45,7 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         LoanDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Loan person = new Loan(name, amount, date, tagList);
+        Loan person = new Loan(name, phone, email, address,amount, date, tagList);
 
         return new AddCommand(person);
     }

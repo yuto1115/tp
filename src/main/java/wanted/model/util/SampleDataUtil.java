@@ -15,18 +15,30 @@ import wanted.model.tag.Tag;
 public class SampleDataUtil {
     public static Loan[] getSamplePersons() {
         return new Loan[] {
-            new Loan(new Name("Alex Yeoh"), new Amount("87.43"), new Date("25th Feb 2024"),
-                getTagSet("friends")),
-            new Loan(new Name("Bernice Yu"), new Amount("99.27"), new Date("28th Dec 2024"),
-                getTagSet("colleagues", "friends")),
-            new Loan(new Name("Charlotte Oliveiro"), new Amount("102.83"), new Date("14 Feb 2025"),
-                getTagSet("neighbours")),
-            new Loan(new Name("David Li"), new Amount("910.31"), new Date("12th March 2025"),
-                getTagSet("family")),
-            new Loan(new Name("Irfan Ibrahim"), new Amount("91.31"), new Date("12th March 2025"),
-                getTagSet("classmates")),
-            new Loan(new Name("Roy Balakrishnan"), new Amount("92624.42"), new Date("17th January 2025"),
-                getTagSet("colleagues"))
+                new Loan(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                        new Address("Blk 30 Geylang Street 29, #06-40"),
+                        new Amount("10.23"), new LoanDate("13th Nov 2024"),
+                        getTagSet("friends")),
+                new Loan(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+                        new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                        new Amount("13.23"), new LoanDate("19th Nov 2024"),
+                        getTagSet("colleagues", "friends")),
+                new Loan(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                        new Amount("100.23"), new LoanDate("1st March 2025"),
+                        getTagSet("neighbours")),
+                new Loan(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                        new Amount("1.06"), new LoanDate("13th March 2025"),
+                        getTagSet("family")),
+                new Loan(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+                        new Address("Blk 47 Tampines Street 20, #17-35"),
+                        new Amount("24.24"), new LoanDate("18th Jan 2024"),
+                        getTagSet("classmates")),
+                new Loan(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+                        new Address("Blk 45 Aljunied Street 85, #11-31"),
+                        new Amount("18.93"), new LoanDate("06th Nov 2024"),
+                        getTagSet("colleagues"))
         };
     }
 

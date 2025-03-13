@@ -3,11 +3,7 @@ package wanted.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import wanted.model.loan.Address;
-import wanted.model.loan.Email;
-import wanted.model.loan.Loan;
-import wanted.model.loan.Name;
-import wanted.model.loan.Phone;
+import wanted.model.loan.*;
 import wanted.model.tag.Tag;
 import wanted.model.util.SampleDataUtil;
 
@@ -20,12 +16,16 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    private static final String DEFAULT_AMOUNT = "10.10";
+    private static final String DEFAULT_DATE = "24th December 2024";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Amount amount;
+    private LoanDate loanDate;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -36,6 +36,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        amount = new Amount(DEFAULT_AMOUNT);
+        loanDate = new LoanDate(DEFAULT_DATE);
     }
 
     /**
@@ -90,7 +92,7 @@ public class PersonBuilder {
     }
 
     public Loan build() {
-        return new Loan(name, phone, email, address, tags);
+        return new Loan(name, phone, email, address, amount, loanDate,tags);
     }
 
 }

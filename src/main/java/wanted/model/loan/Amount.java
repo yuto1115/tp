@@ -23,6 +23,7 @@ public class Amount {
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         String[] args = amount.split("\\.");
         value = MoneyInt.fromDollarAndCent(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+
     }
 
     /**

@@ -10,11 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import wanted.commons.exceptions.IllegalValueException;
-import wanted.model.loan.Address;
-import wanted.model.loan.Email;
-import wanted.model.loan.Loan;
-import wanted.model.loan.Name;
-import wanted.model.loan.Phone;
+import wanted.model.loan.*;
 import wanted.model.tag.Tag;
 
 /**
@@ -28,6 +24,8 @@ class JsonAdaptedLoan {
     private final String phone;
     private final String email;
     private final String address;
+    private final String date;
+    private final String amount;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -36,11 +34,14 @@ class JsonAdaptedLoan {
     @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                            @JsonProperty("email") String email, @JsonProperty("address") String address,
+                           @JsonProperty("date") String date, @JsonProperty("amount") String amount,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.date = date;
+        this.amount = amount;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -54,6 +55,9 @@ class JsonAdaptedLoan {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        amount = source.getAmount().value.toString();
+        date = source.getLoanDate().value.toString();
+
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -102,8 +106,25 @@ class JsonAdaptedLoan {
         }
         final Address modelAddress = new Address(address);
 
+        if (amount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+        }
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        final Amount modelAmount = new Amount(amount);
+
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LoanDate.class.getSimpleName()));
+        }
+        if (!LoanDate.isValidDate(date)) {
+            throw new IllegalValueException(LoanDate.MESSAGE_CONSTRAINTS);
+        }
+        final LoanDate modelLoanDate = new LoanDate(date);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Loan(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Loan(modelName, modelPhone, modelEmail, modelAddress,
+                modelAmount, modelLoanDate, modelTags);
     }
 
 }
