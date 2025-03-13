@@ -21,11 +21,7 @@ import wanted.commons.util.ToStringBuilder;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
-import wanted.model.loan.Address;
-import wanted.model.loan.Email;
-import wanted.model.loan.Loan;
-import wanted.model.loan.Name;
-import wanted.model.loan.Phone;
+import wanted.model.loan.*;
 import wanted.model.tag.Tag;
 
 /**
@@ -92,16 +88,22 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Loan} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Loan createEditedPerson(Loan personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Loan createEditedPerson(Loan loanToEdit, EditPersonDescriptor editPersonDescriptor) {
+        assert loanToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Name updatedName = editPersonDescriptor.getName().orElse(loanToEdit.getName());
+        /*
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(loanToEdit.getPhone());
+        Email updatedEmail = editPersonDescriptor.getEmail().orElse(loanToEdit.getEmail());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(loanToEdit.getAddress());
 
-        return new Loan(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+         */
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(loanToEdit.getTags());
+        Amount updatedAmount = editPersonDescriptor.getAmount().orElse(loanToEdit.getAmount());
+        Date updatedDate = editPersonDescriptor.getDate().orElse(loanToEdit.getLoanDate());
+
+
+        return new Loan(updatedName, updatedAmount, updatedDate, updatedTags);
     }
 
     @Override
@@ -138,6 +140,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Amount amount;
+        private Date date;
 
         public EditPersonDescriptor() {}
 
@@ -151,13 +155,15 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setAmount(toCopy.amount);
+            setDate(toCopy.date);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, amount, date);
         }
 
         public void setName(Name name) {
@@ -190,6 +196,22 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setAmount(Amount amount) {
+            this.amount = amount;
+        }
+
+        public Optional<Amount> getAmount() {
+            return Optional.ofNullable(amount);
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         /**

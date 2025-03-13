@@ -11,7 +11,7 @@ public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
             "Loan amounts should only contain numbers, and it should adhere to the format {Dollars}.{Cents}";
     public static final String VALIDATION_REGEX = "\\d+\\.\\d{2}";
-    private final MoneyInt value;
+    public final MoneyInt value;
 
     /**
      * Constructs a {@code Amount}.

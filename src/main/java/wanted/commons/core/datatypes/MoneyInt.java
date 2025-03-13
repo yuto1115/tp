@@ -47,6 +47,7 @@ public class MoneyInt {
      *     - {@code dollar} is a non-negative integer
      *     - {@code cent} is a non-negative integer between 0 and 99, inclusive.
      */
+    //can we shift this to the Amount class?
     public static MoneyInt fromDollarAndCent(int dollar, int cent) throws IllegalValueException {
         if (dollar < 0) {
             throw new IllegalValueException("The dollar value cannot be negative");

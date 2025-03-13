@@ -5,6 +5,7 @@ import static wanted.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Loan's email in the address book.
+ * Not in use for now
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {

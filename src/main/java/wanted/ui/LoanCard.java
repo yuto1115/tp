@@ -40,6 +40,10 @@ public class LoanCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label amount;
+    @FXML
+    private Label date;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Loan} and index to display.
@@ -49,9 +53,8 @@ public class LoanCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        amount.setText(String.valueOf(person.getAmount().value));
+        date.setText(person.getLoanDate().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

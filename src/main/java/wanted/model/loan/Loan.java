@@ -15,42 +15,39 @@ import wanted.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Loan {
-
     // Identity fields
     private final Name name;
+    private final Amount amount;
+    private final Date loanDate;
     private final Phone phone;
     private final Email email;
-
-    // Data fields
     private final Address address;
+    // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Loan(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Loan(Name name, Amount amount, LoanDate date, Set<Tag> tags) {
+        requireAllNonNull(name, amount, date, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.amount = amount;
+        this.loanDate = date;
         this.tags.addAll(tags);
+        this.phone = new Phone("9999999999");
+        this.email = new Email("email@email.com");
+        this.address = new Address("address");
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Amount getAmount() {
+        return amount;
     }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public Date getLoanDate() {
+        return loanDate;
     }
 
     /**
@@ -91,25 +88,23 @@ public class Loan {
 
         Loan otherPerson = (Loan) other;
         return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
+                && amount.equals(otherPerson.amount)
+                && loanDate.equals(otherPerson.loanDate)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, amount, loanDate, tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
+                .add("amount", amount)
+                .add("date", loanDate)
                 .add("tags", tags)
                 .toString();
     }
