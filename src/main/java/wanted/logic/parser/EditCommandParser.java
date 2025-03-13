@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Index;
 import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
 import wanted.logic.parser.exceptions.ParseException;

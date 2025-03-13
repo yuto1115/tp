@@ -12,7 +12,7 @@ import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Index;
 import wanted.logic.Messages;
 import wanted.model.Model;
 import wanted.model.ModelManager;

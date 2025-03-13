@@ -13,7 +13,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import wanted.commons.core.date.Date;
+import wanted.commons.core.datatypes.Date;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Address;
 import wanted.model.loan.Email;

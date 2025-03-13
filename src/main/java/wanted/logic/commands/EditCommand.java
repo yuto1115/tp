@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Index;
 import wanted.commons.util.CollectionUtil;
 import wanted.commons.util.ToStringBuilder;
 import wanted.logic.Messages;

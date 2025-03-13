@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import wanted.commons.core.index.Index;
+import wanted.commons.core.datatypes.Index;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.LoanBook;
 import wanted.model.Model;

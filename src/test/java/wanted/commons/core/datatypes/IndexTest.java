@@ -1,4 +1,4 @@
-package wanted.commons.core.index;
+package wanted.commons.core.datatypes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

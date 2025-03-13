@@ -1,4 +1,4 @@
-package wanted.commons.core.date;
+package wanted.commons.core.datatypes;
 
 import java.util.Objects;
 
