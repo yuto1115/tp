@@ -76,11 +76,11 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a loan: `add`
 
-Adds a person to the address book.
+Adds a loan to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME a/AMOUNT d/DATE [t/TAG]…​`
 
 <box type="tip" seamless>
 
