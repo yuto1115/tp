@@ -10,7 +10,7 @@ import wanted.commons.util.ToStringBuilder;
  * assuming that the smallest unit of money is 1/100.
  */
 public class MoneyInt {
-    private final int valueTimesOneHundred;  // 100 times the original value, which is an integer
+    private final int valueTimesOneHundred; // 100 times the original value, which is an integer
 
     /**
      * Private constructor.
@@ -44,8 +44,8 @@ public class MoneyInt {
      * That is, creates a new {@code MoneyInt} with the value equal to {@code dollar} + {@code cent} * 0.01.
      *
      * @throws IllegalValueException if either of the following conditions is not satisfied:
-     * - {@code dollar} is a non-negative integer
-     * - {@code cent} is a non-negative integer between 0 and 99, inclusive.
+     *     - {@code dollar} is a non-negative integer
+     *     - {@code cent} is a non-negative integer between 0 and 99, inclusive.
      */
     public static MoneyInt fromDollarAndCent(int dollar, int cent) throws IllegalValueException {
         if (dollar < 0) {
