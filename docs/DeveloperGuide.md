@@ -102,10 +102,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
-   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`. 
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve. 
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -240,7 +240,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire loan book.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
@@ -254,7 +254,6 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -295,13 +294,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user                          | edit loans                                                            | I can update loan information if necessary                             |
 | `* *`    | user                          | mark loans as returned                                                | I can keep track of whether a loan was repayed                         |
 | `* *`    | forgetful user                | track the number of days since the loan was given                     | I can remind friends to return their loans                             |
+| `* *`    | forgetful user                | add address of people who owe me money                                | I can look for them if necessary                                       |
+| `* *`    | forgetful user                | add phone numbers of people who owe me money                          | I can contact them if necessary                                        |
 | `* *`    | frequent loaner               | view a history of all loans that have been fulfilled                  | I can keep track of past lending habits                                |
-| `* *`    | user                          | set deadlines to receive loans                                        | I can follow up with lenders on time                                   |
 | `* *`    | cash-strapped user            | track the number of days since the loan was given                     | I can remind friends to return their loans                             |
 | `* *`    | new user                      | go through a new user guide                                           | I learn how to use the program                                         |
 | `* *`    | new user                      | view example entries                                                  | I can learn how to use from the examples                               |
-| `* *`    | forgetful user                | add address of people who owe me money                                | I can look for them if necessary                                       |
-| `* *`    | forgetful user                | add phone numbers of people who owe me money                          | I can contact them if necessary                                        |
+| `* *`    | user                          | set deadlines to receive loans                                        | I can follow up with lenders on time                                   |
 | `* *`    | user                          | blacklist people who are always late to return money                  | I can avoid loaning to particular individuals                          |
 | `* *`    | user                          | set limits of how much i should loan to others                        | I can prevent excessive money lost                                     |
 | `* *`    | user                          | tag individuals based on the amount of money lent                     | I can prioritise users that have larger ticket size loans              |
@@ -321,8 +320,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | user                          | customize the autogenerated message sent to those who owe money       | I can better persuade them to return my money                          |
 | `*`      | user                          | upload pictures of loaned items                                       | I can remember what was loaned to others                               |
 | `*`      | user                          | set/calculate interest if necessary                                   | I can benefit from loaning out to people                               |
-| `*`      | user who also takes out loans | keep track of how much I am borrowing from others                     | I can match their appearance to their loans                            |
 | `*`      | user                          | set/calculate interest if necessary                                   | I can return what I owe others                                         |
+| `*`      | user who also takes out loans | keep track of how much I am borrowing from others                     | I can match their appearance to their loans                            |
 | `*`      | cash strapped user            | calculate projected returns if everyone was to return loans           | I can see how much I can earn back from chasing people for loans       |
 
 ### Use cases
