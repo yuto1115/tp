@@ -61,7 +61,7 @@ class JsonAdaptedLoan {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        amount = source.getAmount().value.toString();
+        amount = source.getAmount().value.toAmountString();
         date = source.getLoanDate().value.toString();
 
         tags.addAll(source.getTags().stream()

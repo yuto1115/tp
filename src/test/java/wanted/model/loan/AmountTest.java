@@ -22,7 +22,7 @@ public class AmountTest {
     @Test
     public void isValidAmount() {
         //null amount
-        assertFalse(Amount.isValidAmount(null));
+        assertThrows(NullPointerException.class, () -> Amount.isValidAmount(null));
 
         //blank amount
         assertFalse(Amount.isValidAmount(""));

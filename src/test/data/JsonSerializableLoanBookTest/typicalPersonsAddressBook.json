@@ -5,42 +5,56 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
+    "amount": "20.00",
+    "date": "24th January 2025",
     "tags" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
+    "amount": "19.43",
+    "date": "11th Nov 2024",
     "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
+    "amount":"2990.23",
+    "date": "9th Nov 2004",
     "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
+    "amount":"178.23",
+    "date": "13th Jan 2024",
     "tags" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
+    "amount":"132.23",
+    "date": "18th Feb 2024",
     "tags" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
+    "amount":"0.23",
+    "date": "13th March 2025",
     "tags" : [ ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
+    "amount":"9.23",
+    "date": "19th July 2024",
     "tags" : [ ]
   } ]
 }

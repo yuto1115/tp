@@ -48,8 +48,15 @@ public class Date {
         return Objects.equals(date, otherDate.date);
     }
 
+    /*
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("date", date).toString();
+    }
+
+     */
+    @Override
+    public String toString() {
+        return getDate();
     }
 }

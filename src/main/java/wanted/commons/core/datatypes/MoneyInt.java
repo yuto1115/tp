@@ -51,23 +51,10 @@ public class MoneyInt {
     //can we shift this to the Amount class?
     public static MoneyInt fromDollarAndCent(int dollar, int cent) throws IllegalArgumentException {
         AppUtil.checkArgument(dollar >= 0, "The dollar value cannot be negative");
-        AppUtil.checkArgument(cent <= 100, "The cent value cannot be negative");
-        AppUtil.checkArgument(cent > 0, "The cent value cannot exceed 99");
+        AppUtil.checkArgument(cent >= 0, "The cent value cannot be negative");
+        AppUtil.checkArgument(cent <= 99, "The cent value cannot exceed 99");
 
         return new MoneyInt(dollar * 100 + cent);
-        /*
-        if (dollar < 0) {
-            throw new IllegalValueException("The dollar value cannot be negative");
-        }
-        if (cent < 0) {
-            throw new IllegalValueException("The cent value cannot be negative");
-        }
-        if (cent >= 100) {
-            throw new IllegalValueException("The cent value cannot exceed 99");
-        }
-        return new MoneyInt(dollar * 100 + cent);
-
-         */
     }
 
     @Override
@@ -88,5 +75,15 @@ public class MoneyInt {
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("valueTimesOneHundred", valueTimesOneHundred).toString();
+    }
+
+    /**
+     * Returns the String representation of Dollar.Cent for storage purposes
+     * @return {@code String} representation of the input value
+     */
+    public String toAmountString() {
+        int dollars = valueTimesOneHundred / 100;
+        int cents = valueTimesOneHundred % 100;
+        return String.format("%d.%02d", dollars, cents);
     }
 }

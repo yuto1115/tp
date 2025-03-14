@@ -17,6 +17,7 @@ import wanted.commons.core.datatypes.Date;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Address;
 import wanted.model.loan.Email;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
@@ -65,14 +66,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
-        Date expectedDate = new Date(VALID_DATE);
+        LoanDate expectedDate = new LoanDate(VALID_DATE);
         assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
     }
 
     @Test
     public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
         String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
-        Date expectedDate = new Date(VALID_DATE);
+        LoanDate expectedDate = new LoanDate(VALID_DATE);
         assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
     }
 

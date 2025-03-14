@@ -12,14 +12,14 @@ import wanted.commons.core.datatypes.Date;
 public class LoanDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, + and it should not be blank";
+            "Loan amounts should only contain numbers, and it should adhere to the format {Dollars}.{Cents}";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * There should be 3 alphanumeric inputs to simulate Day-Month-Year
      * To be updated with the addition of a datetime object
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]{3}";
+    public static final String VALIDATION_REGEX = "\\p{Alnum}+ \\p{Alnum}+ \\p{Alnum}+";
 
     public final Date value;
     /**

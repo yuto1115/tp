@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static wanted.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static wanted.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static wanted.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static wanted.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static wanted.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -166,7 +168,7 @@ public class LogicManagerTest {
 
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY;
         Loan expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

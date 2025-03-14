@@ -1,11 +1,7 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static wanted.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static wanted.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
-import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
-import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
+import static wanted.logic.parser.CliSyntax.*;
 import static wanted.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -45,6 +41,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_AMOUNT + "AMOUNT] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "

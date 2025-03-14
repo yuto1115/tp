@@ -6,8 +6,10 @@ import java.util.stream.Stream;
 
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
 import wanted.model.loan.Address;
+import wanted.model.loan.Amount;
 import wanted.model.loan.Email;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
@@ -36,6 +38,8 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setAmount(person.getAmount());
+        descriptor.setDate(person.getLoanDate());
         descriptor.setTags(person.getTags());
     }
 
@@ -71,6 +75,21 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Amount} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withAmount(String amount) {
+        descriptor.setAmount(new Amount(amount));
+        return this;
+    }
+
+    /**
+     * Sets the {@code LoanDate} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withLoanDate(String date) {
+        descriptor.setDate(new LoanDate(date));
+        return this;
+    }
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.

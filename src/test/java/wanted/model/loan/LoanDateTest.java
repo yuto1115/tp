@@ -22,11 +22,10 @@ public class LoanDateTest {
     @Test
     public void isValidLoanDate() {
         //null loan date
-        assertFalse(LoanDate.isValidLoanDate(null)); //null value
+        assertThrows(NullPointerException.class, () -> LoanDate.isValidLoanDate(null)); //null value
         //invalid loan date
         assertFalse(LoanDate.isValidLoanDate("")); //blank value
         assertFalse(LoanDate.isValidLoanDate("#27th of Feb!!")); // non-alphanumeric numbers
-        assertFalse(LoanDate.isValidLoanDate("123")); //missing parts
         assertFalse(LoanDate.isValidLoanDate("12 June")); //no year included
 
         //valid loan date

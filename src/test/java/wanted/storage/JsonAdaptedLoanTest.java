@@ -12,10 +12,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import wanted.commons.exceptions.IllegalValueException;
-import wanted.model.loan.Address;
-import wanted.model.loan.Email;
-import wanted.model.loan.Name;
-import wanted.model.loan.Phone;
+import wanted.model.loan.*;
 
 public class JsonAdaptedLoanTest {
     private static final String INVALID_NAME = "R@chel";
@@ -117,8 +114,8 @@ public class JsonAdaptedLoanTest {
     public void toModelType_invalidAmount_throwsIllegalValueException() {
         JsonAdaptedLoan person =
                 new JsonAdaptedLoan(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                        INVALID_AMOUNT, VALID_DATE, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+                        VALID_DATE, INVALID_AMOUNT, VALID_TAGS);
+        String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -126,8 +123,8 @@ public class JsonAdaptedLoanTest {
     public void toModelType_invalidDate_throwsIllegalValueException() {
         JsonAdaptedLoan person =
                 new JsonAdaptedLoan(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                        VALID_ADDRESS, INVALID_AMOUNT, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+                         INVALID_DATE, VALID_ADDRESS, VALID_TAGS);
+        String expectedMessage = LoanDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

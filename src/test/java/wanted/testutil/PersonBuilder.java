@@ -54,6 +54,8 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        amount = personToCopy.getAmount();
+        loanDate = personToCopy.getLoanDate();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -94,6 +96,22 @@ public class PersonBuilder {
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Amount} of the {@code Loan} that we are building.
+     */
+    public PersonBuilder withAmount(String amount) {
+        this.amount = new Amount(amount);
+        return this;
+    }
+
+    /**
+     * Sets the {@code LoanDate} of the {@code Loan} that we are building.
+     */
+    public PersonBuilder withLoanDate(String date) {
+        this.loanDate = new LoanDate(date);
         return this;
     }
 
