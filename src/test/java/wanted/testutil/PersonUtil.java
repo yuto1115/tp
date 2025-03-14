@@ -1,5 +1,13 @@
 package wanted.testutil;
 
+import static wanted.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
+import static wanted.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
+import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
+import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
+
 import java.util.Set;
 
 import wanted.logic.commands.AddCommand;
@@ -7,7 +15,6 @@ import wanted.logic.commands.EditCommand.EditPersonDescriptor;
 import wanted.model.loan.Loan;
 import wanted.model.tag.Tag;
 
-import static wanted.logic.parser.CliSyntax.*;
 
 /**
  * A utility class for Loan.
@@ -50,7 +57,8 @@ public class PersonUtil {
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         //append the string representation {dollar}.{cents}
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount).append(" "));
-        descriptor.getDate().ifPresent(loanDate -> sb.append(PREFIX_DATE).append(loanDate.value.toString()).append(" "));
+        descriptor.getDate()
+            .ifPresent(loanDate -> sb.append(PREFIX_DATE).append(loanDate.value.toString()).append(" "));
 
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

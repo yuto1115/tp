@@ -2,8 +2,6 @@ package wanted.commons.core.datatypes;
 
 import java.util.Objects;
 
-import wanted.commons.util.ToStringBuilder;
-
 /**
  * Represents a date.
  * <p>

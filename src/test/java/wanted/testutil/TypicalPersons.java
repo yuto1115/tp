@@ -1,13 +1,26 @@
 package wanted.testutil;
 
+import static wanted.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static wanted.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
+import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static wanted.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static wanted.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static wanted.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static wanted.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static wanted.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static wanted.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static wanted.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static wanted.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import wanted.model.LoanBook;
 import wanted.model.loan.Loan;
-
-import static wanted.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Loan} objects to be used in tests.

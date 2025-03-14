@@ -2,7 +2,13 @@ package wanted.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static wanted.logic.parser.CliSyntax.*;
+import static wanted.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
+import static wanted.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
+import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
+import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;

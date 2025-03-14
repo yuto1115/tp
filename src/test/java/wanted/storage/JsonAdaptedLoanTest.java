@@ -12,7 +12,12 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import wanted.commons.exceptions.IllegalValueException;
-import wanted.model.loan.*;
+import wanted.model.loan.Address;
+import wanted.model.loan.Amount;
+import wanted.model.loan.Email;
+import wanted.model.loan.LoanDate;
+import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 
 public class JsonAdaptedLoanTest {
     private static final String INVALID_NAME = "R@chel";
