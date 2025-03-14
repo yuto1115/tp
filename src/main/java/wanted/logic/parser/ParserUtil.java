@@ -40,7 +40,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Amount parseAmount(String amount) throws IllegalValueException {
+    public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
         if(!Amount.isValidAmount(trimmedAmount)) {

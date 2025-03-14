@@ -18,7 +18,7 @@ public class Amount {
      *
      * @param amount and string a valid amount number represented as a decimal to 2dp.
      */
-    public Amount(String amount) throws IllegalValueException {
+    public Amount(String amount) throws IllegalArgumentException {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         String[] args = amount.split("\\.");
