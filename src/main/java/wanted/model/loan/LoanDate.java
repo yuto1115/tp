@@ -1,22 +1,27 @@
 package wanted.model.loan;
 
+import static java.util.Objects.requireNonNull;
+
 import wanted.commons.core.datatypes.Date;
 
-import static java.util.Objects.requireNonNull;
+/**
+ * A wrapper class to manage the date a loan was taken out
+ * Guarantees: immutable; is valid as declared in {@link #isValidLoanDate(String)}
+ */
 
 public class LoanDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
-    public final Date value;
-
+            "Names should only contain alphanumeric characters and spaces, + and it should not be blank";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * There should be 3 alphanumeric inputs to simulate Day-Month-Year
      * To be updated with the addition of a datetime object
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}]{3}";
 
+    public final Date value;
     /**
      * Constructs a {@code Date}.
      *
@@ -30,7 +35,7 @@ public class LoanDate {
     /**
      * Returns true if a given string is a valid phone number.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValidLoanDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

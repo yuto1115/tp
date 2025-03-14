@@ -10,7 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import wanted.commons.exceptions.IllegalValueException;
-import wanted.model.loan.*;
+import wanted.model.loan.Address;
+import wanted.model.loan.Amount;
+import wanted.model.loan.Email;
+import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
+import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**
@@ -115,9 +121,10 @@ class JsonAdaptedLoan {
         final Amount modelAmount = new Amount(amount);
 
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LoanDate.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LoanDate.class.getSimpleName()));
         }
-        if (!LoanDate.isValidDate(date)) {
+        if (!LoanDate.isValidLoanDate(date)) {
             throw new IllegalValueException(LoanDate.MESSAGE_CONSTRAINTS);
         }
         final LoanDate modelLoanDate = new LoanDate(date);

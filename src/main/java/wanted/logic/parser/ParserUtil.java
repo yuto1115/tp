@@ -6,12 +6,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import wanted.commons.core.datatypes.Date;
 import wanted.commons.core.datatypes.Index;
-import wanted.commons.exceptions.IllegalValueException;
 import wanted.commons.util.StringUtil;
 import wanted.logic.parser.exceptions.ParseException;
-import wanted.model.loan.*;
+import wanted.model.loan.Address;
+import wanted.model.loan.Amount;
+import wanted.model.loan.Email;
+import wanted.model.loan.LoanDate;
+import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**
@@ -43,7 +46,7 @@ public class ParserUtil {
     public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if(!Amount.isValidAmount(trimmedAmount)) {
+        if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
         return new Amount(trimmedAmount);

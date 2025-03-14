@@ -1,22 +1,27 @@
 package wanted.logic.parser;
 
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static wanted.logic.parser.CliSyntax.*;
+import static wanted.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
+import static wanted.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
+import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
+import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import wanted.commons.exceptions.IllegalValueException;
 import wanted.logic.commands.AddCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Address;
+import wanted.model.loan.Amount;
 import wanted.model.loan.Email;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
-import wanted.model.loan.Amount;
-import wanted.model.loan.LoanDate;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -46,7 +51,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         LoanDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Loan person = new Loan(name, phone, email, address,amount, date, tagList);
+        Loan person = new Loan(name, phone, email, address, amount, date, tagList);
 
         return new AddCommand(person);
     }

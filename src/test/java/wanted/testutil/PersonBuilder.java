@@ -3,7 +3,13 @@ package wanted.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import wanted.model.loan.*;
+import wanted.model.loan.Address;
+import wanted.model.loan.Amount;
+import wanted.model.loan.Email;
+import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
+import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 import wanted.model.util.SampleDataUtil;
 
@@ -92,7 +98,7 @@ public class PersonBuilder {
     }
 
     public Loan build() {
-        return new Loan(name, phone, email, address, amount, loanDate,tags);
+        return new Loan(name, phone, email, address, amount, loanDate, tags);
     }
 
 }

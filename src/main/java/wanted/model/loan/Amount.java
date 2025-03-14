@@ -1,10 +1,14 @@
 package wanted.model.loan;
 
-import wanted.commons.core.datatypes.MoneyInt;
-import wanted.commons.exceptions.IllegalValueException;
-
 import static java.util.Objects.requireNonNull;
 import static wanted.commons.util.AppUtil.checkArgument;
+
+import wanted.commons.core.datatypes.MoneyInt;
+
+/**
+ * A wrapper class to manage the date a loan was taken out
+ * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
+ */
 
 public class Amount {
 
@@ -23,11 +27,10 @@ public class Amount {
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         String[] args = amount.split("\\.");
         value = MoneyInt.fromDollarAndCent(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
-
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid amount number.
      */
     public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);
