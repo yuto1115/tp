@@ -38,7 +38,7 @@ public class Amount {
 
     @Override
     public String toString() {
-        return value.toAmountString();
+        return value.getStringRepresentationWithFixedDecimalPoint();
     }
 
     @Override

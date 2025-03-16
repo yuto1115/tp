@@ -48,7 +48,7 @@ public class MoneyInt {
      *     - {@code dollar} is a non-negative integer
      *     - {@code cent} is a non-negative integer between 0 and 99, inclusive.
      */
-    //can we shift this to the Amount class?
+
     public static MoneyInt fromDollarAndCent(int dollar, int cent) throws IllegalArgumentException {
         AppUtil.checkArgument(dollar >= 0, "The dollar value cannot be negative");
         AppUtil.checkArgument(cent >= 0, "The cent value cannot be negative");
@@ -75,15 +75,5 @@ public class MoneyInt {
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("valueTimesOneHundred", valueTimesOneHundred).toString();
-    }
-
-    /**
-     * Returns the String representation of Dollar.Cent for storage purposes
-     * @return {@code String} representation of the input value
-     */
-    public String toAmountString() {
-        int dollars = valueTimesOneHundred / 100;
-        int cents = valueTimesOneHundred % 100;
-        return String.format("%d.%02d", dollars, cents);
     }
 }
