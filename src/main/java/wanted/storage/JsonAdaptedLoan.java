@@ -10,13 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import wanted.commons.exceptions.IllegalValueException;
-import wanted.model.loan.Address;
 import wanted.model.loan.Amount;
-import wanted.model.loan.Email;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
-import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**
@@ -27,9 +24,6 @@ class JsonAdaptedLoan {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
     private final String name;
-    private final String phone;
-    private final String email;
-    private final String address;
     private final String date;
     private final String amount;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
@@ -43,9 +37,6 @@ class JsonAdaptedLoan {
                            @JsonProperty("date") String date, @JsonProperty("amount") String amount,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
         this.date = date;
         this.amount = amount;
         if (tags != null) {
@@ -58,9 +49,6 @@ class JsonAdaptedLoan {
      */
     public JsonAdaptedLoan(Loan source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
         amount = source.getAmount().value.getStringRepresentationWithFixedDecimalPoint();
         date = source.getLoanDate().value.toString();
 
@@ -88,7 +76,8 @@ class JsonAdaptedLoan {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
+        /*        if (phone == null)
+                {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(phone)) {
@@ -111,7 +100,7 @@ class JsonAdaptedLoan {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-
+        */
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
@@ -130,8 +119,6 @@ class JsonAdaptedLoan {
         final LoanDate modelLoanDate = new LoanDate(date);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Loan(modelName, modelPhone, modelEmail, modelAddress,
-                modelAmount, modelLoanDate, modelTags);
+        return new Loan(modelName, modelAmount, modelLoanDate, modelTags);
     }
-
 }
