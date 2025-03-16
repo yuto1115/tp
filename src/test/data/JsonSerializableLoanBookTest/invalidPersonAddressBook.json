@@ -1,10 +1,8 @@
 {
   "persons": [ {
     "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street",
     "amount": "10.10",
-    "date": "30th December 2024"
+    "date": 38999
   } ]
 }
+//invalid email -> invalid date

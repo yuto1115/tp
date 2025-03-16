@@ -18,7 +18,7 @@ public class AddressBookBuilder {
 
     public AddressBookBuilder(LoanBook addressBook) {
         this.addressBook = addressBook;
-    }
+    } //?
 
     /**
      * Adds a new {@code Loan} to the {@code LoanBook} that we are building.

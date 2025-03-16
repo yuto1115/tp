@@ -54,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         LoanDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Loan person = new Loan(name, phone, email, address, amount, date, tagList);
+        Loan person = new Loan(name, amount, date, tagList);
 
         return new AddCommand(person);
     }
