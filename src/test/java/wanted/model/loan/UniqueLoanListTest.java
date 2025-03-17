@@ -3,7 +3,6 @@ package wanted.model.loan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static wanted.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalPersons.ALICE;
@@ -39,13 +38,8 @@ public class UniqueLoanListTest {
         assertTrue(uniqueLoanList.contains(ALICE));
     }
 
-    @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueLoanList.add(ALICE);
-        Loan editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(uniqueLoanList.contains(editedAlice));
-    }
+    //contains_personWithSameIdentityFieldsInList_returnsTrue
+    //TODO: add new test here
 
     @Test
     public void add_nullPerson_throwsNullPointerException() {
@@ -74,7 +68,7 @@ public class UniqueLoanListTest {
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setPerson_editedPersonIsSameLoan_success() {
         uniqueLoanList.add(ALICE);
         uniqueLoanList.setPerson(ALICE, ALICE);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();
@@ -85,7 +79,7 @@ public class UniqueLoanListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueLoanList.add(ALICE);
-        Loan editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Loan editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueLoanList.setPerson(ALICE, editedAlice);
         UniqueLoanList expectedUniqueLoanList = new UniqueLoanList();

@@ -61,6 +61,9 @@ public class ParserUtil {
     public static LoanDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
+        if (!LoanDate.isValidLoanDate(trimmedDate)) {
+            throw new ParseException(LoanDate.MESSAGE_CONSTRAINTS);
+        }
         // todo: We should have a validity check in the future.
         return new LoanDate(trimmedDate);
     }

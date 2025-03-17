@@ -1,12 +1,9 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static wanted.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
-import static wanted.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
-import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 import static wanted.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -23,13 +20,10 @@ import wanted.commons.util.ToStringBuilder;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
-import wanted.model.loan.Address;
 import wanted.model.loan.Amount;
-import wanted.model.loan.Email;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
-import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**
@@ -44,15 +38,13 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_AMOUNT + "123.25"
+            + PREFIX_DATE + "17th March 2025";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Loan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -85,7 +77,7 @@ public class EditCommand extends Command {
         Loan personToEdit = lastShownList.get(index.getZeroBased());
         Loan editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!personToEdit.isSameLoan(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -102,16 +94,12 @@ public class EditCommand extends Command {
         assert loanToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(loanToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(loanToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(loanToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(loanToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(loanToEdit.getTags());
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(loanToEdit.getAmount());
         LoanDate updatedDate = editPersonDescriptor.getDate().orElse(loanToEdit.getLoanDate());
 
 
-        return new Loan(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedAmount,
-                updatedDate, updatedTags);
+        return new Loan(updatedName, updatedAmount, updatedDate, updatedTags);
     }
 
     @Override
@@ -144,9 +132,6 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
         private Set<Tag> tags;
         private Amount amount;
         private LoanDate date;
@@ -159,9 +144,6 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
@@ -171,7 +153,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, amount, date);
+            return CollectionUtil.isAnyNonNull(name, tags, amount, date);
         }
 
         public void setName(Name name) {
@@ -180,30 +162,6 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
         }
 
         public void setAmount(Amount amount) {
@@ -249,12 +207,9 @@ public class EditCommand extends Command {
             if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }
-
+            //in the future we can discuss whether we want to use a hashcode
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
             return Objects.equals(name, otherEditPersonDescriptor.name)
-                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
                     && Objects.equals(amount, otherEditPersonDescriptor.amount)
                     && Objects.equals(date, otherEditPersonDescriptor.date);
@@ -264,9 +219,6 @@ public class EditCommand extends Command {
         public String toString() {
             return new ToStringBuilder(this)
                     .add("name", name)
-                    .add("phone", phone)
-                    .add("email", email)
-                    .add("address", address)
                     .add("tags", tags)
                     .add("amount", amount)
                     .add("date", date)

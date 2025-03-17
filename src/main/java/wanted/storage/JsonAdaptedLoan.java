@@ -32,8 +32,7 @@ class JsonAdaptedLoan {
      * Constructs a {@code JsonAdaptedLoan} with the given loan details.
      */
     @JsonCreator
-    public JsonAdaptedLoan(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                           @JsonProperty("email") String email, @JsonProperty("address") String address,
+    public JsonAdaptedLoan(@JsonProperty("name") String name,
                            @JsonProperty("date") String date, @JsonProperty("amount") String amount,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
@@ -76,31 +75,6 @@ class JsonAdaptedLoan {
         }
         final Name modelName = new Name(name);
 
-        /*        if (phone == null)
-                {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
-
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
-
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
-        */
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }

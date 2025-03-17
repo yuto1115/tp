@@ -12,7 +12,7 @@ import wanted.commons.core.datatypes.Date;
 public class LoanDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Loan amounts should only contain numbers, and it should adhere to the format {Dollars}.{Cents}";
+            "Date value should be in a string format and contain the day, month, and year.";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.

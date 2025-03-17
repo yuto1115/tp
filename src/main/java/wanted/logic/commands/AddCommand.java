@@ -1,12 +1,9 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static wanted.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
-import static wanted.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
-import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
 import wanted.commons.util.ToStringBuilder;
@@ -26,17 +23,11 @@ public class AddCommand extends Command {
             //update here as well
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DATE + "DATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_AMOUNT + "50.00"
             + PREFIX_DATE + "10th August 2024"
             + PREFIX_TAG + "friends "
@@ -44,7 +35,6 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This loan already exists in the address book";
-    //message when duplicate loan is thrown --> check duplicate condition
 
     private final Loan toAdd;
 
