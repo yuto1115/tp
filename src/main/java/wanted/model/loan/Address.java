@@ -5,6 +5,7 @@ import static wanted.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Loan's address in the address book.
+ * Not in use for now
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {

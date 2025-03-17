@@ -37,12 +37,10 @@ public class Messages {
     public static String format(Loan person) {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
-                .append("; Phone: ")
-                .append(person.getPhone())
-                .append("; Email: ")
-                .append(person.getEmail())
-                .append("; Address: ")
-                .append(person.getAddress())
+                .append("; Amount: ")
+                .append(person.getAmount())
+                .append("; Date: ")
+                .append(person.getLoanDate())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();

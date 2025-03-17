@@ -6,12 +6,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import wanted.commons.core.datatypes.Date;
 import wanted.commons.core.datatypes.Index;
 import wanted.commons.util.StringUtil;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Address;
+import wanted.model.loan.Amount;
 import wanted.model.loan.Email;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
@@ -37,16 +38,34 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String amount} into a {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        return new Amount(trimmedAmount);
+    }
+
+    /**
      * Parses a {@code String date} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Date parseDate(String date) throws ParseException {
+    public static LoanDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
+        if (!LoanDate.isValidLoanDate(trimmedDate)) {
+            throw new ParseException(LoanDate.MESSAGE_CONSTRAINTS);
+        }
         // todo: We should have a validity check in the future.
-        return new Date(trimmedDate);
+        return new LoanDate(trimmedDate);
     }
 
     /**

@@ -2,8 +2,6 @@ package wanted.commons.core.datatypes;
 
 import java.util.Objects;
 
-import wanted.commons.util.ToStringBuilder;
-
 /**
  * Represents a date.
  * <p>
@@ -48,8 +46,15 @@ public class Date {
         return Objects.equals(date, otherDate.date);
     }
 
+    /*
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("date", date).toString();
+    }
+
+     */
+    @Override
+    public String toString() {
+        return getDate();
     }
 }

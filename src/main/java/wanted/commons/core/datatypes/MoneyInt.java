@@ -1,6 +1,7 @@
 package wanted.commons.core.datatypes;
 
 import wanted.commons.exceptions.IllegalValueException;
+import wanted.commons.util.AppUtil;
 import wanted.commons.util.ToStringBuilder;
 
 /**
@@ -47,16 +48,12 @@ public class MoneyInt {
      *     - {@code dollar} is a non-negative integer
      *     - {@code cent} is a non-negative integer between 0 and 99, inclusive.
      */
-    public static MoneyInt fromDollarAndCent(int dollar, int cent) throws IllegalValueException {
-        if (dollar < 0) {
-            throw new IllegalValueException("The dollar value cannot be negative");
-        }
-        if (cent < 0) {
-            throw new IllegalValueException("The cent value cannot be negative");
-        }
-        if (cent >= 100) {
-            throw new IllegalValueException("The cent value cannot exceed 99");
-        }
+
+    public static MoneyInt fromDollarAndCent(int dollar, int cent) throws IllegalArgumentException {
+        AppUtil.checkArgument(dollar >= 0, "The dollar value cannot be negative");
+        AppUtil.checkArgument(cent >= 0, "The cent value cannot be negative");
+        AppUtil.checkArgument(cent <= 99, "The cent value cannot exceed 99");
+
         return new MoneyInt(dollar * 100 + cent);
     }
 

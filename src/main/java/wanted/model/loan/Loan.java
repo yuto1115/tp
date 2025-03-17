@@ -15,25 +15,22 @@ import wanted.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Loan {
-
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
-
+    private final Amount amount;
+    private final LoanDate loanDate;
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Loan(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Loan(Name name, Amount amount, LoanDate date, Set<Tag> tags) {
+        //requireAllNonNull(name, amount, date, tags);
+        requireAllNonNull(name, amount, date, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.amount = amount;
+        this.loanDate = date;
         this.tags.addAll(tags);
     }
 
@@ -41,16 +38,11 @@ public class Loan {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Amount getAmount() {
+        return amount;
     }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public LoanDate getLoanDate() {
+        return loanDate;
     }
 
     /**
@@ -65,13 +57,13 @@ public class Loan {
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Loan otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameLoan(Loan otherLoan) {
+        if (otherLoan == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherLoan != null
+                && otherLoan.hashCode() == hashCode();
     }
 
     /**
@@ -89,27 +81,25 @@ public class Loan {
             return false;
         }
 
-        Loan otherPerson = (Loan) other;
-        return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+        Loan otherLoan = (Loan) other;
+        return name.equals(otherLoan.name)
+                && amount.equals(otherLoan.amount)
+                && loanDate.equals(otherLoan.loanDate)
+                && tags.equals(otherLoan.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, amount, loanDate, tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
+                .add("amount", amount)
+                .add("date", loanDate)
                 .add("tags", tags)
                 .toString();
     }

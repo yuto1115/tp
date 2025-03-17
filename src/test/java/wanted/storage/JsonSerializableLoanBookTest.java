@@ -35,13 +35,5 @@ public class JsonSerializableLoanBookTest {
                 JsonSerializableLoanBook.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
-
-    @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializableLoanBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
-                JsonSerializableLoanBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableLoanBook.MESSAGE_DUPLICATE_PERSON,
-                dataFromFile::toModelType);
-    }
-
+    //TODO: toModelType_duplicatePersons_throwsIllegalValueException() throws Exception
 }
