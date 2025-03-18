@@ -20,7 +20,7 @@ import wanted.model.loan.exceptions.LoanNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Loan#isSamePerson(Loan)
+ * @see Loan#isSameLoan(Loan)
  */
 public class UniqueLoanList implements Iterable<Loan> {
 
@@ -33,7 +33,7 @@ public class UniqueLoanList implements Iterable<Loan> {
      */
     public boolean contains(Loan toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameLoan);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UniqueLoanList implements Iterable<Loan> {
             throw new LoanNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameLoan(editedPerson) && contains(editedPerson)) {
             throw new DuplicateLoanException();
         }
 
@@ -140,7 +140,7 @@ public class UniqueLoanList implements Iterable<Loan> {
     private boolean personsAreUnique(List<Loan> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+                if (persons.get(i).isSameLoan(persons.get(j))) {
                     return false;
                 }
             }

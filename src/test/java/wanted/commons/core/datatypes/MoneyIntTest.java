@@ -11,14 +11,14 @@ import wanted.commons.exceptions.IllegalValueException;
 
 public class MoneyIntTest {
     @Test
-    public void fromDollarAndCent_outOfRangeInput_throwsIllegalValueException() {
-        assertThrows(IllegalValueException.class, () -> MoneyInt.fromDollarAndCent(-1, 10));
-        assertThrows(IllegalValueException.class, () -> MoneyInt.fromDollarAndCent(10, -1));
-        assertThrows(IllegalValueException.class, () -> MoneyInt.fromDollarAndCent(10, 100));
+    public void fromDollarAndCent_outOfRangeInput_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> MoneyInt.fromDollarAndCent(-1, 10));
+        assertThrows(IllegalArgumentException.class, () -> MoneyInt.fromDollarAndCent(10, -1));
+        assertThrows(IllegalArgumentException.class, () -> MoneyInt.fromDollarAndCent(10, 100));
     }
 
     @Test
-    public void fromDollarAndCent_validInput_success() throws Exception {
+    public void fromDollarAndCent_validInput_success() throws IllegalValueException {
         assertEquals(0, MoneyInt.fromDollarAndCent(0, 0).getValueTimesOneHundred());
         assertEquals(99, MoneyInt.fromDollarAndCent(0, 99).getValueTimesOneHundred());
         assertEquals(1000, MoneyInt.fromDollarAndCent(10, 0).getValueTimesOneHundred());
@@ -27,7 +27,7 @@ public class MoneyIntTest {
     }
 
     @Test
-    public void getStringRepresentationWithFixedDecimalPoint() throws Exception {
+    public void getStringRepresentationWithFixedDecimalPoint() throws IllegalArgumentException {
         assertEquals("0.00",
                 MoneyInt.fromDollarAndCent(0, 0).getStringRepresentationWithFixedDecimalPoint());
         assertEquals("0.99",

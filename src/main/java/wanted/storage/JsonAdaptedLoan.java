@@ -10,11 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import wanted.commons.exceptions.IllegalValueException;
-import wanted.model.loan.Address;
-import wanted.model.loan.Email;
+import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
-import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**
@@ -25,22 +24,20 @@ class JsonAdaptedLoan {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
     private final String name;
-    private final String phone;
-    private final String email;
-    private final String address;
+    private final String date;
+    private final String amount;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedLoan} with the given loan details.
      */
     @JsonCreator
-    public JsonAdaptedLoan(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                           @JsonProperty("email") String email, @JsonProperty("address") String address,
+    public JsonAdaptedLoan(@JsonProperty("name") String name,
+                           @JsonProperty("date") String date, @JsonProperty("amount") String amount,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.date = date;
+        this.amount = amount;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -51,9 +48,9 @@ class JsonAdaptedLoan {
      */
     public JsonAdaptedLoan(Loan source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        amount = source.getAmount().value.getStringRepresentationWithFixedDecimalPoint();
+        date = source.getLoanDate().value.toString();
+
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -78,32 +75,24 @@ class JsonAdaptedLoan {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (amount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Amount modelAmount = new Amount(amount);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LoanDate.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!LoanDate.isValidLoanDate(date)) {
+            throw new IllegalValueException(LoanDate.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
-
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
+        final LoanDate modelLoanDate = new LoanDate(date);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Loan(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Loan(modelName, modelAmount, modelLoanDate, modelTags);
     }
-
 }
