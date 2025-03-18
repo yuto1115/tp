@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import wanted.commons.core.datatypes.Index;
+import wanted.logic.Messages;
 import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
 import wanted.logic.parser.exceptions.ParseException;
@@ -29,6 +30,9 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
+        if (!EditCommand.IS_ENABLED) {
+            throw new ParseException(Messages.MESSAGE_COMMAND_DISABLED);
+        }
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG, PREFIX_AMOUNT, PREFIX_DATE);
