@@ -11,7 +11,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import wanted.logic.Messages;
-import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.model.loan.NameContainsKeywordsPredicate;
 
