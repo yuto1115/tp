@@ -1,5 +1,6 @@
 package wanted.logic.parser;
 
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
@@ -193,5 +194,11 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+    @Test
+    public void parse_disablecCommand_failure() {
+        assumeFalse(EditCommand.IS_ENABLED);
+        String userInput = "edit";
+        assertParseFailure(parser, userInput, Messages.MESSAGE_COMMAND_DISABLED);
     }
 }

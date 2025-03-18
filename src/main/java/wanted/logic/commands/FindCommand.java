@@ -30,9 +30,6 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        if (!IS_ENABLED) {
-            return new CommandResult(Messages.MESSAGE_COMMAND_DISABLED);
-        }
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(

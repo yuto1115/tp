@@ -69,9 +69,6 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (!IS_ENABLED) {
-            return new CommandResult(Messages.MESSAGE_COMMAND_DISABLED);
-        }
         requireNonNull(model);
         List<Loan> lastShownList = model.getFilteredPersonList();
 
