@@ -24,7 +24,7 @@ public class LoanCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on LoanBook level 4</a>
      */
 
-    public final Loan person;
+    public final Loan loan;
 
     @FXML
     private HBox cardPane;
@@ -42,12 +42,16 @@ public class LoanCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Loan} and index to display.
      */
-    public LoanCard(Loan person, int displayedIndex) {
+    public LoanCard(Loan loan, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.loan = loan;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName); //update here
-        person.getTags().stream()
+        name.setText(loan.getName().fullName);
+        amount.setText("Loan Amount: $" + loan.getAmount().toString());
+        date.setText("Loan Date: " + loan.getLoanDate().toString());
+
+        // Sort tags alphabetically and display them
+        loan.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
