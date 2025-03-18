@@ -14,4 +14,11 @@
 * It is named `Wanted`  because it aims to display a list of individuals who have not returned their loans.
 * For the detailed documentation of this project, see the **[Wanted_Product_Website](https://ay2425s2-cs2103t-f11-4.github.io/tp/)**.
 
+* Features: 
+  * **Add command**: Add a new entry to the loan list. Format:` add [d/DATE] [n/NAME] [l/AMOUNT_LOANED]` (E.g: `add d/10th Dec 2024 n/John Doe l/10.10`)
+  * **Repay loan**: Modify one entry from the list to represent full/partial payment of a loan. Format:` repay [ID] [amount_returned]` (E.g: `repay 2 10.00`)
+  * **List command**: List all the entries from the loan list. Format: `list`
+  * **Exit command**: Exit the program. Format: `exit`
+
+
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org)
