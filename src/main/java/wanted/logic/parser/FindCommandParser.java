@@ -5,7 +5,6 @@ import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.Arrays;
 
 import wanted.logic.Messages;
-import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.NameContainsKeywordsPredicate;
