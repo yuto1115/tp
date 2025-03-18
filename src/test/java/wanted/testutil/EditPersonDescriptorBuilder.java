@@ -13,6 +13,7 @@ import wanted.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
+ * This is disabled in the MVP
  */
 public class EditPersonDescriptorBuilder {
 

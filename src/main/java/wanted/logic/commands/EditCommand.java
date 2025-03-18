@@ -31,6 +31,8 @@ import wanted.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
+    public static final boolean IS_ENABLED = false;
+
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the loan identified "
