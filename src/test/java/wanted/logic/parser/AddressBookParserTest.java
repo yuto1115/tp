@@ -2,6 +2,7 @@ package wanted.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static wanted.testutil.Assert.assertThrows;
@@ -55,6 +56,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
+        assumeTrue(EditCommand.IS_ENABLED);
         Loan person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
@@ -70,6 +72,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
+        assumeTrue(FindCommand.IS_ENABLED);
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));

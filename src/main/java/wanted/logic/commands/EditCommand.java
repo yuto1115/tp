@@ -31,6 +31,8 @@ import wanted.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
+    public static final boolean IS_ENABLED = false;
+
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the loan identified "
@@ -67,6 +69,9 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (!IS_ENABLED) {
+            return new CommandResult(Messages.MESSAGE_COMMAND_DISABLED);
+        }
         requireNonNull(model);
         List<Loan> lastShownList = model.getFilteredPersonList();
 

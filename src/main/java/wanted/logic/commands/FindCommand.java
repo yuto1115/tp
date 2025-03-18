@@ -13,6 +13,8 @@ import wanted.model.loan.NameContainsKeywordsPredicate;
  */
 public class FindCommand extends Command {
 
+    public static final boolean IS_ENABLED = false;
+
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
@@ -28,6 +30,9 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        if (!IS_ENABLED) {
+            return new CommandResult(Messages.MESSAGE_COMMAND_DISABLED);
+        }
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
