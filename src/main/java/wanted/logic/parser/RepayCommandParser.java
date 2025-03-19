@@ -14,6 +14,7 @@ import wanted.model.loan.Amount;
 public class RepayCommandParser implements Parser<RepayCommand> {
     /**
      * parse repay command
+     *
      * @param args argument
      * @return new RepayCommand
      * @throws ParseException handle invalid input

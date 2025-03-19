@@ -19,13 +19,26 @@ public class RepayCommand extends Command {
     public static final String COMMAND_WORD = "repay";
     public static final String MESSAGE_REPAID_SUCCESS = "Loan successfully updated:";
     public static final String MESSAGE_REPAID_ALL_SUCCESS = "Loan successfully repaid entirely:";
-    public static final String MESSAGE_EXCEED_AMOUNT_RETURNED = "Amount returned should be less than or equal current amount of loan";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Repay the loan identified by the index number used in the displayed loan list, with an amount to repay.\n" + "Parameters: INDEX (must be a positive integer)\n" + "          " + PREFIX_AMOUNT + "AMOUNT_REPAID (must be a positive double with exactly two digits after the decimal point, and must be less than or equal current amount of loan.)" + "Example: " + COMMAND_WORD + " 1" + PREFIX_AMOUNT + "10.00";
+    public static final String MESSAGE_EXCEED_AMOUNT_RETURNED =
+            "Amount returned should be less than or equal current amount of loan";
+    public static final String MESSAGE_USAGE = COMMAND_WORD +
+            ": Repay the loan identified by the index number used in the displayed loan list, with an amount to repay."
+            + "\n" + "Parameters: INDEX (must be a positive integer)\n" +
+            "          " + PREFIX_AMOUNT +
+            "AMOUNT_REPAID (must be a positive double with exactly two digits after the decimal point, " +
+            "and must be less than or equal current amount of loan.)" + "\n" +
+            "Example: " + COMMAND_WORD + " 1" + PREFIX_AMOUNT + "10.00";
     private final Index targetIndex;
     private final Amount returnedAmount;
     private Amount updatedAmount;
     private Loan updatedLoan;
 
+    /**
+     * Constructor for RepayCommand
+     *
+     * @param targetIndex index of loan to pay
+     * @param amountReturned returned amount
+     */
     public RepayCommand(Index targetIndex, Amount amountReturned) {
         this.targetIndex = targetIndex;
         this.returnedAmount = amountReturned;
@@ -68,7 +81,8 @@ public class RepayCommand extends Command {
         if (this.updatedLoan != null) {
             return updatedLoan;
         }
-        this.updatedLoan = new Loan(loanToRepay.getName(), this.getUpdatedAmount(loanToRepay), loanToRepay.getLoanDate(), loanToRepay.getTags());
+        this.updatedLoan = new Loan(loanToRepay.getName(), this.getUpdatedAmount(loanToRepay),
+                loanToRepay.getLoanDate(), loanToRepay.getTags());
         return this.updatedLoan;
     }
 
