@@ -1,14 +1,23 @@
 package wanted.logic.parser;
 
+import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
+
 import wanted.commons.core.datatypes.Index;
 import wanted.logic.commands.RepayCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Amount;
 
-import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static wanted.logic.parser.CliSyntax.*;
-
+/**
+ * Parser to parse repay command
+ */
 public class RepayCommandParser implements Parser<RepayCommand> {
+    /**
+     * parse repay command
+     * @param args argument
+     * @return new RepayCommand
+     * @throws ParseException handle invalid input
+     */
     public RepayCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT);
