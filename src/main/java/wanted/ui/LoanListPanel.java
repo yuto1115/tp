@@ -1,47 +1,44 @@
 package wanted.ui;
 
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import wanted.commons.core.LogsCenter;
 import wanted.model.loan.Loan;
 
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class LoanListPanel extends UiPart<Region> {
     private static final String FXML = "LoanListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    //private final Logger logger = LogsCenter.getLogger(LoanListPanel.class);
 
     @FXML
-    private ListView<Loan> personListView;
+    private ListView<Loan> loanListView;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Loan> personList) {
+    public LoanListPanel(ObservableList<Loan> loanList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        loanListView.setItems(loanList);
+        loanListView.setCellFactory(listView -> new LoanListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Loan} using a {@code LoanCard}.
      */
-    class PersonListViewCell extends ListCell<Loan> {
+    class LoanListViewCell extends ListCell<Loan> {
         @Override
-        protected void updateItem(Loan person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Loan loan, boolean empty) {
+            super.updateItem(loan, empty);
 
-            if (empty || person == null) {
+            if (empty || loan == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new LoanCard(person, getIndex() + 1).getRoot());
+                setGraphic(new LoanCard(loan, getIndex() + 1).getRoot());
             }
         }
     }
