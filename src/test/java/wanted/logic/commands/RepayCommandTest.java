@@ -1,6 +1,12 @@
 package wanted.logic.commands;
 
+import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
+import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
+
 import org.junit.jupiter.api.Test;
+
 import wanted.commons.core.datatypes.Index;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
@@ -10,11 +16,6 @@ import wanted.model.UserPrefs;
 import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
 
-import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
-import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
-
 public class RepayCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -23,7 +24,7 @@ public class RepayCommandTest {
      * (Have not completed the test case)
      */
     @Test
-    public void execute_validIndexUnfilteredList_RepaidPartialLoan_success() throws CommandException {
+    public void execute_validIndexUnfilteredListAndRepaidPartialLoan_success() throws CommandException {
         Loan loanToRepaidAll = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         RepayCommand repayCommand = new RepayCommand(INDEX_FIRST_PERSON, new Amount("10.00"));
         Loan updatedLoan = repayCommand.getUpdatedLoan(loanToRepaidAll);
@@ -42,7 +43,7 @@ public class RepayCommandTest {
      * (Have not completed the test case)
      */
     @Test
-    public void execute_validIndexUnfilteredList_RepaidEntireLoan_success() {
+    public void execute_validIndexUnfilteredListAndRepaidEntireLoan_success() {
         Loan loanToRepaidAll = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         RepayCommand repayCommand = new RepayCommand(INDEX_FIRST_PERSON, loanToRepaidAll.getAmount());
 
