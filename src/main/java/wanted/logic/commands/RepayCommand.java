@@ -17,8 +17,8 @@ import wanted.model.loan.Loan;
  */
 public class RepayCommand extends Command {
     public static final String COMMAND_WORD = "repay";
-    public static final String MESSAGE_REPAID_SUCCESS = "Loan successfully updated:";
-    public static final String MESSAGE_REPAID_ALL_SUCCESS = "Loan successfully repaid entirely:";
+    public static final String MESSAGE_REPAID_SUCCESS = "Loan successfully updated: %1$s";
+    public static final String MESSAGE_REPAID_ALL_SUCCESS = "Loan successfully repaid entirely: %1$s";
     public static final String MESSAGE_EXCEED_AMOUNT_RETURNED =
             "Amount returned should be less than or equal current amount of loan";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -29,7 +29,7 @@ public class RepayCommand extends Command {
             + PREFIX_AMOUNT
             + "AMOUNT_REPAID (must be a positive double with exactly two digits after the decimal point, "
             + "and must be less than or equal current amount of loan.)" + "\n"
-            + "Example: " + COMMAND_WORD + " 1" + PREFIX_AMOUNT + "10.00";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "10.00";
     private final Index targetIndex;
     private final Amount returnedAmount;
     private Amount updatedAmount;
