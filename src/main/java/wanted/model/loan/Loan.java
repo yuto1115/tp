@@ -41,6 +41,7 @@ public class Loan {
     public Amount getAmount() {
         return amount;
     }
+
     public LoanDate getLoanDate() {
         return loanDate;
     }
@@ -103,5 +104,4 @@ public class Loan {
                 .add("tags", tags)
                 .toString();
     }
-
 }

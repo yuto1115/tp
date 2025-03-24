@@ -6,6 +6,7 @@ import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import java.util.List;
 
 import wanted.commons.core.datatypes.Index;
+import wanted.commons.core.datatypes.MoneyInt;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
@@ -13,7 +14,7 @@ import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
 
 /**
- * Repay a loan identified using it's displayed index, with particular amount return
+ * Repay a loan identified using its displayed index, with particular amount return
  */
 public class RepayCommand extends Command {
     public static final String COMMAND_WORD = "repay";
@@ -38,7 +39,7 @@ public class RepayCommand extends Command {
     /**
      * Constructor for RepayCommand
      *
-     * @param targetIndex    index of loan to pay
+     * @param targetIndex    index of loan to repay
      * @param amountReturned returned amount
      */
     public RepayCommand(Index targetIndex, Amount amountReturned) {
@@ -58,16 +59,15 @@ public class RepayCommand extends Command {
         Loan loanToRepay = lastShownList.get(targetIndex.getZeroBased());
         Amount currentAmount = loanToRepay.getAmount();
 
-        /*
-        If current amount value equals to amount returned values, then repay the loan entirely and delete
-         */
-        if (currentAmount.equals(returnedAmount)) {
-            model.deletePerson(loanToRepay);
-            return new CommandResult(String.format(MESSAGE_REPAID_ALL_SUCCESS, Messages.format(loanToRepay)));
-        }
         Loan newLoan = this.getUpdatedLoan(loanToRepay);
         model.setPerson(loanToRepay, newLoan);
 
+        /*
+        If current amount value equals to amount returned values, then repay the loan entirely
+         */
+        if (newLoan.getAmount().isRepaid()) {
+            return new CommandResult(String.format(MESSAGE_REPAID_ALL_SUCCESS, Messages.format(loanToRepay)));
+        }
         return new CommandResult(String.format(MESSAGE_REPAID_SUCCESS, Messages.format(newLoan)));
     }
 
@@ -80,9 +80,6 @@ public class RepayCommand extends Command {
      * @throws CommandException handle invalid case
      */
     public Loan getUpdatedLoan(Loan loanToRepay) throws CommandException {
-        if (this.updatedLoan != null) {
-            return updatedLoan;
-        }
         this.updatedLoan = new Loan(loanToRepay.getName(), this.getUpdatedAmount(loanToRepay),
                 loanToRepay.getLoanDate(), loanToRepay.getTags());
         return this.updatedLoan;
@@ -96,14 +93,9 @@ public class RepayCommand extends Command {
      * @throws CommandException exception for invalid case
      */
     private Amount getUpdatedAmount(Loan loanToRepay) throws CommandException {
-        if (this.updatedAmount != null) {
-            return this.updatedAmount;
-        }
-        double updatedAmountValue = getNewAmountValue(loanToRepay);
+        MoneyInt updatedAmountValue = getNewAmountValue(loanToRepay);
 
-        String updatedAmountValueString = String.format("%.2f", updatedAmountValue);
-
-        this.updatedAmount = new Amount(updatedAmountValueString);
+        this.updatedAmount = new Amount(loanToRepay.getAmount().initValue, updatedAmountValue);
         return this.updatedAmount;
     }
 
@@ -115,7 +107,7 @@ public class RepayCommand extends Command {
      * @return updated value of amount
      * @throws CommandException exception for invalid case
      */
-    private double getNewAmountValue(Loan loanToRepay) throws CommandException {
+    private MoneyInt getNewAmountValue(Loan loanToRepay) throws CommandException {
         Amount currentAmount = loanToRepay.getAmount();
         int amountReturnedTimesOneHundred = this.returnedAmount.value.getValueTimesOneHundred();
         int currentAmountValueTimesOneHundred = currentAmount.value.getValueTimesOneHundred();
@@ -123,6 +115,6 @@ public class RepayCommand extends Command {
         if (amountReturnedTimesOneHundred > currentAmountValueTimesOneHundred) {
             throw new CommandException(MESSAGE_EXCEED_AMOUNT_RETURNED);
         }
-        return ((double) (currentAmountValueTimesOneHundred - amountReturnedTimesOneHundred)) / 100.00;
+        return MoneyInt.fromCent(currentAmountValueTimesOneHundred - amountReturnedTimesOneHundred);
     }
 }

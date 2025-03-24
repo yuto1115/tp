@@ -57,6 +57,20 @@ public class MoneyInt {
         return new MoneyInt(dollar * 100 + cent);
     }
 
+    /**
+     * Creates a new {@code MoneyInt} from the amounts of cents.
+     * That is, creates a new {@code MoneyInt} with the value equal to {@code cent} * 0.01.
+     *
+     * @throws IllegalValueException if either of the following conditions is not satisfied:
+     *     - {@code cent} is a non-negative integer.
+     */
+
+    public static MoneyInt fromCent(int cent) throws IllegalArgumentException {
+        AppUtil.checkArgument(cent >= 0, "The cent value cannot be negative");
+
+        return new MoneyInt(cent);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
