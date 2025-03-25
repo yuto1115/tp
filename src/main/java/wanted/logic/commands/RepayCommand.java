@@ -80,8 +80,7 @@ public class RepayCommand extends Command {
      * @throws CommandException handle invalid case
      */
     public Loan getUpdatedLoan(Loan loanToRepay) throws CommandException {
-        this.updatedLoan = new Loan(loanToRepay.getName(), this.getUpdatedAmount(loanToRepay),
-                loanToRepay.getLoanDate(), loanToRepay.getTags());
+        this.updatedLoan = new Loan(loanToRepay.getName(), this.getUpdatedAmount(loanToRepay), loanToRepay.getTags());
         return this.updatedLoan;
     }
 
@@ -95,7 +94,7 @@ public class RepayCommand extends Command {
     private Amount getUpdatedAmount(Loan loanToRepay) throws CommandException {
         MoneyInt updatedAmountValue = getNewAmountValue(loanToRepay);
 
-        this.updatedAmount = new Amount(loanToRepay.getAmount().initValue, updatedAmountValue);
+        this.updatedAmount = new Amount(loanToRepay.getAmount().totalValue, updatedAmountValue);
         return this.updatedAmount;
     }
 
@@ -109,8 +108,8 @@ public class RepayCommand extends Command {
      */
     private MoneyInt getNewAmountValue(Loan loanToRepay) throws CommandException {
         Amount currentAmount = loanToRepay.getAmount();
-        int amountReturnedTimesOneHundred = this.returnedAmount.value.getValueTimesOneHundred();
-        int currentAmountValueTimesOneHundred = currentAmount.value.getValueTimesOneHundred();
+        int amountReturnedTimesOneHundred = this.returnedAmount.remainingValue.getValueTimesOneHundred();
+        int currentAmountValueTimesOneHundred = currentAmount.remainingValue.getValueTimesOneHundred();
 
         if (amountReturnedTimesOneHundred > currentAmountValueTimesOneHundred) {
             throw new CommandException(MESSAGE_EXCEED_AMOUNT_RETURNED);

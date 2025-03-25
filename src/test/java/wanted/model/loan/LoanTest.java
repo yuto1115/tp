@@ -79,7 +79,7 @@ public class LoanTest {
     @Test
     public void toStringMethod() {
         String expected = Loan.class.getCanonicalName() + "{name=" + ALICE.getName() + ", amount=" + ALICE.getAmount()
-                + ", date=" + ALICE.getLoanDate() + ", tags=" + ALICE.getTags() + "}";
+                + ", tags=" + ALICE.getTags() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

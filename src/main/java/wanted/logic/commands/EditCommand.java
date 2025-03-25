@@ -98,10 +98,8 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(loanToEdit.getName());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(loanToEdit.getTags());
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(loanToEdit.getAmount());
-        LoanDate updatedDate = editPersonDescriptor.getDate().orElse(loanToEdit.getLoanDate());
 
-
-        return new Loan(updatedName, updatedAmount, updatedDate, updatedTags);
+        return new Loan(updatedName, updatedAmount, updatedTags);
     }
 
     @Override

@@ -34,7 +34,6 @@ public class EditPersonDescriptorBuilder {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
         descriptor.setAmount(person.getAmount());
-        descriptor.setDate(person.getLoanDate());
         descriptor.setTags(person.getTags());
     }
 

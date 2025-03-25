@@ -39,8 +39,6 @@ public class Messages {
         builder.append(person.getName())
                 .append("; Amount: ")
                 .append(person.getAmount())
-                .append("; Date: ")
-                .append(person.getLoanDate())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();

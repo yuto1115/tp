@@ -24,7 +24,6 @@ class JsonAdaptedLoan {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
     private final String name;
-    private final String date;
     private final String amount;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -33,10 +32,9 @@ class JsonAdaptedLoan {
      */
     @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("name") String name,
-                           @JsonProperty("date") String date, @JsonProperty("amount") String amount,
+                           @JsonProperty("amount") String amount,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
-        this.date = date;
         this.amount = amount;
         if (tags != null) {
             this.tags.addAll(tags);
@@ -48,8 +46,7 @@ class JsonAdaptedLoan {
      */
     public JsonAdaptedLoan(Loan source) {
         name = source.getName().fullName;
-        amount = source.getAmount().value.getStringRepresentationWithFixedDecimalPoint();
-        date = source.getLoanDate().value.toString();
+        amount = source.getAmount().remainingValue.getStringRepresentationWithFixedDecimalPoint();
 
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -83,6 +80,7 @@ class JsonAdaptedLoan {
         }
         final Amount modelAmount = new Amount(amount);
 
+        /*
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LoanDate.class.getSimpleName()));
@@ -91,8 +89,9 @@ class JsonAdaptedLoan {
             throw new IllegalValueException(LoanDate.MESSAGE_CONSTRAINTS);
         }
         final LoanDate modelLoanDate = new LoanDate(date);
+        */
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Loan(modelName, modelAmount, modelLoanDate, modelTags);
+        return new Loan(modelName, modelAmount, modelTags);
     }
 }
