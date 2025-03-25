@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import wanted.commons.exceptions.IllegalValueException;
 import wanted.model.loan.Amount;
-import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 
 public class JsonAdaptedLoanTest {
