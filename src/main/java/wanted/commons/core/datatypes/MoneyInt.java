@@ -10,7 +10,7 @@ import wanted.commons.util.ToStringBuilder;
  * {@code MoneyInt} is to be used for storing the exact value of some quantity regarding money,
  * assuming that the smallest unit of money is 1/100.
  */
-public class MoneyInt {
+public class MoneyInt implements Comparable<MoneyInt> {
     private final int valueTimesOneHundred; // 100 times the original value, which is an integer
 
     /**
@@ -61,7 +61,7 @@ public class MoneyInt {
      * Creates a new {@code MoneyInt} from the amounts of cents.
      * That is, creates a new {@code MoneyInt} with the value equal to {@code cent} * 0.01.
      *
-     * @throws IllegalValueException if either of the following conditions is not satisfied:
+     * @throws IllegalValueException if the following conditions is not satisfied:
      *     - {@code cent} is a non-negative integer.
      */
 
@@ -89,5 +89,10 @@ public class MoneyInt {
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("valueTimesOneHundred", valueTimesOneHundred).toString();
+    }
+
+    @Override
+    public int compareTo(MoneyInt other) {
+        return this.valueTimesOneHundred - other.valueTimesOneHundred;
     }
 }
