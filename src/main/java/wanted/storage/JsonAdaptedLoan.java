@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import wanted.commons.exceptions.IllegalValueException;
 import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
-import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
 

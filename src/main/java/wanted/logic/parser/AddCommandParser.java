@@ -13,7 +13,6 @@ import wanted.logic.commands.AddCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
-import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
 
