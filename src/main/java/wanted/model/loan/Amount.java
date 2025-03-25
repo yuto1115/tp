@@ -57,14 +57,6 @@ public class Amount implements Comparable<Amount> {
         return this.remainingValue.getStringRepresentationWithFixedDecimalPoint();
     }
 
-    /**
-     * Returns this Amount in the format xx.xx/xx.xx, with the initial amount of the loan at the back.
-     */
-    public String toStringWithInitialAmount() {
-        return "$" + this.remainingValue.getStringRepresentationWithFixedDecimalPoint() + "/$"
-                + this.totalValue.getStringRepresentationWithFixedDecimalPoint();
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
