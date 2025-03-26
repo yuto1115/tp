@@ -68,4 +68,15 @@ public class MoneyIntTest {
                 + "{valueTimesOneHundred=" + moneyInt.getValueTimesOneHundred() + "}";
         assertEquals(expected, moneyInt.toString());
     }
+
+    @Test
+    public void compareToMethod() throws Exception {
+        MoneyInt moneyInt = MoneyInt.fromDollarAndCent(12, 34);
+        MoneyInt less = MoneyInt.fromDollarAndCent(12, 0);
+        MoneyInt greater = MoneyInt.fromDollarAndCent(12, 99);
+        MoneyInt equal = MoneyInt.fromDollarAndCent(12, 34);
+        assertTrue(moneyInt.compareTo(less) > 0);
+        assertTrue(moneyInt.compareTo(greater) < 0);
+        assertEquals(0, moneyInt.compareTo(equal));
+    }
 }

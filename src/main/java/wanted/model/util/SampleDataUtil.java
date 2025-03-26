@@ -8,7 +8,6 @@ import wanted.model.LoanBook;
 import wanted.model.ReadOnlyLoanBook;
 import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
-import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
 
@@ -19,22 +18,22 @@ public class SampleDataUtil {
     public static Loan[] getSamplePersons() {
         return new Loan[] {
             new Loan(new Name("Alex Yeoh"),
-                        new Amount("10.23"), new LoanDate("13th Nov 2024"),
+                        new Amount("10.23"),
                         getTagSet("friends")),
             new Loan(new Name("Bernice Yu"),
-                        new Amount("13.23"), new LoanDate("19th Nov 2024"),
+                        new Amount("13.23"),
                         getTagSet("colleagues", "friends")),
             new Loan(new Name("Charlotte Oliveiro"),
-                        new Amount("100.23"), new LoanDate("1st March 2025"),
+                        new Amount("100.23"),
                         getTagSet("neighbours")),
             new Loan(new Name("David Li"),
-                        new Amount("1.06"), new LoanDate("13th March 2025"),
+                        new Amount("1.06"),
                         getTagSet("family")),
             new Loan(new Name("Irfan Ibrahim"),
-                        new Amount("24.24"), new LoanDate("18th Jan 2024"),
+                        new Amount("24.24"),
                         getTagSet("classmates")),
             new Loan(new Name("Roy Balakrishnan"),
-                        new Amount("18.93"), new LoanDate("06th Nov 2024"),
+                        new Amount("18.93"),
                         getTagSet("colleagues"))
         };
     }

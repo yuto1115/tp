@@ -33,7 +33,6 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_AMOUNT + person.getAmount().toString() + " ");
-        sb.append(PREFIX_DATE + person.getLoanDate().toString() + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

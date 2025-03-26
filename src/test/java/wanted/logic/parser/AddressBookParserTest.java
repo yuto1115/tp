@@ -36,6 +36,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
+        // TODO: Date field needs to be cleaned out from all the tests involving Loan itself
         Loan person = new PersonBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);

@@ -1,10 +1,13 @@
 package wanted.model.loan;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static wanted.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
+import wanted.commons.core.datatypes.MoneyInt;
 
 public class AmountTest {
 
@@ -48,7 +51,7 @@ public class AmountTest {
     }
 
     @Test
-    public void equals() {
+    public void equalsMethod() {
         Amount amount = new Amount("10.10");
 
         // same values -> returns true
@@ -65,6 +68,35 @@ public class AmountTest {
 
         // different values -> returns false
         assertFalse(amount.equals(new Amount("20.20")));
+    }
+
+    @Test
+    public void compareToMethod() {
+        Amount amount = new Amount("12.34");
+        Amount less = new Amount("12.00");
+        Amount greater = new Amount("12.99");
+        Amount equal = new Amount("12.34");
+        assertTrue(amount.compareTo(less) > 0);
+        assertTrue(amount.compareTo(greater) < 0);
+        assertEquals(0, amount.compareTo(equal));
+    }
+
+    @Test
+    public void addAmountMethod() {
+        Amount amount = new Amount("10.10");
+        Amount newAmount = amount.addAmount(MoneyInt.fromDollarAndCent(5, 95));
+        Amount expectedAmount = new Amount("16.05");
+        assertEquals(expectedAmount, newAmount);
+        assertEquals(expectedAmount.totalValue, newAmount.totalValue);
+    }
+
+    @Test
+    public void repayAmountMethod() {
+        Amount amount = new Amount("10.10");
+        Amount newAmount = amount.repayAmount(MoneyInt.fromDollarAndCent(5, 95));
+        Amount expectedAmount = new Amount("4.15");
+        assertEquals(expectedAmount, newAmount);
+        assertEquals(amount.totalValue, newAmount.totalValue);
     }
 
 }
