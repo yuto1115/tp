@@ -3,8 +3,7 @@ package wanted.model.loan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static wanted.logic.commands.CommandTestUtil.*;
 import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalPersons.ALICE;
 import static wanted.testutil.TypicalPersons.BOB;
@@ -28,9 +27,8 @@ public class LoanTest {
 
         // null -> returns false
         assertFalse(ALICE.isSameLoan(null));
-        //removed assert true when loan has the same name
-
-        //Loan editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        //assert true when two loans have the same name
+        assertTrue(BOB.isSameLoan(BOB));
         // different name, all other attributes same -> returns false
         Loan editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameLoan(editedAlice));
@@ -39,6 +37,9 @@ public class LoanTest {
         Loan editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
         assertFalse(BOB.isSameLoan(editedBob));
 
+        //amount and tags differ but name remains the same
+        editedAlice = new PersonBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.isSameLoan(editedAlice));
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
@@ -68,10 +69,10 @@ public class LoanTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different amount -> returns false
+        editedAlice = new PersonBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
 
-        //different date -> returns false
-
-        // different tags -> returns false
+        // different tags same name -> returns true
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
