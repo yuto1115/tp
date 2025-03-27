@@ -23,7 +23,6 @@ public class IncreaseCommandParser implements Parser<IncreaseCommand> {
         ArgumentMultimap argumentMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT);
         Index index;
-        String updatedAmount = "";
         try {
             index = ParserUtil.parseIndex(argumentMultimap.getPreamble());
         } catch (ParseException pe) {
