@@ -1,7 +1,7 @@
 package wanted.logic.commands;
 
-import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Comparator;
 import java.util.List;
@@ -27,7 +27,7 @@ public class SortCommandTest {
     }
 
     @Test
-    public void execute_Successfully() {
+    public void execute_successfully() {
         LoanBook loanBook = (LoanBook) expectedModel.getAddressBook();
         ObservableList<Loan> oldList = loanBook.getPersonList();
         Comparator<Loan> comparator =
