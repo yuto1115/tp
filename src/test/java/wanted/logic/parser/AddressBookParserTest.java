@@ -14,8 +14,16 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import wanted.logic.commands.*;
+import wanted.logic.commands.AddCommand;
+import wanted.logic.commands.ClearCommand;
+import wanted.logic.commands.DeleteCommand;
+import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
+import wanted.logic.commands.ExitCommand;
+import wanted.logic.commands.FindCommand;
+import wanted.logic.commands.HelpCommand;
+import wanted.logic.commands.IncreaseCommand;
+import wanted.logic.commands.ListCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
 import wanted.model.loan.NameContainsKeywordsPredicate;
