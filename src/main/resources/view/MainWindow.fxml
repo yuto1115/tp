@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="Loan Book" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="Wanted List" minWidth="700" minHeight="900" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/ledger.png" />
+    <Image url="@/images/WantedList.png" />
   </icons>
   <scene>
     <Scene>
