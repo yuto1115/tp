@@ -67,13 +67,12 @@ public class AddressBookTest {
         assertTrue(addressBook.hasPerson(ALICE));
     }
 
-    //TODO: Person_personWithSameIdentityFieldsInAddressBook_returnsTrue should be updated
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         Loan editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertFalse(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasPerson(editedAlice));
     }
 
     @Test
