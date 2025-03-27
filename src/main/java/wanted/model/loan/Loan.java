@@ -63,7 +63,7 @@ public class Loan {
         }
 
         return otherLoan != null
-                && otherLoan.hashCode() == hashCode();
+                && otherLoan.name.equals(name);
     }
 
     /**
