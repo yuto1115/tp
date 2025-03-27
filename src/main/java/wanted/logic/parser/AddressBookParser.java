@@ -18,6 +18,7 @@ import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
 import wanted.logic.commands.ListCommand;
 import wanted.logic.commands.RepayCommand;
+import wanted.logic.commands.SortCommand;
 import wanted.logic.parser.exceptions.ParseException;
 
 /**
@@ -80,6 +81,9 @@ public class AddressBookParser {
 
         case RepayCommand.COMMAND_WORD:
             return new RepayCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
