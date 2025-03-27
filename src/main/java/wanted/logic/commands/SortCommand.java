@@ -23,8 +23,8 @@ public class SortCommand extends Command {
             LoanBook loanBook = (LoanBook) model.getAddressBook();
             ObservableList<Loan> oldList = loanBook.getPersonList();
             Comparator<Loan> comparator =
-                    Comparator.nullsLast(Comparator.comparingInt(a ->
-                            (-a.getAmount().remainingValue.getValueTimesOneHundred())));
+                    Comparator.nullsLast(Comparator.comparingInt(a -> (
+                            -a.getAmount().remainingValue.getValueTimesOneHundred())));
             List<Loan> sortedList = oldList.sorted(comparator);
             loanBook.setPersons(sortedList);
         } catch (Exception e) {
