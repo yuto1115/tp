@@ -16,6 +16,7 @@ import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.ExitCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
+import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
 import wanted.logic.commands.RepayCommand;
 import wanted.logic.commands.SortCommand;
@@ -78,6 +79,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case IncreaseCommand.COMMAND_WORD:
+            return new IncreaseCommandParser().parse(arguments);
 
         case RepayCommand.COMMAND_WORD:
             return new RepayCommandParser().parse(arguments);
