@@ -13,6 +13,7 @@ import wanted.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
+ * This is disabled in the MVP
  */
 public class EditPersonDescriptorBuilder {
 
@@ -33,7 +34,6 @@ public class EditPersonDescriptorBuilder {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
         descriptor.setAmount(person.getAmount());
-        descriptor.setDate(person.getLoanDate());
         descriptor.setTags(person.getTags());
     }
 

@@ -18,7 +18,7 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-
+    public static final String MESSAGE_COMMAND_DISABLED = "This command is disabled in the MVP";
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
@@ -39,8 +39,6 @@ public class Messages {
         builder.append(person.getName())
                 .append("; Amount: ")
                 .append(person.getAmount())
-                .append("; Date: ")
-                .append(person.getLoanDate())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();

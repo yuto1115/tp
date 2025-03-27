@@ -46,10 +46,9 @@ public class LoanCard extends UiPart<Region> {
         super(FXML);
         this.loan = loan;
         id.setText(displayedIndex + ". ");
-        name.setText(loan.getName().fullName);
-        amount.setText("Loan Amount: $" + loan.getAmount().toString());
+        name.setText(loan.getName().fullName)
+        amount.setText("Loan Amount: " + loan.getAmount().toString());
         // date.setText("Loan Date: " + loan.getLoanDate().toString());
-
         // Sort tags alphabetically and display them
         loan.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

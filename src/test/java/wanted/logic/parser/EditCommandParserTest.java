@@ -1,5 +1,7 @@
 package wanted.logic.parser;
 
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
@@ -35,6 +37,9 @@ import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
 import wanted.testutil.EditPersonDescriptorBuilder;
 
+/**
+ * Note this is disabled in the MVP
+ */
 public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
@@ -46,6 +51,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
+        assumeTrue(EditCommand.IS_ENABLED);
         // no index specified
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
@@ -58,6 +64,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
+        assumeTrue(EditCommand.IS_ENABLED);
         // negative index
         assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
@@ -73,6 +80,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        assumeTrue(EditCommand.IS_ENABLED);
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
@@ -89,6 +97,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
+        assumeTrue(EditCommand.IS_ENABLED);
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND + NAME_DESC_AMY + TAG_DESC_FRIEND
                 + AMOUNT_DESC_AMY + DATE_DESC_AMY;
@@ -103,6 +112,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
+        assumeTrue(EditCommand.IS_ENABLED);
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + AMOUNT_DESC_AMY + DATE_DESC_AMY;
 
@@ -115,6 +125,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_oneFieldSpecified_success() {
+        assumeTrue(EditCommand.IS_ENABLED);
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
@@ -142,6 +153,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_failure() {
+        assumeTrue(EditCommand.IS_ENABLED);
         // More extensive testing of duplicate parameter detections is done in
         // AddCommandParserTest#parse_repeatedNonTagValue_failure()
 
@@ -174,6 +186,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
+        assumeTrue(EditCommand.IS_ENABLED);
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
@@ -181,5 +194,11 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+    @Test
+    public void parse_disablecCommand_failure() {
+        assumeFalse(EditCommand.IS_ENABLED);
+        String userInput = "edit";
+        assertParseFailure(parser, userInput, Messages.MESSAGE_COMMAND_DISABLED);
     }
 }
