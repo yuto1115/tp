@@ -27,9 +27,9 @@ public interface Logic {
     /**
      * Returns the LoanBook.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getLoanBook()
      */
-    ReadOnlyLoanBook getAddressBook();
+    ReadOnlyLoanBook getLoanBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Loan> getFilteredPersonList();
@@ -37,7 +37,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getLoanBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

@@ -3,7 +3,7 @@ package wanted.logic.commands;
 import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
+import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
 
 public class RepayCommandTest {
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
 
     /**
      * Test in case repay a loan partially
@@ -32,7 +32,7 @@ public class RepayCommandTest {
         String expectedMessage = String.format(RepayCommand.MESSAGE_REPAID_SUCCESS,
                 Messages.format(updatedLoan));
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
         expectedModel.setPerson(loanToRepaidAll, updatedLoan);
 
         assertCommandSuccess(repayCommand, model, expectedMessage, expectedModel);
@@ -50,7 +50,7 @@ public class RepayCommandTest {
         String expectedMessage = String.format(RepayCommand.MESSAGE_REPAID_ALL_SUCCESS,
                 Messages.format(loanToRepaidAll));
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
         expectedModel.deletePerson(loanToRepaidAll);
 
         // failing this test case, unsure why

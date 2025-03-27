@@ -25,7 +25,7 @@ public class JsonSerializableLoanBookTest {
         JsonSerializableLoanBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableLoanBook.class).get();
         LoanBook addressBookFromFile = dataFromFile.toModelType();
-        LoanBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
+        LoanBook typicalPersonsAddressBook = TypicalPersons.getTypicalLoanBook();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

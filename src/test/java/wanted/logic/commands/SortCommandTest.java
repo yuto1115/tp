@@ -1,7 +1,7 @@
 package wanted.logic.commands;
 
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
+import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
 import java.util.Comparator;
 import java.util.List;
@@ -22,13 +22,13 @@ public class SortCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
     }
 
     @Test
     public void execute_successfully() {
-        LoanBook loanBook = (LoanBook) expectedModel.getAddressBook();
+        LoanBook loanBook = (LoanBook) expectedModel.getLoanBook();
         ObservableList<Loan> oldList = loanBook.getPersonList();
         Comparator<Loan> comparator =
                 Comparator.nullsLast(Comparator.comparingInt(a -> (

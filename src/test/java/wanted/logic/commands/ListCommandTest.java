@@ -3,7 +3,7 @@ package wanted.logic.commands;
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static wanted.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
+import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
     }
 
     @Test

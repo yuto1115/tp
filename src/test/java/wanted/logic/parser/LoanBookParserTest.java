@@ -32,9 +32,9 @@ import wanted.testutil.EditPersonDescriptorBuilder;
 import wanted.testutil.PersonBuilder;
 import wanted.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class LoanBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final LoanBookParser parser = new LoanBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

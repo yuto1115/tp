@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalPersons.ALICE;
-import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
+import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -18,25 +18,25 @@ import javafx.collections.ObservableList;
 import wanted.model.loan.Loan;
 import wanted.testutil.PersonBuilder;
 
-public class AddressBookTest {
+public class LoanBookTest {
 
-    private final LoanBook addressBook = new LoanBook();
+    private final LoanBook loanBook = new LoanBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), loanBook.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> loanBook.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        LoanBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyLoanBook_replacesData() {
+        LoanBook newData = getTypicalLoanBook();
+        loanBook.resetData(newData);
+        assertEquals(newData, loanBook);
     }
     /* TODO: Update
     @Test
@@ -47,43 +47,43 @@ public class AddressBookTest {
         List<Loan> newPersons = Arrays.asList(ALICE, editedAlice);
         LoanBookStub newData = new LoanBookStub(newPersons);
 
-        assertThrows(DuplicateLoanException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateLoanException.class, () -> loanBook.resetData(newData));
     }
      */
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> loanBook.hasPerson(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasPerson_personNotInLoanBook_returnsFalse() {
+        assertFalse(loanBook.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasPerson_personInLoanBook_returnsTrue() {
+        loanBook.addPerson(ALICE);
+        assertTrue(loanBook.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+    public void hasPerson_personWithSameIdentityFieldsInLoanBook_returnsTrue() {
+        loanBook.addPerson(ALICE);
         Loan editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(loanBook.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> loanBook.getPersonList().remove(0));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = LoanBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
-        assertEquals(expected, addressBook.toString());
+        String expected = LoanBook.class.getCanonicalName() + "{persons=" + loanBook.getPersonList() + "}";
+        assertEquals(expected, loanBook.toString());
     }
 
     /**

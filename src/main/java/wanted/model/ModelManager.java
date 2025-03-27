@@ -19,21 +19,21 @@ import wanted.model.loan.Loan;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final LoanBook addressBook;
+    private final LoanBook loanBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Loan> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyLoanBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyLoanBook loanBook, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(loanBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + loanBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new LoanBook(addressBook);
+        this.loanBook = new LoanBook(loanBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.loanBook.getPersonList());
     }
 
     public ModelManager() {
@@ -65,42 +65,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getLoanBookFilePath() {
+        return userPrefs.getLoanBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setLoanBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setLoanBookFilePath(addressBookFilePath);
     }
 
     //=========== LoanBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyLoanBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setLoanBook(ReadOnlyLoanBook loanBook) {
+        this.loanBook.resetData(loanBook);
     }
 
     @Override
-    public ReadOnlyLoanBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyLoanBook getLoanBook() {
+        return loanBook;
     }
 
     @Override
     public boolean hasPerson(Loan person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return loanBook.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Loan target) {
-        addressBook.removePerson(target);
+        loanBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Loan person) {
-        addressBook.addPerson(person);
+        loanBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -108,7 +108,7 @@ public class ModelManager implements Model {
     public void setPerson(Loan target, Loan editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        loanBook.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Loan List Accessors =============================================================
@@ -140,7 +140,7 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
+        return loanBook.equals(otherModelManager.loanBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }

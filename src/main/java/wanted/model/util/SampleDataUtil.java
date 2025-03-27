@@ -38,7 +38,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyLoanBook getSampleAddressBook() {
+    public static ReadOnlyLoanBook getSampleLoanBook() {
         LoanBook sampleAb = new LoanBook();
         for (Loan samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
