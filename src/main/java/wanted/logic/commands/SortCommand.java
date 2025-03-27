@@ -18,7 +18,7 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        LoanBook loanBook = (LoanBook) model.getAddressBook();
+        LoanBook loanBook = (LoanBook) model.getLoanBook();
         ObservableList<Loan> oldList = loanBook.getPersonList();
         Comparator<Loan> comparator =
                 Comparator.nullsLast(Comparator.comparingInt(a -> (

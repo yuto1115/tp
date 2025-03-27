@@ -49,30 +49,30 @@ public class StorageManager implements Storage {
     // ================ LoanBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return loanBookStorage.getAddressBookFilePath();
+    public Path getLoanBookFilePath() {
+        return loanBookStorage.getLoanBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyLoanBook> readAddressBook() throws DataLoadingException {
-        return readAddressBook(loanBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyLoanBook> readLoanBook() throws DataLoadingException {
+        return readLoanBook(loanBookStorage.getLoanBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyLoanBook> readAddressBook(Path filePath) throws DataLoadingException {
+    public Optional<ReadOnlyLoanBook> readLoanBook(Path filePath) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return loanBookStorage.readAddressBook(filePath);
+        return loanBookStorage.readLoanBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyLoanBook addressBook) throws IOException {
-        saveAddressBook(addressBook, loanBookStorage.getAddressBookFilePath());
+    public void saveLoanBook(ReadOnlyLoanBook addressBook) throws IOException {
+        saveLoanBook(addressBook, loanBookStorage.getLoanBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyLoanBook addressBook, Path filePath) throws IOException {
+    public void saveLoanBook(ReadOnlyLoanBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        loanBookStorage.saveAddressBook(addressBook, filePath);
+        loanBookStorage.saveLoanBook(addressBook, filePath);
     }
 
 }

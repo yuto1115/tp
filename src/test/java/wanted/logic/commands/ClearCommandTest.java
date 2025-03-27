@@ -1,7 +1,7 @@
 package wanted.logic.commands;
 
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static wanted.testutil.TypicalPersons.getTypicalAddressBook;
+import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import wanted.model.UserPrefs;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyLoanBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,10 +21,10 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new LoanBook());
+    public void execute_nonEmptyLoanBook_success() {
+        Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+        expectedModel.setLoanBook(new LoanBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

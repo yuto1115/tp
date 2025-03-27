@@ -27,22 +27,22 @@ public class JsonLoanBookStorage implements LoanBookStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getLoanBookFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyLoanBook> readAddressBook() throws DataLoadingException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyLoanBook> readLoanBook() throws DataLoadingException {
+        return readLoanBook(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readLoanBook()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataLoadingException if loading the data from storage failed.
      */
-    public Optional<ReadOnlyLoanBook> readAddressBook(Path filePath) throws DataLoadingException {
+    public Optional<ReadOnlyLoanBook> readLoanBook(Path filePath) throws DataLoadingException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableLoanBook> jsonAddressBook = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonLoanBookStorage implements LoanBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyLoanBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveLoanBook(ReadOnlyLoanBook addressBook) throws IOException {
+        saveLoanBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyLoanBook)}.
+     * Similar to {@link #saveLoanBook(ReadOnlyLoanBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyLoanBook addressBook, Path filePath) throws IOException {
+    public void saveLoanBook(ReadOnlyLoanBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
