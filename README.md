@@ -19,6 +19,7 @@
   * **Repay loan**: Modify one entry from the list to represent full/partial payment of a loan. Format:` repay [ID] [amount_returned]` (E.g: `repay 2 10.00`)
   * **List command**: List all the entries from the loan list. Format: `list`
   * **Exit command**: Exit the program. Format: `exit`
+  * **Sort command**: Sort loans by amount value in descending order. Format: `sort`
 
 
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org)
