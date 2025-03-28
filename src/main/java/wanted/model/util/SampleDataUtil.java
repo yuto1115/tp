@@ -18,22 +18,22 @@ public class SampleDataUtil {
     public static Loan[] getSamplePersons() {
         return new Loan[] {
             new Loan(new Name("Alex Yeoh"),
-                        new Amount("10.23"),
+//                        new Amount("10.23"),
                         getTagSet("friends")),
             new Loan(new Name("Bernice Yu"),
-                        new Amount("13.23"),
+//                        new Amount("13.23"),
                         getTagSet("colleagues", "friends")),
             new Loan(new Name("Charlotte Oliveiro"),
-                        new Amount("100.23"),
+//                        new Amount("100.23"),
                         getTagSet("neighbours")),
             new Loan(new Name("David Li"),
-                        new Amount("1.06"),
+//                        new Amount("1.06"),
                         getTagSet("family")),
             new Loan(new Name("Irfan Ibrahim"),
-                        new Amount("24.24"),
+//                        new Amount("24.24"),
                         getTagSet("classmates")),
             new Loan(new Name("Roy Balakrishnan"),
-                        new Amount("18.93"),
+//                        new Amount("18.93"),
                         getTagSet("colleagues"))
         };
     }

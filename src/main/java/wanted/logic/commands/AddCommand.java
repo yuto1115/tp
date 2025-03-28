@@ -1,8 +1,6 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -22,13 +20,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a loan to the loan book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_DATE + "DATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_AMOUNT + "50.00 "
-            + PREFIX_DATE + "10th August 2024 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
