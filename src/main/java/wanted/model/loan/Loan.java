@@ -29,12 +29,19 @@ public class Loan {
     /**
      * Every field must be present and not null.
      */
-    public Loan(Name name, Amount amount, Set<Tag> tags) {
+    private Loan(Name name, Amount amount, Set<Tag> tags) {
         //requireAllNonNull(name, amount, date, tags);
         requireAllNonNull(name, amount, tags);
         this.name = name;
         this.amount = amount;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Constructor with only name and tags given.
+     */
+    public Loan(Name name, Set<Tag> tags) {
+        this(name, new Amount(MoneyInt.fromCent(0), MoneyInt.fromCent(0)), tags);
     }
 
     public Name getName() {
@@ -102,18 +109,8 @@ public class Loan {
     }
 
     /**
-     * Factory method to create a new Loan for a new Name.
-     *
-     * @param name Name of the loanee.
-     * @param tags Tags associated with the loanee.
-     * @return New Loan with no History and no Amount loaned.
-     */
-    public static Loan createNewLoan(Name name, Set<Tag> tags) {
-        return new Loan(name, new Amount("0.00"), tags);
-    }
-
-    /**
      * Performs a new transaction of loaning money with additional History of the specified Amount being loaned out.
+     * A new Loan object is created and returned, hence the original Loan remains unchanged.
      *
      * @param loaned Amount given to loanee in this transaction.
      * @return New Loan after the loaning transaction.
@@ -126,18 +123,20 @@ public class Loan {
 
     /**
      * Performs a new transaction of repaying money with additional History of the specified Amount being repaid.
+     * A new Loan object is created and returned, hence the original Loan remains unchanged.
      *
      * @param repaid Amount repaid from loanee in this transaction.
      * @return New Loan after the repaying transaction.
      */
     public Loan repayAmount(MoneyInt repaid) {
         Amount newAmount = this.amount.repayAmount(repaid);
-        // TODO: update History
+        // TODO: update History, detect error (value gets below 0)
         return new Loan(this.name, newAmount, this.tags);
     }
 
     /**
      * Returns a Loan with the new Name provided, all other fields unchanged.
+     * A new Loan object is created and returned, hence the original Loan remains unchanged.
      *
      * @param newName New name.
      * @return Loan with the new Name provided, all other fields unchanged
@@ -145,6 +144,4 @@ public class Loan {
     public Loan editName(Name newName) {
         return new Loan(newName, this.amount, this.tags);
     }
-
-
 }

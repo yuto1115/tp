@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import wanted.commons.core.datatypes.Index;
+import wanted.commons.core.datatypes.MoneyInt;
 import wanted.commons.util.StringUtil;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Address;
-import wanted.model.loan.Amount;
 import wanted.model.loan.Email;
 import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
@@ -23,6 +23,9 @@ import wanted.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_MONEY_AMOUNT =
+            "Money amounts should only contain numbers, and it should adhere to the format {Dollars}.{Cents}";
+    public static final String MONEY_AMOUNT_REGEX = "\\d+\\.\\d{2}";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -38,18 +41,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String amount} into a {@code Amount}.
+     * Parses a {@code String amount} into a {@code MoneyInt}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Amount parseAmount(String amount) throws ParseException {
+    public static MoneyInt parseMoneyAmount(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
-        if (!Amount.isValidAmount(trimmedAmount)) {
-            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        if (!trimmedAmount.matches(MONEY_AMOUNT_REGEX)) {
+            throw new ParseException(MESSAGE_INVALID_MONEY_AMOUNT);
         }
-        return new Amount(trimmedAmount);
+        String[] args = trimmedAmount.split("\\.");
+        return MoneyInt.fromDollarAndCent(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
     }
 
     /**

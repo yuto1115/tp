@@ -23,7 +23,7 @@ class JsonAdaptedLoan {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
 
     private final String name;
-    private final String amount;
+//    private final String amount;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -31,10 +31,10 @@ class JsonAdaptedLoan {
      */
     @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("name") String name,
-                           @JsonProperty("amount") String amount,
+//                           @JsonProperty("amount") String amount,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
-        this.amount = amount;
+//        this.amount = amount;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -45,7 +45,7 @@ class JsonAdaptedLoan {
      */
     public JsonAdaptedLoan(Loan source) {
         name = source.getName().fullName;
-        amount = source.getAmount().remainingValue.getStringRepresentationWithFixedDecimalPoint();
+//        amount = source.getAmount().remainingValue.getStringRepresentationWithFixedDecimalPoint();
 
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -71,13 +71,13 @@ class JsonAdaptedLoan {
         }
         final Name modelName = new Name(name);
 
-        if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
-        }
-        if (!Amount.isValidAmount(amount)) {
-            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
-        }
-        final Amount modelAmount = new Amount(amount);
+//        if (amount == null) {
+//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+//        }
+//        if (!Amount.isValidAmount(amount)) {
+//            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+//        }
+//        final Amount modelAmount = new Amount(amount);
 
         /*
         if (date == null) {
@@ -91,6 +91,7 @@ class JsonAdaptedLoan {
         */
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Loan(modelName, modelAmount, modelTags);
+//        return new Loan(modelName, modelAmount, modelTags);
+        return new Loan(modelName, modelTags);
     }
 }
