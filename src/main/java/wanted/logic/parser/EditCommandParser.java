@@ -57,7 +57,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             // TODO: temporarily commented out to avoid compile error. Should be rewritten appropriately.
-//            editPersonDescriptor.setAmount(ParserUtil.parseMoneyAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            // editPersonDescriptor.setAmount(ParserUtil.parseMoneyAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

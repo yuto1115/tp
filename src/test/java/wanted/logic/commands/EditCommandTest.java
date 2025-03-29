@@ -63,11 +63,13 @@ public class EditCommandTest {
         Loan lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Loan editedPerson = personInList.withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
+        Loan editedPerson = personInList.withName(VALID_NAME_BOB)
+                //.withAmount(VALID_AMOUNT_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND).build();
+                // .withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND)
+                .build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));

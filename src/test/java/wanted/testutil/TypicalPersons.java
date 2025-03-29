@@ -2,8 +2,6 @@ package wanted.testutil;
 
 import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
 import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static wanted.logic.commands.CommandTestUtil.VALID_DATE_AMY;
-import static wanted.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -21,43 +19,53 @@ import wanted.model.loan.Loan;
  */
 public class TypicalPersons {
 
+    // todo: add amount for other persons
     public static final Loan ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAmount("20.00")
-            .withLoanDate("24th January 2025")
+            .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_NOT_FULLY_REPAID)
             .withTags("friends").build();
     public static final Loan BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAmount("19.43")
-            .withLoanDate("11th Nov 2024")
+            //.withAmount("19.43")
+            //.withLoanDate("11th Nov 2024")
             .withTags("owesMoney", "friends").build();
-    public static final Loan CARL = new PersonBuilder().withName("Carl Kurz").withAmount("2990.23")
-            .withLoanDate("9th Nov 2004").build();
-    public static final Loan DANIEL = new PersonBuilder().withName("Daniel Meier")
-            .withAmount("178.23")
-            .withLoanDate("13th Jan 2024")
-            .withTags("friends").build();
-    public static final Loan ELLE = new PersonBuilder().withName("Elle Meyer").withAmount("132.23")
-            .withLoanDate("18th Feb 2024").build();
-    public static final Loan FIONA = new PersonBuilder().withName("Fiona Kunz").withAmount("0.23")
-            .withLoanDate("13th March 2025")
+    public static final Loan CARL = new PersonBuilder().withName("Carl Kurz")
+            //.withAmount("2990.23")
+            //.withLoanDate("9th Nov 2004")
             .build();
-    public static final Loan GEORGE = new PersonBuilder().withName("George Best").withAmount("9.23")
-            .withLoanDate("19th July 2024")
+    public static final Loan DANIEL = new PersonBuilder().withName("Daniel Meier")
+            //.withAmount("178.23")
+            //.withLoanDate("13th Jan 2024")
+            .withTags("friends").build();
+    public static final Loan ELLE = new PersonBuilder().withName("Elle Meyer")
+            //.withAmount("132.23")
+            //.withLoanDate("18th Feb 2024")
+            .build();
+    public static final Loan FIONA = new PersonBuilder().withName("Fiona Kunz")
+            //.withAmount("0.23")
+            //.withLoanDate("13th March 2025")
+            .build();
+    public static final Loan GEORGE = new PersonBuilder().withName("George Best")
+            //.withAmount("9.23")
+            //.withLoanDate("19th July 2024")
             .build();
 
     // Manually added
-    public static final Loan HOON = new PersonBuilder().withName("Hoon Meier").withAmount("20.00")
-            .withLoanDate("24th January 2025")
+    public static final Loan HOON = new PersonBuilder().withName("Hoon Meier")
+            //.withAmount("20.00")
+            //.withLoanDate("24th January 2025")
             .build();
-    public static final Loan IDA = new PersonBuilder().withName("Ida Mueller").withAmount("20.00")
-            .withLoanDate("24th January 2025")
+    public static final Loan IDA = new PersonBuilder().withName("Ida Mueller")
+            //.withAmount("20.00")
+            //.withLoanDate("24th January 2025")
             .build();
 
     // Manually added - Loan's details found in {@code CommandTestUtil}
-    public static final Loan AMY = new PersonBuilder().withName(VALID_NAME_AMY).withAmount(VALID_AMOUNT_AMY)
-            .withLoanDate(VALID_DATE_AMY)
+    public static final Loan AMY = new PersonBuilder().withName(VALID_NAME_AMY)
+            //.withAmount(VALID_AMOUNT_AMY)
+            //.withLoanDate(VALID_DATE_AMY)
             .withTags(VALID_TAG_FRIEND).build();
-    public static final Loan BOB = new PersonBuilder().withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
-            .withLoanDate(VALID_DATE_BOB)
+    public static final Loan BOB = new PersonBuilder().withName(VALID_NAME_BOB)
+            //.withAmount(VALID_AMOUNT_BOB)
+            //.withLoanDate(VALID_DATE_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

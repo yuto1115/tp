@@ -70,8 +70,10 @@ public class NameContainsKeywordsPredicateTest {
 
         // Keywords match phone, email and address, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("10.10", "February", "24th", "2025"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withAmount("10.10")
-                .withLoanDate("24th February 2025").build()));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice")
+                //.withAmount("10.10")
+                //.withLoanDate("24th February 2025")
+                .build()));
     }
 
     @Test

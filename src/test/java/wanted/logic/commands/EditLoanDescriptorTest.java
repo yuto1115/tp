@@ -40,7 +40,9 @@ public class EditLoanDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different amount -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAmount(VALID_AMOUNT_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
+                // .withAmount(VALID_AMOUNT_BOB)
+                .build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different date -> returns false

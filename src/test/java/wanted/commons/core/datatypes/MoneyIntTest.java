@@ -7,8 +7,6 @@ import static wanted.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import wanted.commons.exceptions.IllegalValueException;
-
 public class MoneyIntTest {
     @Test
     public void fromDollarAndCent_outOfRangeInput_throwsIllegalArgumentException() {

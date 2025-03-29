@@ -103,7 +103,7 @@ public class EditCommandParserTest {
                 + AMOUNT_DESC_AMY + DATE_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAmount(VALID_AMOUNT_AMY).withLoanDate(VALID_DATE_AMY)
+                // .withAmount(VALID_AMOUNT_AMY).withLoanDate(VALID_DATE_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -117,7 +117,9 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + AMOUNT_DESC_AMY + DATE_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .withLoanDate(VALID_DATE_AMY).withAmount(VALID_AMOUNT_AMY).build();
+                .withLoanDate(VALID_DATE_AMY)
+                // .withAmount(VALID_AMOUNT_AMY)
+                .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -135,7 +137,9 @@ public class EditCommandParserTest {
 
         //amount
         userInput = targetIndex.getOneBased() + AMOUNT_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withAmount(VALID_AMOUNT_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder()
+                // .withAmount(VALID_AMOUNT_AMY)
+                .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import wanted.model.LoanBook;
 import wanted.model.ReadOnlyLoanBook;
-import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanAmount;
 import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
 
@@ -16,24 +16,24 @@ import wanted.model.tag.Tag;
  */
 public class SampleDataUtil {
     public static Loan[] getSamplePersons() {
-        return new Loan[] {
-            new Loan(new Name("Alex Yeoh"),
-//                        new Amount("10.23"),
+        return new Loan[]{
+                new Loan(new Name("Alex Yeoh"),
+                        new LoanAmount(),
                         getTagSet("friends")),
-            new Loan(new Name("Bernice Yu"),
-//                        new Amount("13.23"),
+                new Loan(new Name("Bernice Yu"),
+                        new LoanAmount(),
                         getTagSet("colleagues", "friends")),
-            new Loan(new Name("Charlotte Oliveiro"),
-//                        new Amount("100.23"),
+                new Loan(new Name("Charlotte Oliveiro"),
+                        new LoanAmount(),
                         getTagSet("neighbours")),
-            new Loan(new Name("David Li"),
-//                        new Amount("1.06"),
+                new Loan(new Name("David Li"),
+                        new LoanAmount(),
                         getTagSet("family")),
-            new Loan(new Name("Irfan Ibrahim"),
-//                        new Amount("24.24"),
+                new Loan(new Name("Irfan Ibrahim"),
+                        new LoanAmount(),
                         getTagSet("classmates")),
-            new Loan(new Name("Roy Balakrishnan"),
-//                        new Amount("18.93"),
+                new Loan(new Name("Roy Balakrishnan"),
+                        new LoanAmount(),
                         getTagSet("colleagues"))
         };
     }

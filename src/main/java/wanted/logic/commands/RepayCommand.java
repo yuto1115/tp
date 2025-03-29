@@ -71,7 +71,7 @@ public class RepayCommand extends Command {
         /*
         If current amount value equals to amount returned values, then repay the loan entirely
          */
-        if (newLoan.getAmount().isRepaid()) {
+        if (newLoan.getLoanAmount().isRepaid()) {
             return new CommandResult(String.format(MESSAGE_REPAID_ALL_SUCCESS, Messages.format(newLoan)));
         }
         return new CommandResult(String.format(MESSAGE_REPAID_SUCCESS, Messages.format(newLoan)));

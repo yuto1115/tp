@@ -6,11 +6,11 @@ import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import wanted.logic.commands.AddCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanAmount;
 import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
 
@@ -38,7 +38,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        return new AddCommand(new Loan(name, tagList));
+        return new AddCommand(new Loan(name, new LoanAmount(), tagList));
     }
 
 }
