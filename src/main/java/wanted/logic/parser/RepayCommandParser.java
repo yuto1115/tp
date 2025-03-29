@@ -3,11 +3,13 @@ package wanted.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
 
 import wanted.commons.core.datatypes.Index;
 import wanted.commons.core.datatypes.MoneyInt;
 import wanted.logic.commands.RepayCommand;
 import wanted.logic.parser.exceptions.ParseException;
+import wanted.model.loan.LoanDate;
 
 /**
  * Parser to parse repay command
@@ -21,13 +23,13 @@ public class RepayCommandParser implements Parser<RepayCommand> {
     public RepayCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT);
+                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DATE);
 
-        if (argMultimap.getValue(PREFIX_AMOUNT).isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_AMOUNT, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepayCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_AMOUNT);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_AMOUNT, PREFIX_DATE);
 
         Index index;
         try {
@@ -36,7 +38,8 @@ public class RepayCommandParser implements Parser<RepayCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepayCommand.MESSAGE_USAGE), pe);
         }
         MoneyInt returnedAmount = ParserUtil.parseMoneyAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        LoanDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
-        return new RepayCommand(index, returnedAmount);
+        return new RepayCommand(index, returnedAmount, date);
     }
 }

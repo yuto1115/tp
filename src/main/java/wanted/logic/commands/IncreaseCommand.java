@@ -11,6 +11,7 @@ import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
 
 /**
  * Increases the value of an existing loan
@@ -31,16 +32,19 @@ public class IncreaseCommand extends Command {
 
     private final Index index;
     private final MoneyInt amount;
+    private final LoanDate date;
 
     /**
      * Creates a {@code IncreaseCommand} object
      * @param targetIndex the index of a person
      * @param increaseAmount the amount their loan increases
+     * @param date           date of the transaction
      */
-    public IncreaseCommand(Index targetIndex, MoneyInt increaseAmount) {
-        requireAllNonNull(targetIndex, increaseAmount);
+    public IncreaseCommand(Index targetIndex, MoneyInt increaseAmount, LoanDate date) {
+        requireAllNonNull(targetIndex, increaseAmount, date);
         this.index = targetIndex;
         this.amount = increaseAmount;
+        this.date = date;
     }
 
     @Override
@@ -54,7 +58,7 @@ public class IncreaseCommand extends Command {
         }
 
         Loan loanIdentified = lastShownList.get(index.getZeroBased());
-        Loan newLoan = loanIdentified.loanAmount(this.amount);
+        Loan newLoan = loanIdentified.addLoan(this.amount, this.date);
         model.setPerson(loanIdentified, newLoan);
 
         return new CommandResult(String.format(MESSAGE_INCREASE_SUCCESS, Messages.format(newLoan)));

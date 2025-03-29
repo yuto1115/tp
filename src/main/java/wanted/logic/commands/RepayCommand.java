@@ -1,6 +1,7 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static wanted.commons.util.CollectionUtil.requireAllNonNull;
 import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
+import wanted.model.loan.exceptions.ExcessRepaymentException;
 
 /**
  * Repay a loan identified using its displayed index, with particular amount return
@@ -20,7 +23,7 @@ public class RepayCommand extends Command {
     public static final String MESSAGE_REPAID_SUCCESS = "Loan successfully updated: %1$s";
     public static final String MESSAGE_REPAID_ALL_SUCCESS = "Loan successfully repaid entirely: %1$s";
     public static final String MESSAGE_EXCEED_AMOUNT_RETURNED =
-            "Amount returned should be less than or equal current amount of loan";
+            "Amount repaid should be less than or equal to the current amount of loan";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             +
             ": Repay the loan identified by the index number used in the displayed loan list, with an amount to repay."
@@ -32,15 +35,19 @@ public class RepayCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "10.00";
     private final Index targetIndex;
     private final MoneyInt returnedAmount;
+    private final LoanDate date;
 
     /**
-     * Constructor for RepayCommand     *
+     * Constructor for RepayCommand
      * @param targetIndex    index of loan to repay
      * @param amountReturned returned amount
+     * @param date           date of the transaction
      */
-    public RepayCommand(Index targetIndex, MoneyInt amountReturned) {
+    public RepayCommand(Index targetIndex, MoneyInt amountReturned, LoanDate date) {
+        requireAllNonNull(targetIndex, amountReturned, date);
         this.targetIndex = targetIndex;
         this.returnedAmount = amountReturned;
+        this.date = date;
     }
 
     @Override
@@ -53,14 +60,19 @@ public class RepayCommand extends Command {
         }
 
         Loan loanToRepay = lastShownList.get(targetIndex.getZeroBased());
-        Loan newLoan = loanToRepay.repayAmount(this.returnedAmount);
+        Loan newLoan;
+        try {
+            newLoan = loanToRepay.repayLoan(this.returnedAmount, this.date);
+        } catch (ExcessRepaymentException e) {
+            throw new CommandException(MESSAGE_EXCEED_AMOUNT_RETURNED);
+        }
         model.setPerson(loanToRepay, newLoan);
 
         /*
         If current amount value equals to amount returned values, then repay the loan entirely
          */
         if (newLoan.getAmount().isRepaid()) {
-            return new CommandResult(String.format(MESSAGE_REPAID_ALL_SUCCESS, Messages.format(loanToRepay)));
+            return new CommandResult(String.format(MESSAGE_REPAID_ALL_SUCCESS, Messages.format(newLoan)));
         }
         return new CommandResult(String.format(MESSAGE_REPAID_SUCCESS, Messages.format(newLoan)));
     }
