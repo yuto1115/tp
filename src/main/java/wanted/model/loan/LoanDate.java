@@ -14,7 +14,7 @@ public class LoanDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Date value should be in a string format and contain the day, month, and year.";
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * There should be 3 alphanumeric inputs to simulate Day-Month-Year
      * To be updated with the addition of a datetime object
