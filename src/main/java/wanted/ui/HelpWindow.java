@@ -1,5 +1,9 @@
 package wanted.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -98,5 +102,14 @@ public class HelpWindow extends UiPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
+    }
+
+    @FXML
+    private void openWebpage() {
+        try {
+            Desktop.getDesktop().browse(new URL(USERGUIDE_URL).toURI());
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
