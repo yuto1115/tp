@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -19,7 +19,7 @@
         <URL value="@HelpWindow.css" />
       </stylesheets>
 
-      <HBox alignment="CENTER" fx:id="helpMessageContainer">
+      <HBox fx:id="helpMessageContainer" alignment="CENTER">
         <children>
           <Label fx:id="helpMessage" text="Label">
             <HBox.margin>
@@ -31,6 +31,7 @@
               <Insets left="5.0" />
             </HBox.margin>
           </Button>
+               <Button fx:id="browserButton" mnemonicParsing="false" onAction="#openWebpage" text="Open in Browser" />
         </children>
         <opaqueInsets>
           <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
