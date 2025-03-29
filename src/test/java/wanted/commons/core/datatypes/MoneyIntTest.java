@@ -18,7 +18,7 @@ public class MoneyIntTest {
     }
 
     @Test
-    public void fromDollarAndCent_validInput_success() throws IllegalValueException {
+    public void fromDollarAndCent_validInput_success() {
         assertEquals(0, MoneyInt.fromDollarAndCent(0, 0).getValueTimesOneHundred());
         assertEquals(99, MoneyInt.fromDollarAndCent(0, 99).getValueTimesOneHundred());
         assertEquals(1000, MoneyInt.fromDollarAndCent(10, 0).getValueTimesOneHundred());
@@ -27,7 +27,7 @@ public class MoneyIntTest {
     }
 
     @Test
-    public void getStringRepresentationWithFixedDecimalPoint() throws IllegalArgumentException {
+    public void getStringRepresentationWithFixedDecimalPoint() {
         assertEquals("0.00",
                 MoneyInt.fromDollarAndCent(0, 0).getStringRepresentationWithFixedDecimalPoint());
         assertEquals("0.99",
@@ -41,7 +41,7 @@ public class MoneyIntTest {
     }
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         final MoneyInt moneyInt = MoneyInt.fromDollarAndCent(12, 34);
 
         // same values -> returns true
@@ -62,7 +62,7 @@ public class MoneyIntTest {
     }
 
     @Test
-    public void toStringMethod() throws Exception {
+    public void toStringMethod() {
         MoneyInt moneyInt = MoneyInt.fromDollarAndCent(12, 34);
         String expected = MoneyInt.class.getCanonicalName()
                 + "{valueTimesOneHundred=" + moneyInt.getValueTimesOneHundred() + "}";
@@ -70,7 +70,7 @@ public class MoneyIntTest {
     }
 
     @Test
-    public void compareToMethod() throws Exception {
+    public void compareToMethod() {
         MoneyInt moneyInt = MoneyInt.fromDollarAndCent(12, 34);
         MoneyInt less = MoneyInt.fromDollarAndCent(12, 0);
         MoneyInt greater = MoneyInt.fromDollarAndCent(12, 99);
