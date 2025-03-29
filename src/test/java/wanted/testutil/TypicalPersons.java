@@ -1,7 +1,5 @@
 package wanted.testutil;
 
-import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
-import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;

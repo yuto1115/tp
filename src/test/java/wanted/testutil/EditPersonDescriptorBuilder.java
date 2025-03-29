@@ -44,10 +44,9 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Amount} of the {@code EditPersonDescriptor} that we are building.
-     */
     /*
+   /**
+    * Sets the {@code Amount} of the {@code EditPersonDescriptor} that we are building.
     public EditPersonDescriptorBuilder withAmount(String amount) {
         descriptor.setAmount(new LoanAmount(amount));
         return this;

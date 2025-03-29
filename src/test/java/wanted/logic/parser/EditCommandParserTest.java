@@ -13,7 +13,6 @@ import static wanted.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static wanted.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static wanted.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
 import static wanted.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;

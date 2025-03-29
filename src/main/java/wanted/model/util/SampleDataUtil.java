@@ -17,24 +17,24 @@ import wanted.model.tag.Tag;
 public class SampleDataUtil {
     public static Loan[] getSamplePersons() {
         return new Loan[]{
-                new Loan(new Name("Alex Yeoh"),
-                        new LoanAmount(),
-                        getTagSet("friends")),
-                new Loan(new Name("Bernice Yu"),
-                        new LoanAmount(),
-                        getTagSet("colleagues", "friends")),
-                new Loan(new Name("Charlotte Oliveiro"),
-                        new LoanAmount(),
-                        getTagSet("neighbours")),
-                new Loan(new Name("David Li"),
-                        new LoanAmount(),
-                        getTagSet("family")),
-                new Loan(new Name("Irfan Ibrahim"),
-                        new LoanAmount(),
-                        getTagSet("classmates")),
-                new Loan(new Name("Roy Balakrishnan"),
-                        new LoanAmount(),
-                        getTagSet("colleagues"))
+            new Loan(new Name("Alex Yeoh"),
+                    new LoanAmount(),
+                    getTagSet("friends")),
+            new Loan(new Name("Bernice Yu"),
+                    new LoanAmount(),
+                    getTagSet("colleagues", "friends")),
+            new Loan(new Name("Charlotte Oliveiro"),
+                    new LoanAmount(),
+                    getTagSet("neighbours")),
+            new Loan(new Name("David Li"),
+                    new LoanAmount(),
+                    getTagSet("family")),
+            new Loan(new Name("Irfan Ibrahim"),
+                    new LoanAmount(),
+                    getTagSet("classmates")),
+            new Loan(new Name("Roy Balakrishnan"),
+                    new LoanAmount(),
+                    getTagSet("colleagues"))
         };
     }
 

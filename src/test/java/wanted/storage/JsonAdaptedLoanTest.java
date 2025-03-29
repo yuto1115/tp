@@ -1,7 +1,6 @@
 package wanted.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalPersons.BENSON;
 
 import java.util.List;

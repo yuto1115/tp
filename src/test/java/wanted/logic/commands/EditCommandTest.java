@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.commands.CommandTestUtil.DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.DESC_BOB;
-import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
