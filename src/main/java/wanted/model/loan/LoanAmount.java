@@ -4,9 +4,7 @@ import static wanted.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 
-import wanted.commons.core.datatypes.Index;
 import wanted.commons.core.datatypes.MoneyInt;
-import wanted.commons.util.AppUtil;
 import wanted.commons.util.ToStringBuilder;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.loan.transaction.LoanTransaction;
@@ -33,6 +31,9 @@ public class LoanAmount implements Comparable<LoanAmount> {
     /**
      * Constructs a new LoanAmount with the given transaction history.
      * Total amount and remaining amount are calculated internally using the given history.
+     * <p>
+     * The given {@code ArrayList<LoanTransaction>} array is copied internally to prevent the caller
+     * of this constructor from modifying the array and also modifying this object unintentionally.
      *
      * @throws ExcessRepaymentException If the loan balance gets negative at any point of time.
      */
@@ -48,7 +49,8 @@ public class LoanAmount implements Comparable<LoanAmount> {
 
         this.totalAmount = totalAmount;
         this.remainingAmount = remainingAmount;
-        this.transactionHistory = transactionHistory;
+        this.transactionHistory = new ArrayList<>();
+        this.transactionHistory.addAll(transactionHistory);
     }
 
     /**
@@ -66,21 +68,16 @@ public class LoanAmount implements Comparable<LoanAmount> {
     }
 
     /**
-     * Returns the number of transactions performed.
+     * Returns a copy of the transaction history.
+     * <p>
+     * The original transaction history object should not be revealed as it can let other objects modify
+     * the transaction history of this LoanAmount.
+     * Note that LoanTransaction objects themselves need not be copied since they are truly immutable.
      */
-    public int getTransactionsCount() {
-        return this.transactionHistory.size();
-    }
-
-    /**
-     * Returns the transaction at the given index of the history.
-     * There should not be a getter method for the entire transaction history (i.e. {@code List<LoanTransaction>})
-     * as it can let other objects modify the transaction history of this object.
-     */
-    public LoanTransaction getTransaction(Index index) {
-        AppUtil.checkArgument(0 <= index.getZeroBased() && index.getZeroBased() < transactionHistory.size(),
-                "Index out of bounds");
-        return transactionHistory.get(index.getZeroBased());
+    public ArrayList<LoanTransaction> getTransactionHistoryCopy() {
+        ArrayList<LoanTransaction> copiedTransactionHistory = new ArrayList<>();
+        copiedTransactionHistory.addAll(this.transactionHistory);
+        return copiedTransactionHistory;
     }
 
     /**
@@ -89,8 +86,7 @@ public class LoanAmount implements Comparable<LoanAmount> {
     public LoanAmount appendTransaction(LoanTransaction transaction) throws ExcessRepaymentException {
         requireAllNonNull(transaction);
 
-        @SuppressWarnings("unchecked") ArrayList<LoanTransaction> newTransactionHistory =
-                (ArrayList<LoanTransaction>) this.transactionHistory.clone();
+        ArrayList<LoanTransaction> newTransactionHistory = this.getTransactionHistoryCopy();
         newTransactionHistory.add(transaction);
 
         return new LoanAmount(newTransactionHistory);

@@ -27,7 +27,7 @@ public class LoanAmountTest {
 
             assertEquals(MoneyInt.fromCent(0), loanAmount.getTotalAmount());
             assertEquals(MoneyInt.fromCent(0), loanAmount.getRemainingAmount());
-            assertEquals(0, loanAmount.getTransactionsCount());
+            assertEquals(0, loanAmount.getTransactionHistoryCopy().size());
         }
         {
             LoanAmount loanAmount = new LoanAmount(new ArrayList<>(Arrays.asList(
@@ -38,7 +38,20 @@ public class LoanAmountTest {
 
             assertEquals(MoneyInt.fromCent(1500), loanAmount.getTotalAmount());
             assertEquals(MoneyInt.fromCent(250), loanAmount.getRemainingAmount());
-            assertEquals(3, loanAmount.getTransactionsCount());
+            assertEquals(3, loanAmount.getTransactionHistoryCopy().size());
+        }
+        // After passing a list to the constructor, modifications on the list on the caller side should not
+        // affect the created LoanAmount object.
+        {
+            ArrayList<LoanTransaction> transactions = new ArrayList<>(Arrays.asList(
+                    new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+                    new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
+                    new RepayLoanTransaction(MoneyInt.fromCent(1250), new LoanDate("3rd Jan 2024"))
+            ));
+            LoanAmount loanAmount = new LoanAmount(transactions);
+            transactions.clear();
+
+            assertEquals(3, loanAmount.getTransactionHistoryCopy().size());
         }
     }
 
@@ -70,45 +83,41 @@ public class LoanAmountTest {
     }
 
     @Test
-    public void getTransaction() {
+    public void getTransactionListCopy() {
         LoanAmount loanAmount = TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_NOT_FULLY_REPAID;
 
-        assertEquals(5, loanAmount.getTransactionsCount());
+        ArrayList<LoanTransaction> transactions = loanAmount.getTransactionHistoryCopy();
 
-        // Valid index
+        assertEquals(5, transactions.size());
+
         assertEquals(new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
-                loanAmount.getTransaction(Index.fromZeroBased(0)));
+                transactions.get(0));
         assertEquals(new RepayLoanTransaction(MoneyInt.fromCent(1500), new LoanDate("3rd Jan 2024")),
-                loanAmount.getTransaction(Index.fromZeroBased(2)));
-        assertEquals(new RepayLoanTransaction(MoneyInt.fromCent(8234), new LoanDate("31th Dec 2025")),
-                loanAmount.getTransaction(Index.fromZeroBased(4)));
+                transactions.get(2));
 
-        // Invalid index
-        assertThrows(IllegalArgumentException.class, "Index out of bounds", () ->
-                loanAmount.getTransaction(Index.fromZeroBased(5)));
+        // modifying the returned list should not affect the original LoanAmount
+        transactions.set(4, new AddLoanTransaction(MoneyInt.fromCent(0), new LoanDate("1st Jan 2024")));
+
+        assertEquals(new RepayLoanTransaction(MoneyInt.fromCent(8234), new LoanDate("31th Dec 2025")),
+                loanAmount.getTransactionHistoryCopy().get(4));
     }
 
     @Test
     public void appendTransaction_success() throws Exception {
-        LoanAmount originalLoanAmount = new LoanAmount(new ArrayList<>(List.of(
-                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")))));
-        LoanTransaction transaction1 = new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024"));
-        LoanTransaction transaction2 = new RepayLoanTransaction(MoneyInt.fromCent(1200), new LoanDate("3rd Jan 2024"));
+        LoanTransaction transaction1 = new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024"));
+        LoanTransaction transaction2 = new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024"));
+        LoanTransaction transaction3 = new RepayLoanTransaction(MoneyInt.fromCent(1200), new LoanDate("3rd Jan 2024"));
+        LoanAmount originalLoanAmount = new LoanAmount(new ArrayList<>(List.of(transaction1)));
         LoanAmount newLoanAmount = originalLoanAmount
-                .appendTransaction(transaction1)
-                .appendTransaction(transaction2);
+                .appendTransaction(transaction2)
+                .appendTransaction(transaction3);
 
         // new transactions should be appended at the back of the history
-        assertEquals(3, newLoanAmount.getTransactionsCount());
-        assertEquals(new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
-                newLoanAmount.getTransaction(Index.fromZeroBased(0)));
-        assertEquals(transaction1, newLoanAmount.getTransaction(Index.fromZeroBased(1)));
-        assertEquals(transaction2, newLoanAmount.getTransaction(Index.fromZeroBased(2)));
+        assertEquals(new ArrayList<>(List.of(transaction1, transaction2, transaction3)),
+                newLoanAmount.getTransactionHistoryCopy());
 
-        // original LoanAmount should remains unchanged
-        assertEquals(1, originalLoanAmount.getTransactionsCount());
-        assertEquals(new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
-                originalLoanAmount.getTransaction(Index.fromZeroBased(0)));
+        // original LoanAmount should remain unchanged
+        assertEquals(new ArrayList<>(List.of(transaction1)), originalLoanAmount.getTransactionHistoryCopy());
     }
 
     @Test
