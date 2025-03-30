@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import wanted.commons.core.datatypes.Index;
 import wanted.commons.core.datatypes.MoneyInt;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.loan.transaction.AddLoanTransaction;
