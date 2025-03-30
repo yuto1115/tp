@@ -67,7 +67,7 @@ public class AddressBookTest {
         assertTrue(addressBook.hasPerson(ALICE));
     }
 
-    //TODO: hashasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue should be updated
+    //TODO: Person_personWithSameIdentityFieldsInAddressBook_returnsTrue should be updated
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);

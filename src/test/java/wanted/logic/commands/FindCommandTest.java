@@ -3,6 +3,7 @@ package wanted.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static wanted.testutil.TypicalPersons.CARL;
@@ -22,6 +23,7 @@ import wanted.model.loan.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * This command is disabled in the MVP
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -56,6 +58,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
+        assumeTrue(FindCommand.IS_ENABLED);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
@@ -66,6 +69,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
+        assumeTrue(FindCommand.IS_ENABLED);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
@@ -76,6 +80,7 @@ public class FindCommandTest {
 
     @Test
     public void toStringMethod() {
+        assumeTrue(FindCommand.IS_ENABLED);
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
         FindCommand findCommand = new FindCommand(predicate);
         String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";

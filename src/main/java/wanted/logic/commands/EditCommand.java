@@ -31,6 +31,8 @@ import wanted.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
+    public static final boolean IS_ENABLED = false;
+
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the loan identified "
@@ -96,10 +98,8 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(loanToEdit.getName());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(loanToEdit.getTags());
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(loanToEdit.getAmount());
-        LoanDate updatedDate = editPersonDescriptor.getDate().orElse(loanToEdit.getLoanDate());
 
-
-        return new Loan(updatedName, updatedAmount, updatedDate, updatedTags);
+        return new Loan(updatedName, updatedAmount, updatedTags);
     }
 
     @Override

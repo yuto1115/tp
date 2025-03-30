@@ -19,7 +19,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a loan to the loan book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a loan to the loan book.\n"
             //update here as well
             + "Parameters: "
             + PREFIX_NAME + "NAME "
@@ -28,8 +28,8 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_AMOUNT + "50.00"
-            + PREFIX_DATE + "10th August 2024"
+            + PREFIX_AMOUNT + "50.00 "
+            + PREFIX_DATE + "10th August 2024 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 

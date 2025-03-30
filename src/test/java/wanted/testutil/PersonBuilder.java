@@ -40,7 +40,6 @@ public class PersonBuilder {
     public PersonBuilder(Loan personToCopy) {
         name = personToCopy.getName();
         amount = personToCopy.getAmount();
-        loanDate = personToCopy.getLoanDate();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -77,7 +76,7 @@ public class PersonBuilder {
     }
 
     public Loan build() {
-        return new Loan(name, amount, loanDate, tags);
+        return new Loan(name, amount, tags);
     }
 
 }
