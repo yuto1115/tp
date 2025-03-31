@@ -3,9 +3,8 @@ package wanted.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
-import wanted.model.loan.LoanDate;
+import wanted.model.loan.LoanAmount;
 import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
 import wanted.model.util.SampleDataUtil;
@@ -16,13 +15,10 @@ import wanted.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
-    private static final String DEFAULT_AMOUNT = "10.10";
-    private static final String DEFAULT_DATE = "24th December 2024";
 
     private Name name;
     private Set<Tag> tags;
-    private Amount amount;
-    private LoanDate loanDate;
+    private LoanAmount loanAmount;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -30,8 +26,7 @@ public class PersonBuilder {
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         tags = new HashSet<>();
-        amount = new Amount(DEFAULT_AMOUNT);
-        loanDate = new LoanDate(DEFAULT_DATE);
+        loanAmount = new LoanAmount();
     }
 
     /**
@@ -39,7 +34,7 @@ public class PersonBuilder {
      */
     public PersonBuilder(Loan personToCopy) {
         name = personToCopy.getName();
-        amount = personToCopy.getAmount();
+        loanAmount = personToCopy.getLoanAmount();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -62,21 +57,13 @@ public class PersonBuilder {
     /**
      * Sets the {@code Amount} of the {@code Loan} that we are building.
      */
-    public PersonBuilder withAmount(String amount) {
-        this.amount = new Amount(amount);
-        return this;
-    }
-
-    /**
-     * Sets the {@code LoanDate} of the {@code Loan} that we are building.
-     */
-    public PersonBuilder withLoanDate(String date) {
-        this.loanDate = new LoanDate(date);
+    public PersonBuilder withAmount(LoanAmount loanAmount) {
+        this.loanAmount = loanAmount;
         return this;
     }
 
     public Loan build() {
-        return new Loan(name, amount, tags);
+        return new Loan(name, loanAmount, tags);
     }
 
 }

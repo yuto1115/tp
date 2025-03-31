@@ -1,18 +1,16 @@
 package wanted.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import wanted.logic.commands.AddCommand;
 import wanted.logic.parser.exceptions.ParseException;
-import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanAmount;
 import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
 
@@ -27,30 +25,20 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME);
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Loan person = new Loan(name, amount, tagList);
-
-        return new AddCommand(person);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return new AddCommand(new Loan(name, new LoanAmount(), tagList));
     }
 
 }

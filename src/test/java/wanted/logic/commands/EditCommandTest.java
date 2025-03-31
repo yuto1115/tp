@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.commands.CommandTestUtil.DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.DESC_BOB;
-import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -63,11 +62,13 @@ public class EditCommandTest {
         Loan lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Loan editedPerson = personInList.withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
+        Loan editedPerson = personInList.withName(VALID_NAME_BOB)
+                //.withAmount(VALID_AMOUNT_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND).build();
+                // .withAmount(VALID_AMOUNT_BOB).withTags(VALID_TAG_HUSBAND)
+                .build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));

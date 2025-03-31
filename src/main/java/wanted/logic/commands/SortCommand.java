@@ -22,7 +22,7 @@ public class SortCommand extends Command {
         ObservableList<Loan> oldList = loanBook.getPersonList();
         Comparator<Loan> comparator =
                 Comparator.nullsLast(Comparator.comparingInt(a -> (
-                        -a.getAmount().remainingValue.getValueTimesOneHundred())));
+                        -a.getLoanAmount().getRemainingAmount().getValueTimesOneHundred())));
         List<Loan> sortedList = oldList.sorted(comparator);
         loanBook.setPersons(sortedList);
         return new CommandResult(String.format(MESSAGE_SUCCESS));

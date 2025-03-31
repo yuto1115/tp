@@ -47,7 +47,8 @@ public class LoanCard extends UiPart<Region> {
         this.loan = loan;
         id.setText(displayedIndex + ". ");
         name.setText(loan.getName().fullName);
-        amount.setText("Loan Amount: " + loan.getAmount().toString());
+        amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
+                .getStringRepresentationWithFixedDecimalPoint());
         // date.setText("Loan Date: " + loan.getLoanDate().toString());
         // Sort tags alphabetically and display them
         loan.getTags().stream()

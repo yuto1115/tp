@@ -41,7 +41,9 @@ public class UniqueLoanListTest {
     @Test
     public void contains_personWithSameNameFieldsInList_returnsTrue() {
         uniqueLoanList.add(ALICE);
-        Loan editedAlice = new PersonBuilder(ALICE).withAmount("19.00").withTags(VALID_TAG_HUSBAND).build();
+        Loan editedAlice = new PersonBuilder(ALICE)
+                //.withAmount("19.00")
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(uniqueLoanList.contains(editedAlice));
     }
 

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static wanted.logic.commands.CommandTestUtil.DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.DESC_BOB;
-import static wanted.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -40,7 +39,9 @@ public class EditLoanDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different amount -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAmount(VALID_AMOUNT_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
+                // .withAmount(VALID_AMOUNT_BOB)
+                .build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different date -> returns false

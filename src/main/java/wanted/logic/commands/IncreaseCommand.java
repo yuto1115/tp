@@ -10,8 +10,8 @@ import wanted.commons.core.datatypes.MoneyInt;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
-import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
 
 /**
  * Increases the value of an existing loan
@@ -31,17 +31,20 @@ public class IncreaseCommand extends Command {
 
 
     private final Index index;
-    private final Amount amount;
+    private final MoneyInt amount;
+    private final LoanDate date;
 
     /**
      * Creates a {@code IncreaseCommand} object
      * @param targetIndex the index of a person
      * @param increaseAmount the amount their loan increases
+     * @param date           date of the transaction
      */
-    public IncreaseCommand(Index targetIndex, Amount increaseAmount) {
-        requireAllNonNull(targetIndex, increaseAmount);
+    public IncreaseCommand(Index targetIndex, MoneyInt increaseAmount, LoanDate date) {
+        requireAllNonNull(targetIndex, increaseAmount, date);
         this.index = targetIndex;
         this.amount = increaseAmount;
+        this.date = date;
     }
 
     @Override
@@ -54,39 +57,11 @@ public class IncreaseCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Loan personIdentified = lastShownList.get(index.getZeroBased());
-
-        Loan newLoan = createUpdatedLoan(personIdentified);
-        model.setPerson(personIdentified, newLoan);
+        Loan loanIdentified = lastShownList.get(index.getZeroBased());
+        Loan newLoan = loanIdentified.addLoan(this.amount, this.date);
+        model.setPerson(loanIdentified, newLoan);
 
         return new CommandResult(String.format(MESSAGE_INCREASE_SUCCESS, Messages.format(newLoan)));
-    }
-
-    /**
-     * Creates a new {@code Loan} with the updated amount value
-     * @param loanToIncrease old loan
-     * @return updated loan
-     * @throws CommandException handle invalid case
-     */
-    private Loan createUpdatedLoan(Loan loanToIncrease) throws CommandException {
-        Amount updatedAmount = getUpdatedAmount(loanToIncrease);
-        return new Loan(loanToIncrease.getName(), updatedAmount, loanToIncrease.getTags());
-    }
-
-    /**
-     * get updated amount
-     *
-     * @param loanToIncrease old loan
-     * @return updated amount
-     * @throws CommandException exception for invalid case
-     */
-    private Amount getUpdatedAmount(Loan loanToIncrease) throws CommandException {
-        Amount currentAmount = loanToIncrease.getAmount();
-        int amountAddedTimesOneHundred = this.amount.remainingValue.getValueTimesOneHundred();
-        int currentAmountValueTimesOneHundred = currentAmount.remainingValue.getValueTimesOneHundred();
-
-        MoneyInt updatedAmountValue = MoneyInt.fromCent(currentAmountValueTimesOneHundred + amountAddedTimesOneHundred);
-        return new Amount(loanToIncrease.getAmount().totalValue, updatedAmountValue);
     }
 
     @Override

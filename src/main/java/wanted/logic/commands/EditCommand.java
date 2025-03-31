@@ -20,8 +20,8 @@ import wanted.commons.util.ToStringBuilder;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
-import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanAmount;
 import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
 import wanted.model.tag.Tag;
@@ -56,7 +56,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the loan in the filtered loan list to edit
+     * @param index                of the loan in the filtered loan list to edit
      * @param editPersonDescriptor details to edit the loan with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -97,7 +97,7 @@ public class EditCommand extends Command {
 
         Name updatedName = editPersonDescriptor.getName().orElse(loanToEdit.getName());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(loanToEdit.getTags());
-        Amount updatedAmount = editPersonDescriptor.getAmount().orElse(loanToEdit.getAmount());
+        LoanAmount updatedAmount = editPersonDescriptor.getAmount().orElse(loanToEdit.getLoanAmount());
 
         return new Loan(updatedName, updatedAmount, updatedTags);
     }
@@ -133,10 +133,11 @@ public class EditCommand extends Command {
     public static class EditPersonDescriptor {
         private Name name;
         private Set<Tag> tags;
-        private Amount amount;
+        private LoanAmount loanAmount;
         private LoanDate date;
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -145,7 +146,7 @@ public class EditCommand extends Command {
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setTags(toCopy.tags);
-            setAmount(toCopy.amount);
+            setAmount(toCopy.loanAmount);
             setDate(toCopy.date);
         }
 
@@ -153,7 +154,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, tags, amount, date);
+            return CollectionUtil.isAnyNonNull(name, tags, loanAmount, date);
         }
 
         public void setName(Name name) {
@@ -164,12 +165,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setAmount(Amount amount) {
-            this.amount = amount;
+        public void setAmount(LoanAmount loanAmount) {
+            this.loanAmount = loanAmount;
         }
 
-        public Optional<Amount> getAmount() {
-            return Optional.ofNullable(amount);
+        public Optional<LoanAmount> getAmount() {
+            return Optional.ofNullable(loanAmount);
         }
 
         public void setDate(LoanDate date) {
@@ -211,7 +212,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(amount, otherEditPersonDescriptor.amount)
+                    && Objects.equals(loanAmount, otherEditPersonDescriptor.loanAmount)
                     && Objects.equals(date, otherEditPersonDescriptor.date);
         }
 
@@ -220,7 +221,7 @@ public class EditCommand extends Command {
             return new ToStringBuilder(this)
                     .add("name", name)
                     .add("tags", tags)
-                    .add("amount", amount)
+                    .add("amount", loanAmount)
                     .add("date", date)
                     .toString();
         }
