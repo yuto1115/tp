@@ -16,7 +16,6 @@ import wanted.model.loan.LoanAmount;
 import wanted.model.loan.LoanDate;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.loan.transaction.AddLoanTransaction;
-import wanted.model.loan.transaction.RepayLoanTransaction;
 
 /**
  * A utility class containing a list of {@code Loan} objects to be used in tests.

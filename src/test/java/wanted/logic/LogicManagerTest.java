@@ -3,8 +3,6 @@ package wanted.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static wanted.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static wanted.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static wanted.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
-import static wanted.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalPersons.AMY;
