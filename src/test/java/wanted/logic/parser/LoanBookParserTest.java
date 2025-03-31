@@ -16,12 +16,14 @@ import org.junit.jupiter.api.Test;
 
 import wanted.logic.commands.AddCommand;
 import wanted.logic.commands.ClearCommand;
+import wanted.logic.commands.CommandTestUtil;
 import wanted.logic.commands.DeleteCommand;
 import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
 import wanted.logic.commands.ExitCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
+import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
@@ -30,9 +32,9 @@ import wanted.testutil.EditPersonDescriptorBuilder;
 import wanted.testutil.PersonBuilder;
 import wanted.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class LoanBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final LoanBookParser parser = new LoanBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -90,6 +92,13 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_increase() throws Exception {
+        assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " 1 l/10.10") instanceof IncreaseCommand);
+        assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+            + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY) instanceof IncreaseCommand);
     }
 
     @Test

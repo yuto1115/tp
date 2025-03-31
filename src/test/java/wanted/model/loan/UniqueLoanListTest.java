@@ -38,8 +38,14 @@ public class UniqueLoanListTest {
         assertTrue(uniqueLoanList.contains(ALICE));
     }
 
-    //contains_personWithSameIdentityFieldsInList_returnsTrue
-    //TODO: add new test here
+    @Test
+    public void contains_personWithSameNameFieldsInList_returnsTrue() {
+        uniqueLoanList.add(ALICE);
+        Loan editedAlice = new PersonBuilder(ALICE)
+                //.withAmount("19.00")
+                .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(uniqueLoanList.contains(editedAlice));
+    }
 
     @Test
     public void add_nullPerson_throwsNullPointerException() {

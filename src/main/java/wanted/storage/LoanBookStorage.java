@@ -16,7 +16,7 @@ public interface LoanBookStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getLoanBookFilePath();
 
     /**
      * Returns LoanBook data as a {@link ReadOnlyLoanBook}.
@@ -24,23 +24,23 @@ public interface LoanBookStorage {
      *
      * @throws DataLoadingException if loading the data from storage failed.
      */
-    Optional<ReadOnlyLoanBook> readAddressBook() throws DataLoadingException;
+    Optional<ReadOnlyLoanBook> readLoanBook() throws DataLoadingException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getLoanBookFilePath()
      */
-    Optional<ReadOnlyLoanBook> readAddressBook(Path filePath) throws DataLoadingException;
+    Optional<ReadOnlyLoanBook> readLoanBook(Path filePath) throws DataLoadingException;
 
     /**
      * Saves the given {@link ReadOnlyLoanBook} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyLoanBook addressBook) throws IOException;
+    void saveLoanBook(ReadOnlyLoanBook addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyLoanBook)
+     * @see #saveLoanBook(ReadOnlyLoanBook)
      */
-    void saveAddressBook(ReadOnlyLoanBook addressBook, Path filePath) throws IOException;
+    void saveLoanBook(ReadOnlyLoanBook addressBook, Path filePath) throws IOException;
 
 }

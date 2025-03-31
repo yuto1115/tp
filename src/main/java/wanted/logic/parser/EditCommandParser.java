@@ -56,7 +56,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            editPersonDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            // TODO: temporarily commented out to avoid compile error. Should be rewritten appropriately.
+            // editPersonDescriptor.setAmount(ParserUtil.parseMoneyAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

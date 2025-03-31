@@ -1,8 +1,6 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -20,28 +18,22 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a loan to the loan book.\n"
-            //update here as well
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_DATE + "DATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_AMOUNT + "50.00 "
-            + PREFIX_DATE + "10th August 2024 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This loan already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New loan created for: %1$s"; //add in persons name
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person has already loaned out money in the wanted list";
 
     private final Loan toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Loan}
      */
-    //refactor person --> loan here
     public AddCommand(Loan person) {
         requireNonNull(person);
         toAdd = person;

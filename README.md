@@ -1,5 +1,5 @@
-[![CI Status](https://github.com/AY2425S2-CS2103T-F11-4/tp/workflows/Java%20CI/badge.svg)]https://github.com/AY2425S2-CS2103T-F11-4/tp/actions)
-[![codecov](https://codecov.io/gh/AY2425S2-CS2103T-F11-4/tp/graph/badge.svg?token=SbojDIOfdX)](https://codecov.io/gh/AY2425S2-CS2103T-F11-4/tp)
+[![CI Status](https://github.com/AY2425S2-CS2103T-F11-4/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2425S2-CS2103T-F11-4/tp/actions)
+[![codecov](https://codecov.io/gh/AY2425S2-CS2103T-F11-4/tp/branch/master/graph/badge.svg?token=SbojDIOfdX)](https://codecov.io/gh/AY2425S2-CS2103T-F11-4/tp)
 
 ![Ui](docs/images/Ui.png)
 
@@ -19,6 +19,7 @@
   * **Repay loan**: Modify one entry from the list to represent full/partial payment of a loan. Format:` repay [ID] [amount_returned]` (E.g: `repay 2 10.00`)
   * **List command**: List all the entries from the loan list. Format: `list`
   * **Exit command**: Exit the program. Format: `exit`
+  * **Sort command**: Sort loans by amount value in descending order. Format: `sort`
 
 
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org)

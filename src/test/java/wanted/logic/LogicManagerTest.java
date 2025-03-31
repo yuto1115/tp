@@ -122,7 +122,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLoanBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -151,7 +151,7 @@ public class LogicManagerTest {
         // Inject LogicManager with an LoanBookStorage that throws the IOException e when saving
         JsonLoanBookStorage addressBookStorage = new JsonLoanBookStorage(prefPath) {
             @Override
-            public void saveAddressBook(ReadOnlyLoanBook addressBook, Path filePath)
+            public void saveLoanBook(ReadOnlyLoanBook addressBook, Path filePath)
                     throws IOException {
                 throw e;
             }

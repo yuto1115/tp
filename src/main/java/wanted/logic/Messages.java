@@ -37,8 +37,10 @@ public class Messages {
     public static String format(Loan person) {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
-                .append("; Amount: ")
-                .append(person.getAmount())
+                .append("; Total Amount: ")
+                .append(person.getLoanAmount().getTotalAmount().getStringRepresentationWithFixedDecimalPoint())
+                .append("; Remaining Amount: ")
+                .append(person.getLoanAmount().getRemainingAmount().getStringRepresentationWithFixedDecimalPoint())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();

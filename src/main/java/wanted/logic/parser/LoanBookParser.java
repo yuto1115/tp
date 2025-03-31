@@ -16,20 +16,22 @@ import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.ExitCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
+import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
 import wanted.logic.commands.RepayCommand;
+import wanted.logic.commands.SortCommand;
 import wanted.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class LoanBookParser {
 
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
+    private static final Logger logger = LogsCenter.getLogger(LoanBookParser.class);
 
     /**
      * Parses user input into command for execution.
@@ -78,8 +80,14 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case IncreaseCommand.COMMAND_WORD:
+            return new IncreaseCommandParser().parse(arguments);
+
         case RepayCommand.COMMAND_WORD:
             return new RepayCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

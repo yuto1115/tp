@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
-import wanted.model.loan.Amount;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
@@ -33,7 +32,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Loan person) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
-        descriptor.setAmount(person.getAmount());
+        descriptor.setAmount(person.getLoanAmount());
         descriptor.setTags(person.getTags());
     }
 
@@ -44,13 +43,15 @@ public class EditPersonDescriptorBuilder {
         descriptor.setName(new Name(name));
         return this;
     }
-    /**
-     * Sets the {@code Amount} of the {@code EditPersonDescriptor} that we are building.
-     */
+
+    /*
+   /**
+    * Sets the {@code Amount} of the {@code EditPersonDescriptor} that we are building.
     public EditPersonDescriptorBuilder withAmount(String amount) {
-        descriptor.setAmount(new Amount(amount));
+        descriptor.setAmount(new LoanAmount(amount));
         return this;
     }
+     */
 
     /**
      * Sets the {@code LoanDate} of the {@code EditPersonDescriptor} that we are building.

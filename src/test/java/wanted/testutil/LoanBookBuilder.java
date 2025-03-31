@@ -8,27 +8,27 @@ import wanted.model.loan.Loan;
  * Example usage: <br>
  *     {@code LoanBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class LoanBookBuilder {
 
-    private LoanBook addressBook;
+    private LoanBook loanBook;
 
-    public AddressBookBuilder() {
-        addressBook = new LoanBook();
+    public LoanBookBuilder() {
+        loanBook = new LoanBook();
     }
 
-    public AddressBookBuilder(LoanBook addressBook) {
-        this.addressBook = addressBook;
+    public LoanBookBuilder(LoanBook loanBook) {
+        this.loanBook = loanBook;
     } //?
 
     /**
      * Adds a new {@code Loan} to the {@code LoanBook} that we are building.
      */
-    public AddressBookBuilder withPerson(Loan person) {
-        addressBook.addPerson(person);
+    public LoanBookBuilder withPerson(Loan person) {
+        loanBook.addPerson(person);
         return this;
     }
 
     public LoanBook build() {
-        return addressBook;
+        return loanBook;
     }
 }

@@ -56,11 +56,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAmount(VALID_AMOUNT_AMY)
+                // .withAmount(VALID_AMOUNT_AMY)
                 .withLoanDate(VALID_DATE_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAmount(VALID_AMOUNT_BOB)
+                // .withAmount(VALID_AMOUNT_BOB)
                 .withLoanDate(VALID_DATE_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
@@ -100,11 +100,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        LoanBook expectedAddressBook = new LoanBook(actualModel.getAddressBook());
+        LoanBook expectedAddressBook = new LoanBook(actualModel.getLoanBook());
         List<Loan> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedAddressBook, actualModel.getLoanBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
     /**
