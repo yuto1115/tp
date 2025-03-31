@@ -9,61 +9,74 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import wanted.commons.core.datatypes.MoneyInt;
 import wanted.model.LoanBook;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanAmount;
+import wanted.model.loan.LoanDate;
+import wanted.model.loan.exceptions.ExcessRepaymentException;
+import wanted.model.loan.transaction.AddLoanTransaction;
+import wanted.model.loan.transaction.RepayLoanTransaction;
 
 /**
  * A utility class containing a list of {@code Loan} objects to be used in tests.
  */
 public class TypicalPersons {
 
-    // todo: add amount for other persons
     public static final Loan ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_NOT_FULLY_REPAID)
             .withTags("friends").build();
     public static final Loan BENSON = new PersonBuilder().withName("Benson Meier")
-            //.withAmount("19.43")
-            //.withLoanDate("11th Nov 2024")
+            .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_NOT_FULLY_REPAID)
             .withTags("owesMoney", "friends").build();
     public static final Loan CARL = new PersonBuilder().withName("Carl Kurz")
-            //.withAmount("2990.23")
-            //.withLoanDate("9th Nov 2004")
+            .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_FULLY_REPAID)
             .build();
     public static final Loan DANIEL = new PersonBuilder().withName("Daniel Meier")
-            //.withAmount("178.23")
-            //.withLoanDate("13th Jan 2024")
+            .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_FULLY_REPAID)
             .withTags("friends").build();
     public static final Loan ELLE = new PersonBuilder().withName("Elle Meyer")
-            //.withAmount("132.23")
-            //.withLoanDate("18th Feb 2024")
+            .withAmount(TypicalLoanAmount.EMPTY_LOAN_AMOUNT)
             .build();
-    public static final Loan FIONA = new PersonBuilder().withName("Fiona Kunz")
-            //.withAmount("0.23")
-            //.withLoanDate("13th March 2025")
-            .build();
-    public static final Loan GEORGE = new PersonBuilder().withName("George Best")
-            //.withAmount("9.23")
-            //.withLoanDate("19th July 2024")
-            .build();
+    public static final Loan FIONA;
+
+    static {
+        try {
+            FIONA = new PersonBuilder().withName("Fiona Kunz")
+                    .withAmount(new LoanAmount(new ArrayList<>(List.of(
+                            new AddLoanTransaction(MoneyInt.fromCent(23), new LoanDate("13th March 2025"))
+                    ))))
+                    .build();
+        } catch (ExcessRepaymentException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Manually added
-    public static final Loan HOON = new PersonBuilder().withName("Hoon Meier")
-            //.withAmount("20.00")
-            //.withLoanDate("24th January 2025")
-            .build();
-    public static final Loan IDA = new PersonBuilder().withName("Ida Mueller")
-            //.withAmount("20.00")
-            //.withLoanDate("24th January 2025")
-            .build();
+    public static final Loan HOON;
+    public static final Loan IDA;
+
+    static {
+        try {
+            HOON = new PersonBuilder().withName("Hoon Meier")
+                    .withAmount(new LoanAmount(new ArrayList<>(List.of(
+                            new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("24th January 2025"))
+                    ))))
+                    .build();
+            IDA = new PersonBuilder().withName("Ida Mueller")
+                    .withAmount(new LoanAmount(new ArrayList<>(List.of(
+                            new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("24th January 2025"))
+                    ))))
+                    .build();
+        } catch (ExcessRepaymentException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Manually added - Loan's details found in {@code CommandTestUtil}
     public static final Loan AMY = new PersonBuilder().withName(VALID_NAME_AMY)
-            //.withAmount(VALID_AMOUNT_AMY)
-            //.withLoanDate(VALID_DATE_AMY)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Loan BOB = new PersonBuilder().withName(VALID_NAME_BOB)
-            //.withAmount(VALID_AMOUNT_BOB)
-            //.withLoanDate(VALID_DATE_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
@@ -83,6 +96,6 @@ public class TypicalPersons {
     }
 
     public static List<Loan> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA));
     }
 }

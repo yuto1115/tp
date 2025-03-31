@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +12,8 @@ import wanted.commons.exceptions.IllegalValueException;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanAmount;
 import wanted.model.loan.Name;
+import wanted.model.loan.exceptions.ExcessRepaymentException;
+import wanted.model.loan.transaction.LoanTransaction;
 import wanted.model.tag.Tag;
 
 /**
@@ -21,9 +22,11 @@ import wanted.model.tag.Tag;
 class JsonAdaptedLoan {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Loan's %s field is missing!";
+    public static final String LOAN_EXCESS_REPAYMENT_MESSAGE = "Loan transactions violate the constraint that "
+            + "the remaining loan amount should never be negative.";
 
     private final String name;
-    // private final String amount;
+    private final List<JsonAdaptedLoanTransaction> transactions = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -31,10 +34,12 @@ class JsonAdaptedLoan {
      */
     @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("name") String name,
-                           // @JsonProperty("amount") String amount,
+                           @JsonProperty("amount") List<JsonAdaptedLoanTransaction> transactions,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
-        // this.amount = amount;
+        if (transactions != null) {
+            this.transactions.addAll(transactions);
+        }
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -45,11 +50,14 @@ class JsonAdaptedLoan {
      */
     public JsonAdaptedLoan(Loan source) {
         name = source.getName().fullName;
-        // amount = source.getAmount().remainingValue.getStringRepresentationWithFixedDecimalPoint();
+
+        transactions.addAll(source.getLoanAmount().getTransactionHistoryCopy().stream()
+                        .map(JsonAdaptedLoanTransaction::new)
+                        .toList());
 
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+                .toList());
     }
 
     /**
@@ -58,11 +66,6 @@ class JsonAdaptedLoan {
      * @throws IllegalValueException if there were any data constraints violated in the adapted loan.
      */
     public Loan toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tags) {
-            personTags.add(tag.toModelType());
-        }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -71,27 +74,21 @@ class JsonAdaptedLoan {
         }
         final Name modelName = new Name(name);
 
-        /*
-        if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+        final ArrayList<LoanTransaction> modelTransactions = new ArrayList<>();
+        for (JsonAdaptedLoanTransaction transaction : transactions) {
+            modelTransactions.add(transaction.toModelType());
         }
-        if (!Amount.isValidAmount(amount)) {
-            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
-        }
-        final Amount modelAmount = new Amount(amount);
 
-        if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LoanDate.class.getSimpleName()));
+        final List<Tag> personTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tags) {
+            personTags.add(tag.toModelType());
         }
-        if (!LoanDate.isValidLoanDate(date)) {
-            throw new IllegalValueException(LoanDate.MESSAGE_CONSTRAINTS);
-        }
-        final LoanDate modelLoanDate = new LoanDate(date);
-        */
-
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        // return new Loan(modelName, modelAmount, modelTags);
-        return new Loan(modelName, new LoanAmount(), modelTags);
+
+        try {
+            return new Loan(modelName, new LoanAmount(modelTransactions), modelTags);
+        } catch (ExcessRepaymentException e) {
+            throw new IllegalValueException(LOAN_EXCESS_REPAYMENT_MESSAGE);
+        }
     }
 }

@@ -20,7 +20,7 @@ public class IncreaseCommandParserTest {
         MoneyInt amt = MoneyInt.fromDollarAndCent(10, 10);
         LoanDate date = new LoanDate(CommandTestUtil.VALID_DATE_AMY);
         String input = INDEX_FIRST_PERSON.getOneBased()
-                + " l/" + "10.00"
+                + " l/" + "10.10"
                 + " d/" + CommandTestUtil.VALID_DATE_AMY;
         assertParseSuccess(increaseCommand, input, new IncreaseCommand(INDEX_FIRST_PERSON, amt, date));
     }
