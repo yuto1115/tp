@@ -96,9 +96,11 @@ public class LoanBookParserTest {
 
     @Test
     public void parseCommand_increase() throws Exception {
-        assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " 1 l/10.10") instanceof IncreaseCommand);
+        assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD
+                + " 1 l/10.10 d/9th September 2024") instanceof IncreaseCommand);
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
-            + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY) instanceof IncreaseCommand);
+            + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY
+            + " " + " d/" + CommandTestUtil.VALID_DATE_AMY) instanceof IncreaseCommand);
     }
 
     @Test
