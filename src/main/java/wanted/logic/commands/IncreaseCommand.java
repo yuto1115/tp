@@ -27,7 +27,8 @@ public class IncreaseCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "l/ [AMOUNT]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "l/ 30.10 .";
+            + "l/ 30.10"
+            + "d/ 10th August 2024";
 
 
     private final Index index;
