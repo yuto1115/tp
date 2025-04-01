@@ -1,11 +1,17 @@
 {
   "persons": [ {
     "name": "Valid Person",
-    "amount": "10.10",
-    "date": "24th January 2025"
+    "transactions" : [ {
+      "type" : "add",
+      "amount" : "10.00",
+      "date" : "1st Jan 2024"
+    } ]
   }, {
     "name": "Person With Invalid Amount Field",
-    "amount": "10",
-    "date": "30th December 2024"
+    "transactions" : [ {
+      "type" : "add",
+      "amount" : "10.0",
+      "date" : "1st Jan 2024"
+    } ]
   } ]
 }

@@ -1,7 +1,27 @@
 {
   "persons": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
-    "amount": "10.10",
-    "date": "30th December 2024"
+    "name" : "Alice Pauline",
+    "tags" : [ "friends" ],
+    "transactions" : [ {
+      "type" : "add",
+      "amount" : "10.0",
+      "date" : "1st Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "5.00",
+      "date" : "2nd Jan 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "15.00",
+      "date" : "3rd Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "103.05",
+      "date" : "1st Feb 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "82.34",
+      "date" : "31th Dec 2025"
+    } ]
   } ]
 }
