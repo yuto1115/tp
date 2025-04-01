@@ -34,7 +34,7 @@ class JsonAdaptedLoan {
      */
     @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("name") String name,
-                           @JsonProperty("amount") List<JsonAdaptedLoanTransaction> transactions,
+                           @JsonProperty("transactions") List<JsonAdaptedLoanTransaction> transactions,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         if (transactions != null) {
