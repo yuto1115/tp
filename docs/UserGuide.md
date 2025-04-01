@@ -4,42 +4,29 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# Wanted User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+Wanted is a loan tracking application meant for personal use, for those of you who lend out money to others but find it difficult to keep track of what they owe you.
+
+This guide assumes cursory knowledge of operating a Command Line Interface (CLI). In short, almost all actions in the program are performed by typing in a command in the specified formats below and pressing the Enter key.
+
+The link to this guide can be found on the Github page or the Help window of the program.
 
 <!-- * Table of Contents -->
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## TL;DR
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+___How do I track a loan?___<br>
+Use the add command to add the loanee’s name to the list, then use the loan command to assign the amount loaned to that person’s entry.
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+___How do I track repayments?___<br>
+Use the repay command when the loanee’s entry is visible on the list.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
-
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
-
-   * `list` : Lists all contacts.
-
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
-
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-   * `clear` : Deletes all contacts.
-
-   * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
+___I can’t find the entry I want to modify.___<br>
+This is likely due to the list currently being filtered to only show a certain name. If you remember the loanee’s name, use the search command to find the loan. Otherwise, use the list or sort command to look for the entry.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -49,14 +36,14 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 **Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in square brackets and `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `add n/[NAME]`, `[NAME]` is a parameter which can be used as `add n/John Doe`.
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items in round brackets are optional.<br>
+  e.g `n/[NAME] (t/[TAG])` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `(t/[TAG]…)​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -76,43 +63,80 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a loan: `add`
+### Adding an entry: `add`
 
-Adds a loan to the address book.
+Adds a new person as a new entry to the Wanted list.<br>
+A new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
 
-Format: `add n/NAME a/AMOUNT d/DATE [t/TAG]…​`
+Format: `add n/[NAME]​`
+
+Restrictions:
+* The provided name must be unique to the list, case-sensitive.
+
+Examples:
+* `add n/John Doe`
+* `add n/Betsy Crowe`
+
+### Renaming an entry: `rename`
+
+Changes the name of the specified entry in the Wanted list.
+
+Format: `rename [ID]`
+
+### Adding/Updating tags: `tag`
+
+Overwrites the current tags on the specified entry with the tags specified in the command.
 
 <box type="tip" seamless>
-
 **Tip:** A person can have any number of tags (including 0)
 </box>
 
+Format: `tag (t/[TAG]…)`
+
+### Adding a loan: `increase`
+
+Adds a transaction indicating that the specified amount was loaned at the specified date to an entry.
+
+Format: `increase [ID] l/[LOANED AMOUNT] d/[DATE]`
+
+Restrictions:
+* Modifies the loan at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Loaned amount must be a numeric amount with 2 decimal places.
+* Date must be in the format YYYY-MM-DD.
+
+### Repay a loan: `repay`
+
+Adds a transaction indicating that the specified amount was returned at the specified date to an entry.
+
+Format: `repay [ID] l/[LOANED AMOUNT] d/[DATE]`
+
+Restrictions:
+* Modifies the loan at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Loaned amount must be a numeric amount with 2 decimal places.
+* Date must be in the format YYYY-MM-DD.
+
+### Editing a person : `edit`
+
+Edits an existing transaction history in the given entry.
+
+Format: `edit [ID] h/[HISTORY ID] a/[AMOUNT]​`
+
+* Edits the loan at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person’s tags by typing `t/` without
+  specifying any tags after it.
+
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
-
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Locating persons by name: `find`
 
@@ -139,7 +163,7 @@ Deletes the specified person from the address book.
 Format: `delete INDEX`
 
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
@@ -204,3 +228,34 @@ Action     | Format, Examples
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Quick start
+
+1. Ensure you have Java `17` or above installed in your Computer.<br>
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+
+1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+
+1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   ![Ui](images/Ui.png)
+
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   Some example commands you can try:
+
+    * `list` : Lists all contacts.
+
+    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+
+    * `delete 3` : Deletes the 3rd contact shown in the current list.
+
+    * `clear` : Deletes all contacts.
+
+    * `exit` : Exits the app.
+
+1. Refer to the [Features](#features) below for details of each command.
