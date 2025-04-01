@@ -1,7 +1,6 @@
 package wanted.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -10,7 +9,6 @@ import wanted.logic.commands.BaseEdit;
 import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.RenameCommand;
 import wanted.logic.parser.exceptions.ParseException;
-import wanted.model.loan.Name;
 
 /**
  * Header

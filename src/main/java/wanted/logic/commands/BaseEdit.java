@@ -1,6 +1,11 @@
 package wanted.logic.commands;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 import wanted.commons.util.CollectionUtil;
 import wanted.commons.util.ToStringBuilder;
@@ -44,7 +49,6 @@ public final class BaseEdit {
         }
 
         /**
-         * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
         public EditLoanDescriptor(EditLoanDescriptor toCopy) throws ExcessRepaymentException {

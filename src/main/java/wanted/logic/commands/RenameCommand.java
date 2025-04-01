@@ -1,25 +1,22 @@
 package wanted.logic.commands;
 
-import wanted.commons.core.datatypes.Index;
-import wanted.model.loan.Loan;
-import wanted.model.loan.Name;
-
 import static java.util.Objects.requireNonNull;
-import static wanted.logic.commands.EditCommand.MESSAGE_EDIT_PERSON_SUCCESS;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
+import wanted.commons.core.datatypes.Index;
 import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
+import wanted.model.loan.Loan;
 
 
 /**
  * Edits the name of an existing person in the loanbook
  */
-public class RenameCommand extends Command{
+public class RenameCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the loan identified "
@@ -36,7 +33,7 @@ public class RenameCommand extends Command{
     private final BaseEdit.EditLoanDescriptor editLoanDescriptor;
 
     /**
-     * Constructor
+     * Creates a RenameCommand to edit the specified {@code Loan}
      */
     public RenameCommand(Index index, BaseEdit.EditLoanDescriptor editLoanDescriptor) {
         requireNonNull(index);
