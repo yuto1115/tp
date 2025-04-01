@@ -21,14 +21,15 @@ class JsonSerializableLoanBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Loans list contains duplicate loan(s).";
 
-    private final List<JsonAdaptedLoan> loans = new ArrayList<>();
+    @JsonProperty("persons")
+    private final List<JsonAdaptedLoan> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableLoanBook} with the given loans.
      */
     @JsonCreator
-    public JsonSerializableLoanBook(@JsonProperty("loans") List<JsonAdaptedLoan> loans) {
-        this.loans.addAll(loans);
+    public JsonSerializableLoanBook(@JsonProperty("persons") List<JsonAdaptedLoan> loans) {
+        this.persons.addAll(loans);
     }
 
     /**
@@ -37,7 +38,7 @@ class JsonSerializableLoanBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableLoanBook}.
      */
     public JsonSerializableLoanBook(ReadOnlyLoanBook source) {
-        loans.addAll(source.getPersonList().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
+        persons.addAll(source.getPersonList().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,7 +48,7 @@ class JsonSerializableLoanBook {
      */
     public LoanBook toModelType() throws IllegalValueException {
         LoanBook loanBook = new LoanBook();
-        for (JsonAdaptedLoan jsonAdaptedLoan : loans) {
+        for (JsonAdaptedLoan jsonAdaptedLoan : persons) {
             Loan person = jsonAdaptedLoan.toModelType();
             if (loanBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
