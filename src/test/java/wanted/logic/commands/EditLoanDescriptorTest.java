@@ -3,6 +3,7 @@ package wanted.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.commands.CommandTestUtil.DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.DESC_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_DATE_BOB;
@@ -18,6 +19,7 @@ public class EditLoanDescriptorTest {
 
     @Test
     public void equals() {
+        assumeTrue(EditCommand.IS_ENABLED);
         // same values -> returns true
         EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));

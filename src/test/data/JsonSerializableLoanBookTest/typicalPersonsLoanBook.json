@@ -2,38 +2,111 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
-    "amount": "20.00",
-    "date": "24th January 2025",
-    "tags" : [ "friends" ]
+    "tags" : [ "friends" ],
+    "transactions" : [ {
+      "type" : "add",
+      "amount" : "10.00",
+      "date" : "1st Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "5.00",
+      "date" : "2nd Jan 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "15.00",
+      "date" : "3rd Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "103.05",
+      "date" : "1st Feb 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "82.34",
+      "date" : "31th Dec 2025"
+    } ]
   }, {
     "name" : "Benson Meier",
-    "amount": "19.43",
-    "date": "11th Nov 2024",
-    "tags" : [ "owesMoney", "friends" ]
+    "tags" : [ "owesMoney", "friends" ],
+    "transactions" : [ {
+      "type" : "add",
+      "amount" : "10.00",
+      "date" : "1st Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "5.00",
+      "date" : "2nd Jan 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "15.00",
+      "date" : "3rd Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "103.05",
+      "date" : "1st Feb 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "82.34",
+      "date" : "31th Dec 2025"
+    } ]
   }, {
     "name" : "Carl Kurz",
-    "amount":"2990.23",
-    "date": "9th Nov 2004",
-    "tags" : [ ]
+    "tags" : [ ],
+    "transactions" : [ {
+      "type" : "add",
+      "amount" : "10.00",
+      "date" : "1st Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "5.00",
+      "date" : "2nd Jan 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "3.50",
+      "date" : "3rd Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "50.00",
+      "date" : "1st Feb 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "61.50",
+      "date" : "31th Dec 2025"
+    } ]
   }, {
     "name" : "Daniel Meier",
-    "amount":"178.23",
-    "date": "13th Jan 2024",
-    "tags" : [ "friends" ]
+    "tags" : [ "friends" ],
+    "transactions" : [ {
+      "type" : "add",
+      "amount" : "10.00",
+      "date" : "1st Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "5.00",
+      "date" : "2nd Jan 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "3.50",
+      "date" : "3rd Jan 2024"
+    }, {
+      "type" : "add",
+      "amount" : "50.00",
+      "date" : "1st Feb 2024"
+    }, {
+      "type" : "repay",
+      "amount" : "61.50",
+      "date" : "31th Dec 2025"
+    } ]
   }, {
     "name" : "Elle Meyer",
-    "amount":"132.23",
-    "date": "18th Feb 2024",
-    "tags" : [ ]
+    "tags" : [ ],
+    "transactions" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "amount":"0.23",
-    "date": "13th March 2025",
-    "tags" : [ ]
-  }, {
-    "name" : "George Best",
-    "amount":"9.23",
-    "date": "19th July 2024",
-    "tags" : [ ]
-  } ]
+    "tags" : [ ],
+    "transactions" : [ {
+      "type" : "add",
+      "amount" : "0.23",
+      "date" : "13th March 2025"
+    } ]
+  }]
 }
