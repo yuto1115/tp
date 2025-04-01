@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "loanBookFilePath" : "loanbook.json"
+  "loanBookFilePath" : "data/loanbook.json"
 }

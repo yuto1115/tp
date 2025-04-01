@@ -7,5 +7,5 @@
       "y" : 100
     }
   },
-  "loanBookFilePath" : "loanbook.json"
+  "loanBookFilePath" : "data/loanbook.json"
 }
