@@ -328,43 +328,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `LoanBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Track total amount of money owed**
+**Use case: `Add` a New Person**
 
 **MSS**
 
-1.  Loan issuer requests to view the total amount of money owed.
-2.  System calculates and displays the total outstanding loan amount.
-
-    Use Case Ends.
-
-**Extensions**
-
-* 2a. No outstanding loans exists.
-  2a.1. System displays a message indicating that there are no outstanding loans.
-Use Case Ends.
-
-**Use case: Add a New Loan**
-
-**MSS**
-
-1. User requests to add a new loan with details (e.g. amount, borrower, due date).
-2. System records the new loan in the loan list.
-3. System confirms that the loan has been successfully added.
+1. User requests to add a new person with details name, phone, and tags.
+2. System records the new person in the loan list, and sets the initial loan to zero.
+3. System confirms that the person has been successfully added.
 Use case ends.
 
 **Extensions**
 
-* 2a. The loan details are incomplete or invalid.
+* 2a. The person details are incomplete or invalid.
   2a.1. System displays an error message and tells the user the correct format to enter.
 Use Case Resumes at Step 1.
 
-**Use case: Delete a loan**
+**Use case: `Delete` a loan**
 
 **MSS**
 
-1. User requests to delete a specific loan.
-2. System removes the loan from the loan list.
-3. System confirms that the loan has been successfully deleted.
+1. User requests to delete a specific person.
+2. System removes the person from the loan list.
+3. System confirms that the person has been successfully deleted.
 
     Use case ends.
 
@@ -374,23 +359,88 @@ Use Case Resumes at Step 1.
   2a.1. System displays a message indicating that the loan is not found.
   Use Case Ends.
 
-**Use case: View Current Loans**
+**Use case: `List` Current Loans**
 
 **MSS**
 
-1. User requests to view the list of current loans.
-2. System retrieves and displays the list of outstanding loans.
+1. User requests to view the list of current people.
+2. System retrieves and displays the list of people, and their outstanding loans.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. No outstanding loans exists.
+* 2a. No people with loans exists.
   2a.1. System displays a message indicating that there are no loans that need to be returned.
 
     Use Case Ends.
 
-*{More to be added}*
+**Use Case: `Increase` a Persons Loan Amount**
+
+**MSS**
+1. User requests to add a loan amount to a specific person's ID, and records the date
+2. System creates a new add loan transaction
+3. System adds transaction to the person's loan history
+4. System updates and displays total amount loaned and total amount to be repaid
+
+    Use Case Ends.
+
+**Extensions**
+
+* 2a. No people with the given ID exists.
+  2a.1. System displays a message indicating that an invalid ID is being called.
+
+  Use Case Ends.
+
+**Use Case:`Repay` a Loan Amount in Full or Partially**
+
+**MSS**
+1. User requests to repay a loan amount to a specific person's ID, and records the date
+2. System creates a new repay loan transaction
+3. System adds transaction to the person's loan history, and displays total amount loaned and total amount to be repaid
+4. System display repaid success message.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 2a. No people with the given ID exists.
+  2a.1. System displays a message indicating that an invalid ID is being called.
+
+  Use Case Ends.
+
+**Use Case: `Edit` a Loan Transaction**
+*{Add in}*
+
+**Use Case: `Sort` People by Amount Loaned**
+
+**MSS**
+1. User requests to sort people
+2. System sort people by amount owed and displays it to the user.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 2a. No outstanding loans.
+  2a.1. No people are displayed.
+
+  Use Case Ends.
+
+**Use Case: `Sort` People by Name TBD**
+
+**MSS**
+1. User requests to sort people by name
+2. System sort people by amount owed and displays it to the user.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 2a. No outstanding loans.
+  2a.1. No people are displayed.
+
+  Use Case Ends.
 
 ### Non-Functional Requirements
 
