@@ -12,7 +12,7 @@ import wanted.model.Model;
 import wanted.model.loan.Loan;
 
 /**
- * Deletes a loan identified using it's displayed index from the address book.
+ * Deletes a loan identified using it's displayed index from the loan book.
  */
 public class DeleteCommand extends Command {
 

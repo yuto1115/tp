@@ -16,19 +16,19 @@ import wanted.model.loan.Loan;
 /**
  * An Immutable LoanBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "loanbook")
 class JsonSerializableLoanBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate loan(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Loans list contains duplicate loan(s).";
 
-    private final List<JsonAdaptedLoan> persons = new ArrayList<>();
+    private final List<JsonAdaptedLoan> loans = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableLoanBook} with the given persons.
+     * Constructs a {@code JsonSerializableLoanBook} with the given loans.
      */
     @JsonCreator
-    public JsonSerializableLoanBook(@JsonProperty("persons") List<JsonAdaptedLoan> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableLoanBook(@JsonProperty("loans") List<JsonAdaptedLoan> loans) {
+        this.loans.addAll(loans);
     }
 
     /**
@@ -37,24 +37,24 @@ class JsonSerializableLoanBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableLoanBook}.
      */
     public JsonSerializableLoanBook(ReadOnlyLoanBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
+        loans.addAll(source.getPersonList().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code LoanBook} object.
+     * Converts this loan book into the model's {@code LoanBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public LoanBook toModelType() throws IllegalValueException {
-        LoanBook addressBook = new LoanBook();
-        for (JsonAdaptedLoan jsonAdaptedLoan : persons) {
+        LoanBook loanBook = new LoanBook();
+        for (JsonAdaptedLoan jsonAdaptedLoan : loans) {
             Loan person = jsonAdaptedLoan.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (loanBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            loanBook.addPerson(person);
         }
-        return addressBook;
+        return loanBook;
     }
 
 }
