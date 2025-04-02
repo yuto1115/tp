@@ -82,6 +82,12 @@ public class LoanAmountTest {
     }
 
     @Test
+    public void etTransactionsCount() {
+        assertEquals(0, TypicalLoanAmount.EMPTY_LOAN_AMOUNT.getTransactionsCount());
+        assertEquals(5, TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_FULLY_REPAID.getTransactionsCount());
+    }
+
+    @Test
     public void getTransactionListCopy() {
         LoanAmount loanAmount = TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_NOT_FULLY_REPAID;
 

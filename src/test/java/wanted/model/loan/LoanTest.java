@@ -11,10 +11,12 @@ import static wanted.testutil.TypicalPersons.BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import wanted.commons.core.datatypes.Index;
 import wanted.commons.core.datatypes.MoneyInt;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.loan.transaction.AddLoanTransaction;
@@ -156,5 +158,42 @@ public class LoanTest {
 
         assertThrows(ExcessRepaymentException.class, () ->
                 new Loan(name, amount, tags).repayLoan(MoneyInt.fromCent(501), new LoanDate("5th Jan 2024")));
+    }
+
+    @Test
+    public void deleteTransaction_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ALICE.deleteTransaction(null));
+    }
+
+    @Test
+    public void deleteTransaction_invalidIndex_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () ->
+                ALICE.deleteTransaction(Index.fromZeroBased(ALICE.getLoanAmount().getTransactionsCount())));
+    }
+
+    @Test
+    public void deleteTransaction_success() throws Exception {
+        Name name = ALICE.getName();
+        Set<Tag> tags = ALICE.getTags();
+        Loan original = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+                new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd Jan 2024"))))), tags);
+        Loan expected = new Loan(name, new LoanAmount(new ArrayList<>(List.of(
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024"))))), tags);
+
+        assertEquals(expected, original.deleteTransaction(Index.fromZeroBased(1)));
+    }
+
+    @Test
+    public void deleteTransaction_invalid_throwExcessRepaymentException() throws Exception {
+        Name name = ALICE.getName();
+        Set<Tag> tags = ALICE.getTags();
+        Loan loan = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+                new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
+                new RepayLoanTransaction(MoneyInt.fromCent(600), new LoanDate("3rd Jan 2024"))))), tags);
+
+        assertThrows(ExcessRepaymentException.class, () ->
+                loan.deleteTransaction(Index.fromZeroBased(0)));
     }
 }
