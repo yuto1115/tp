@@ -34,7 +34,7 @@ This is likely due to the list currently being filtered to only show a certain n
 
 Command     | Action                           | Format, Examples
 -----------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------
-**add**    | Add new entry                    |`add n/[NAME]​` 
+**add**    | Add new entry                    |`add n/[NAME]​`
 **rename** | Change name of entry             | `rename [ID] n/[NAME]`
 **phone** | Add/change phone number of entry | `phone [ID] p/[PHONE]`
 **tag** | Add/change tags of entry         | `tag [ID] (t/[TAG]…)`
