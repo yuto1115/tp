@@ -11,7 +11,7 @@ import wanted.model.Model;
 import wanted.model.loan.Loan;
 
 /**
- * Adds a loan to the address book.
+ * Adds a loan to the loan book.
  */
 public class AddCommand extends Command {
 

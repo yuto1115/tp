@@ -2,20 +2,23 @@ package wanted.model.loan;
 
 import static wanted.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import wanted.commons.core.datatypes.Index;
 import wanted.commons.core.datatypes.MoneyInt;
 import wanted.commons.util.ToStringBuilder;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.loan.transaction.AddLoanTransaction;
+import wanted.model.loan.transaction.LoanTransaction;
 import wanted.model.loan.transaction.RepayLoanTransaction;
 import wanted.model.tag.Tag;
 
 /**
- * Represents a Loan in the address book.
+ * Represents a Loan in the loan book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  * Due to the immutability of the class, methods that modify its state will return a new Loan.
  */
@@ -139,4 +142,23 @@ public class Loan {
 
         return new Loan(this.name, newLoanAmount, this.tags);
     }
+
+    /**
+     * Delete a transaction at the given index of the transaction history.
+     * A new Loan object is created and returned, hence the original Loan remains unchanged.
+     *
+     * @param index Index of the transaction to be deleted.
+     */
+    public Loan deleteTransaction(Index index) throws ExcessRepaymentException {
+        requireAllNonNull(index);
+        ArrayList<LoanTransaction> transactions = this.loanAmount.getTransactionHistoryCopy();
+        if (index.getZeroBased() >= transactions.size()) {
+            throw new IllegalArgumentException("Index out of bounds.");
+        }
+
+        transactions.remove(index.getZeroBased());
+
+        return new Loan(this.name, new LoanAmount(transactions), this.tags);
+    }
+
 }

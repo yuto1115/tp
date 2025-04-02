@@ -12,6 +12,7 @@ import wanted.logic.commands.AddCommand;
 import wanted.logic.commands.ClearCommand;
 import wanted.logic.commands.Command;
 import wanted.logic.commands.DeleteCommand;
+import wanted.logic.commands.DelhistCommand;
 import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.ExitCommand;
 import wanted.logic.commands.FindCommand;
@@ -88,6 +89,9 @@ public class LoanBookParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case DelhistCommand.COMMAND_WORD:
+            return new DelhistCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

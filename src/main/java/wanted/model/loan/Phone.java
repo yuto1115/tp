@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static wanted.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Loan's phone number in the address book.
+ * Represents a Loan's phone number in the loan book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

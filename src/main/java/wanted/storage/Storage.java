@@ -27,6 +27,6 @@ public interface Storage extends LoanBookStorage, UserPrefsStorage {
     Optional<ReadOnlyLoanBook> readLoanBook() throws DataLoadingException;
 
     @Override
-    void saveLoanBook(ReadOnlyLoanBook addressBook) throws IOException;
+    void saveLoanBook(ReadOnlyLoanBook loanBook) throws IOException;
 
 }
