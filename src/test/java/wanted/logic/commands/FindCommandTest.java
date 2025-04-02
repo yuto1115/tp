@@ -68,6 +68,7 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
         // Manually score and sort expected list
+        List<Loan> actualList = model.getLoanBook().getPersonList();
         List<Loan> sortedExpected = List.of(CARL, ELLE, FIONA); // Assuming match count = 1 for each
         assertEquals(sortedExpected, model.getLoanBook().getPersonList().subList(0, 3));
     }
@@ -76,7 +77,7 @@ public class FindCommandTest {
     public void toStringMethod() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(List.of("keyword"));
         FindCommand findCommand = new FindCommand(predicate);
-        String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        String expected = "FindCommand{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
     }
 
@@ -84,6 +85,9 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
     private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.trim().split("\\s+")));
+        List<String> keywords = Arrays.stream(userInput.trim().split("\\s+"))
+                .filter(s -> !s.isBlank())
+                .toList();
+        return new NameContainsKeywordsPredicate(keywords);
     }
 }
