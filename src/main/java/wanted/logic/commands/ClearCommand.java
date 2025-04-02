@@ -6,7 +6,7 @@ import wanted.model.LoanBook;
 import wanted.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the loan book.
  */
 public class ClearCommand extends Command {
 
