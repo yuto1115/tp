@@ -39,6 +39,8 @@ public class LoanCard extends UiPart<Region> {
     private Label amount;
     @FXML
     private Label date;
+    @FXML
+    private Label status; //i just added this in for effect
     /**
      * Creates a {@code PersonCode} with the given {@code Loan} and index to display.
      */
@@ -48,6 +50,7 @@ public class LoanCard extends UiPart<Region> {
         this.loan = loan;
         isReturned = this.loan.getLoanAmount().isRepaid();
         id.setText(displayedIndex + ". ");
+        status.setText(getStatus());
         name.setText(loan.getName().fullName);
         amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
                 .getStringRepresentationWithFixedDecimalPoint());
@@ -67,6 +70,18 @@ public class LoanCard extends UiPart<Region> {
         } else {
             cardPane.setStyle("-fx-background-image: url('/images/blood_splatter_background.png');"
                     + "-fx-background-size: cover;");
+        }
+    }
+
+    private String getStatus() {
+        status.getStyleClass().removeAll("status-wanted", "status-not-wanted");
+
+        if (isReturned) {
+            status.getStyleClass().add("status-not-wanted");
+            return "Not Wanted";
+        } else {
+            status.getStyleClass().add("status-wanted");
+            return "Wanted";
         }
     }
 
