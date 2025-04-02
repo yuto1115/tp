@@ -1,7 +1,9 @@
 package wanted.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static wanted.testutil.TypicalPersons.CARL;
@@ -11,22 +13,21 @@ import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import wanted.model.Model;
 import wanted.model.ModelManager;
 import wanted.model.UserPrefs;
-import wanted.model.loan.Loan;
 import wanted.model.loan.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * This command is disabled in the MVP
  */
 public class FindCommandTest {
-    private final Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -38,46 +39,51 @@ public class FindCommandTest {
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
 
-        assertEquals(findFirstCommand, findFirstCommand);
-        assertEquals(findFirstCommand, new FindCommand(firstPredicate));
-        assertNotEquals(1, findFirstCommand);
-        assertNotEquals(null, findFirstCommand);
-        assertNotEquals(findFirstCommand, findSecondCommand);
+        // same object -> returns true
+        assertTrue(findFirstCommand.equals(findFirstCommand));
+
+        // same values -> returns true
+        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(findFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(findFirstCommand.equals(null));
+
+        // different loan -> returns false
+        assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noMatches() {
-        NameContainsKeywordsPredicate predicate = preparePredicate("   ");
-        FindCommand command = new FindCommand(predicate);
-
+    public void execute_zeroKeywords_noPersonFound() {
+        assumeTrue(FindCommand.IS_ENABLED);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        List<Loan> expectedList = model.getLoanBook().getPersonList(); // should remain unchanged
-
+        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(expectedList, model.getLoanBook().getPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test
-    public void execute_multipleKeywords_rankedResults() {
-        NameContainsKeywordsPredicate predicate = preparePredicate("Elle Carl Fiona");
-        FindCommand command = new FindCommand(predicate);
-
+    public void execute_multipleKeywords_multiplePersonsFound() {
+        assumeTrue(FindCommand.IS_ENABLED);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-
-        // The model list is sorted in-place — we verify the list order after the command
+        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-
-        // Manually score and sort expected list
-        List<Loan> actualList = model.getLoanBook().getPersonList();
-        List<Loan> sortedExpected = List.of(CARL, ELLE, FIONA); // Assuming match count = 1 for each
-        assertEquals(sortedExpected, model.getLoanBook().getPersonList().subList(0, 3));
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 
     @Test
     public void toStringMethod() {
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(List.of("keyword"));
+        assumeTrue(FindCommand.IS_ENABLED);
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
         FindCommand findCommand = new FindCommand(predicate);
-        String expected = "FindCommand{predicate=" + predicate + "}";
+        String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
     }
 
@@ -85,9 +91,6 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
     private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        List<String> keywords = Arrays.stream(userInput.trim().split("\\s+"))
-                .filter(s -> !s.isBlank())
-                .toList();
-        return new NameContainsKeywordsPredicate(keywords);
+        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
