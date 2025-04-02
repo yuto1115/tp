@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.testutil.Assert.assertThrows;
+import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static wanted.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static wanted.testutil.TypicalPersons.ALICE;
 import static wanted.testutil.TypicalPersons.BOB;
 
@@ -195,5 +198,57 @@ public class LoanTest {
 
         assertThrows(ExcessRepaymentException.class, () ->
                 loan.deleteTransaction(Index.fromZeroBased(0)));
+    }
+
+    @Test
+    public void replaceTransaction_nullArgs_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ALICE.replaceTransaction(null,
+                new AddLoanTransaction(MoneyInt.fromCent(0), new LoanDate("1st Jan 2024"))));
+        assertThrows(NullPointerException.class, ()
+                -> ALICE.replaceTransaction(INDEX_FIRST_PERSON, null));
+        assertThrows(NullPointerException.class, () -> ALICE.replaceTransaction(null, null));
+    }
+
+    @Test
+    public void replaceTransaction_invalidIndex_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () ->
+                ALICE.replaceTransaction(Index.fromZeroBased(ALICE.getLoanAmount().getTransactionsCount()),
+                        new AddLoanTransaction(MoneyInt.fromCent(0), new LoanDate("1st Jan 2024"))));
+    }
+
+    @Test
+    public void replaceTransaction_success() throws Exception {
+        Name name = ALICE.getName();
+        Set<Tag> tags = ALICE.getTags();
+        Loan original = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+                new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("3rd Jan 2024"))))), tags);
+        Loan expected = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+                new RepayLoanTransaction(MoneyInt.fromCent(800), new LoanDate("2nd Feb 2024")),
+                new RepayLoanTransaction(MoneyInt.fromCent(200), new LoanDate("3rd Mar 2024"))))), tags);
+
+        assertEquals(expected, original
+                // replace by a transaction of the same type
+                .replaceTransaction(INDEX_SECOND_PERSON,
+                        new RepayLoanTransaction(MoneyInt.fromCent(800), new LoanDate("2nd Feb 2024")))
+                // replace by a transaction of a different type
+                .replaceTransaction(INDEX_THIRD_PERSON,
+                        new RepayLoanTransaction(MoneyInt.fromCent(200), new LoanDate("3rd Mar 2024"))));
+    }
+
+    @Test
+    public void replaceTransaction_invalid_throwExcessRepaymentException() throws Exception {
+        Name name = ALICE.getName();
+        Set<Tag> tags = ALICE.getTags();
+        Loan loan = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+                new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("3rd Jan 2024"))))), tags);
+
+        assertThrows(ExcessRepaymentException.class, () ->
+                loan.replaceTransaction(INDEX_SECOND_PERSON,
+                        new RepayLoanTransaction(MoneyInt.fromCent(1100), new LoanDate("2nd Jan 2024"))));
     }
 }
