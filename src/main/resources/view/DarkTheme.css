@@ -90,6 +90,26 @@
     -fx-background-color: -fx-focus-color;
 }
 
+.transaction-box {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+    -fx-border-color: #3b0f0f;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+    -fx-spacing: 6;
+}
+
+.transaction-label {
+    -fx-font-family: "Special Elite", "Courier New", monospace;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #f8f8f2;
+    -fx-background-color: #3b0f0f;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-padding: 6 10 6 10;
+}
+
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: derive(#2b1f1a, 20%);
     -fx-border-color: transparent transparent transparent #b32814;
@@ -325,6 +345,21 @@
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
     -fx-padding: 8 1 8 1;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .content {
+    -fx-background-color: transparent;
 }
 
 #cardPane {
