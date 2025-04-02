@@ -1,6 +1,7 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static wanted.commons.util.CollectionUtil.requireAllNonNull;
 import static wanted.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class DelhistCommand extends Command {
      * Constructs a {@code DelhistCommand} with the given loan index and transaction index.
      */
     public DelhistCommand(Index loanIndex, Index transactionIndex) {
+        requireAllNonNull(loanIndex, transactionIndex);
         this.loanIndex = loanIndex;
         this.transactionIndex = transactionIndex;
     }
