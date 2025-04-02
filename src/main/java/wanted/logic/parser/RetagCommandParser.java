@@ -2,7 +2,6 @@ package wanted.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static wanted.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -20,7 +19,7 @@ import wanted.model.tag.Tag;
 /**
  * Parser to parse repay command
  */
-public class RetagCommandParser {
+public class RetagCommandParser implements Parser<RetagCommand> {
     /**
      * Javadoc
      */
