@@ -12,6 +12,7 @@ import wanted.commons.exceptions.IllegalValueException;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanAmount;
 import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.loan.transaction.LoanTransaction;
 import wanted.model.tag.Tag;
@@ -26,6 +27,7 @@ class JsonAdaptedLoan {
             + "the remaining loan amount should never be negative.";
 
     private final String name;
+    private final String phoneValue;
     private final List<JsonAdaptedLoanTransaction> transactions = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -34,8 +36,9 @@ class JsonAdaptedLoan {
      */
     @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("name") String name,
-                           @JsonProperty("amount") List<JsonAdaptedLoanTransaction> transactions,
-                           @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                           @JsonProperty("transactions") List<JsonAdaptedLoanTransaction> transactions,
+                           @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                           @JsonProperty("phone") String phoneValue) {
         this.name = name;
         if (transactions != null) {
             this.transactions.addAll(transactions);
@@ -43,6 +46,7 @@ class JsonAdaptedLoan {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.phoneValue = phoneValue;
     }
 
     /**
@@ -52,12 +56,14 @@ class JsonAdaptedLoan {
         name = source.getName().fullName;
 
         transactions.addAll(source.getLoanAmount().getTransactionHistoryCopy().stream()
-                        .map(JsonAdaptedLoanTransaction::new)
-                        .toList());
+                .map(JsonAdaptedLoanTransaction::new)
+                .toList());
 
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .toList());
+
+        phoneValue = source.getPhone() == null ? null : source.getPhone().getValue();
     }
 
     /**
@@ -85,8 +91,15 @@ class JsonAdaptedLoan {
         }
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
+        final Phone phone;
+        if (phoneValue == null || !Phone.isValidPhone(phoneValue)) {
+            phone = null;
+        } else {
+            phone = new Phone(phoneValue);
+        }
+
         try {
-            return new Loan(modelName, new LoanAmount(modelTransactions), modelTags);
+            return new Loan(modelName, new LoanAmount(modelTransactions), modelTags, phone);
         } catch (ExcessRepaymentException e) {
             throw new IllegalValueException(LOAN_EXCESS_REPAYMENT_MESSAGE);
         }

@@ -6,7 +6,7 @@ import static wanted.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import wanted.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the loan book to the user.
  */
 public class ListCommand extends Command {
 

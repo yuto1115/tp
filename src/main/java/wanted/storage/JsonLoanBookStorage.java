@@ -60,8 +60,8 @@ public class JsonLoanBookStorage implements LoanBookStorage {
     }
 
     @Override
-    public void saveLoanBook(ReadOnlyLoanBook addressBook) throws IOException {
-        saveLoanBook(addressBook, filePath);
+    public void saveLoanBook(ReadOnlyLoanBook loanBook) throws IOException {
+        saveLoanBook(loanBook, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonLoanBookStorage implements LoanBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveLoanBook(ReadOnlyLoanBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveLoanBook(ReadOnlyLoanBook loanBook, Path filePath) throws IOException {
+        requireNonNull(loanBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableLoanBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableLoanBook(loanBook), filePath);
     }
 
 }
