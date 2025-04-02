@@ -68,22 +68,22 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s loan book and {@code userPrefs}. <br>
+     * The data from the sample loan book will be used instead if {@code storage}'s loan book is not found,
+     * or an empty loan book will be used instead if errors occur when reading {@code storage}'s loan book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getLoanBookFilePath());
 
-        Optional<ReadOnlyLoanBook> addressBookOptional;
+        Optional<ReadOnlyLoanBook> loanBookOptional;
         ReadOnlyLoanBook initialData;
         try {
-            addressBookOptional = storage.readLoanBook();
-            if (!addressBookOptional.isPresent()) {
+            loanBookOptional = storage.readLoanBook();
+            if (!loanBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getLoanBookFilePath()
                         + " populated with a sample LoanBook.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleLoanBook);
+            initialData = loanBookOptional.orElseGet(SampleDataUtil::getSampleLoanBook);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getLoanBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty LoanBook.");

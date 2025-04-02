@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static wanted.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Loan's email in the address book.
+ * Represents a Loan's email in the loan book.
  * Not in use for now
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
