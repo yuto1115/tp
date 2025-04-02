@@ -21,7 +21,9 @@ import wanted.model.tag.Tag;
  */
 public class RetagCommandParser implements Parser<RetagCommand> {
     /**
-     * Javadoc
+     * Parses the given {@code String} of arguments in the context of the RetagCommand
+     * and returns a RetagCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public RetagCommand parse(String args) throws ParseException {
         requireNonNull(args);

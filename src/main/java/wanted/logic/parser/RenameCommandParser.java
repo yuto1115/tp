@@ -15,7 +15,9 @@ import wanted.logic.parser.exceptions.ParseException;
  */
 public class RenameCommandParser implements Parser<RenameCommand> {
     /**
-     * Javadoc for now
+     * Parses the given {@code String} of arguments in the context of the RenameCommand
+     * and returns a RenameCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public RenameCommand parse(String args) throws ParseException {
         requireNonNull(args);
