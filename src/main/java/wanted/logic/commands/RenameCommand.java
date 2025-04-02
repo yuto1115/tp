@@ -47,7 +47,7 @@ public class RenameCommand extends Command {
         List<Loan> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Loan personToEdit = lastShownList.get(index.getZeroBased());

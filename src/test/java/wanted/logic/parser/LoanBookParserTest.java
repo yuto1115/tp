@@ -25,6 +25,7 @@ import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
 import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
+import wanted.logic.commands.RenameCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
 import wanted.model.loan.NameContainsKeywordsPredicate;
@@ -101,6 +102,13 @@ public class LoanBookParserTest {
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
             + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY
             + " " + " d/" + CommandTestUtil.VALID_DATE_AMY) instanceof IncreaseCommand);
+    }
+
+    @Test
+    public void parseCommand_rename() throws Exception {
+        assertTrue(parser.parseCommand(RenameCommand.COMMAND_WORD + " 1 n/Julian") instanceof RenameCommand);
+        assertTrue(parser.parseCommand(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+            + " " + "n/" + CommandTestUtil.VALID_NAME_AMY) instanceof RenameCommand);
     }
 
     @Test
