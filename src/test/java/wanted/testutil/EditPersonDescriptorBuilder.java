@@ -4,12 +4,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import wanted.logic.commands.BaseEdit;
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
-import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.tag.Tag;
 
 /**

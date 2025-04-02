@@ -1,22 +1,19 @@
 package wanted.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static wanted.logic.commands.CommandTestUtil.*;
+import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
+import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static wanted.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import wanted.commons.core.datatypes.Index;
-import wanted.model.LoanBook;
 import wanted.logic.Messages;
+import wanted.model.LoanBook;
 import wanted.model.Model;
 import wanted.model.ModelManager;
 import wanted.model.UserPrefs;

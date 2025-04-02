@@ -25,8 +25,7 @@ public class RenameCommandParser implements Parser<RenameCommand> {
         Index index;
         try {
             index = index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        }
-        catch (ParseException pe) {
+        } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, RenameCommand.MESSAGE_USAGE), pe);
         }
