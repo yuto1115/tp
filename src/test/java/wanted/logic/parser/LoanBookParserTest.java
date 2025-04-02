@@ -7,6 +7,7 @@ import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,7 @@ import wanted.logic.commands.AddCommand;
 import wanted.logic.commands.ClearCommand;
 import wanted.logic.commands.CommandTestUtil;
 import wanted.logic.commands.DeleteCommand;
+import wanted.logic.commands.DelhistCommand;
 import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.EditCommand.EditPersonDescriptor;
 import wanted.logic.commands.ExitCommand;
@@ -101,6 +103,12 @@ public class LoanBookParserTest {
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
             + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY
             + " " + " d/" + CommandTestUtil.VALID_DATE_AMY) instanceof IncreaseCommand);
+    }
+
+    @Test
+    public void parseCommand_delhist() throws Exception {
+        String command = DelhistCommand.COMMAND_WORD + " 1 i/2";
+        assertEquals(new DelhistCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), parser.parseCommand(command));
     }
 
     @Test
