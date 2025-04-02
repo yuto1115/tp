@@ -1,11 +1,12 @@
 package wanted.logic.commands;
 
-import org.junit.jupiter.api.Test;
-
 import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
+
+import org.junit.jupiter.api.Test;
+
 
 import wanted.commons.core.datatypes.Index;
 import wanted.logic.Messages;
