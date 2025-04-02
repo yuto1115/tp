@@ -1,8 +1,11 @@
 package wanted.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
 import org.junit.jupiter.api.Test;
@@ -66,5 +69,28 @@ public class PhoneCommandTest {
         model.setPerson(loanToUpdate, updatedLoan);
 
         assertCommandFailure(phoneCommand, model, PhoneCommand.MESSAGE_DUPLICATE_PHONE);
+    }
+
+    @Test
+    public void equal() {
+        PhoneCommand phoneCommand = new PhoneCommand(INDEX_FIRST_PERSON, Phone.EMPTY_PHONE);
+        PhoneCommand phoneCommand1 = new PhoneCommand(INDEX_FIRST_PERSON, Phone.EMPTY_PHONE);
+        PhoneCommand phoneCommand2 = new PhoneCommand(INDEX_FIRST_PERSON, new Phone(CommandTestUtil.VALID_PHONE));
+        PhoneCommand phoneCommand3 = new PhoneCommand(INDEX_SECOND_PERSON, Phone.EMPTY_PHONE);
+
+        //same object -> true
+        assertEquals(phoneCommand, phoneCommand);
+
+        //different object, same value -> true
+        assertEquals(phoneCommand, phoneCommand1);
+
+        //different type -> false
+        assertNotEquals(phoneCommand, " ");
+
+        //different object, different value -> false
+        assertNotEquals(phoneCommand, phoneCommand2);
+
+        //different object, different index -> false
+        assertNotEquals(phoneCommand1, phoneCommand3);
     }
 }
