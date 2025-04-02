@@ -340,23 +340,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. No outstanding loans exists. 
-      1a.1. System displays a message indicating that there are no outstanding loans.
-      Use Case Ends.
+  * 1a.1. System displays a message indicating that there are no outstanding loans.
+  * Use Case Ends.
 
 **Use case: `Add` a New Loan**
 
 **MSS**
 
 1. User requests to add a new loan with details (e.g. amount, borrower, due date).
+
 2. System records the new loan in the loan list.
+
 3. System confirms that the loan has been successfully added.
 Use case ends.
 
 **Extensions**
 
 * 1a. The person details are incomplete or invalid.
-  1a.1. System displays an error message and tells the user the correct format to enter.
-  Use Case Resumes at Step 1.
+  * 1a.1. System displays an error message and tells the user the correct format to enter.
+  * Use Case Resumes at Step 1.
 
 **Use case: `Delete` a loan**
 
@@ -371,8 +373,8 @@ Use case ends.
 **Extensions**
 
 * 1a. The loan does not exist in the system.
-  1a.1. System displays a message indicating that the loan is not found.
-  Use Case Ends.
+  * 1a.1. System displays a message indicating that the loan is not found.
+  * Use Case Ends.
 
 **Use case: `List` Current Loans**
 
@@ -386,9 +388,8 @@ Use case ends.
 **Extensions**
 
 * 1a. No people with loans exists.
-  1a.1. System displays a message indicating that there are no loans that need to be returned.
-
-  Use Case Ends.
+  * 1a.1. System displays a message indicating that there are no loans that need to be returned.
+  * Use Case Ends
 
 **Use Case: `Increase` a Persons Loan Amount**
 
@@ -403,9 +404,8 @@ Use case ends.
 **Extensions**
 
 * 1a. No person with the given ID exists.
-  1a.1. System displays a message indicating that an invalid ID is being called.
-
-  Use Case Ends.
+  * 1a.1. System displays a message indicating that an invalid ID is being called.
+  * Use Case Ends.
 
 **Use Case:`Repay` a Loan Amount in Full or Partially**
 
@@ -420,9 +420,8 @@ Use case ends.
 **Extensions**
 
 * 1a. No person with the given ID exists.
-  1a.1. System displays a message indicating that an invalid ID is being called.
-
-  Use Case Ends.
+  * 1a.1. System displays a message indicating that an invalid ID is being called.
+  * Use Case Ends.
 
 **Use Case: `Rename` a Loan Transaction**
 
@@ -436,13 +435,11 @@ Use case ends.
 **Extensions**
 
 * 1a. No person with the given ID exists.
-      1a.1. System displays a message indicating that an invalid ID is being called.
-      Use case ends.
-
+  * 1a.1. System displays a message indicating that an invalid ID is being called.
+  * Use case ends.
 * 1b. Invalid name field is received as an input
-      1b.1. System displays a message indicating that an invalid ID is being called.
-      Use case ends.
-
+  * 1b.1. System displays a message indicating that an invalid ID is being called.
+  * Use case ends.
 
 **Use Case: `Retag` a Loan Transaction**
 
@@ -456,8 +453,8 @@ Use case ends.
 **Extensions**
 
 * 1a. No person with the given ID exists.
-  1a.1. System displays a message indicating that an invalid ID is being called.
-  Use case ends.
+  * 1a.1. System displays a message indicating that an invalid ID is being called.
+  * Use case ends.
 
 **Use Case: `Sort` People by Amount Loaned**
 
@@ -470,7 +467,8 @@ Use case ends.
 **Extensions**
 
 * 1a. No outstanding loans.
-  1a.1. No people are displayed.
+  * 1a.1. No people are displayed.
+  * Use Case Ends.
 
   Use Case Ends.
 
@@ -485,9 +483,9 @@ Use case ends.
 **Extensions**
 
 * 1a. No outstanding loans.
-  1a.1. No people are displayed.
+  * 1a.1. No people are displayed.
 
-  Use Case Ends.
+  * Use Case Ends.
 
 ### Non-Functional Requirements
 
