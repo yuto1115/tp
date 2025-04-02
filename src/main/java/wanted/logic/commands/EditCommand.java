@@ -21,10 +21,10 @@ import wanted.logic.Messages;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
 import wanted.model.loan.Loan;
-import wanted.model.loan.Phone;
 import wanted.model.loan.LoanAmount;
-import wanted.model.loan.Name;
 import wanted.model.loan.LoanDate;
+import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**
