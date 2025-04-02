@@ -24,11 +24,11 @@ public record NameContainsKeywordsPredicate(List<String> keywords) implements Pr
      * @param name The name to be checked against the keywords. Must not be null.
      * @return True if the name starts with any keyword, false otherwise.
      */
-    public boolean startWithKeyword(String name) {
-        String lowerName = name.toLowerCase();
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(lowerName, keyword));
-    }
+//    public boolean startWithKeyword(String name) {
+//        String lowerName = name.toLowerCase();
+//        return keywords.stream()
+//                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(lowerName, keyword));
+//    }
 
     @Override
     public boolean equals(Object other) {

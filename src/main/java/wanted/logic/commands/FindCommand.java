@@ -90,12 +90,12 @@ public class FindCommand extends Command {
     }
 
     /**
-         * Helper class to track original index for stable sorting
-         * Immutable data structure.
-         */
-        private record IndexedLoan(Loan loan, int index) {
+     * Helper class to track original index for stable sorting
+     * Immutable data structure.
+     */
+    private record IndexedLoan(Loan loan, int index) {
         private IndexedLoan {
             requireNonNull(loan);
         }
-        }
+    }
 }
