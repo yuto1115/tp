@@ -35,7 +35,6 @@ public class RetagCommandParser implements Parser<RetagCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, RetagCommand.MESSAGE_USAGE), pe);
         }
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TAG);
         BaseEdit.EditLoanDescriptor editPersonDescriptor = new BaseEdit.EditLoanDescriptor();
 
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
