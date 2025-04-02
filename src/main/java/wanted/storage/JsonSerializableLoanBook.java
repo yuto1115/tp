@@ -16,19 +16,20 @@ import wanted.model.loan.Loan;
 /**
  * An Immutable LoanBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "loanbook")
 class JsonSerializableLoanBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate loan(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Loans list contains duplicate loan(s).";
 
+    @JsonProperty("persons")
     private final List<JsonAdaptedLoan> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableLoanBook} with the given persons.
+     * Constructs a {@code JsonSerializableLoanBook} with the given loans.
      */
     @JsonCreator
-    public JsonSerializableLoanBook(@JsonProperty("persons") List<JsonAdaptedLoan> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableLoanBook(@JsonProperty("persons") List<JsonAdaptedLoan> loans) {
+        this.persons.addAll(loans);
     }
 
     /**
@@ -41,20 +42,20 @@ class JsonSerializableLoanBook {
     }
 
     /**
-     * Converts this address book into the model's {@code LoanBook} object.
+     * Converts this loan book into the model's {@code LoanBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public LoanBook toModelType() throws IllegalValueException {
-        LoanBook addressBook = new LoanBook();
+        LoanBook loanBook = new LoanBook();
         for (JsonAdaptedLoan jsonAdaptedLoan : persons) {
             Loan person = jsonAdaptedLoan.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (loanBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            loanBook.addPerson(person);
         }
-        return addressBook;
+        return loanBook;
     }
 
 }

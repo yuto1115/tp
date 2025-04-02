@@ -35,17 +35,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' loan book file path.
      */
     Path getLoanBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' loan book file path.
      */
-    void setLoanBookFilePath(Path addressBookFilePath);
+    void setLoanBookFilePath(Path loanBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces loan book data with the data in {@code loanBook}.
      */
     void setLoanBook(ReadOnlyLoanBook loanBook);
 
@@ -53,26 +53,26 @@ public interface Model {
     ReadOnlyLoanBook getLoanBook();
 
     /**
-     * Returns true if a loan with the same identity as {@code loan} exists in the address book.
+     * Returns true if a loan with the same identity as {@code loan} exists in the loan book.
      */
     boolean hasPerson(Loan person);
 
     /**
      * Deletes the given loan.
-     * The loan must exist in the address book.
+     * The loan must exist in the loan book.
      */
     void deletePerson(Loan target);
 
     /**
      * Adds the given loan.
-     * {@code loan} must not already exist in the address book.
+     * {@code loan} must not already exist in the loan book.
      */
     void addPerson(Loan person);
 
     /**
      * Replaces the given loan {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The loan identity of {@code editedPerson} must not be the same as another existing loan in the address book.
+     * {@code target} must exist in the loan book.
+     * The loan identity of {@code editedPerson} must not be the same as another existing loan in the loan book.
      */
     void setPerson(Loan target, Loan editedPerson);
 

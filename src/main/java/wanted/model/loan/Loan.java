@@ -18,7 +18,7 @@ import wanted.model.loan.transaction.RepayLoanTransaction;
 import wanted.model.tag.Tag;
 
 /**
- * Represents a Loan in the address book.
+ * Represents a Loan in the loan book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  * Due to the immutability of the class, methods that modify its state will return a new Loan.
  */

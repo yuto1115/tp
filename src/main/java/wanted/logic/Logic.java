@@ -35,7 +35,7 @@ public interface Logic {
     ObservableList<Loan> getFilteredPersonList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' loan book file path.
      */
     Path getLoanBookFilePath();
 
