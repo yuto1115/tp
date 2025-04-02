@@ -40,13 +40,13 @@ Command     | Action                           | Format, Examples
 **tag** | Add/change tags of entry         | `tag [ID] (t/[TAG]…)`
 **increase** | Add a loan to entry              | `increase [ID] l/[AMOUNT]`
 **repay** | Add a repayment to entry         | `repay [ID] l/[AMOUNT]`
-**edit**   | Edit a transaction in entry      |`edit [ID] h/[TRANSACTION ID} l/[AMOUNT]`
+**edit**   | Edit a transaction in entry      |`edit [ID] h/[TRANSACTION ID] l/[AMOUNT]`
 **delhist** | Delete a transaction in entry    | `delhist [ID] h/[TRANSACTION ID]`
-**List**   | List all entries                 |`list`
-**Find**   | Search entries by name           |`find [NAME…]`
-**Delete** | Delete an entry                  |`delete INDEX`
-**Clear**  | Delete all entries               |`clear`
-**Help**   | Show help window                 |`help`
+**list**   | List all entries                 |`list`
+**find**   | Search entries by name           |`find [NAME]…`
+**delete** | Delete an entry                  |`delete [ID]`
+**clear**  | Delete all entries               |`clear`
+**help**   | Show help window                 |`help`
 
 --------------------------------------------------------------------------------------------------------------------
 
