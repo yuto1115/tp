@@ -9,12 +9,15 @@ import wanted.logic.commands.PhoneCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Phone;
 
-
+/**
+ * Parse the phone command
+ */
 public class PhoneCommandParser implements Parser<PhoneCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the PhoneCommand
      * and returns an PhoneCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
@@ -37,7 +40,7 @@ public class PhoneCommandParser implements Parser<PhoneCommand> {
         }
         Phone updatedPhone;
         String phoneNumber = argMultimap.getValue(PREFIX_PHONE).get();
-        if(phoneNumber.trim().equalsIgnoreCase("delete")) {
+        if (phoneNumber.trim().equalsIgnoreCase("delete")) {
             updatedPhone = Phone.EMPTY_PHONE;
         } else {
             updatedPhone = ParserUtil.parsePhone(phoneNumber);

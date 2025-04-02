@@ -19,8 +19,8 @@ import wanted.logic.commands.HelpCommand;
 import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
 import wanted.logic.commands.RepayCommand;
-import wanted.logic.commands.SortCommand;
 import wanted.logic.commands.PhoneCommand;
+import wanted.logic.commands.SortCommand;
 import wanted.logic.parser.exceptions.ParseException;
 
 /**

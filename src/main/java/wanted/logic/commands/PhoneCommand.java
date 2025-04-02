@@ -13,8 +13,9 @@ import wanted.model.loan.Loan;
 import wanted.model.loan.Phone;
 import wanted.model.loan.exceptions.PhoneUnchangedException;
 
-
-
+/**
+ * Command to edit or delete phone number
+ */
 public class PhoneCommand extends Command {
     public static final String COMMAND_WORD = "phone";
     public static final String MESSAGE_UPDATED_SUCCESS = "Phone number successfully updated: %1$s";
@@ -31,14 +32,15 @@ public class PhoneCommand extends Command {
             + "NEW_PHONE_NUMBER "
             + "\n"
             + "Example (Update new phone number): " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "88888888"
-            +"\n"
+            + "\n"
             + "Example (Delete current phone number): " + COMMAND_WORD + " 1 " + PREFIX_PHONE + DELETE_WORD;
     private final Index targetIndex;
     private final Phone updatedPhone;
 
     /**
      * Constructor for PhoneCommand
-     * @param targetIndex index of loan
+     *
+     * @param targetIndex  index of loan
      * @param updatedPhone new phone info
      */
     public PhoneCommand(Index targetIndex, Phone updatedPhone) {
@@ -63,8 +65,8 @@ public class PhoneCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
         model.setPerson(loanToUpdate, newLoan);
-        return this.updatedPhone.equals(Phone.EMPTY_PHONE) ?
-                new CommandResult(String.format(MESSAGE_DELETED_SUCCESS, Messages.format(newLoan))) :
-                new CommandResult(String.format(MESSAGE_UPDATED_SUCCESS, Messages.format(newLoan)));
+        return this.updatedPhone.equals(Phone.EMPTY_PHONE)
+                ? new CommandResult(String.format(MESSAGE_DELETED_SUCCESS, Messages.format(newLoan)))
+                : new CommandResult(String.format(MESSAGE_UPDATED_SUCCESS, Messages.format(newLoan)));
     }
 }

@@ -3,8 +3,8 @@ package wanted.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
-import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
+import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 

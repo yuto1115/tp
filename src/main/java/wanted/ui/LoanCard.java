@@ -52,7 +52,7 @@ public class LoanCard extends UiPart<Region> {
         name.setText(loan.getName().fullName);
         amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
                 .getStringRepresentationWithFixedDecimalPoint());
-        if(loan.getPhone() != null && !loan.getPhone().equals(Phone.EMPTY_PHONE)) {
+        if (loan.getPhone() != null && !loan.getPhone().equals(Phone.EMPTY_PHONE)) {
             this.phone.setText("Phone number: " + loan.getPhone().getValue());
         } else {
             this.phone.setText("No phone number available");
