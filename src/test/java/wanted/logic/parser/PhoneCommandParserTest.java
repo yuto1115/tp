@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import wanted.logic.commands.CommandTestUtil;
 import wanted.logic.parser.exceptions.ParseException;
-import wanted.model.loan.Phone;
 import wanted.logic.commands.PhoneCommand;
+import wanted.model.loan.Phone;
 
 public class PhoneCommandParserTest {
     private final PhoneCommandParser parser = new PhoneCommandParser();
