@@ -8,8 +8,8 @@ import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import wanted.logic.commands.CommandTestUtil;
-import wanted.logic.parser.exceptions.ParseException;
 import wanted.logic.commands.PhoneCommand;
+import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Phone;
 
 public class PhoneCommandParserTest {
