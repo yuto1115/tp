@@ -18,7 +18,7 @@ public class Phone {
      * Constructs an empty {@code Phone}
      */
     private Phone() {
-        this.value = "Empty phone number";
+        this.value = "--------";
     }
 
     /**

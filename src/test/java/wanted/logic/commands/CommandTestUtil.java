@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
+import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 import static wanted.testutil.Assert.assertThrows;
 
@@ -33,6 +34,7 @@ public class CommandTestUtil {
     public static final String VALID_AMOUNT_BOB = "1230.97";
     public static final String VALID_DATE_AMY = "10th December 2024";
     public static final String VALID_DATE_BOB = "19th July 2024";
+    public static final String VALID_PHONE = "88880000";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -47,6 +49,7 @@ public class CommandTestUtil {
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "10";
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "Febru@ry";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_PHONE_NUMBER = " " + PREFIX_PHONE + "@398@@*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

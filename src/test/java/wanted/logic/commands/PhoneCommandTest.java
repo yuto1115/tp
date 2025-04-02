@@ -55,4 +55,16 @@ public class PhoneCommandTest {
 
         assertCommandFailure(phoneCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+
+    @Test
+    public void execute_phoneUnchanged_throwsCommandException() throws PhoneUnchangedException {
+        Loan loanToUpdate = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        PhoneCommand phoneCommand = new PhoneCommand(INDEX_FIRST_PERSON, new Phone("88889999"));
+        Loan updatedLoan = loanToUpdate.changePhone(new Phone("88889999"));
+
+        model.setPerson(loanToUpdate, updatedLoan);
+
+        assertCommandFailure(phoneCommand, model, PhoneCommand.MESSAGE_DUPLICATE_PHONE);
+    }
 }
