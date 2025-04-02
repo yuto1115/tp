@@ -71,8 +71,8 @@ public class JsonAdaptedLoanTest {
         }
         // invalid transactions as a sequence
         {
-            JsonAdaptedLoan loan = new JsonAdaptedLoan(VALID_NAME, INVALID_TRANSACTIONS_SEQUENCE
-                    , VALID_TAGS, VALID_PHONE);
+            JsonAdaptedLoan loan = new JsonAdaptedLoan(VALID_NAME, INVALID_TRANSACTIONS_SEQUENCE,
+                     VALID_TAGS, VALID_PHONE);
             String expectedMessage = LOAN_EXCESS_REPAYMENT_MESSAGE;
             assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
         }

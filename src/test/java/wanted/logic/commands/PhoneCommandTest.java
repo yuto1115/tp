@@ -19,7 +19,8 @@ import wanted.model.loan.exceptions.PhoneUnchangedException;
 public class PhoneCommandTest {
     private final Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
 
-    @Test void execute_deletePhoneNumber() throws PhoneUnchangedException{
+    @Test
+    void execute_deletePhoneNumber() throws PhoneUnchangedException {
         Loan loanToUpdate = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         PhoneCommand phoneCommand = new PhoneCommand(INDEX_FIRST_PERSON, Phone.EMPTY_PHONE);
 
@@ -31,6 +32,7 @@ public class PhoneCommandTest {
 
         assertCommandSuccess(phoneCommand, model, expectedMessage, expectedModel);
     }
+
     @Test
     public void execute_validPhoneNumber() throws PhoneUnchangedException {
         Loan loanToUpdate = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
