@@ -38,6 +38,8 @@ public class JsonAdaptedLoanTest {
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
+    private static final String VALID_PHONE = "12345678";
+
     @Test
     public void toModelType_validLoanDetails_returnsLoan() throws Exception {
         assertEquals(BENSON, new JsonAdaptedLoan(BENSON).toModelType());
@@ -45,14 +47,14 @@ public class JsonAdaptedLoanTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedLoan loan = new JsonAdaptedLoan(INVALID_NAME, VALID_TRANSACTIONS, VALID_TAGS);
+        JsonAdaptedLoan loan = new JsonAdaptedLoan(INVALID_NAME, VALID_TRANSACTIONS, VALID_TAGS, VALID_PHONE);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedLoan loan = new JsonAdaptedLoan(null, VALID_TRANSACTIONS, VALID_TAGS);
+        JsonAdaptedLoan loan = new JsonAdaptedLoan(null, VALID_TRANSACTIONS, VALID_TAGS, VALID_PHONE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
     }
@@ -63,13 +65,14 @@ public class JsonAdaptedLoanTest {
         {
             List<JsonAdaptedLoanTransaction> transactions = new ArrayList<>(VALID_TRANSACTIONS);
             transactions.add(INVALID_AMOUNT_TRANSACTION);
-            JsonAdaptedLoan loan = new JsonAdaptedLoan(VALID_NAME, transactions, VALID_TAGS);
+            JsonAdaptedLoan loan = new JsonAdaptedLoan(VALID_NAME, transactions, VALID_TAGS, VALID_PHONE);
             String expectedMessage = ParserUtil.MESSAGE_INVALID_MONEY_AMOUNT;
             assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
         }
         // invalid transactions as a sequence
         {
-            JsonAdaptedLoan loan = new JsonAdaptedLoan(VALID_NAME, INVALID_TRANSACTIONS_SEQUENCE, VALID_TAGS);
+            JsonAdaptedLoan loan = new JsonAdaptedLoan(VALID_NAME, INVALID_TRANSACTIONS_SEQUENCE
+                    , VALID_TAGS, VALID_PHONE);
             String expectedMessage = LOAN_EXCESS_REPAYMENT_MESSAGE;
             assertThrows(IllegalValueException.class, expectedMessage, loan::toModelType);
         }
@@ -79,7 +82,7 @@ public class JsonAdaptedLoanTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedLoan loan = new JsonAdaptedLoan(VALID_NAME, VALID_TRANSACTIONS, invalidTags);
+        JsonAdaptedLoan loan = new JsonAdaptedLoan(VALID_NAME, VALID_TRANSACTIONS, invalidTags, VALID_PHONE);
         assertThrows(IllegalValueException.class, loan::toModelType);
     }
 }
