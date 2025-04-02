@@ -17,19 +17,6 @@ public record NameContainsKeywordsPredicate(List<String> keywords) implements Pr
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
     }
 
-    /**
-     * Returns true if the given name starts with any of the specified keywords (case-insensitive).
-     * A match is determined by whether any keyword appears as a whole word at the start of the name.
-     *
-     * @param name The name to be checked against the keywords. Must not be null.
-     * @return True if the name starts with any keyword, false otherwise.
-     */
-//    public boolean startWithKeyword(String name) {
-//        String lowerName = name.toLowerCase();
-//        return keywords.stream()
-//                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(lowerName, keyword));
-//    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
