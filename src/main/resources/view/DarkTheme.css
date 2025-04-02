@@ -113,7 +113,6 @@
     -fx-padding: 0 0 0 0;
     -fx-border-color: #4d0e04;
     -fx-border-width: 0 0 1 0;
-    -fx-background-image: url("/images/blood_splatter_background.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;
@@ -370,4 +369,21 @@
     -fx-border-radius: 3;
     -fx-background-radius: 3;
     -fx-font-size: 10pt;
+}
+
+.cell_small_label#status {
+    -fx-padding: 1 6 1 6;
+    -fx-margin-left: 5;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-font-size: 10pt;
+    -fx-font-weight: bold;
+}
+
+.cell_small_label#status.status-wanted {
+    -fx-text-fill: #200b0b;
+}
+
+.cell_small_label#status.status-not-wanted {
+    -fx-text-fill: #16680b;
 }
