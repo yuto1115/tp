@@ -68,6 +68,13 @@ public class LoanAmount implements Comparable<LoanAmount> {
     }
 
     /**
+     * Returns the number of recorded transactions.
+     */
+    public int getTransactionsCount() {
+        return this.transactionHistory.size();
+    }
+
+    /**
      * Returns a copy of the transaction history.
      * <p>
      * The original transaction history object should not be revealed as it can let other objects modify

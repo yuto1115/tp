@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import wanted.model.loan.Loan;
+import wanted.model.loan.Phone;
 
 /**
  * An UI component that displays information of a {@code Loan}.
@@ -39,6 +40,8 @@ public class LoanCard extends UiPart<Region> {
     @FXML
     private Label amount;
     @FXML
+    private Label phone;
+    @FXML
     private Label date;
     @FXML
     private Label status;
@@ -57,6 +60,14 @@ public class LoanCard extends UiPart<Region> {
         name.setText(loan.getName().fullName);
         amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
                 .getStringRepresentationWithFixedDecimalPoint());
+
+        if (loan.getPhone() != null && !loan.getPhone().equals(Phone.EMPTY_PHONE)) {
+            this.phone.setText("Phone number: " + loan.getPhone().getValue());
+        } else {
+            this.phone.setText("No phone number available");
+        }
+        // date.setText("Loan Date: " + loan.getLoanDate().toString());
+        // Sort tags alphabetically and display them
         loan.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
