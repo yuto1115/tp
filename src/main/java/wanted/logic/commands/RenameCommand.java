@@ -23,7 +23,7 @@ public class RenameCommand extends Command {
             + "by the index number used in the displayed loan list. "
             + "Existing name will be overwritten by the input name.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] ";
+            + PREFIX_NAME + "[NAME] ";
 
     public static final String MESSAGE_RENAME_SUCCESS = "Edited loan name: %1$s";
     public static final String MESSAGE_NOT_EDITED = "The name field must be provided.";
