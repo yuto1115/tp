@@ -25,6 +25,7 @@ public class LoanCard extends UiPart<Region> {
      */
 
     public final Loan loan;
+    private boolean isReturned;
 
     @FXML
     private HBox cardPane;
@@ -38,13 +39,14 @@ public class LoanCard extends UiPart<Region> {
     private Label amount;
     @FXML
     private Label date;
-
     /**
      * Creates a {@code PersonCode} with the given {@code Loan} and index to display.
      */
     public LoanCard(Loan loan, int displayedIndex) {
         super(FXML);
+
         this.loan = loan;
+        isReturned = this.loan.getLoanAmount().isRepaid();
         id.setText(displayedIndex + ". ");
         name.setText(loan.getName().fullName);
         amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
@@ -54,5 +56,18 @@ public class LoanCard extends UiPart<Region> {
         loan.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        updateBackground();
     }
+
+    private void updateBackground() {
+        if (isReturned) {
+            cardPane.setStyle("-fx-background-image: url('/images/papyrus.png');"
+                    + "-fx-background-size: cover;");
+        } else {
+            cardPane.setStyle("-fx-background-image: url('/images/blood_splatter_background.png');"
+                    + "-fx-background-size: cover;");
+        }
+    }
+
 }
