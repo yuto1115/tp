@@ -14,6 +14,7 @@ import static wanted.testutil.TypicalPersons.BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +35,15 @@ public class LoanTest {
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Loan person = new PersonBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+    }
+
+    @Test
+    public void instantiateDefaultLoan() {
+        Loan person = new Loan(new Name("Test Name"));
+        assertEquals("Test Name", person.getName().toString());
+        assertEquals(new LoanAmount(), person.getLoanAmount());
+        assertEquals(new HashSet<>(), person.getTags());
+        assertEquals(Phone.EMPTY_PHONE, person.getPhone());
     }
 
     @Test
