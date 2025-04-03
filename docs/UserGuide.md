@@ -73,7 +73,7 @@ Command     | Action                           | Format, Examples
   e.g. `(t/[TAG]…)​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `l/[AMOUNT] d/[DATE]`, `d/[DATE] l/AMOUNT]` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -128,7 +128,7 @@ Format: `tag (t/[TAG]…)`
 
 Adds a transaction indicating that the specified amount was loaned at the specified date to an entry.
 
-Format: `increase [ID] l/[LOANED AMOUNT] d/[DATE]`
+Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 
 Restrictions:
 * Modifies the loan at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
@@ -139,7 +139,7 @@ Restrictions:
 
 Adds a transaction indicating that the specified amount was returned at the specified date to an entry.
 
-Format: `repay [ID] l/[LOANED AMOUNT] d/[DATE]`
+Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 
 Restrictions:
 * Modifies the loan at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
@@ -183,8 +183,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns entries with names `john` and `John Doe`
-* `find alex david` returns entries with names `Alex Yeoh`, `David Li`<br>
+* `find John` returns entries with borrower names `john` and `John Doe`
+* `find alex david` returns entries with borrower names `Alex Yeoh`, `David Li`<br>
   [TODO: update image below]
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
@@ -201,8 +201,8 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the loan book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd loan in the loan book.
+* `find Betsy` followed by `delete 1` deletes the 1st loan in the results of the `find` command.
 
 ### Clearing all entries: `clear`
 
@@ -254,13 +254,15 @@ If you wish to transfer your saved data to another device, install Wanted on the
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * `list` : Lists all contacts.
+    * `list` : Lists all loans.
 
-    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+    * `add n/John Doe t/lunch` : Adds a loan with a borrower named `John Doe` and tag `lunch` to the Loan Book.
+   
+    * `increase 2 l/19.87 d/10th December 2024` : Increases the amount borrowed in the 2nd loan in the current list and records the transaction in its loan history.
 
-    * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the 3rd loan shown in the current list.
 
-    * `clear` : Deletes all contacts.
+    * `clear` : Deletes all loans.
 
     * `exit` : Exits the app.
 

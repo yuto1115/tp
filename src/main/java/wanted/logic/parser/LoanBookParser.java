@@ -22,8 +22,8 @@ import wanted.logic.commands.ListCommand;
 import wanted.logic.commands.PhoneCommand;
 import wanted.logic.commands.RenameCommand;
 import wanted.logic.commands.RepayCommand;
-import wanted.logic.commands.RetagCommand;
 import wanted.logic.commands.SortCommand;
+import wanted.logic.commands.TagCommand;
 import wanted.logic.parser.exceptions.ParseException;
 
 /**
@@ -102,8 +102,8 @@ public class LoanBookParser {
         case RenameCommand.COMMAND_WORD:
             return new RenameCommandParser().parse(arguments);
 
-        case RetagCommand.COMMAND_WORD:
-            return new RetagCommandParser().parse(arguments);
+        case TagCommand.COMMAND_WORD:
+            return new TagCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
