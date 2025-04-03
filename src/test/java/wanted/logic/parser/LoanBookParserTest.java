@@ -9,9 +9,10 @@ import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import wanted.commons.core.datatypes.MoneyInt;
@@ -23,7 +24,7 @@ import wanted.logic.commands.DelhistCommand;
 import wanted.logic.commands.EdithistCommand;
 import wanted.logic.commands.EdithistCommand.EditTransactionDescriptor;
 import wanted.logic.commands.ExitCommand;
-//import wanted.logic.commands.FindCommand;
+import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
 import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
@@ -33,7 +34,7 @@ import wanted.logic.commands.TagCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanDate;
-//import wanted.model.loan.NameContainsKeywordsPredicate;
+import wanted.model.loan.NameContainsKeywordsPredicate;
 import wanted.model.loan.Phone;
 import wanted.testutil.PersonBuilder;
 import wanted.testutil.PersonUtil;
@@ -92,12 +93,10 @@ public class LoanBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        //TODO: Add command for find
-        //assumeTrue(FindCommand.IS_ENABLED);
-        //List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        //FindCommand command = (FindCommand) parser.parseCommand(
-         //       FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        //assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

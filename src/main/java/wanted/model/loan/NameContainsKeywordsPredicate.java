@@ -19,16 +19,9 @@ public record NameContainsKeywordsPredicate(List<String> keywords) implements Pr
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate)) {
-            return false;
-        }
-
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        return other == this // short circuit if same object
+                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
     @Override

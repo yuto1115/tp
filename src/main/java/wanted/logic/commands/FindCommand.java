@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -36,8 +35,6 @@ public class FindCommand extends Command {
             + "    ([MORE KEYWORDS]...)\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private static final Logger logger = Logger.getLogger(FindCommand.class.getName());
-
     private final NameContainsKeywordsPredicate predicate;
 
     /**
@@ -54,7 +51,6 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        logger.fine("executing command: " + COMMAND_WORD);
 
         LoanBook loanBook = (LoanBook) model.getLoanBook();
         ObservableList<Loan> originalList = loanBook.getPersonList();
@@ -75,10 +71,15 @@ public class FindCommand extends Command {
         long matchCount = sortedList.stream()
                         .filter(predicate)
                         .count();
-
-        logger.fine(String.format("FindCommand completed. %d loans listed", sortedList.size()));
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_FOUND_OVERVIEW, matchCount));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof FindCommand
+                && predicate.equals(((FindCommand) other).predicate));
     }
 
     /**
