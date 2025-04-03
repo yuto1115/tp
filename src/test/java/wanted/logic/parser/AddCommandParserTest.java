@@ -1,6 +1,7 @@
 package wanted.logic.parser;
 
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static wanted.logic.commands.CommandTestUtil.DATE_DESC_BOB;
 import static wanted.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static wanted.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static wanted.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -9,7 +10,7 @@ import static wanted.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static wanted.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static wanted.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static wanted.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-//import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
@@ -91,8 +92,8 @@ public class AddCommandParserTest {
                 expectedMessage);
 
         // all prefixes missing
-        //assertParseFailure(parser, VALID_NAME_BOB,
-        //        expectedMessage);
+        assertParseFailure(parser, VALID_NAME_BOB,
+                expectedMessage);
     }
 
     @Test
@@ -106,8 +107,8 @@ public class AddCommandParserTest {
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        //assertParseFailure(parser, INVALID_NAME_DESC + INVALID_AMOUNT_DESC + DATE_DESC_BOB,
-        //        Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + INVALID_TAG_DESC + DATE_DESC_BOB,
+                Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
