@@ -273,47 +273,43 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of loans
+* loans and receives money from others
 * prefer desktop apps over other types
 * can type quickly
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage loans faster than a typical mouse/GUI driven app
+**Value proposition**: manage loans much more easily than manual tracking with manual calculations, in a faster and more efficient manner than mouse-based apps
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                       | I want to …​                                                          | So that I can…​                                                        |
-|----------|-------------------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | loan issuer                   | keep track of the total amount of money owed to me                    | I can see how much I am due to collect                                 |
-| `* * *`  | user                          | add a new loan                                                        | I can track new loans that are given out                               |
-| `* * *`  | user                          | delete a loan                                                         | remove loans that are no longer relevant                               |
-| `* * *`  | user                          | view current loans                                                    | I can see the full list of loans that need to be returned              |
-| `* *`    | user                          | edit loans                                                            | I can update loan information if necessary                             |
-| `* *`    | user                          | mark loans as returned                                                | I can keep track of whether a loan was repayed                         |
-| `* *`    | forgetful user                | track the number of days since the loan was given                     | I can remind friends to return their loans                             |
-| `* *`    | forgetful user                | add address of people who owe me money                                | I can look for them if necessary                                       |
-| `* *`    | forgetful user                | add phone numbers of people who owe me money                          | I can contact them if necessary                                        |
-| `* *`    | frequent loaner               | view a history of all loans that have been fulfilled                  | I can keep track of past lending habits                                |
-| `* *`    | cash-strapped user            | track the number of days since the loan was given                     | I can remind friends to return their loans                             |
-| `* *`    | new user                      | go through a new user guide                                           | I learn how to use the program                                         |
-| `* *`    | new user                      | view example entries                                                  | I can learn how to use from the examples                               |
-| `* *`    | user                          | set deadlines to receive loans                                        | I can follow up with lenders on time                                   |
-| `* *`    | user                          | blacklist people who are always late to return money                  | I can avoid loaning to particular individuals                          |
-| `* *`    | user                          | tag individuals based on the amount of money lent                     | I can prioritise users that have larger ticket size loans              |
-| `* *`    | user                          | tag individuals based on loan duration                                | I can group friends by loan durations                                  |
-| `* *`    | user                          | tag individuals based on their spending habits                        | I can avoid lending to high risk individuals                           |
-| `* *`    | user                          | view a leaderboard of those with highest or longest unreturned loans  | I can have a visual representation of who needs to be chased for loans |
-| `* *`    | user                          | see past loans categorised by month and loan type                     | I can project loaning for future months                                |
-| `* *`    | user                          | delete all records                                                    | I can purge examples                                                   |
-| `* *`    | user                          | sort records, by loan amount, period, priority etc.                   | I can see the most 'important' records for me                          |
-| `*`      | forgetful user                | upload photos of people who owe me money                              | I can match their appearance to their loans                            |
-| `*`      | user                          | have notifications for those who have loaned for longer than duration | I can prompt them to return that it has been past a grace period       |
-| `*`      | user                          | send messages to send to people who owe me money                      | I can efficiently prod them to return the money                        |
-| `*`      | user                          | customize the autogenerated message sent to those who owe money       | I can better persuade them to return my money                          |
-| `*`      | cash strapped user            | calculate projected returns if everyone was to return loans           | I can see how much I can earn back from chasing people for loans       |
+| Priority | As a …​            | I want to …​                                                          | So that I can…​                                                        |
+|-------|--------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------|
+| `* * *` | loan issuer        | keep track of the total amount of money owed to me                    | I can see how much I am due to collect                                 |
+| `* * *` | user               | add a new loan                                                        | I can track new loans that are given out                               |
+| `* * *` | user               | delete a loan                                                         | remove loans that are no longer relevant                               |
+| `* * *` | user               | view current loans                                                    | I can see the full list of loans that need to be returned              |
+| `* *` | user               | edit loans                                                            | I can update loan information if necessary                             |
+| `* *` | user               | mark loans as returned                                                | I can keep track of whether a loan was repaid                          |
+| `* *` | forgetful user     | track the number of days since the loan was given                     | I can remind friends to return their loans                             | |
+| `* *` | forgetful user     | add phone numbers of people who owe me money                          | I can contact them if necessary                                        |
+| `* *` | frequent loaner    | view a history of all loans that have been fulfilled                  | I can keep track of past lending habits                                | |
+| `* *` | new user           | go through a new user guide                                           | I learn how to use the program                                         |
+| `* *` | new user           | view example entries                                                  | I can learn how to use from the examples                               |
+| `* *` | user               | blacklist people who are always late to return money                  | I can avoid loaning to particular individuals                          |
+| `* *` | user               | tag individuals based on the amount of money lent                     | I can prioritise users that have larger ticket size loans              |
+| `* *` | user               | tag individuals based on their spending habits                        | I can avoid lending to high risk individuals                           |
+| `* *` | user               | view a leaderboard of those with largest loans                        | I can have a visual representation of who needs to be chased for loans |
+| `* *` | user               | see past loans categorised by month and loan type                     | I can project loaning for future months                                |
+| `* *` | user               | delete all records                                                    | I can purge examples                                                   |
+| `* *` | user               | sort records, by loan amount, period, priority etc.                   | I can see the most 'important' records for me                          |
+| `*`   | forgetful user     | upload photos of people who owe me money                              | I can match their appearance to their loans                            |
+| `*`   | user               | have notifications for those who have loaned for longer than duration | I can prompt them to return that it has been past a grace period       |
+| `*`   | user               | send messages to send to people who owe me money                      | I can efficiently prod them to return the money                        |
+| `*`   | user               | customize the autogenerated message sent to those who owe money       | I can better persuade them to return my money                          |
+| `*`   | cash strapped user | calculate projected returns if everyone was to return loans           | I can see how much I can earn back from chasing people for loans       |
 
 ### Use cases
 
@@ -484,8 +480,6 @@ Use case ends.
 2.  Should be able to hold up to 1000 loans without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-*{More to be added}*
-
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
@@ -503,8 +497,6 @@ Use case ends.
 * **Clear**: The ability to delete all stored loan data, often used to clear test or example entries.
 * **Sorting**: Organizing loan records based on factors such as amount, duration, priority, or borrower.
 * **Example Entries**: Pre-filled sample data to help new users understand how the system works.
-* **Not Wanted**: A status tag that indicates a loan  has been completely repaid.
-* **Wanted**: A status tag that indicates a loan has not been repaid.
 
 --------------------------------------------------------------------------------------------------------------------
 
