@@ -24,7 +24,6 @@ public class Messages {
     public static final String MESSAGE_PERSONS_FOUND_OVERVIEW = "%1$d persons found!";
     public static final String MESSAGE_DUPLICATE_FIELDS = "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_COMMAND_DISABLED = "This command has been disabled";
-  
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
