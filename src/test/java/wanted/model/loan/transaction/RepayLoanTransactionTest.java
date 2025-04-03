@@ -79,6 +79,17 @@ public class RepayLoanTransactionTest {
     }
 
     @Test
+    public void getNewTransactionOfSameTypeTest() {
+        final RepayLoanTransaction transaction = new RepayLoanTransaction(VALID_AMOUNT, VALID_DATE);
+        final RepayLoanTransaction expected = new RepayLoanTransaction(VALID_AMOUNT_2, VALID_DATE_2);
+        final LoanTransaction actual = transaction.getNewTransactionOfSameType(VALID_AMOUNT_2, VALID_DATE_2);
+
+        assertEquals(expected, actual);
+        // original object must not change
+        assertEquals(new RepayLoanTransaction(VALID_AMOUNT, VALID_DATE), transaction);
+    }
+
+    @Test
     public void equals() {
         final RepayLoanTransaction transaction = new RepayLoanTransaction(VALID_AMOUNT, VALID_DATE);
 

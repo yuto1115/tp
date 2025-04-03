@@ -13,7 +13,7 @@ import wanted.logic.commands.ClearCommand;
 import wanted.logic.commands.Command;
 import wanted.logic.commands.DeleteCommand;
 import wanted.logic.commands.DelhistCommand;
-import wanted.logic.commands.EditCommand;
+import wanted.logic.commands.EdithistCommand;
 import wanted.logic.commands.ExitCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
@@ -63,8 +63,8 @@ public class LoanBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EdithistCommand.COMMAND_WORD:
+            return new EdithistCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

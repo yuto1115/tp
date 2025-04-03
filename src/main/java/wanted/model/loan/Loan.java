@@ -180,6 +180,7 @@ public class Loan {
      * A new Loan object is created and returned, hence the original Loan remains unchanged.
      *
      * @param index Index of the transaction to be deleted.
+     * @throws ExcessRepaymentException If this deletion results in an invalid transaction history.
      */
     public Loan deleteTransaction(Index index) throws ExcessRepaymentException {
         requireAllNonNull(index);
@@ -193,4 +194,24 @@ public class Loan {
         return new Loan(this.name, new LoanAmount(transactions), this.tags);
     }
 
+    /**
+     * Replace a transaction at the given index of the transaction history by the given transaction.
+     * A new Loan object is created and returned, hence the original Loan remains unchanged.
+     *
+     * @param index Index of the transaction to be replaced.
+     * @param newTransaction New transaction to replace the identified transaction.
+     * @throws ExcessRepaymentException If this deletion results in an invalid transaction history.
+     */
+    public Loan replaceTransaction(Index index, LoanTransaction newTransaction)
+            throws ExcessRepaymentException {
+        requireAllNonNull(index, newTransaction);
+        ArrayList<LoanTransaction> transactions = this.loanAmount.getTransactionHistoryCopy();
+        if (index.getZeroBased() >= transactions.size()) {
+            throw new IllegalArgumentException("Index out of bounds.");
+        }
+
+        transactions.set(index.getZeroBased(), newTransaction);
+
+        return new Loan(this.name, new LoanAmount(transactions), this.tags);
+    }
 }
