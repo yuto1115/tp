@@ -319,29 +319,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `LoanBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Track total amount of money owed**
-
-**MSS**
-
-1.  Loan issuer requests to view the total amount of money owed.
-2.  System calculates and displays the total outstanding loan amount.
-
-    Use Case Ends.
-
-**Extensions**
-
-* 2a. No outstanding loans exists.
-  2a.1. System displays a message indicating that there are no outstanding loans.
-Use Case Ends.
-* 1a. No outstanding loans exists.
-  * 1a.1. System displays a message indicating that there are no outstanding loans.
-  * Use Case Ends.
-
 **Use case: `Add` a New Loan**
 
 **MSS**
 
-1. User requests to add a new loan with details (e.g. amount, borrower, due date).
+1. User requests to add a new loan with details (e.g. borrower, tags).
 
 2. System records the new loan in the loan list.
 
@@ -350,11 +332,11 @@ Use case ends.
 
 **Extensions**
 
-* 1a. The person details are incomplete or invalid.
+* 1a. The loans details are incomplete or invalid.
   * 1a.1. System displays an error message and tells the user the correct format to enter.
   * Use Case Resumes at Step 1.
 
-**Use case: `Delete` a loan**
+**Use case: `Delete` a Loan**
 
 **MSS**
 
@@ -374,110 +356,125 @@ Use case ends.
 
 **MSS**
 
-1. User requests to view the list of current people.
-2. System retrieves and displays the list of people, and their outstanding loans.
+1. User requests to view the list of current loans.
+2. System retrieves and displays the list of loans.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. No people with loans exists.
+* 1a. No loans exists.
   * 1a.1. System displays a message indicating that there are no loans that need to be returned.
   * Use Case Ends
 
-**Use Case: `Increase` a Persons Loan Amount**
+**Use Case: `Increase` a Loan Amount**
 
 **MSS**
-1. User requests to add a loan amount to a specific person's ID, and records the date
+1. User requests to add a loan amount to a loan ID, and records the date of the transaction
 2. System creates a new add loan transaction
-3. System adds transaction to the person's loan history
+3. System adds transaction to the loan history
 4. System updates and displays total amount loaned and total amount to be repaid
 
    Use Case Ends.
 
 **Extensions**
 
-* 1a. No person with the given ID exists.
+* 1a. No loan with the given ID exists.
   * 1a.1. System displays a message indicating that an invalid ID is being called.
   * Use Case Ends.
 
 **Use Case:`Repay` a Loan Amount in Full or Partially**
 
 **MSS**
-1. User requests to repay a loan amount to a specific person's ID, and records the date
+1. User requests to repay a loan amount to a loan ID, and records the date of the transaction
 2. System creates a new repay loan transaction
-3. System adds transaction to the person's loan history, and displays total amount loaned and total amount to be repaid
+3. System adds transaction to the loan history, and displays total amount loaned and total amount to be repaid
 4. System display repaid success message.
 
    Use Case Ends.
 
 **Extensions**
 
-* 1a. No person with the given ID exists.
+* 1a. No loan with the given ID exists.
   * 1a.1. System displays a message indicating that an invalid ID is being called.
   * Use Case Ends.
 
 **Use Case: `Rename` a Loan Transaction**
 
 *MSS**
-1. User requests a persons ID to rename a loan to a given name
+1. User requests a loans ID to rename a loan borrower
 2. System creates an updated loan
-4. System display rename success message.
+3. System display rename success message.
 
    Use Case Ends.
 
 **Extensions**
 
-* 1a. No person with the given ID exists.
+* 1a. No loan with the given ID exists.
   * 1a.1. System displays a message indicating that an invalid ID is being called.
   * Use case ends.
 * 1b. Invalid name field is received as an input
   * 1b.1. System displays a message indicating that an invalid ID is being called.
   * Use case ends.
 
-**Use Case: `Retag` a Loan Transaction**
+**Use Case: `Tag` a Loan Transaction**
 
 *MSS**
-1. User requests a persons ID to retag a loan to a given set of tags
+1. User requests a loan ID to tag a loan
 2. System creates an updated loan
-4. System display retag success message.
+3. System display tag success message.
 
    Use Case Ends.
 
 **Extensions**
 
-* 1a. No person with the given ID exists.
+* 1a. No loan with the given ID exists.
   * 1a.1. System displays a message indicating that an invalid ID is being called.
   * Use case ends.
 
-**Use Case: `Sort` People by Amount Loaned**
+**Use Case: Add and Edit a `Phone` Value**
+
+*MSS**
+1. User requests a loan ID to add or edit a borrowers' phone number
+2. System creates an updated loan
+3. System display phone success message.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 1a. No loan with the given ID exists.
+    * 1a.1. System displays a message indicating that an invalid ID is being called.
+    * Use case ends.
+
+**Use Case: `Sort` Loan by Amount Loaned**
 
 **MSS**
-1. User requests to sort people
-2. System sort people by amount owed and displays it to the user.
+1. User requests to sort loans
+2. System sort loans by amount owed and displays it to the user.
 
    Use Case Ends.
 
 **Extensions**
 
 * 1a. No outstanding loans.
-  * 1a.1. No people are displayed.
+  * 1a.1. No loans are displayed.
   * Use Case Ends.
 
   Use Case Ends.
 
-**Use Case: `Sort` People by Name TBD**
+**Use Case: `Sort` Loans by Borrowers' Name TBD**
 
 **MSS**
-1. User requests to sort people by name
-2. System sort people by amount owed and displays it to the user.
+1. User requests to sort loans by borrowers' name
+2. System sort loans and displays it to the user.
 
    Use Case Ends.
 
 **Extensions**
 
 * 1a. No outstanding loans.
-  * 1a.1. No people are displayed.
+  * 1a.1. No loans are displayed.
 
   * Use Case Ends.
 
@@ -493,30 +490,21 @@ Use case ends.
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Loan Issuer**: The loan who lends money or items to others and expects repayment or return.
-* **User**: A general term for anyone using the system, including loan issuers and those managing their loans.
+* **User**: A general term for loan issuers managing their loans.
 * **Forgetful User**: A user who needs additional reminders and tracking features to recall outstanding loans.
 * **Frequent Loaner**: A user who frequently lends money or items and needs an organized record of past and present loans.
 * **Cash-Strapped User**: A user who urgently needs to recover loaned money to maintain financial stability.
 * **New User**: Someone who has just started using the system and may require guidance on how to navigate it.
-* **Loan Amount**: The total sum of money lent to a borrower.
-* **Loan Duration**: The time period between when a loan is given and when it is expected to be returned.
-* **Loan Type**: The category of a loan, such as money or physical items.
-* **Blacklist**: A feature allowing users to mark individuals who frequently delay or fail to return loans, so they can avoid lending to them in the future.
-* **Loan Limits**: A restriction set by the user to prevent lending beyond a specified amount to manage risk.
-* **Tagging**: A method of categorizing individuals based on different attributes such as loan amount, duration, or spending habits.
-* **Leaderboard**: A visual ranking system displaying individuals with the highest or longest overdue loans.
-* **Loan History**: A record of all past fulfilled loans, categorized by time or type.
-* **Interest Calculation**: A feature to determine how much extra money should be repaid based on a percentage applied to the loan over time.
-* **Grace Period**: A specified duration after which a loan becomes overdue and reminders may be sent.
-* **Projected Returns**: An estimate of the total amount the user would recover if all outstanding loans were repaid.
-* **Autogenerated Message**: A pre-written notification that can be sent to remind borrowers about their pending repayments.
-* **Purge Records**: The ability to delete all stored loan data, often used to clear test or example entries.
-* **Loaned Item Description**: A detailed note about an item that has been lent out to help identify it later.
+* **Amount**: A sum of money.
+* **Loan Transaction**: An action to increase or decrease the loan owed to the user.
+* **Tags**: A method of categorizing individuals based on different attributes such as spending habits, friends, family etc.
+* **Leaderboard**: A visual ranking system displaying individuals with the highest loans.
+* **Loan History**: A record of all loan transactions under a current loan, categorized by increase or repay transactions.
+* **Clear**: The ability to delete all stored loan data, often used to clear test or example entries.
 * **Sorting**: Organizing loan records based on factors such as amount, duration, priority, or borrower.
-* **Upload Photos**: The ability to attach images of borrowers or loaned items for visual reference.
-* **Notifications**: Alerts sent to remind users of overdue loans or outstanding repayments.
 * **Example Entries**: Pre-filled sample data to help new users understand how the system works.
-* **Fulfilled Loan**: A loan that has been completely repaid or returned.
+* **Not Wanted**: A status tag that indicates a loan  has been completely repaid.
+* **Wanted**: A status tag that indicates a loan has not been repaid.
 
 --------------------------------------------------------------------------------------------------------------------
 
