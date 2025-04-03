@@ -12,6 +12,13 @@ This guide assumes cursory knowledge of operating a Command Line Interface (CLI)
 
 The link to this guide can be found on the Github page or the Help window of the program.
 
+## Value Proposition
+With Wanted, you can
+1. Track monetary loans by name
+2. Repay loans in small amounts
+3. View transaction history of borrowing and repayment
+4. Do this all in a gritty, fun interface that resembles a Wanted poster!
+
 <!-- * Table of Contents -->
 <page-nav-print />
 

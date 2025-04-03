@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" styleClass="" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
@@ -37,6 +38,12 @@
       <Label fx:id="amount" styleClass="cell_small_label" text="\$loan" />
       <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+        <ScrollPane fitToWidth="true" maxHeight="100" style="-fx-background-color: #4d0e04;">
+          <VBox fx:id="transactionsBox" spacing="3"/>
+            <padding>
+              <Insets top="5" right="5" bottom="5" left="5" />
+            </padding>
+        </ScrollPane>
     </VBox>
   </GridPane>
 </HBox>
