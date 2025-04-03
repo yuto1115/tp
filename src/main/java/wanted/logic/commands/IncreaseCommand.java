@@ -28,7 +28,7 @@ public class IncreaseCommand extends Command {
             + "l/ [AMOUNT] (must be a positive double with exactly two digits after the decimal point)\n"
             + "d/ [DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "l/ 30.10"
+            + "l/ 30.10 " //whitespace before d
             + "d/ 10th August 2024";
 
 

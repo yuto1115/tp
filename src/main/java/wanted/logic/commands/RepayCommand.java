@@ -3,6 +3,7 @@ package wanted.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static wanted.commons.util.CollectionUtil.requireAllNonNull;
 import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.List;
 
@@ -31,8 +32,7 @@ public class RepayCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "l/ [AMOUNT] (must be a positive double with exactly two digits after the decimal point)\n"
             + "d/ [DATE]\n"
-            + "and must be less than or equal current amount of loan.)" + "\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "10.00";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + " 10.00 " + PREFIX_DATE + " 21st January 2025";
     private final Index targetIndex;
     private final MoneyInt returnedAmount;
     private final LoanDate date;
