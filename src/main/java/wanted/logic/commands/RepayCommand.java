@@ -27,12 +27,12 @@ public class RepayCommand extends Command {
             "Amount repaid should be less than or equal to the current amount of loan";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             +
-            ": Repay the loan identified by the index number used in the displayed loan list, with an amount to repay."
-            + "\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "l/ [AMOUNT] (must be a positive double with exactly two digits after the decimal point)\n"
-            + "d/ [DATE]\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + " 10.00 " + PREFIX_DATE + " 21st January 2025";
+            ": Repays the loan identified by the index number used in the displayed persons list.\n"
+            + "Parameters:\n"
+            + "    [ID] (must be a positive integer)\n"
+            + "    l/[AMOUNT] (must be a non-negative numeric amount with 2 decimal places)\n"
+            + "    d/[DATE]\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "10.00 " + PREFIX_DATE + "21st January 2025";
     private final Index targetIndex;
     private final MoneyInt returnedAmount;
     private final LoanDate date;

@@ -29,14 +29,14 @@ public class EdithistCommand extends Command {
     public static final String COMMAND_WORD = "edithist";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits a transaction in the history of the loan "
-            + "identified by the index number used in the displayed loan list.\n"
-            + "The edited transaction is identified by the index number used in the history of the identified loan.\n"
+            + ": Edits a transaction in the history of the person "
+            + "identified by the index number used in the displayed persons list.\n"
+            + "The edited transaction is identified by the index number used in the history of the identified person.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: LOAN_ID "
-            + PREFIX_INDEX + "[TRANSACTION_ID] (both must be positive integers)\n"
-            + "    (" + PREFIX_AMOUNT + "[AMOUNT]) "
-            + "(" + PREFIX_DATE + "[DATE])\n"
+            + "Parameters: [ID]\n"
+            + "    " + PREFIX_INDEX + "[TRANSACTION ID] (both must be positive integers)\n"
+            + "    (" + PREFIX_AMOUNT + "[AMOUNT]) (must be a non-negative numeric amount with 2 decimal places)\n"
+            + "    (" + PREFIX_DATE + "[DATE])\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INDEX + "3 "
             + PREFIX_AMOUNT + "30.10 "

@@ -29,9 +29,11 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all persons whose names contain any\n"
-            + "specified keywords (case-insensitive). \n"
-            + "Matching results will be listed first in alphabetical order\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "specified keywords (case-insensitive).\n"
+            + "Matching results will be listed first in alphabetical order.\n"
+            + "Parameters:\n"
+            + "    [KEYWORD]\n"
+            + "    ([MORE KEYWORDS]...)\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private static final Logger logger = Logger.getLogger(FindCommand.class.getName());

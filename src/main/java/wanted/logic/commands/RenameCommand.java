@@ -19,11 +19,12 @@ import wanted.model.loan.Loan;
 public class RenameCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the loan identified "
-            + "by the index number used in the displayed loan list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the name of the person identified "
+            + "by the index number used in the displayed persons list.\n"
             + "Existing name will be overwritten by the input name.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_NAME + "[NAME] ";
+            + "Parameters:\n"
+            + "    [ID] (must be a positive integer)\n"
+            + "    " + PREFIX_NAME + "[NAME]";
 
     public static final String MESSAGE_RENAME_SUCCESS = "Edited loan name: %1$s";
     public static final String MESSAGE_NOT_EDITED = "The name field must be provided.";
