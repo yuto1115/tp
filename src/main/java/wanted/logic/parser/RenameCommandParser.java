@@ -7,7 +7,7 @@ import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 
 import wanted.commons.core.datatypes.Index;
 import wanted.logic.commands.BaseEdit;
-import wanted.logic.commands.EditCommand;
+import wanted.logic.commands.EdithistCommand;
 import wanted.logic.commands.RenameCommand;
 import wanted.logic.parser.exceptions.ParseException;
 
@@ -44,7 +44,7 @@ public class RenameCommandParser implements Parser<RenameCommand> {
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED); //change this later
+            throw new ParseException(EdithistCommand.MESSAGE_NOT_EDITED); //change this later
         }
 
         return new RenameCommand(index, editPersonDescriptor);

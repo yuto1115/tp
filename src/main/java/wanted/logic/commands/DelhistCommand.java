@@ -14,7 +14,7 @@ import wanted.model.loan.Loan;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 
 /**
- * Deletes a loan identified using it's displayed index from the address book.
+ * Deletes a transaction from a loan identified using it's displayed index from the address book.
  */
 public class DelhistCommand extends Command {
 
