@@ -33,7 +33,18 @@ public class Loan {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Constructs a new Loan with the given name, LoanAmount, and tags.
+     * Constructs a new Loan with the given name and the default state.
+     * New Loans created by AddCommand should start with empty LoanAmount, phone and tags.
+     */
+    public Loan(Name name) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.loanAmount = new LoanAmount();
+        this.phone = Phone.EMPTY_PHONE;
+    }
+
+    /**
+     * Constructs a new Loan object with the given name, LoanAmount, and tags.
      */
     public Loan(Name name, LoanAmount loanAmount, Set<Tag> tags) {
         requireAllNonNull(name, loanAmount, tags);
