@@ -22,8 +22,8 @@ import wanted.logic.commands.ListCommand;
 import wanted.logic.commands.PhoneCommand;
 import wanted.logic.commands.RenameCommand;
 import wanted.logic.commands.RepayCommand;
-import wanted.logic.commands.TagCommand;
 import wanted.logic.commands.SortCommand;
+import wanted.logic.commands.TagCommand;
 import wanted.logic.parser.exceptions.ParseException;
 
 /**

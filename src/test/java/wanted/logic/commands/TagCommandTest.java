@@ -26,7 +26,7 @@ import wanted.testutil.PersonBuilder;
 /**
  * Tests based on rename command test
  */
-public class RetagCommandTest {
+public class TagCommandTest {
 
     private Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
 
