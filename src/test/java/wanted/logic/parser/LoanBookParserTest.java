@@ -120,7 +120,7 @@ public class LoanBookParserTest {
         assertEquals(new PhoneCommand(INDEX_FIRST_PERSON, new Phone(CommandTestUtil.VALID_PHONE)),
                 parser.parseCommand(command));
     }
-  
+
     @Test
     public void parseCommand_rename() throws Exception {
         assertTrue(parser.parseCommand(RenameCommand.COMMAND_WORD + " 1 n/Julian") instanceof RenameCommand);
