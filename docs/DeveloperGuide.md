@@ -497,6 +497,7 @@ Use case ends.
 * **Clear**: The ability to delete all stored loan data, often used to clear test or example entries.
 * **Sorting**: Organizing loan records based on factors such as amount, duration, priority, or borrower.
 * **Example Entries**: Pre-filled sample data to help new users understand how the system works.
+* **Wanted/Not Wanted**: UI element on each loan entry representing whether the loan is fully returned.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -515,18 +516,118 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the latest jar file and copy into an empty folder.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Run the jar file with Java 17 (best to be done through command line). The default window size may not be suitable.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   1. Resize the window to a desired size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   1. Re-launch the app.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Adding a loan
+
+1. Prerequisites: No entries are in the list, easiest done by clearing all entries from the list by running `clear`.
+
+2. Creating a new entry
+
+   1. Test case: `add n/John`<br>
+   Expected: A new entry with name `John` is created in position 1. It should also have the default parameters of $0.00 in loan amount, no tags and no phone number.
+   
+   2. Test case: `add n/John`<br>
+   Expected: No entry is created. Error details shown in status message. Command is not erased from input field.
+   
+   3.  Test case: `add n/john` <br>
+   Expected: A new entry is name `john` is created with default parameters. 
+
+3. Adding a phone number to entries
+
+   1. Test case: `phone 1 p/98765432`
+   Expected: Adds the phone number `98765432` to the entry for `John`.
+   
+   2. Test case: `phone 1 p/delete`
+   Expected: Deletes the phone number and removes it from the display for the entry for `John`.
+   
+   3. Test case: `phone 2 p/abcdefgh`
+   Expected: No phone number is updated. Error details shown in status message. Command is not erased from input field.
+
+4. Adding tags to entries
+
+   1. Test case: `tag 1 t/friend t/frequentloaner`
+   Expected: Adds the tags `friend` and `frequentloaner` to the entry for `John`.
+   
+   2. Test case: `tag 1 t/`
+   Expected: Removes all tags from the entry for `John`.
+
+5. Adding loans to entries
+
+   1. Test case: `increase 1 l/100.00 d/1st Jan 2025`<br>
+   Expected: The entry for `John` at index 1 has a loan for $100.00 on 1st Jan 2025 recorded in its transaction history, and loan amount is increased by $100.00. <br>
+   The entry should now show "Wanted" instead of "Not Wanted".
+   
+   2. Test case: `increase 1 l/-100.00 d/2nd Jan 2025`<br>
+   Exoected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
+
+### Repaying a loan
+1. Prerequisites: The first entry on the currently displayed list has a loan amount of $100.00.
+
+2. Adding loan repayments to entries
+
+   1. Test case: `repay 1 l/60.00 d/3rd Jan 2025`
+   Expected: The first entry on the list now has a loan amount of $40.00. The repayment transaction details are added to the transaction history. 
+
+   2. Test case: `repay 1 l/50.00 d/4th Jan 2025`
+   Expected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
+
+   3. Test case: `repay 1 l/40.00 d/4th Jan 2025`
+   Expected: The first entry on the list now has a loan amount of $0.00 and shows "Not Wanted". The repayment transaction details are added to the transaction history.
+
+### Editing loan transaction history
+1. Prerequisites: The first entry on the currently displayed list has a transaction history of exactly a $100.00 loan in the first slot and a $50.00 repayment in the second slot.
+
+2. Editing loan transaction history
+   
+    1. Test case: `edithist 1 i/2 l/60.00 d/10th Jan 2025`
+   Expected: The repayment transaction is increased to $60.00 and the date is changed to 10th Jan 2025. The loan amount of the entry should be updated to $40.00.
+   
+   2. Test case: `edithist 1 i/1 l/40.00`
+   Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
+   
+   3. Test case: `edithist 1 i/1 l/250.00`
+   Expected: The loan transaction is increased to $250.00. The date is unchanged. The loan amount of the entry should be updated to $190.00.
+
+   4. Test case: `edithist 1 i/5 l/100.00`
+      Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
+
+### Deleting loan transaction history
+1. Prerequisites: The first entry on the currently displayed list has a transaction history of exactly a $100.00 loan in the first slot and a $50.00 repayment in the second slot.
+    
+    1. Test case: `delhist 1 i/1`
+   Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
+
+   2. Test case: `delhist 1 i/2`
+      Expected: The transaction for the repayment is deleted. The loan amount is reverted to $100.00.
+
+### Finding specific entries
+1. Prerequisites: There are multiple entries on the list with different names, with at least one entry containing `John` in the name and no entries containing `Jim`.
+
+   1. Test case: `find John`
+   Expected: Entries containing the name `John` (case-insensitive) are moved to the top of the list.
+   
+    2. Test case: `find Jim`
+    Expected: No change occurs.
+
+### Displaying all entries
+1. Test case: `list`
+Expected: All entries are displayed. (No change occurs)
+
+### Sorting the list
+1. Prerequisites: There are multiple entries on the list with different loan amounts.
+
+2. Test case: `sort`
+Expected: All entries are sorted in decreasing order of loan amount.
 
 ### Deleting a loan
 
@@ -535,20 +636,10 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message.
 
    1. Test case: `delete 0`<br>
-      Expected: No loan is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No loan is deleted. Error details shown in the status message. Command is not erased from input field.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
