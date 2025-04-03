@@ -23,7 +23,8 @@ public class DelhistCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a transaction in the history of the person "
             + "identified by the index number used in the displayed persons list.\n"
-            + "The deleted transaction is identified by the index number used in the history of the identified person.\n"
+            + "The deleted transaction is identified "
+            + "by the index number used in the history of the identified person.\n"
             + "Parameters:\n"
             + "    [ID]\n"
             + "    " + PREFIX_INDEX + "[TRANSACTION ID] (both must be positive integers)\n"

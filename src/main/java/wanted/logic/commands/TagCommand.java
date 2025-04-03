@@ -1,7 +1,6 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 import static wanted.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
