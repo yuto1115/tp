@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import wanted.commons.core.datatypes.Index;
 import wanted.logic.commands.BaseEdit;
-import wanted.logic.commands.RenameCommand;
 import wanted.logic.commands.TagCommand;
 import wanted.testutil.EditLoanDescriptorBuilder;
 

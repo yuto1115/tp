@@ -27,10 +27,10 @@ public class RepayCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             +
             ": Repay the loan identified by the index number used in the displayed loan list, with an amount to repay."
-            + "\n" + "Parameters: INDEX (must be a positive integer)\n"
-            + "          "
-            + PREFIX_AMOUNT
-            + "AMOUNT_REPAID (must be a positive double with exactly two digits after the decimal point, "
+            + "\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "l/ [AMOUNT] (must be a positive double with exactly two digits after the decimal point)\n"
+            + "d/ [DATE]\n"
             + "and must be less than or equal current amount of loan.)" + "\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "10.00";
     private final Index targetIndex;
