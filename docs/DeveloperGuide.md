@@ -323,7 +323,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add a new loan with details (e.g. borrower, tags).
+1. User requests to add a new loan with borrower's name.
 
 2. System records the new loan in the loan list.
 
