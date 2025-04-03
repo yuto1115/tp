@@ -91,10 +91,9 @@ public class LoanBookParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
-
         case DelhistCommand.COMMAND_WORD:
             return new DelhistCommandParser().parse(arguments);
-            
+
         case PhoneCommand.COMMAND_WORD:
             return new PhoneCommandParser().parse(arguments);
 
