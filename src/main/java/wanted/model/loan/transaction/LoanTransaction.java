@@ -59,4 +59,9 @@ public abstract class LoanTransaction {
      */
     public abstract MoneyInt getRemainingAmountAfterTransaction(MoneyInt previousRemainingAmount)
             throws ExcessRepaymentException;
+
+    /**
+     * Returns a new {@code LoanTransaction} of the same instance type having the given amount and date.
+     */
+    public abstract LoanTransaction getNewTransactionOfSameType(MoneyInt amount, LoanDate date);
 }

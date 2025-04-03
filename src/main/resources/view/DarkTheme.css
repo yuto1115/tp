@@ -417,8 +417,12 @@
 
 .cell_small_label#status.status-wanted {
     -fx-text-fill: #200b0b;
+    -fx-effect: dropshadow(gaussian, #200b0b, 2, 0.5, 0, 0);
+    -fx-font-weight: bold;
 }
 
 .cell_small_label#status.status-not-wanted {
-    -fx-text-fill: #16680b;
+    -fx-text-fill: #18591a;
+    -fx-effect: dropshadow(gaussian, #18591a, 2, 0.5, 0, 0);
+    -fx-font-weight: bold;
 }
