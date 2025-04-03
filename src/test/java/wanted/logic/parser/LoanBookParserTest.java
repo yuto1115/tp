@@ -96,7 +96,6 @@ public class LoanBookParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
-
     @Test
     public void parseCommand_increase() throws Exception {
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD
