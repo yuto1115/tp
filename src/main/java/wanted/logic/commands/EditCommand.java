@@ -24,10 +24,11 @@ import wanted.model.loan.Loan;
 import wanted.model.loan.LoanAmount;
 import wanted.model.loan.LoanDate;
 import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 
 /**
- * Edits the details of an existing loan in the address book.
+ * Edits the details of an existing loan in the loan book.
  */
 public class EditCommand extends Command {
 
@@ -50,7 +51,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Loan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This loan already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This loan already exists in the loan book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -98,8 +99,9 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(loanToEdit.getName());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(loanToEdit.getTags());
         LoanAmount updatedAmount = editPersonDescriptor.getAmount().orElse(loanToEdit.getLoanAmount());
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(loanToEdit.getPhone());
 
-        return new Loan(updatedName, updatedAmount, updatedTags);
+        return new Loan(updatedName, updatedAmount, updatedTags, updatedPhone);
     }
 
     @Override
@@ -135,6 +137,7 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private LoanAmount loanAmount;
         private LoanDate date;
+        private Phone phone;
 
         public EditPersonDescriptor() {
         }
@@ -148,6 +151,7 @@ public class EditCommand extends Command {
             setTags(toCopy.tags);
             setAmount(toCopy.loanAmount);
             setDate(toCopy.date);
+            setPhone(toCopy.phone);
         }
 
         /**
@@ -179,6 +183,12 @@ public class EditCommand extends Command {
 
         public Optional<LoanDate> getDate() {
             return Optional.ofNullable(date);
+        }
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
         }
 
         /**

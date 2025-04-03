@@ -13,17 +13,27 @@ import java.util.Arrays;
 import java.util.List;
 
 import wanted.commons.core.datatypes.Index;
+import wanted.commons.core.datatypes.MoneyInt;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.LoanBook;
 import wanted.model.Model;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanAmount;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.NameContainsKeywordsPredicate;
+import wanted.model.loan.exceptions.ExcessRepaymentException;
+import wanted.model.loan.transaction.AddLoanTransaction;
+import wanted.model.loan.transaction.LoanTransaction;
+import wanted.model.loan.transaction.RepayLoanTransaction;
+import wanted.testutil.EditLoanDescriptorBuilder;
 import wanted.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    // needs to be updated here
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -65,6 +75,24 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
+    public static final BaseEdit.EditLoanDescriptor NEW_DESC_AMY;
+    //public static final BaseEdit.EditLoanDescriptor NEW_DESC_BOB;
+
+    static {
+        ArrayList<LoanTransaction> history = new ArrayList<>(Arrays.asList(
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+                new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
+                new RepayLoanTransaction(MoneyInt.fromCent(1250), new LoanDate("3rd Jan 2024"))
+        ));
+
+        try {
+            NEW_DESC_AMY = new EditLoanDescriptorBuilder().withName(VALID_NAME_AMY)
+                    .withLoanAmount(new LoanAmount(history)).withTags(VALID_TAG_FRIEND).build();
+        } catch (ExcessRepaymentException e) {
+            throw new AssertionError("ExcessRepaymentException");
+        }
+    }
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -95,7 +123,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered loan list and selected loan in {@code actualModel} remain unchanged
+     * - the loan book, filtered loan list and selected loan in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
@@ -109,7 +137,7 @@ public class CommandTestUtil {
     }
     /**
      * Updates {@code model}'s filtered list to show only the loan at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s loan book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());

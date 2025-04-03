@@ -33,14 +33,14 @@ public interface LoanBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyLoanBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param loanBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveLoanBook(ReadOnlyLoanBook addressBook) throws IOException;
+    void saveLoanBook(ReadOnlyLoanBook loanBook) throws IOException;
 
     /**
      * @see #saveLoanBook(ReadOnlyLoanBook)
      */
-    void saveLoanBook(ReadOnlyLoanBook addressBook, Path filePath) throws IOException;
+    void saveLoanBook(ReadOnlyLoanBook loanBook, Path filePath) throws IOException;
 
 }

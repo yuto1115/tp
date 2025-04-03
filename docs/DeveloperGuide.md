@@ -71,7 +71,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `LoanListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -80,7 +80,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Loan` object residing in the `Model`.
 
 ### Logic component
 
@@ -101,9 +101,9 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, it is passed to an `LoanBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a loan).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -112,7 +112,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `LoanBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `LoanBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -123,14 +123,14 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the loan book data i.e., all `Loan` objects (which are contained in a `UniqueLoanList` object).
+* stores the currently 'selected' `Loan` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Loan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `LoanBook`, which `Loan` references. This allows `LoanBook` to only require one `Tag` object per unique tag, instead of each `Loan` needing their own `Tag` objects.<br>
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
@@ -144,8 +144,8 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both loan book data and user preference data in JSON format, and read them back into corresponding objects.
+* inherits from both `LoanBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -162,42 +162,42 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Proposed Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The proposed undo/redo mechanism is facilitated by `VersionedLoanBook`. It extends `LoanBook` with an undo/redo history, stored internally as an `loanBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedLoanBook#commit()` — Saves the current loan book state in its history.
+* `VersionedLoanBook#undo()` — Restores the previous loan book state from its history.
+* `VersionedLoanBook#redo()` — Restores a previously undone loan book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitLoanBook()`, `Model#undoLoanBook()` and `Model#redoLoanBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedLoanBook` will be initialized with the initial loan book state, and the `currentStatePointer` pointing to that single loan book state.
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th loan in the loan book. The `delete` command calls `Model#commitLoanBook()`, causing the modified state of the loan book after the `delete 5` command executes to be saved in the `loanBookStateList`, and the `currentStatePointer` is shifted to the newly inserted loan book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new loan. The `add` command also calls `Model#commitLoanBook()`, causing another modified loan book state to be saved into the `loanBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
 <box type="info" seamless>
 
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+**Note:** If a command fails its execution, it will not call `Model#commitLoanBook()`, so the loan book state will not be saved into the `loanBookStateList`.
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the loan was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoLoanBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous loan book state, and restores the loan book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+**Note:** If the `currentStatePointer` is at index 0, pointing to the initial LoanBook state, then there are no previous LoanBook states to restore. The `undo` command uses `Model#canUndoLoanBook()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </box>
@@ -216,19 +216,19 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 <puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoLoanBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the loan book to that state.
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+**Note:** If the `currentStatePointer` is at index `loanBookStateList.size() - 1`, pointing to the latest loan book state, then there are no undone LoanBook states to restore. The `redo` command uses `Model#canRedoLoanBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </box>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the loan book, such as `list`, will usually not call `Model#commitLoanBook()`, `Model#undoLoanBook()` or `Model#redoLoanBook()`. Thus, the `loanBookStateList` remains unchanged.
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitLoanBook()`. Since the `currentStatePointer` is not pointing at the end of the `loanBookStateList`, all loan book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
@@ -246,7 +246,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete`, just save the loan being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -302,14 +302,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | new user                      | view example entries                                                  | I can learn how to use from the examples                               |
 | `* *`    | user                          | set deadlines to receive loans                                        | I can follow up with lenders on time                                   |
 | `* *`    | user                          | blacklist people who are always late to return money                  | I can avoid loaning to particular individuals                          |
-| `* *`    | user                          | set limits of how much i should loan to others                        | I can prevent excessive money lost                                     |
 | `* *`    | user                          | tag individuals based on the amount of money lent                     | I can prioritise users that have larger ticket size loans              |
 | `* *`    | user                          | tag individuals based on loan duration                                | I can group friends by loan durations                                  |
 | `* *`    | user                          | tag individuals based on their spending habits                        | I can avoid lending to high risk individuals                           |
-| `* *`    | user                          | add loans of items                                                    | I can keep track of loaned items                                       |
-| `* *`    | user                          | delete loans of items                                                 | I cam delete item loans that are no longer relevant                    |
-| `* *`    | user                          | edit loans of items                                                   | I can make relevant modifications to item loans                        |
-| `* *`    | user                          | add a description of loaned item                                      | I can remember the specific item that was loaned out                   |
 | `* *`    | user                          | view a leaderboard of those with highest or longest unreturned loans  | I can have a visual representation of who needs to be chased for loans |
 | `* *`    | user                          | see past loans categorised by month and loan type                     | I can project loaning for future months                                |
 | `* *`    | user                          | delete all records                                                    | I can purge examples                                                   |
@@ -318,10 +313,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | user                          | have notifications for those who have loaned for longer than duration | I can prompt them to return that it has been past a grace period       |
 | `*`      | user                          | send messages to send to people who owe me money                      | I can efficiently prod them to return the money                        |
 | `*`      | user                          | customize the autogenerated message sent to those who owe money       | I can better persuade them to return my money                          |
-| `*`      | user                          | upload pictures of loaned items                                       | I can remember what was loaned to others                               |
-| `*`      | user                          | set/calculate interest if necessary                                   | I can benefit from loaning out to people                               |
-| `*`      | user                          | set/calculate interest if necessary                                   | I can return what I owe others                                         |
-| `*`      | user who also takes out loans | keep track of how much I am borrowing from others                     | I can match their appearance to their loans                            |
 | `*`      | cash strapped user            | calculate projected returns if everyone was to return loans           | I can see how much I can earn back from chasing people for loans       |
 
 ### Use cases
@@ -365,7 +356,6 @@ Use Case Resumes at Step 1.
 1. User requests to delete a specific loan.
 2. System removes the loan from the loan list.
 3. System confirms that the loan has been successfully deleted.
-
     Use case ends.
 
 **Extensions**
@@ -373,6 +363,38 @@ Use Case Resumes at Step 1.
 * 2a. The loan does not exist in the system.
   2a.1. System displays a message indicating that the loan is not found.
   Use Case Ends.
+
+**Use case: Repay a loan**
+
+**MSS**
+
+1. User requests to repay a loan amount with necessary details (e.g. index, loan amount, date).
+2. System records the repayment in transaction history.
+3. System confirms that the loan has been successfully repaid.
+4. System displays the transaction history of the loan repayment.
+   Use case ends.
+
+**Extensions**
+
+* 2a. The loan repayment details are incomplete or invalid.
+  2a.1. System displays an error message and tells the user the correct format to enter.
+  Use Case Resumes at Step 1.
+
+**Use case: Increase loan amount**
+
+**MSS**
+
+1. User requests to increase loan amount with details (e.g. index, increased loan amount).
+2. System records the increase in loan amount.
+3. System confirms that the loan has been successfully added.
+4. System displays the transaction history with the increase in loan amount.
+   Use case ends.
+
+**Extensions**
+
+* 2a. The loan increase details are incomplete or invalid.
+  2a.1. System displays an error message and tells the user the correct format to enter.
+  Use Case Resumes at Step 1.
 
 **Use case: View Current Loans**
 
@@ -395,7 +417,7 @@ Use Case Resumes at Step 1.
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 loans without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *{More to be added}*
@@ -403,7 +425,7 @@ Use Case Resumes at Step 1.
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Loan Issuer**: The person who lends money or items to others and expects repayment or return.
+* **Loan Issuer**: The loan who lends money or items to others and expects repayment or return.
 * **User**: A general term for anyone using the system, including loan issuers and those managing their loans.
 * **Forgetful User**: A user who needs additional reminders and tracking features to recall outstanding loans.
 * **Frequent Loaner**: A user who frequently lends money or items and needs an organized record of past and present loans.
@@ -459,17 +481,17 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a loan
 
-1. Deleting a person while all persons are being shown
+1. Deleting a loan while all loans are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No loan is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.

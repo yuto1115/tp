@@ -14,7 +14,7 @@ import wanted.commons.core.LogsCenter;
 import wanted.model.loan.Loan;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the loan book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -24,12 +24,12 @@ public class ModelManager implements Model {
     private final FilteredList<Loan> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given loanBook and userPrefs.
      */
     public ModelManager(ReadOnlyLoanBook loanBook, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(loanBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + loanBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with loan book: " + loanBook + " and user prefs " + userPrefs);
 
         this.loanBook = new LoanBook(loanBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -70,9 +70,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setLoanBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setLoanBookFilePath(addressBookFilePath);
+    public void setLoanBookFilePath(Path loanBookFilePath) {
+        requireNonNull(loanBookFilePath);
+        userPrefs.setLoanBookFilePath(loanBookFilePath);
     }
 
     //=========== LoanBook ================================================================================

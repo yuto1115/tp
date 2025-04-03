@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import wanted.model.loan.Loan;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an loan book
  */
 public interface ReadOnlyLoanBook {
 
