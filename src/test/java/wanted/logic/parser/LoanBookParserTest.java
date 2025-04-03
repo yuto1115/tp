@@ -2,7 +2,6 @@ package wanted.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
