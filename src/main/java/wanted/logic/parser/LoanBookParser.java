@@ -12,12 +12,15 @@ import wanted.logic.commands.AddCommand;
 import wanted.logic.commands.ClearCommand;
 import wanted.logic.commands.Command;
 import wanted.logic.commands.DeleteCommand;
+import wanted.logic.commands.DelhistCommand;
 import wanted.logic.commands.EditCommand;
 import wanted.logic.commands.ExitCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
 import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
+import wanted.logic.commands.PhoneCommand;
+import wanted.logic.commands.RenameCommand;
 import wanted.logic.commands.RepayCommand;
 import wanted.logic.commands.SortCommand;
 import wanted.logic.parser.exceptions.ParseException;
@@ -89,6 +92,15 @@ public class LoanBookParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
+
+        case DelhistCommand.COMMAND_WORD:
+            return new DelhistCommandParser().parse(arguments);
+
+        case PhoneCommand.COMMAND_WORD:
+            return new PhoneCommandParser().parse(arguments);
+
+        case RenameCommand.COMMAND_WORD:
+            return new RenameCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

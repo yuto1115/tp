@@ -10,7 +10,7 @@ import wanted.model.loan.Loan;
 import wanted.model.loan.UniqueLoanList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the loan book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class LoanBook implements ReadOnlyLoanBook {
@@ -60,7 +60,7 @@ public class LoanBook implements ReadOnlyLoanBook {
     //// loan-level operations
 
     /**
-     * Returns true if a loan with the same identity as {@code loan} exists in the address book.
+     * Returns true if a loan with the same identity as {@code loan} exists in the loan book.
      */
     public boolean hasPerson(Loan person) {
         requireNonNull(person);
@@ -68,8 +68,8 @@ public class LoanBook implements ReadOnlyLoanBook {
     }
 
     /**
-     * Adds a loan to the address book.
-     * The loan must not already exist in the address book.
+     * Adds a loan to the loan book.
+     * The loan must not already exist in the loan book.
      */
     public void addPerson(Loan p) {
         persons.add(p);
@@ -77,8 +77,8 @@ public class LoanBook implements ReadOnlyLoanBook {
 
     /**
      * Replaces the given loan {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The loan identity of {@code editedPerson} must not be the same as another existing loan in the address book.
+     * {@code target} must exist in the loan book.
+     * The loan identity of {@code editedPerson} must not be the same as another existing loan in the loan book.
      */
     public void setPerson(Loan target, Loan editedPerson) {
         requireNonNull(editedPerson);
@@ -88,7 +88,7 @@ public class LoanBook implements ReadOnlyLoanBook {
 
     /**
      * Removes {@code key} from this {@code LoanBook}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the loan book.
      */
     public void removePerson(Loan key) {
         persons.remove(key);
