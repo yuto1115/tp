@@ -2,7 +2,6 @@ package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
-import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 
 import wanted.commons.util.ToStringBuilder;
 import wanted.logic.Messages;
@@ -20,11 +19,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new person to the Wanted list.\n"
             + "Parameters:\n"
             + "    " + PREFIX_NAME + "[NAME]\n"
-            + "    (" + PREFIX_TAG + "[TAG]...)\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "John Doe ";
 
     public static final String MESSAGE_SUCCESS = "New loan created for: %1$s"; //add in persons name
     public static final String MESSAGE_DUPLICATE_PERSON = "This person has already loaned out money in the wanted list";
