@@ -69,4 +69,20 @@ public class PhoneCommand extends Command {
                 ? new CommandResult(String.format(MESSAGE_DELETED_SUCCESS, Messages.format(newLoan)))
                 : new CommandResult(String.format(MESSAGE_UPDATED_SUCCESS, Messages.format(newLoan)));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof PhoneCommand)) {
+            return false;
+        }
+
+        PhoneCommand otherPhoneCommand = (PhoneCommand) other;
+        return this.targetIndex.equals(otherPhoneCommand.targetIndex)
+                && this.updatedPhone.equals(otherPhoneCommand.updatedPhone);
+    }
 }

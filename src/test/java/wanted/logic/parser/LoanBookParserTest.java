@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
 import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -27,10 +28,12 @@ import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
 import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
+import wanted.logic.commands.PhoneCommand;
 import wanted.logic.commands.RenameCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
 import wanted.model.loan.NameContainsKeywordsPredicate;
+import wanted.model.loan.Phone;
 import wanted.testutil.EditPersonDescriptorBuilder;
 import wanted.testutil.PersonBuilder;
 import wanted.testutil.PersonUtil;
@@ -96,20 +99,26 @@ public class LoanBookParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
-
     @Test
     public void parseCommand_increase() throws Exception {
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD
                 + " 1 l/10.10 d/9th September 2024") instanceof IncreaseCommand);
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
-            + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY
-            + " " + " d/" + CommandTestUtil.VALID_DATE_AMY) instanceof IncreaseCommand);
+                + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY
+                + " " + " d/" + CommandTestUtil.VALID_DATE_AMY) instanceof IncreaseCommand);
     }
 
     @Test
     public void parseCommand_delhist() throws Exception {
         String command = DelhistCommand.COMMAND_WORD + " 1 i/2";
         assertEquals(new DelhistCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), parser.parseCommand(command));
+    }
+
+    @Test
+    public void parseCommand_phone() throws Exception {
+        String command = PhoneCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + CommandTestUtil.VALID_PHONE;
+        assertEquals(new PhoneCommand(INDEX_FIRST_PERSON, new Phone(CommandTestUtil.VALID_PHONE)),
+                parser.parseCommand(command));
     }
 
     @Test
@@ -122,7 +131,7 @@ public class LoanBookParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test
