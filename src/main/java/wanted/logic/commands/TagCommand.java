@@ -1,6 +1,7 @@
 package wanted.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 import static wanted.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -20,10 +21,14 @@ public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the tags of the loan identified "
-            + "by the index number used in the displayed loan list. "
+            + "by the index number used in the displayed persons list.\n"
             + "Existing list of tags will be overwritten by the input tags.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "[TAG]...\n";
+            + "Parameters:\n"
+            + "    [ID] (must be a positive integer)\n"
+            + "    (" + PREFIX_TAG + "[TAG]...)\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_RENAME_SUCCESS = "Edited loan name: %1$s";
     private final Index index;
