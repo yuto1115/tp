@@ -66,11 +66,8 @@ Command     | Action                           | Format, Examples
 * Words in square brackets and `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/[NAME]`, `[NAME]` is a parameter which can be used as `add n/John Doe`.
 
-* Items in round brackets are optional.<br>
-  e.g `n/[NAME] (t/[TAG])` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `(t/[TAG]…)​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times.<br>
+  e.g. `(t/[TAG]…)​` can be used as ` ` `t/`, `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `l/[AMOUNT] d/[DATE]`, `d/[DATE] l/AMOUNT]` is also acceptable.
@@ -83,7 +80,7 @@ Command     | Action                           | Format, Examples
 
 ### Viewing help: `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -112,17 +109,28 @@ Format: `rename [ID] n/[NAME]`
 
 ### Adding/Updating phone number: `phone`
 
-[TODO: for Anh to insert]
+Adds and edits a borrowers' phone number in the Wanted list.
 
-### Adding/Updating tags: `tag`
+Format: `phone [ID] p/[PHONE]`
+
+### Updating tags: `tag`
 
 Overwrites the current tags on the specified entry with the tags specified in the command.
 
 <box type="tip" seamless>
 **Tip:** A person can have any number of tags (including 0)
+**Tip** To clear all tags input an empty tag [INDEX] "t/"
+</box>
+
+<box type="warning" seamless>
+**Warning:** Writing tag [INDEX] t/ will clear all tags
 </box>
 
 Format: `tag (t/[TAG]…)`
+
+Examples:
+* `tag 1 t/schoolmate t/nus`
+* `tag 1 t/` 
 
 ### Adding a loan: `increase`
 
@@ -150,18 +158,14 @@ Restrictions:
 
 Edits an existing transaction history in the given entry.
 
-Format: `edit [ID] h/[HISTORY ID] a/[AMOUNT]​`
-
-* Edits the loan at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* [TODO: for Yuto to update]
-
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Format: `edit [ID] h/[HISTORY ID] l/[AMOUNT]​`
 
 ### Deleting a transaction: `delhist`
 
-[TODO: for Yuto to update]
+Edits an existing transaction history in the given entry.
+
+Format: `delhist [ID] i/[TRANSACTION ID]`
+
 
 ### Listing all entries: `list`
 
@@ -179,7 +183,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Persons matching at least one keyword will be returned at the top of the Wanted list(i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
@@ -189,6 +193,10 @@ Examples:
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Sorting entries: `sort`
+
+Sorts the Wanted list by loaned amount.
+
+Format: `sort`
 
 ### Deleting an entry: `delete`
 
@@ -207,6 +215,10 @@ Examples:
 ### Clearing all entries: `clear`
 
 Clears all entries from the loan book.
+
+<box type="warning" seamless>
+**Warning:** No undo for clear command. All loan entries will be wiped.
+</box>
 
 Format: `clear`
 
@@ -256,7 +268,7 @@ If you wish to transfer your saved data to another device, install Wanted on the
 
     * `list` : Lists all loans.
 
-    * `add n/John Doe t/lunch` : Adds a loan with a borrower named `John Doe` and tag `lunch` to the Loan Book.
+    * `add n/John Doe` : Adds a loan with a borrower named `John Doe` to the Loan Book.
    
     * `increase 2 l/19.87 d/10th December 2024` : Increases the amount borrowed in the 2nd loan in the current list and records the transaction in its loan history.
 
