@@ -12,6 +12,13 @@ This guide assumes cursory knowledge of operating a Command Line Interface (CLI)
 
 The link to this guide can be found on the Github page or the Help window of the program.
 
+## Value Proposition
+With Wanted, you can
+1. Track monetary loans by name
+2. Repay loans in small amounts
+3. View transaction history of borrowing and repayment
+4. Do this all in a gritty, fun interface that resembles a Wanted poster!
+
 <!-- * Table of Contents -->
 <page-nav-print />
 
@@ -34,7 +41,7 @@ This is likely due to the list currently being filtered to only show a certain n
 
 Command     | Action                           | Format, Examples
 -----------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------
-**add**    | Add new entry                    |`add n/[NAME]​` 
+**add**    | Add new entry                    |`add n/[NAME]​`
 **rename** | Change name of entry             | `rename [ID] n/[NAME]`
 **phone** | Add/change phone number of entry | `phone [ID] p/[PHONE]`
 **tag** | Add/change tags of entry         | `tag [ID] (t/[TAG]…)`

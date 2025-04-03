@@ -29,6 +29,7 @@ import wanted.logic.commands.HelpCommand;
 import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
 import wanted.logic.commands.PhoneCommand;
+import wanted.logic.commands.RenameCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
 import wanted.model.loan.NameContainsKeywordsPredicate;
@@ -98,7 +99,6 @@ public class LoanBookParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
-
     @Test
     public void parseCommand_increase() throws Exception {
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD
@@ -119,6 +119,13 @@ public class LoanBookParserTest {
         String command = PhoneCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + CommandTestUtil.VALID_PHONE;
         assertEquals(new PhoneCommand(INDEX_FIRST_PERSON, new Phone(CommandTestUtil.VALID_PHONE)),
                 parser.parseCommand(command));
+    }
+  
+    @Test
+    public void parseCommand_rename() throws Exception {
+        assertTrue(parser.parseCommand(RenameCommand.COMMAND_WORD + " 1 n/Julian") instanceof RenameCommand);
+        assertTrue(parser.parseCommand(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + " " + "n/" + CommandTestUtil.VALID_NAME_AMY) instanceof RenameCommand);
     }
 
     @Test
