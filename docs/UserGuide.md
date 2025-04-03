@@ -24,6 +24,40 @@ With Wanted, you can
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Quick start
+
+1. Ensure you have Java `17` or above installed in your Computer.<br>
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F11-4/tp/releases).
+
+1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   ![Ui](images/Ui.png)
+
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   Some example commands you can try:
+
+[//]: # (    * `list` : Lists all loans.)
+
+    * `add n/John Doe` : Adds a new borrower named `John Doe` to the Wanted list.
+
+    * `increase 1 l/19.87 d/10th December 2024` : Increases the amount borrowed by the 1st person in the current list and records the transaction in its loan history.
+    
+    * `repay 2 l/20.25 d/1st January 2025` : Decreases the amount borrowed by the 2nd person in the current list and records the transaction in its loan history.
+
+    * `delete 3` : Deletes the 3rd person shown in the current list.
+
+    * `clear` : Deletes all persons.
+
+    * `exit` : Exits the app.
+
+1. Refer to the [Features](#features) below for details of each command.
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## TL;DR
 
 ___How do I track a loan?___<br>
@@ -234,36 +268,3 @@ If you wish to transfer your saved data to another device, install Wanted on the
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-
-
---------------------------------------------------------------------------------------------------------------------
-
-## Quick start
-
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
-
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
-
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
-
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
-
-    * `list` : Lists all loans.
-
-    * `add n/John Doe t/lunch` : Adds a loan with a borrower named `John Doe` and tag `lunch` to the Loan Book.
-   
-    * `increase 2 l/19.87 d/10th December 2024` : Increases the amount borrowed in the 2nd loan in the current list and records the transaction in its loan history.
-
-    * `delete 3` : Deletes the 3rd loan shown in the current list.
-
-    * `clear` : Deletes all loans.
-
-    * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
