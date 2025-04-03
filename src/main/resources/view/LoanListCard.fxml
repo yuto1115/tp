@@ -36,7 +36,6 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="amount" styleClass="cell_small_label" text="\$loan" />
-      <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
         <ScrollPane fitToWidth="true" maxHeight="100" style="-fx-background-color: #4d0e04;">
           <VBox fx:id="transactionsBox" spacing="3"/>
