@@ -15,13 +15,14 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import wanted.commons.core.datatypes.MoneyInt;
 import wanted.logic.commands.AddCommand;
 import wanted.logic.commands.ClearCommand;
 import wanted.logic.commands.CommandTestUtil;
 import wanted.logic.commands.DeleteCommand;
 import wanted.logic.commands.DelhistCommand;
-import wanted.logic.commands.EditCommand;
-import wanted.logic.commands.EditCommand.EditPersonDescriptor;
+import wanted.logic.commands.EdithistCommand;
+import wanted.logic.commands.EdithistCommand.EditTransactionDescriptor;
 import wanted.logic.commands.ExitCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
@@ -29,8 +30,8 @@ import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.NameContainsKeywordsPredicate;
-import wanted.testutil.EditPersonDescriptorBuilder;
 import wanted.testutil.PersonBuilder;
 import wanted.testutil.PersonUtil;
 
@@ -57,16 +58,6 @@ public class LoanBookParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        assumeTrue(EditCommand.IS_ENABLED);
-        Loan person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
@@ -109,6 +100,17 @@ public class LoanBookParserTest {
     public void parseCommand_delhist() throws Exception {
         String command = DelhistCommand.COMMAND_WORD + " 1 i/2";
         assertEquals(new DelhistCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), parser.parseCommand(command));
+    }
+
+    @Test
+    public void parseCommand_edithist() throws Exception {
+        String command = EdithistCommand.COMMAND_WORD + " 1 i/2 l/20.25 d/1st Jan 1111";
+        EditTransactionDescriptor expectedDescriptor = new EditTransactionDescriptor();
+        expectedDescriptor.setAmount(MoneyInt.fromCent(2025));
+        expectedDescriptor.setDate(new LoanDate("1st Jan 1111"));
+        EdithistCommand expected = new EdithistCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON,
+                expectedDescriptor);
+        assertEquals(expected, parser.parseCommand(command));
     }
 
     @Test
