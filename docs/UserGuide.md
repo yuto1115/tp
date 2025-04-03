@@ -24,6 +24,40 @@ With Wanted, you can
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Quick Start
+
+1. Ensure you have Java `17` or above installed in your Computer.<br>
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F11-4/tp/releases).
+
+1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   ![Ui](images/Ui.png)
+
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   Some example commands you can try:
+
+[//]: # (    * `list` : Lists all loans.)
+
+    * `add n/John Doe` : Adds a new borrower named `John Doe` to the Wanted list.
+
+    * `increase 1 l/19.87 d/10th December 2024` : Increases the amount borrowed by the 1st person in the current list and records the transaction in its loan history.
+    
+    * `repay 2 l/20.25 d/1st January 2025` : Decreases the amount borrowed by the 2nd person in the current list and records the transaction in its loan history.
+
+    * `delete 3` : Deletes the 3rd person shown in the current list.
+
+    * `clear` : Deletes all persons.
+
+    * `exit` : Exits the app.
+
+1. Refer to the [Features](#features) below for details of each command.
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## TL;DR
 
 ___How do I track a loan?___<br>
@@ -37,7 +71,7 @@ This is likely due to the list currently being filtered to only show a certain n
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Command Summary
 
 Command     | Action                           | Format, Examples
 -----------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,8 +81,8 @@ Command     | Action                           | Format, Examples
 **tag** | Add/change tags of entry         | `tag [ID] (t/[TAG]…)`
 **increase** | Add a loan to entry              | `increase [ID] l/[AMOUNT]`
 **repay** | Add a repayment to entry         | `repay [ID] l/[AMOUNT]`
-**edit**   | Edit a transaction in entry      |`edit [ID] h/[TRANSACTION ID] l/[AMOUNT]`
-**delhist** | Delete a transaction in entry    | `delhist [ID] h/[TRANSACTION ID]`
+**edithist**   | Edit a transaction in entry      |`edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
+**delhist** | Delete a transaction in entry    | `delhist [ID] i/[TRANSACTION ID]`
 **list**   | List all entries                 |`list`
 **find**   | Search entries by name           |`find [NAME]…`
 **delete** | Delete an entry                  |`delete [ID]`
@@ -66,11 +100,14 @@ Command     | Action                           | Format, Examples
 * Words in square brackets and `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/[NAME]`, `[NAME]` is a parameter which can be used as `add n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times.<br>
-  e.g. `(t/[TAG]…)​` can be used as ` ` `t/`, `t/friend`, `t/friend t/family` etc.
+* Items in round brackets are optional.<br>
+  e.g `(t/[TAG])` can be used as ` ` (empty string) or as `t/friend`.
+
+* Items with `…` after them can be used multiple times.<br>
+  e.g. `t/[TAG]…` can be used as `t/`, `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `l/[AMOUNT] d/[DATE]`, `d/[DATE] l/AMOUNT]` is also acceptable.
+  e.g. if the command specifies `l/[AMOUNT] d/[DATE]`, `d/[DATE] l/[AMOUNT]` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -92,7 +129,7 @@ Format: `help`
 Adds a new person as a new entry to the Wanted list.<br>
 A new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
 
-Format: `add n/[NAME]​`
+Format: `add n/[NAME]`
 
 Restrictions:
 * The provided name must be unique to the list, case-sensitive.
@@ -128,7 +165,7 @@ Overwrites the current tags on the specified entry with the tags specified in th
 **Warning:** Writing tag [INDEX] t/ will clear all tags
 </box>
 
-Format: `tag (t/[TAG]…)`
+Format: `tag t/[TAG]…`
 
 Examples:
 * `tag 1 t/schoolmate t/nus`
@@ -141,33 +178,54 @@ Adds a transaction indicating that the specified amount was loaned at the specif
 Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 
 Restrictions:
-* Modifies the loan at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* Loaned amount must be a numeric amount with 2 decimal places.
+* Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
+* Loaned amount must be a non-negative numeric value with 2 decimal places.
 * Date must be in the format YYYY-MM-DD.
 
-### Repay a loan: `repay`
+### Repaying a loan: `repay`
 
 Adds a transaction indicating that the specified amount was returned at the specified date to an entry.
 
 Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 
 Restrictions:
-* Modifies the loan at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* Loaned amount must be a numeric amount with 2 decimal places.
+* Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
+* Loaned amount must be a non-negative numeric value with 2 decimal places.
 * Date must be in the format YYYY-MM-DD.
 
-### Editing a transaction: `edit`
+### Editing a transaction: `edithist`
 
-Edits an existing transaction history in the given entry.
+Edits an existing transaction in the transaction history of an entry.
 
-Format: `edit [ID] h/[HISTORY ID] l/[AMOUNT]​`
+Format: `edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
+
+Explanation:
+* `[ID]` is the index number of the specified entry in the displayed persons list.
+* `[TRANSACTION ID]` is the index number of the edited transaction in the displayed transaction history of the specified entry.
+* If `[AMOUNT]` is supplied, the amount of the specified transactions is replaced by the supplied amount.
+* If `[DATE]` is supplied, the date of the specified transactions is replaced by the supplied date.
+
+Restrictions:
+* `[ID]` must be a positive integer between 1 and the number of entries in the Wanted list.
+* `[TRANSACTION ID]` must be a positive integer between 1 and the number of recorded transactions in the specified entry.
+* `[AMOUNT]` must be a non-negative numeric value with **exactly** 2 decimal places.
+* `[DATE]` must be in the format YYYY-MM-DD.
+* This edition must not result in a negative remaining loan balance at any point in the history.
 
 ### Deleting a transaction: `delhist`
 
-Edits an existing transaction history in the given entry.
+Deletes an existing transaction in the transaction history of an entry.
 
 Format: `delhist [ID] i/[TRANSACTION ID]`
 
+Explanation:
+* `[ID]` is the index number of the specified entry in the displayed persons list.
+* `[TRANSACTION ID]` is the index number of the deleted transaction in the displayed transaction history of the specified entry.
+
+Restrictions:
+* `[ID]` must be a positive integer between 1 and the number of entries in the Wanted list.
+* `[TRANSACTION ID]` must be a positive integer between 1 and the number of recorded transactions in the specified entry.
+* This deletion must not result in a negative remaining loan balance at any point in the history.
 
 ### Listing all entries: `list`
 
@@ -179,7 +237,7 @@ Format: `list`
 
 Finds entries whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [KEYWORD]...`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -208,7 +266,7 @@ Format: `delete INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd loan in the loan book.
@@ -232,7 +290,7 @@ Format: `exit`
 
 ### Saving the data
 
-Wanted saves the loanbook after each operation that modifies it. There is no need to save manually.
+Wanted saves the Wanted list after each operation that modifies it. There is no need to save manually.
 
 ### Backing up data files
 
@@ -244,40 +302,7 @@ If you wish to transfer your saved data to another device, install Wanted on the
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+## Known Issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-
-
---------------------------------------------------------------------------------------------------------------------
-
-## Quick start
-
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
-
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
-
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
-
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
-
-    * `list` : Lists all loans.
-
-    * `add n/John Doe` : Adds a loan with a borrower named `John Doe` to the Loan Book.
-   
-    * `increase 2 l/19.87 d/10th December 2024` : Increases the amount borrowed in the 2nd loan in the current list and records the transaction in its loan history.
-
-    * `delete 3` : Deletes the 3rd loan shown in the current list.
-
-    * `clear` : Deletes all loans.
-
-    * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
