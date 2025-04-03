@@ -16,9 +16,9 @@ import wanted.model.loan.Loan;
 /**
  * Edits the tags of an existing person in the loanbook
  */
-public class RetagCommand extends Command {
+public class TagCommand extends Command {
 
-    public static final String COMMAND_WORD = "retag";
+    public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the tags of the loan identified "
             + "by the index number used in the displayed loan list. "
             + "Existing list of tags will be overwritten by the input tags.\n"
@@ -26,16 +26,13 @@ public class RetagCommand extends Command {
             + PREFIX_TAG + "[TAG]...\n";
 
     public static final String MESSAGE_RENAME_SUCCESS = "Edited loan name: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "The tag field must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the loan book.";
-    //see what happens with duplicate person
     private final Index index;
     private final BaseEdit.EditLoanDescriptor editLoanDescriptor;
 
     /**
      * Creates a RetagCommand to edit the specified {@code Loan}
      */
-    public RetagCommand(Index index, BaseEdit.EditLoanDescriptor editLoanDescriptor) {
+    public TagCommand(Index index, BaseEdit.EditLoanDescriptor editLoanDescriptor) {
         requireNonNull(index);
 
         this.index = index;

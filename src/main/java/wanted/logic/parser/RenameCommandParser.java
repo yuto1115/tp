@@ -1,6 +1,7 @@
 package wanted.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -23,6 +24,10 @@ public class RenameCommandParser implements Parser<RenameCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+
+        if (!argMultimap.arePrefixesPresent(PREFIX_NAME)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
+        }
 
         Index index;
         try {

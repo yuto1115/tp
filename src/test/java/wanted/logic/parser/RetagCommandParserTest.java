@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import wanted.commons.core.datatypes.Index;
 import wanted.logic.commands.BaseEdit;
-import wanted.logic.commands.RetagCommand;
+import wanted.logic.commands.TagCommand;
 import wanted.testutil.EditLoanDescriptorBuilder;
 
 
 public class RetagCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
-    private RetagCommandParser parser = new RetagCommandParser();
+    private TagCommandParser parser = new TagCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -52,7 +52,7 @@ public class RetagCommandParserTest {
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         BaseEdit.EditLoanDescriptor descriptor = new EditLoanDescriptorBuilder().withTags().build();
-        RetagCommand expectedCommand = new RetagCommand(targetIndex, descriptor);
+        TagCommand expectedCommand = new TagCommand(targetIndex, descriptor);
 
         //assertParseSuccess(parser, userInput, expectedCommand);
         //have no idea why this doesnt work
