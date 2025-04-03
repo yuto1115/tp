@@ -113,7 +113,7 @@ Adds and edits a borrowers' phone number in the Wanted list.
 
 Format: `phone [ID] p/[PHONE]`
 
-### Updating tags: `tag`
+### Adding/Updating tags: `tag`
 
 Overwrites the current tags on the specified entry with the tags specified in the command.
 
