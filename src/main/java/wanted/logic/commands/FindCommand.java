@@ -27,9 +27,8 @@ public class FindCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Loan(s) found";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all persons whose names contain any\n"
-            + "specified keywords (case-insensitive).\n"
-            + "Matching results will be listed first in alphabetical order.\n"
+            + ": Finds all persons whose names contain any specified keywords (case-insensitive).\n"
+            + "Results that match any/all keywords will be listed in alphabetical order\n"
             + "Parameters:\n"
             + "    [KEYWORD]\n"
             + "    ([MORE KEYWORDS]...)\n"

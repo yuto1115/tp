@@ -26,47 +26,47 @@ public class SampleDataUtil {
     public static Loan[] getSamplePersons() {
         try {
             return new Loan[]{
-                    new Loan(new Name("Alex Yeoh"),
-                            new LoanAmount(new ArrayList<>(Arrays.asList(
-                                    new AddLoanTransaction(MoneyInt.fromCent(100000), new LoanDate("1st January 2025")),
-                                    new RepayLoanTransaction(MoneyInt.fromCent(50), new LoanDate("2nd January 2025")),
-                                    new AddLoanTransaction(MoneyInt.fromCent(20000), new LoanDate("3rd January 2025"))
-                            ))),
-                            getTagSet("friends", "owesALot"),
-                            new Phone("12345678")),
-                    new Loan(new Name("Bernice Yu"),
-                            new LoanAmount(new ArrayList<>(Arrays.asList(
-                                    new AddLoanTransaction(MoneyInt.fromCent(2024), new LoanDate("1st January 2024")),
-                                    new AddLoanTransaction(MoneyInt.fromCent(2025), new LoanDate("1st January 2025"))
-                            ))),
-                            getTagSet("colleagues", "friends"),
-                            new Phone("20242025")),
-                    new Loan(new Name("Charlotte Oliveiro"),
-                            new LoanAmount(new ArrayList<>(Arrays.asList(
-                                    new AddLoanTransaction(MoneyInt.fromCent(15000), new LoanDate("9th August 1965")),
-                                    new RepayLoanTransaction(MoneyInt.fromCent(15000), new LoanDate("9th August 2065"))
-                            ))),
-                            getTagSet("neighbours"),
-                            new Phone("06021819")),
-                    new Loan(new Name("David Li"),
-                            new LoanAmount(new ArrayList<>(Arrays.asList(
-                                    new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st January 2025")),
-                                    new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd March 2025"))
-                            ))),
-                            getTagSet("family"),
-                            new Phone("04385793")),
-                    new Loan(new Name("Irfan Ibrahim"),
-                            new LoanAmount(),
-                            getTagSet("classmates")),
-                    new Loan(new Name("Roy Balakrishnan"),
-                            new LoanAmount(new ArrayList<>(List.of(
-                                    new AddLoanTransaction(MoneyInt.fromCent(10000), new LoanDate("1st January 2025")),
-                                    new RepayLoanTransaction(MoneyInt.fromCent(5000), new LoanDate("2nd January 2025")),
-                                    new AddLoanTransaction(MoneyInt.fromCent(12000), new LoanDate("3rd January 2025")),
-                                    new RepayLoanTransaction(MoneyInt.fromCent(17000), new LoanDate("4th January 2025"))
-                            ))),
-                            getTagSet(),
-                            new Phone("47821053"))
+                new Loan(new Name("Alex Yeoh"),
+                        new LoanAmount(new ArrayList<>(Arrays.asList(
+                                new AddLoanTransaction(MoneyInt.fromCent(100000), new LoanDate("1st January 2025")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(50), new LoanDate("2nd January 2025")),
+                                new AddLoanTransaction(MoneyInt.fromCent(20000), new LoanDate("3rd January 2025"))
+                        ))),
+                        getTagSet("friends", "owesALot"),
+                        new Phone("12345678")),
+                new Loan(new Name("Bernice Yu"),
+                        new LoanAmount(new ArrayList<>(Arrays.asList(
+                                new AddLoanTransaction(MoneyInt.fromCent(2024), new LoanDate("1st January 2024")),
+                                new AddLoanTransaction(MoneyInt.fromCent(2025), new LoanDate("1st January 2025"))
+                        ))),
+                        getTagSet("colleagues", "friends"),
+                        new Phone("20242025")),
+                new Loan(new Name("Charlotte Oliveiro"),
+                        new LoanAmount(new ArrayList<>(Arrays.asList(
+                                new AddLoanTransaction(MoneyInt.fromCent(15000), new LoanDate("9th August 1965")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(15000), new LoanDate("9th August 2065"))
+                        ))),
+                        getTagSet("neighbours"),
+                        new Phone("06021819")),
+                new Loan(new Name("David Li"),
+                        new LoanAmount(new ArrayList<>(Arrays.asList(
+                                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st January 2025")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd March 2025"))
+                        ))),
+                        getTagSet("family"),
+                        new Phone("04385793")),
+                new Loan(new Name("Irfan Ibrahim"),
+                        new LoanAmount(),
+                        getTagSet("classmates")),
+                new Loan(new Name("Roy Balakrishnan"),
+                        new LoanAmount(new ArrayList<>(List.of(
+                                new AddLoanTransaction(MoneyInt.fromCent(10000), new LoanDate("1st January 2025")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(5000), new LoanDate("2nd January 2025")),
+                                new AddLoanTransaction(MoneyInt.fromCent(12000), new LoanDate("3rd January 2025")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(17000), new LoanDate("4th January 2025"))
+                        ))),
+                        getTagSet(),
+                        new Phone("47821053"))
             };
         } catch (ExcessRepaymentException e) {
             throw new RuntimeException(e);
