@@ -131,12 +131,13 @@ public class LoanTest {
                 new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd Jan 2024")),
                 new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("5th Jan 2024"))
         )));
+        Phone phone = ALICE.getPhone();
 
-        Loan originalLoan = new Loan(name, amount, tags);
+        Loan originalLoan = new Loan(name, amount, tags, phone);
         Loan newLoan = originalLoan.addLoan(MoneyInt.fromCent(2000), new LoanDate("5th Jan 2024"));
 
-        assertEquals(originalLoan, new Loan(name, amount, tags));
-        assertEquals(newLoan, new Loan(name, newAmount, tags));
+        assertEquals(originalLoan, new Loan(name, amount, tags, phone));
+        assertEquals(newLoan, new Loan(name, newAmount, tags, phone));
     }
 
     @Test
@@ -152,12 +153,13 @@ public class LoanTest {
                 new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd Jan 2024")),
                 new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("5th Jan 2024"))
         )));
+        Phone phone = ALICE.getPhone();
 
-        Loan originalLoan = new Loan(name, amount, tags);
+        Loan originalLoan = new Loan(name, amount, tags, phone);
         Loan newLoan = originalLoan.repayLoan(MoneyInt.fromCent(500), new LoanDate("5th Jan 2024"));
 
-        assertEquals(originalLoan, new Loan(name, amount, tags));
-        assertEquals(newLoan, new Loan(name, newAmount, tags));
+        assertEquals(originalLoan, new Loan(name, amount, tags, phone));
+        assertEquals(newLoan, new Loan(name, newAmount, tags, phone));
     }
 
     @Test
@@ -168,9 +170,10 @@ public class LoanTest {
                 new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
                 new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd Jan 2024"))
         )));
+        Phone phone = ALICE.getPhone();
 
         assertThrows(ExcessRepaymentException.class, () ->
-                new Loan(name, amount, tags).repayLoan(MoneyInt.fromCent(501), new LoanDate("5th Jan 2024")));
+                new Loan(name, amount, tags, phone).repayLoan(MoneyInt.fromCent(501), new LoanDate("5th Jan 2024")));
     }
 
     @Test
@@ -188,11 +191,12 @@ public class LoanTest {
     public void deleteTransaction_success() throws Exception {
         Name name = ALICE.getName();
         Set<Tag> tags = ALICE.getTags();
+        Phone phone = ALICE.getPhone();
         Loan original = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
                 new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
-                new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd Jan 2024"))))), tags);
+                new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd Jan 2024"))))), tags, phone);
         Loan expected = new Loan(name, new LoanAmount(new ArrayList<>(List.of(
-                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024"))))), tags);
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024"))))), tags, phone);
 
         assertEquals(expected, original.deleteTransaction(Index.fromZeroBased(1)));
     }
@@ -201,10 +205,11 @@ public class LoanTest {
     public void deleteTransaction_invalid_throwExcessRepaymentException() throws Exception {
         Name name = ALICE.getName();
         Set<Tag> tags = ALICE.getTags();
+        Phone phone = ALICE.getPhone();
         Loan loan = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
                 new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
                 new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
-                new RepayLoanTransaction(MoneyInt.fromCent(600), new LoanDate("3rd Jan 2024"))))), tags);
+                new RepayLoanTransaction(MoneyInt.fromCent(600), new LoanDate("3rd Jan 2024"))))), tags, phone);
 
         assertThrows(ExcessRepaymentException.class, () ->
                 loan.deleteTransaction(Index.fromZeroBased(0)));
@@ -230,14 +235,15 @@ public class LoanTest {
     public void replaceTransaction_success() throws Exception {
         Name name = ALICE.getName();
         Set<Tag> tags = ALICE.getTags();
+        Phone phone = ALICE.getPhone();
         Loan original = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
                 new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
                 new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
-                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("3rd Jan 2024"))))), tags);
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("3rd Jan 2024"))))), tags, phone);
         Loan expected = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
                 new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
                 new RepayLoanTransaction(MoneyInt.fromCent(800), new LoanDate("2nd Feb 2024")),
-                new RepayLoanTransaction(MoneyInt.fromCent(200), new LoanDate("3rd Mar 2024"))))), tags);
+                new RepayLoanTransaction(MoneyInt.fromCent(200), new LoanDate("3rd Mar 2024"))))), tags, phone);
 
         assertEquals(expected, original
                 // replace by a transaction of the same type
@@ -252,10 +258,11 @@ public class LoanTest {
     public void replaceTransaction_invalid_throwExcessRepaymentException() throws Exception {
         Name name = ALICE.getName();
         Set<Tag> tags = ALICE.getTags();
+        Phone phone = ALICE.getPhone();
         Loan loan = new Loan(name, new LoanAmount(new ArrayList<>(Arrays.asList(
                 new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
                 new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
-                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("3rd Jan 2024"))))), tags);
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("3rd Jan 2024"))))), tags, phone);
 
         assertThrows(ExcessRepaymentException.class, () ->
                 loan.replaceTransaction(INDEX_SECOND_PERSON,

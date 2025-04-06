@@ -83,7 +83,7 @@ public class EdithistCommandTest {
         return new ModelManager(
                 new LoanBookBuilder()
                         .withPerson(ALICE)
-                        .withPerson(new Loan(BOB.getName(), sampleAmount, BOB.getTags()))
+                        .withPerson(new Loan(BOB.getName(), sampleAmount, BOB.getTags(), BOB.getPhone()))
                         .build(),
                 new UserPrefs()
         );
@@ -95,7 +95,8 @@ public class EdithistCommandTest {
             models[i] = new ModelManager(
                     new LoanBookBuilder()
                             .withPerson(ALICE)
-                            .withPerson(new Loan(BOB.getName(), sampleAmountFirstTransactionEdited[i], BOB.getTags()))
+                            .withPerson(new Loan(BOB.getName(), sampleAmountFirstTransactionEdited[i],
+                                    BOB.getTags(), BOB.getPhone()))
                             .build(),
                     new UserPrefs());
         }
