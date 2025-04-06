@@ -28,7 +28,7 @@ public class TypicalLoanAmount {
                     new RepayLoanTransaction(MoneyInt.fromCent(8234), new LoanDate("2025-12-31"))
             )));
             NON_EMPTY_LOAN_AMOUNT_FULLY_REPAID = new LoanAmount(new ArrayList<>(Arrays.asList(
-                    new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("2020-01-01")),
+                    new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("2024-01-01")),
                     new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2024-01-02")),
                     new RepayLoanTransaction(MoneyInt.fromCent(350), new LoanDate("2024-01-03")),
                     new AddLoanTransaction(MoneyInt.fromCent(5000), new LoanDate("2024-02-01")),

@@ -1,7 +1,5 @@
 package wanted.commons.core.datatypes;
 
-import java.util.Objects;
-
 /**
  * Represents a date.
  * <p>
@@ -43,7 +41,7 @@ public class Date {
         }
 
         Date otherDate = (Date) other;
-        return Objects.equals(date, otherDate.date);
+        return this.date.equals(otherDate.date);
     }
 
     /*
