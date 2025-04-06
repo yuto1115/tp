@@ -21,18 +21,18 @@ public class TypicalLoanAmount {
     static {
         try {
             NON_EMPTY_LOAN_AMOUNT_NOT_FULLY_REPAID = new LoanAmount(new ArrayList<>(Arrays.asList(
-                    new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
-                    new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
-                    new RepayLoanTransaction(MoneyInt.fromCent(1500), new LoanDate("3rd Jan 2024")),
-                    new AddLoanTransaction(MoneyInt.fromCent(10305), new LoanDate("1st Feb 2024")),
-                    new RepayLoanTransaction(MoneyInt.fromCent(8234), new LoanDate("31th Dec 2025"))
+                    new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("2024-01-01")),
+                    new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2024-01-02")),
+                    new RepayLoanTransaction(MoneyInt.fromCent(1500), new LoanDate("2024-01-03")),
+                    new AddLoanTransaction(MoneyInt.fromCent(10305), new LoanDate("2024-02-01")),
+                    new RepayLoanTransaction(MoneyInt.fromCent(8234), new LoanDate("2025-12-31"))
             )));
             NON_EMPTY_LOAN_AMOUNT_FULLY_REPAID = new LoanAmount(new ArrayList<>(Arrays.asList(
-                    new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
-                    new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
-                    new RepayLoanTransaction(MoneyInt.fromCent(350), new LoanDate("3rd Jan 2024")),
-                    new AddLoanTransaction(MoneyInt.fromCent(5000), new LoanDate("1st Feb 2024")),
-                    new RepayLoanTransaction(MoneyInt.fromCent(6150), new LoanDate("31th Dec 2025"))
+                    new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("2020-01-01")),
+                    new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2024-01-02")),
+                    new RepayLoanTransaction(MoneyInt.fromCent(350), new LoanDate("2024-01-03")),
+                    new AddLoanTransaction(MoneyInt.fromCent(5000), new LoanDate("2024-02-01")),
+                    new RepayLoanTransaction(MoneyInt.fromCent(6150), new LoanDate("2025-12-31"))
             )));
         } catch (ExcessRepaymentException e) {
             throw new RuntimeException(e);

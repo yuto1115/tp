@@ -17,11 +17,11 @@ import wanted.model.loan.transaction.RepayLoanTransaction;
 public class JsonAdaptedLoanTransactionTest {
     private static final String INVALID_TYPE = "increase";
     private static final String INVALID_AMOUNT = "12.0";
-    private static final String INVALID_DATE = "February 14";
+    private static final String INVALID_DATE = "02-14";
 
     private static final String[] VALID_TYPES = new String[]{"add", "repay"};
     private static final String VALID_AMOUNT = "12.05";
-    private static final String VALID_DATE = "14th Feb 2025";
+    private static final String VALID_DATE = "2025-02-14";
 
     private static final LoanTransaction VALID_ADD_TRANSACTION;
     private static final LoanTransaction VALID_REPAY_TRANSACTION;

@@ -95,15 +95,15 @@ public class LoanAmountTest {
 
         assertEquals(5, transactions.size());
 
-        assertEquals(new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+        assertEquals(new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("2024-01-01")),
                 transactions.get(0));
-        assertEquals(new RepayLoanTransaction(MoneyInt.fromCent(1500), new LoanDate("3rd Jan 2024")),
+        assertEquals(new RepayLoanTransaction(MoneyInt.fromCent(1500), new LoanDate("2024-01-03")),
                 transactions.get(2));
 
         // modifying the returned list should not affect the original LoanAmount
-        transactions.set(4, new AddLoanTransaction(MoneyInt.fromCent(0), new LoanDate("1st Jan 2024")));
+        transactions.set(4, new AddLoanTransaction(MoneyInt.fromCent(0), new LoanDate("2024-01-01")));
 
-        assertEquals(new RepayLoanTransaction(MoneyInt.fromCent(8234), new LoanDate("31th Dec 2025")),
+        assertEquals(new RepayLoanTransaction(MoneyInt.fromCent(8234), new LoanDate("2025-12-31")),
                 loanAmount.getTransactionHistoryCopy().get(4));
     }
 

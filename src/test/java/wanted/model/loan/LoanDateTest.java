@@ -25,21 +25,21 @@ public class LoanDateTest {
         assertThrows(NullPointerException.class, () -> LoanDate.isValidLoanDate(null)); //null value
         //invalid loan date
         assertFalse(LoanDate.isValidLoanDate("")); //blank value
-        assertFalse(LoanDate.isValidLoanDate("#27th of Feb!!")); // non-alphanumeric numbers
-        assertFalse(LoanDate.isValidLoanDate("12 June")); //no year included
+        assertFalse(LoanDate.isValidLoanDate("#2024-02-27!!")); // non-alphanumeric numbers
+        assertFalse(LoanDate.isValidLoanDate("06-12")); //no year included
 
         //valid loan date
-        assertTrue(LoanDate.isValidLoanDate("28th February 2025"));
-        assertTrue(LoanDate.isValidLoanDate("30th January 2024"));
-        assertTrue(LoanDate.isValidLoanDate("19th December 2023"));
+        assertTrue(LoanDate.isValidLoanDate("2025-02-28"));
+        assertTrue(LoanDate.isValidLoanDate("2024-01-30"));
+        assertTrue(LoanDate.isValidLoanDate("2023-12-19"));
     }
 
     @Test
     public void equals() {
-        LoanDate date = new LoanDate("26th January 2025");
+        LoanDate date = new LoanDate("2025-01-26");
 
         // same values -> returns true
-        assertTrue(date.equals(new LoanDate("26th January 2025")));
+        assertTrue(date.equals(new LoanDate("2025-01-26")));
 
         // same object -> returns true
         assertTrue(date.equals(date));
@@ -51,7 +51,7 @@ public class LoanDateTest {
         assertFalse(date.equals(45));
 
         // different values -> returns false
-        assertFalse(date.equals(new LoanDate("20th January 2025")));
+        assertFalse(date.equals(new LoanDate("2025-01-27")));
     }
 
 }
