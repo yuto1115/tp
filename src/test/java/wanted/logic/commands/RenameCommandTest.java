@@ -73,6 +73,16 @@ class RenameCommandTest {
     }
 
     @Test
+    public void execute_unchangedName_failure() {
+        Loan firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        BaseEdit.EditLoanDescriptor descriptor =
+                new EditLoanDescriptorBuilder().withName(firstPerson.getName().fullName).build();
+        RenameCommand renameCommand = new RenameCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertCommandFailure(renameCommand, model, RenameCommand.MESSAGE_UNCHANGED_NAME);
+    }
+
+    @Test
     public void execute_duplicatePersonFilteredList_failure() throws ExcessRepaymentException {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
