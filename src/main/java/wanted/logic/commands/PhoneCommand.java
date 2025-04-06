@@ -20,7 +20,7 @@ public class PhoneCommand extends Command {
     public static final String COMMAND_WORD = "phone";
     public static final String MESSAGE_UPDATED_SUCCESS = "Phone number successfully updated: %1$s";
     public static final String MESSAGE_DELETED_SUCCESS = "Phone number successfully deleted: %1$s";
-    public static final String MESSAGE_DUPLICATE_PHONE = "New phone number must be different than the old one";
+    public static final String MESSAGE_DUPLICATE_PHONE = "New phone number must be different from the old one.";
     public static final String DELETE_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
