@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# Wanted Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -13,11 +13,11 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+This project is a modification of [AddressBook Level 3](https://github.com/se-edu/addressbook-level3) (AB3). The code structure, models and documentation is reused and maintained in largely the same format as AB3.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Setting up, getting started**
+## **Setting Up, Getting Started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
@@ -102,9 +102,9 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `LoanBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`. 
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
 3. The command can communicate with the `Model` when it is executed (e.g. to delete a loan).<br>
-   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve. 
+   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -273,124 +273,206 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of loans
+* loans and receives money from others
 * prefer desktop apps over other types
 * can type quickly
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage loans faster than a typical mouse/GUI driven app
+**Value proposition**: manage loans much more easily than manual tracking with manual calculations, in a faster and more efficient manner than mouse-based apps
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                       | I want to …​                                                          | So that I can…​                                                        |
-|----------|-------------------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | loan issuer                   | keep track of the total amount of money owed to me                    | I can see how much I am due to collect                                 |
-| `* * *`  | user                          | add a new loan                                                        | I can track new loans that are given out                               |
-| `* * *`  | user                          | delete a loan                                                         | remove loans that are no longer relevant                               |
-| `* * *`  | user                          | view current loans                                                    | I can see the full list of loans that need to be returned              |
-| `* *`    | user                          | edit loans                                                            | I can update loan information if necessary                             |
-| `* *`    | user                          | mark loans as returned                                                | I can keep track of whether a loan was repayed                         |
-| `* *`    | forgetful user                | track the number of days since the loan was given                     | I can remind friends to return their loans                             |
-| `* *`    | forgetful user                | add address of people who owe me money                                | I can look for them if necessary                                       |
-| `* *`    | forgetful user                | add phone numbers of people who owe me money                          | I can contact them if necessary                                        |
-| `* *`    | frequent loaner               | view a history of all loans that have been fulfilled                  | I can keep track of past lending habits                                |
-| `* *`    | cash-strapped user            | track the number of days since the loan was given                     | I can remind friends to return their loans                             |
-| `* *`    | new user                      | go through a new user guide                                           | I learn how to use the program                                         |
-| `* *`    | new user                      | view example entries                                                  | I can learn how to use from the examples                               |
-| `* *`    | user                          | set deadlines to receive loans                                        | I can follow up with lenders on time                                   |
-| `* *`    | user                          | blacklist people who are always late to return money                  | I can avoid loaning to particular individuals                          |
-| `* *`    | user                          | set limits of how much i should loan to others                        | I can prevent excessive money lost                                     |
-| `* *`    | user                          | tag individuals based on the amount of money lent                     | I can prioritise users that have larger ticket size loans              |
-| `* *`    | user                          | tag individuals based on loan duration                                | I can group friends by loan durations                                  |
-| `* *`    | user                          | tag individuals based on their spending habits                        | I can avoid lending to high risk individuals                           |
-| `* *`    | user                          | add loans of items                                                    | I can keep track of loaned items                                       |
-| `* *`    | user                          | delete loans of items                                                 | I cam delete item loans that are no longer relevant                    |
-| `* *`    | user                          | edit loans of items                                                   | I can make relevant modifications to item loans                        |
-| `* *`    | user                          | add a description of loaned item                                      | I can remember the specific item that was loaned out                   |
-| `* *`    | user                          | view a leaderboard of those with highest or longest unreturned loans  | I can have a visual representation of who needs to be chased for loans |
-| `* *`    | user                          | see past loans categorised by month and loan type                     | I can project loaning for future months                                |
-| `* *`    | user                          | delete all records                                                    | I can purge examples                                                   |
-| `* *`    | user                          | sort records, by loan amount, period, priority etc.                   | I can see the most 'important' records for me                          |
-| `*`      | forgetful user                | upload photos of people who owe me money                              | I can match their appearance to their loans                            |
-| `*`      | user                          | have notifications for those who have loaned for longer than duration | I can prompt them to return that it has been past a grace period       |
-| `*`      | user                          | send messages to send to people who owe me money                      | I can efficiently prod them to return the money                        |
-| `*`      | user                          | customize the autogenerated message sent to those who owe money       | I can better persuade them to return my money                          |
-| `*`      | user                          | upload pictures of loaned items                                       | I can remember what was loaned to others                               |
-| `*`      | user                          | set/calculate interest if necessary                                   | I can benefit from loaning out to people                               |
-| `*`      | user                          | set/calculate interest if necessary                                   | I can return what I owe others                                         |
-| `*`      | user who also takes out loans | keep track of how much I am borrowing from others                     | I can match their appearance to their loans                            |
-| `*`      | cash strapped user            | calculate projected returns if everyone was to return loans           | I can see how much I can earn back from chasing people for loans       |
+| Priority | As a …​            | I want to …​                                                          | So that I can…​                                                        |
+|-------|--------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------|
+| `* * *` | loan issuer        | keep track of the total amount of money owed to me                    | I can see how much I am due to collect                                 |
+| `* * *` | user               | add a new loan                                                        | I can track new loans that are given out                               |
+| `* * *` | user               | delete a loan                                                         | remove loans that are no longer relevant                               |
+| `* * *` | user               | view current loans                                                    | I can see the full list of loans that need to be returned              |
+| `* *` | user               | edit loans                                                            | I can update loan information if necessary                             |
+| `* *` | user               | mark loans as returned                                                | I can keep track of whether a loan was repaid                          |
+| `* *` | forgetful user     | track the number of days since the loan was given                     | I can remind friends to return their loans                             | |
+| `* *` | forgetful user     | add phone numbers of people who owe me money                          | I can contact them if necessary                                        |
+| `* *` | frequent loaner    | view a history of all loans that have been fulfilled                  | I can keep track of past lending habits                                | |
+| `* *` | new user           | go through a new user guide                                           | I learn how to use the program                                         |
+| `* *` | new user           | view example entries                                                  | I can learn how to use from the examples                               |
+| `* *` | user               | blacklist people who are always late to return money                  | I can avoid loaning to particular individuals                          |
+| `* *` | user               | tag individuals based on the amount of money lent                     | I can prioritise users that have larger ticket size loans              |
+| `* *` | user               | tag individuals based on their spending habits                        | I can avoid lending to high risk individuals                           |
+| `* *` | user               | view a leaderboard of those with largest loans                        | I can have a visual representation of who needs to be chased for loans |
+| `* *` | user               | see past loans categorised by month and loan type                     | I can project loaning for future months                                |
+| `* *` | user               | delete all records                                                    | I can purge examples                                                   |
+| `* *` | user               | sort records, by loan amount, period, priority etc.                   | I can see the most 'important' records for me                          |
+| `*`   | forgetful user     | upload photos of people who owe me money                              | I can match their appearance to their loans                            |
+| `*`   | user               | have notifications for those who have loaned for longer than duration | I can prompt them to return that it has been past a grace period       |
+| `*`   | user               | send messages to send to people who owe me money                      | I can efficiently prod them to return the money                        |
+| `*`   | user               | customize the autogenerated message sent to those who owe money       | I can better persuade them to return my money                          |
+| `*`   | cash strapped user | calculate projected returns if everyone was to return loans           | I can see how much I can earn back from chasing people for loans       |
 
 ### Use cases
 
 (For all use cases below, the **System** is the `LoanBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Track total amount of money owed**
+**Use case: `Add` a New Loan**
 
 **MSS**
 
-1.  Loan issuer requests to view the total amount of money owed.
-2.  System calculates and displays the total outstanding loan amount.
+1. User requests to add a new loan with borrower's name.
 
-    Use Case Ends.
-
-**Extensions**
-
-* 2a. No outstanding loans exists. 
-  2a.1. System displays a message indicating that there are no outstanding loans.
-Use Case Ends.
-
-**Use case: Add a New Loan**
-
-**MSS**
-
-1. User requests to add a new loan with details (e.g. amount, borrower, due date).
 2. System records the new loan in the loan list.
+
 3. System confirms that the loan has been successfully added.
 Use case ends.
 
 **Extensions**
 
-* 2a. The loan details are incomplete or invalid.
-  2a.1. System displays an error message and tells the user the correct format to enter.
-Use Case Resumes at Step 1.
+* 1a. The loans details are incomplete or invalid.
+  * 1a.1. System displays an error message and tells the user the correct format to enter.
+  * Use Case Resumes at Step 1.
 
-**Use case: Delete a loan**
+**Use case: `Delete` a Loan**
 
 **MSS**
 
 1. User requests to delete a specific loan.
 2. System removes the loan from the loan list.
 3. System confirms that the loan has been successfully deleted.
-    
+
     Use case ends.
 
 **Extensions**
 
-* 2a. The loan does not exist in the system.
-  2a.1. System displays a message indicating that the loan is not found.
-  Use Case Ends.
+* 1a. The loan does not exist in the system.
+  * 1a.1. System displays a message indicating that the loan is not found.
+  * Use Case Ends.
 
-**Use case: View Current Loans**
+**Use case: `List` Current Loans**
 
 **MSS**
 
 1. User requests to view the list of current loans.
-2. System retrieves and displays the list of outstanding loans.
+2. System retrieves and displays the list of loans.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
-* 2a. No outstanding loans exists.
-  2a.1. System displays a message indicating that there are no loans that need to be returned.
+* 1a. No loans exists.
+  * 1a.1. System displays a message indicating that there are no loans that need to be returned.
+  * Use Case Ends
 
-    Use Case Ends.
+**Use Case: `Increase` a Loan Amount**
 
-*{More to be added}*
+**MSS**
+1. User requests to add a loan amount to a loan ID, and records the date of the transaction
+2. System creates a new add loan transaction
+3. System adds transaction to the loan history
+4. System updates and displays total amount loaned and total amount to be repaid
+
+   Use Case Ends.
+
+**Extensions**
+
+* 1a. No loan with the given ID exists.
+  * 1a.1. System displays a message indicating that an invalid ID is being called.
+  * Use Case Ends.
+
+**Use Case:`Repay` a Loan Amount in Full or Partially**
+
+**MSS**
+1. User requests to repay a loan amount to a loan ID, and records the date of the transaction
+2. System creates a new repay loan transaction
+3. System adds transaction to the loan history, and displays total amount loaned and total amount to be repaid
+4. System display repaid success message.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 1a. No loan with the given ID exists.
+  * 1a.1. System displays a message indicating that an invalid ID is being called.
+  * Use Case Ends.
+
+**Use Case: `Rename` a Loan Transaction**
+
+*MSS**
+1. User requests a loans ID to rename a loan borrower
+2. System creates an updated loan
+3. System display rename success message.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 1a. No loan with the given ID exists.
+  * 1a.1. System displays a message indicating that an invalid ID is being called.
+  * Use case ends.
+* 1b. Invalid name field is received as an input
+  * 1b.1. System displays a message indicating that an invalid ID is being called.
+  * Use case ends.
+
+**Use Case: `Tag` a Loan Transaction**
+
+*MSS**
+1. User requests a loan ID to tag a loan
+2. System creates an updated loan
+3. System display tag success message.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 1a. No loan with the given ID exists.
+  * 1a.1. System displays a message indicating that an invalid ID is being called.
+  * Use case ends.
+
+**Use Case: Add and Edit a `Phone` Value**
+
+*MSS**
+1. User requests a loan ID to add or edit a borrowers' phone number
+2. System creates an updated loan
+3. System display phone success message.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 1a. No loan with the given ID exists.
+    * 1a.1. System displays a message indicating that an invalid ID is being called.
+    * Use case ends.
+
+**Use Case: `Sort` Loan by Amount Loaned**
+
+**MSS**
+1. User requests to sort loans
+2. System sort loans by amount owed and displays it to the user.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 1a. No outstanding loans.
+  * 1a.1. No loans are displayed.
+  * Use Case Ends.
+
+  Use Case Ends.
+
+**Use Case: `Sort` Loans by Borrowers' Name TBD**
+
+**MSS**
+1. User requests to sort loans by borrowers' name
+2. System sort loans and displays it to the user.
+
+   Use Case Ends.
+
+**Extensions**
+
+* 1a. No outstanding loans.
+  * 1a.1. No loans are displayed.
+
+  * Use Case Ends.
 
 ### Non-Functional Requirements
 
@@ -398,36 +480,24 @@ Use Case Resumes at Step 1.
 2.  Should be able to hold up to 1000 loans without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-*{More to be added}*
-
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Loan Issuer**: The loan who lends money or items to others and expects repayment or return.
-* **User**: A general term for anyone using the system, including loan issuers and those managing their loans.
+* **User**: A general term for loan issuers managing their loans.
 * **Forgetful User**: A user who needs additional reminders and tracking features to recall outstanding loans.
 * **Frequent Loaner**: A user who frequently lends money or items and needs an organized record of past and present loans.
 * **Cash-Strapped User**: A user who urgently needs to recover loaned money to maintain financial stability.
 * **New User**: Someone who has just started using the system and may require guidance on how to navigate it.
-* **Loan Amount**: The total sum of money lent to a borrower.
-* **Loan Duration**: The time period between when a loan is given and when it is expected to be returned.
-* **Loan Type**: The category of a loan, such as money or physical items.
-* **Blacklist**: A feature allowing users to mark individuals who frequently delay or fail to return loans, so they can avoid lending to them in the future.
-* **Loan Limits**: A restriction set by the user to prevent lending beyond a specified amount to manage risk.
-* **Tagging**: A method of categorizing individuals based on different attributes such as loan amount, duration, or spending habits.
-* **Leaderboard**: A visual ranking system displaying individuals with the highest or longest overdue loans.
-* **Loan History**: A record of all past fulfilled loans, categorized by time or type.
-* **Interest Calculation**: A feature to determine how much extra money should be repaid based on a percentage applied to the loan over time.
-* **Grace Period**: A specified duration after which a loan becomes overdue and reminders may be sent.
-* **Projected Returns**: An estimate of the total amount the user would recover if all outstanding loans were repaid.
-* **Autogenerated Message**: A pre-written notification that can be sent to remind borrowers about their pending repayments.
-* **Purge Records**: The ability to delete all stored loan data, often used to clear test or example entries.
-* **Loaned Item Description**: A detailed note about an item that has been lent out to help identify it later.
+* **Amount**: A sum of money.
+* **Loan Transaction**: An action to increase or decrease the loan owed to the user.
+* **Tags**: A method of categorizing individuals based on different attributes such as spending habits, friends, family etc.
+* **Leaderboard**: A visual ranking system displaying individuals with the highest loans.
+* **Loan History**: A record of all loan transactions under a current loan, categorized by increase or repay transactions.
+* **Clear**: The ability to delete all stored loan data, often used to clear test or example entries.
 * **Sorting**: Organizing loan records based on factors such as amount, duration, priority, or borrower.
-* **Upload Photos**: The ability to attach images of borrowers or loaned items for visual reference.
-* **Notifications**: Alerts sent to remind users of overdue loans or outstanding repayments.
 * **Example Entries**: Pre-filled sample data to help new users understand how the system works.
-* **Fulfilled Loan**: A loan that has been completely repaid or returned.
+* **Wanted/Not Wanted**: UI element on each loan entry representing whether the loan is fully returned.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -446,18 +516,118 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the latest jar file and copy into an empty folder.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Run the jar file with Java 17 (best to be done through command line). The default window size may not be suitable.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   1. Resize the window to a desired size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   1. Re-launch the app.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Adding a loan
+
+1. Prerequisites: No entries are in the list, easiest done by clearing all entries from the list by running `clear`.
+
+2. Creating a new entry
+
+   1. Test case: `add n/John`<br>
+   Expected: A new entry with name `John` is created in position 1. It should also have the default parameters of $0.00 in loan amount, no tags and no phone number.
+   
+   2. Test case: `add n/John`<br>
+   Expected: No entry is created. Error details shown in status message. Command is not erased from input field.
+   
+   3.  Test case: `add n/john` <br>
+   Expected: A new entry is name `john` is created with default parameters. 
+
+3. Adding a phone number to entries
+
+   1. Test case: `phone 1 p/98765432`
+   Expected: Adds the phone number `98765432` to the entry for `John`.
+   
+   2. Test case: `phone 1 p/delete`
+   Expected: Deletes the phone number and removes it from the display for the entry for `John`.
+   
+   3. Test case: `phone 2 p/abcdefgh`
+   Expected: No phone number is updated. Error details shown in status message. Command is not erased from input field.
+
+4. Adding tags to entries
+
+   1. Test case: `tag 1 t/friend t/frequentloaner`
+   Expected: Adds the tags `friend` and `frequentloaner` to the entry for `John`.
+   
+   2. Test case: `tag 1 t/`
+   Expected: Removes all tags from the entry for `John`.
+
+5. Adding loans to entries
+
+   1. Test case: `increase 1 l/100.00 d/1st Jan 2025`<br>
+   Expected: The entry for `John` at index 1 has a loan for $100.00 on 1st Jan 2025 recorded in its transaction history, and loan amount is increased by $100.00. <br>
+   The entry should now show "Wanted" instead of "Not Wanted".
+   
+   2. Test case: `increase 1 l/-100.00 d/2nd Jan 2025`<br>
+   Exoected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
+
+### Repaying a loan
+1. Prerequisites: The first entry on the currently displayed list has a loan amount of $100.00.
+
+2. Adding loan repayments to entries
+
+   1. Test case: `repay 1 l/60.00 d/3rd Jan 2025`
+   Expected: The first entry on the list now has a loan amount of $40.00. The repayment transaction details are added to the transaction history. 
+
+   2. Test case: `repay 1 l/50.00 d/4th Jan 2025`
+   Expected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
+
+   3. Test case: `repay 1 l/40.00 d/4th Jan 2025`
+   Expected: The first entry on the list now has a loan amount of $0.00 and shows "Not Wanted". The repayment transaction details are added to the transaction history.
+
+### Editing loan transaction history
+1. Prerequisites: The first entry on the currently displayed list has a transaction history of exactly a $100.00 loan in the first slot and a $50.00 repayment in the second slot.
+
+2. Editing loan transaction history
+   
+    1. Test case: `edithist 1 i/2 l/60.00 d/10th Jan 2025`
+   Expected: The repayment transaction is increased to $60.00 and the date is changed to 10th Jan 2025. The loan amount of the entry should be updated to $40.00.
+   
+   2. Test case: `edithist 1 i/1 l/40.00`
+   Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
+   
+   3. Test case: `edithist 1 i/1 l/250.00`
+   Expected: The loan transaction is increased to $250.00. The date is unchanged. The loan amount of the entry should be updated to $190.00.
+
+   4. Test case: `edithist 1 i/5 l/100.00`
+      Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
+
+### Deleting loan transaction history
+1. Prerequisites: The first entry on the currently displayed list has a transaction history of exactly a $100.00 loan in the first slot and a $50.00 repayment in the second slot.
+    
+    1. Test case: `delhist 1 i/1`
+   Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
+
+   2. Test case: `delhist 1 i/2`
+      Expected: The transaction for the repayment is deleted. The loan amount is reverted to $100.00.
+
+### Finding specific entries
+1. Prerequisites: There are multiple entries on the list with different names, with at least one entry containing `John` in the name and no entries containing `Jim`.
+
+   1. Test case: `find John`
+   Expected: Entries containing the name `John` (case-insensitive) are moved to the top of the list.
+   
+    2. Test case: `find Jim`
+    Expected: No change occurs.
+
+### Displaying all entries
+1. Test case: `list`
+Expected: All entries are displayed. (No change occurs)
+
+### Sorting the list
+1. Prerequisites: There are multiple entries on the list with different loan amounts.
+
+2. Test case: `sort`
+Expected: All entries are sorted in decreasing order of loan amount.
 
 ### Deleting a loan
 
@@ -466,20 +636,25 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message.
 
    1. Test case: `delete 0`<br>
-      Expected: No loan is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No loan is deleted. Error details shown in the status message. Command is not erased from input field.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+--------------------------------------------------------------------------------------------------------------------
 
-### Saving data
+## **Appendix: Planned Enhancements**
 
-1. Dealing with missing/corrupted data files
+Team Size: 5 pax
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+1. **Display most recent loan transaction at the top of transaction history**: The current transaction history displays
+   loan transactions from oldest to newest. We intend to change the display from newest transaction recorded to oldest recorded transaction.
+2. **Enforce stricter date parsing**: Current string parsing requires three string inputs separated by spaces.
+   We will enhance this by parsing dates as DateTime objects to enforce a consistent format and improve reliability.
+3. **Display total amount loaned to a borrower**: The LoanCard currently displays only the total amount owed by a borrower.
+   We will enhance it to also display the total amount borrowed overall for better financial tracking.
+4. **Update find display**: The `find` command displays output at the top of the Wanted list.
+   We will enhance the display to filter out loan entries with borrowers whose names match none of the find query terms.

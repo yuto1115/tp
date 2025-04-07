@@ -24,13 +24,11 @@ public class PhoneCommand extends Command {
     public static final String DELETE_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            +
-            ": Update or delete phone number of the loan identified by the index number."
-            + "\n" + "Parameters: INDEX (must be a positive integer)\n"
-            + "          "
-            + PREFIX_PHONE
-            + "NEW_PHONE_NUMBER "
-            + "\n"
+            + ": Updates or deletes the phone number of the person "
+            + "identified by the index number used in the displayed persons list.\n"
+            + "Parameters:\n"
+            + "    [ID] (must be a positive integer)\n"
+            + "    " + PREFIX_PHONE + "[PHONE NUMBER or `delete`]\n"
             + "Example (Update new phone number): " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "88888888"
             + "\n"
             + "Example (Delete current phone number): " + COMMAND_WORD + " 1 " + PREFIX_PHONE + DELETE_WORD;
@@ -68,5 +66,21 @@ public class PhoneCommand extends Command {
         return this.updatedPhone.equals(Phone.EMPTY_PHONE)
                 ? new CommandResult(String.format(MESSAGE_DELETED_SUCCESS, Messages.format(newLoan)))
                 : new CommandResult(String.format(MESSAGE_UPDATED_SUCCESS, Messages.format(newLoan)));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof PhoneCommand)) {
+            return false;
+        }
+
+        PhoneCommand otherPhoneCommand = (PhoneCommand) other;
+        return this.targetIndex.equals(otherPhoneCommand.targetIndex)
+                && this.updatedPhone.equals(otherPhoneCommand.updatedPhone);
     }
 }

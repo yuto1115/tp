@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static wanted.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static wanted.logic.parser.CliSyntax.PREFIX_DATE;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
+import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
 import static wanted.logic.parser.CliSyntax.PREFIX_TAG;
 import static wanted.testutil.Assert.assertThrows;
 
@@ -13,17 +14,26 @@ import java.util.Arrays;
 import java.util.List;
 
 import wanted.commons.core.datatypes.Index;
+import wanted.commons.core.datatypes.MoneyInt;
 import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.LoanBook;
 import wanted.model.Model;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanAmount;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.NameContainsKeywordsPredicate;
-import wanted.testutil.EditPersonDescriptorBuilder;
+import wanted.model.loan.exceptions.ExcessRepaymentException;
+import wanted.model.loan.transaction.AddLoanTransaction;
+import wanted.model.loan.transaction.LoanTransaction;
+import wanted.model.loan.transaction.RepayLoanTransaction;
+import wanted.testutil.EditLoanDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    // needs to be updated here
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -33,6 +43,7 @@ public class CommandTestUtil {
     public static final String VALID_AMOUNT_BOB = "1230.97";
     public static final String VALID_DATE_AMY = "10th December 2024";
     public static final String VALID_DATE_BOB = "19th July 2024";
+    public static final String VALID_PHONE = "88880000";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -47,22 +58,27 @@ public class CommandTestUtil {
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "10";
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "Febru@ry";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_PHONE_NUMBER = " " + PREFIX_PHONE + "@398@@*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final BaseEdit.EditLoanDescriptor NEW_DESC_AMY;
+    //public static final BaseEdit.EditLoanDescriptor NEW_DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                // .withAmount(VALID_AMOUNT_AMY)
-                .withLoanDate(VALID_DATE_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                // .withAmount(VALID_AMOUNT_BOB)
-                .withLoanDate(VALID_DATE_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        ArrayList<LoanTransaction> history = new ArrayList<>(Arrays.asList(
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
+                new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
+                new RepayLoanTransaction(MoneyInt.fromCent(1250), new LoanDate("3rd Jan 2024"))
+        ));
+
+        try {
+            NEW_DESC_AMY = new EditLoanDescriptorBuilder().withName(VALID_NAME_AMY)
+                    .withLoanAmount(new LoanAmount(history)).withTags(VALID_TAG_FRIEND).build();
+        } catch (ExcessRepaymentException e) {
+            throw new AssertionError("ExcessRepaymentException");
+        }
     }
 
     /**

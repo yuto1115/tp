@@ -21,14 +21,15 @@ public class IncreaseCommand extends Command {
     public static final String COMMAND_WORD = "increase";
     public static final String MESSAGE_INCREASE_SUCCESS = "Loan successfully updated: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Increases the loan the identified person has taken out "
-            + "by the index number used in the last person listing. "
-            + "Existing loan will be increased by the amount input.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "l/ [AMOUNT]\n"
+            + ": Increases the loan of the person identified "
+            + "by the index number used in the displayed persons list.\n"
+            + "Parameters:\n"
+            + "    [ID] (must be a positive integer)\n"
+            + "    l/[AMOUNT] (must be a non-negative numeric amount with 2 decimal places)\n"
+            + "    d/[DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "l/ 30.10"
-            + "d/ 10th August 2024";
+            + "l/30.10 " //whitespace before d
+            + "d/10th August 2024";
 
 
     private final Index index;

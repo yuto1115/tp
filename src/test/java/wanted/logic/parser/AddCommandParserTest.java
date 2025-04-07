@@ -11,8 +11,6 @@ import static wanted.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static wanted.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static wanted.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static wanted.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.logic.parser.CliSyntax.PREFIX_NAME;
 import static wanted.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static wanted.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -25,7 +23,6 @@ import wanted.logic.Messages;
 import wanted.logic.commands.AddCommand;
 import wanted.model.loan.Loan;
 import wanted.model.loan.Name;
-import wanted.model.tag.Tag;
 import wanted.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
@@ -33,19 +30,11 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Loan expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Loan expectedPerson = new PersonBuilder(BOB).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedPerson));
-
-
-        // multiple tags - all accepted
-        Loan expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        assertParseSuccess(parser,
-                NAME_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddCommand(expectedPersonMultipleTags));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB,
+                new AddCommand(new Loan(expectedPerson.getName())));
     }
 
     @Test
@@ -101,10 +90,6 @@ public class AddCommandParserTest {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
-
-        // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + INVALID_TAG_DESC + DATE_DESC_BOB,

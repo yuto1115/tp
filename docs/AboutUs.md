@@ -31,7 +31,6 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/nikingoda.png" width="200px">
 
 [[github](https://github.com/nikingoda)]
-[[portfolio](team/nikingoda.md)]
 
 * Role: Developer
 
@@ -40,7 +39,6 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/yuto1115.png" width="200px">
 
 [[github](https://github.com/yuto1115)]
-[[portfolio](team/yuto1115.md)]
 
 * Role: Code Quality
 

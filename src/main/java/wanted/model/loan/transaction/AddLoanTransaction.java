@@ -41,6 +41,11 @@ public class AddLoanTransaction extends LoanTransaction {
     }
 
     @Override
+    public LoanTransaction getNewTransactionOfSameType(MoneyInt amount, LoanDate date) {
+        return new AddLoanTransaction(amount, date);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

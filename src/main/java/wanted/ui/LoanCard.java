@@ -2,13 +2,19 @@ package wanted.ui;
 
 import java.util.Comparator;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import wanted.model.loan.Loan;
 import wanted.model.loan.Phone;
+import wanted.model.loan.transaction.LoanTransaction;
 
 /**
  * An UI component that displays information of a {@code Loan}.
@@ -43,13 +49,20 @@ public class LoanCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label status; //i just added this in for effect
+    private Label status;
+    @FXML
+    private VBox transactionsBox;
+    @FXML
+    private ScrollPane entryScrollPane;
+
+    private ObservableList<LoanTransaction> transactions;
+
     /**
      * Creates a {@code PersonCode} with the given {@code Loan} and index to display.
      */
     public LoanCard(Loan loan, int displayedIndex) {
         super(FXML);
-
+        //display fields
         this.loan = loan;
         isReturned = this.loan.getLoanAmount().isRepaid();
         id.setText(displayedIndex + ". ");
@@ -57,18 +70,21 @@ public class LoanCard extends UiPart<Region> {
         name.setText(loan.getName().fullName);
         amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
                 .getStringRepresentationWithFixedDecimalPoint());
+        transactions = FXCollections.observableArrayList(loan.getLoanAmount().getTransactionHistoryCopy());
+
         if (loan.getPhone() != null && !loan.getPhone().equals(Phone.EMPTY_PHONE)) {
             this.phone.setText("Phone number: " + loan.getPhone().getValue());
         } else {
             this.phone.setText("No phone number available");
         }
-        // date.setText("Loan Date: " + loan.getLoanDate().toString());
+
         // Sort tags alphabetically and display them
         loan.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         updateBackground();
+        updateTransactionList(transactions);
     }
 
     private void updateBackground() {
@@ -93,4 +109,19 @@ public class LoanCard extends UiPart<Region> {
         }
     }
 
+    private void updateTransactionList(ObservableList<LoanTransaction> transactions) {
+        transactionsBox.getChildren().clear(); // Clear old transactions
+        transactionsBox.getStyleClass().add("transaction-box");
+        //pls work
+        transactions.stream()
+                .map(this::createTransactionLabel).forEach(transactionsBox.getChildren()::add);
+        Platform.runLater(() -> entryScrollPane.setVvalue(1.0));
+    }
+
+    private Label createTransactionLabel(LoanTransaction transaction) {
+        int index = transactionsBox.getChildren().size() + 1;
+        Label txnLabel = new Label(index + ". " + transaction.getExplanation());
+        txnLabel.getStyleClass().add("transaction-label");
+        return txnLabel; //same code logic as before
+    }
 }

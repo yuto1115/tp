@@ -2,9 +2,9 @@ package wanted.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static wanted.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static wanted.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static wanted.logic.parser.CliSyntax.PREFIX_PHONE;
 import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -15,22 +15,27 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import wanted.commons.core.datatypes.MoneyInt;
 import wanted.logic.commands.AddCommand;
 import wanted.logic.commands.ClearCommand;
 import wanted.logic.commands.CommandTestUtil;
 import wanted.logic.commands.DeleteCommand;
 import wanted.logic.commands.DelhistCommand;
-import wanted.logic.commands.EditCommand;
-import wanted.logic.commands.EditCommand.EditPersonDescriptor;
+import wanted.logic.commands.EdithistCommand;
+import wanted.logic.commands.EdithistCommand.EditTransactionDescriptor;
 import wanted.logic.commands.ExitCommand;
 import wanted.logic.commands.FindCommand;
 import wanted.logic.commands.HelpCommand;
 import wanted.logic.commands.IncreaseCommand;
 import wanted.logic.commands.ListCommand;
+import wanted.logic.commands.PhoneCommand;
+import wanted.logic.commands.RenameCommand;
+import wanted.logic.commands.TagCommand;
 import wanted.logic.parser.exceptions.ParseException;
 import wanted.model.loan.Loan;
+import wanted.model.loan.LoanDate;
 import wanted.model.loan.NameContainsKeywordsPredicate;
-import wanted.testutil.EditPersonDescriptorBuilder;
+import wanted.model.loan.Phone;
 import wanted.testutil.PersonBuilder;
 import wanted.testutil.PersonUtil;
 
@@ -60,28 +65,9 @@ public class LoanBookParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
-        assumeTrue(EditCommand.IS_ENABLED);
-        Loan person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-    }
-
-    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        assumeTrue(FindCommand.IS_ENABLED);
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -101,8 +87,16 @@ public class LoanBookParserTest {
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD
                 + " 1 l/10.10 d/9th September 2024") instanceof IncreaseCommand);
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
-            + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY
-            + " " + " d/" + CommandTestUtil.VALID_DATE_AMY) instanceof IncreaseCommand);
+                + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY
+                + " " + " d/" + CommandTestUtil.VALID_DATE_AMY) instanceof IncreaseCommand);
+    }
+
+    @Test
+    public void parseCommand_find() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -112,9 +106,41 @@ public class LoanBookParserTest {
     }
 
     @Test
+    public void parseCommand_phone() throws Exception {
+        String command = PhoneCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + CommandTestUtil.VALID_PHONE;
+        assertEquals(new PhoneCommand(INDEX_FIRST_PERSON, new Phone(CommandTestUtil.VALID_PHONE)),
+                parser.parseCommand(command));
+    }
+
+    @Test
+    public void parseCommand_rename() throws Exception {
+        assertTrue(parser.parseCommand(RenameCommand.COMMAND_WORD + " 1 n/Julian") instanceof RenameCommand);
+        assertTrue(parser.parseCommand(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + " " + "n/" + CommandTestUtil.VALID_NAME_AMY) instanceof RenameCommand);
+    }
+
+    @Test
+    public void parseCommand_tag() throws Exception {
+        assertTrue(parser.parseCommand(TagCommand.COMMAND_WORD + " 1 t/friend") instanceof TagCommand);
+        assertTrue(parser.parseCommand(TagCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + " " + "t/" + CommandTestUtil.VALID_TAG_FRIEND) instanceof TagCommand);
+    }
+
+    @Test
+    public void parseCommand_edithist() throws Exception {
+        String command = EdithistCommand.COMMAND_WORD + " 1 i/2 l/20.25 d/1st Jan 1111";
+        EditTransactionDescriptor expectedDescriptor = new EditTransactionDescriptor();
+        expectedDescriptor.setAmount(MoneyInt.fromCent(2025));
+        expectedDescriptor.setDate(new LoanDate("1st Jan 1111"));
+        EdithistCommand expected = new EdithistCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON,
+                expectedDescriptor);
+        assertEquals(expected, parser.parseCommand(command));
+    }
+
+    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test

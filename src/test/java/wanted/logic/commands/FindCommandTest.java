@@ -3,94 +3,93 @@ package wanted.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static wanted.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static wanted.testutil.TypicalPersons.CARL;
-import static wanted.testutil.TypicalPersons.ELLE;
-import static wanted.testutil.TypicalPersons.FIONA;
-import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
+import static wanted.testutil.Assert.assertThrows;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import wanted.logic.commands.exceptions.CommandException;
 import wanted.model.Model;
 import wanted.model.ModelManager;
 import wanted.model.UserPrefs;
+import wanted.model.loan.Loan;
 import wanted.model.loan.NameContainsKeywordsPredicate;
+import wanted.testutil.LoanBookBuilder;
+import wanted.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
- * This command is disabled in the MVP
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalLoanBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalLoanBook(), new UserPrefs());
+
+    private static Model createSampleModel() {
+        return new ModelManager(
+                new LoanBookBuilder()
+                        .withPerson(new PersonBuilder().withName("Alex").build())
+                        .withPerson(new PersonBuilder().withName("Alex Yeoh").build())
+                        .withPerson(new PersonBuilder().withName("Benedict").build())
+                        .withPerson(new PersonBuilder().withName("Elisa").build())
+                        .build(),
+                new UserPrefs()
+        );
+    }
+
+    @Test
+    public void findCommandConstructor_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new FindCommand(null));
+    }
+
+    @Test
+    public void executeEmptyKeyword_throwsCommandException() {
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(List.of(""));
+        FindCommand command = new FindCommand(predicate);
+        Model model = createSampleModel();
+        assertThrows(IllegalArgumentException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void executeMultipleKeywords_success() throws CommandException {
+        //TODO: Write test case for successful check with multiple keywords in find
+        NameContainsKeywordsPredicate predicate =
+                new NameContainsKeywordsPredicate(List.of("Alex", "Yeoh"));
+        FindCommand command = new FindCommand(predicate);
+        Model model = createSampleModel();
+
+        CommandResult result = command.execute(model);
+
+        List<Loan> filtered = model.getFilteredPersonList();
+
+        // assert that the size of the list should not have changed after find command
+        assertEquals(4, filtered.size());
+
+        // The most relevant match "Alex Yeoh" should appear first, followed by "Alex"
+        assertEquals("Alex Yeoh", filtered.get(0).getName().fullName);
+        assertEquals("Alex", filtered.get(1).getName().fullName);
+    }
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(List.of("alex"));
+        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(List.of("yeoh"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindCommand command1 = new FindCommand(firstPredicate);
+        FindCommand command2 = new FindCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertTrue(command1.equals(command1));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        FindCommand command1Copy = new FindCommand(firstPredicate);
+        assertTrue(command1.equals(command1Copy));
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertFalse(command1.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(command1.equals(null));
 
-        // different loan -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
-    }
-
-    @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        assumeTrue(FindCommand.IS_ENABLED);
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        assumeTrue(FindCommand.IS_ENABLED);
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
-    }
-
-    @Test
-    public void toStringMethod() {
-        assumeTrue(FindCommand.IS_ENABLED);
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
-        FindCommand findCommand = new FindCommand(predicate);
-        String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
-        assertEquals(expected, findCommand.toString());
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+        // different predicates -> returns false
+        assertFalse(command1.equals(command2));
     }
 }
