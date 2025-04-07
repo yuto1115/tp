@@ -177,7 +177,7 @@ The index **must be a positive integer** 1, 2, 3, …
 **Examples:**
 <box>
 
-**Scenario 1:** Adding new tags<br>
+**Scenario 1:** Adding a new tag<br>
 
 **Input:** `tag 1 t/schoolmate`<br>
 
@@ -196,7 +196,7 @@ Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
 ```output
 Your requested tag(s) already exist(s) for this person
 ```
-**Scenario 3:** Updating tags<br>
+**Scenario 3:** Update existing tag(s)<br>
 
 > **Note:** Assuming the tag schoolmate already exists.
 
