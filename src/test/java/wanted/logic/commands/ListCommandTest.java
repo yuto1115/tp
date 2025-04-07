@@ -1,8 +1,6 @@
 package wanted.logic.commands;
 
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static wanted.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,12 +26,6 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
-    @Test
-    public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

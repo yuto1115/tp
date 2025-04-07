@@ -19,19 +19,20 @@ import wanted.model.loan.exceptions.PhoneUnchangedException;
 public class PhoneCommand extends Command {
     public static final String COMMAND_WORD = "phone";
     public static final String MESSAGE_UPDATED_SUCCESS = "Phone number successfully updated: %1$s";
-    public static final String MESSAGE_DELETED_SUCCESS = "Phone number successfully deleted: %1$s";
-    public static final String MESSAGE_DUPLICATE_PHONE = "New phone number must be different from the old one.";
-    public static final String DELETE_WORD = "delete";
+    public static final String MESSAGE_DELETED_SUCCESS = "This loan now has no phone number: %1$s";
+    public static final String MESSAGE_DUPLICATE_PHONE = "New phone number must be different than the old one";
+    public static final String DELETE_WORD = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates or deletes the phone number of the person "
             + "identified by the index number used in the displayed persons list.\n"
             + "Parameters:\n"
             + "    [ID] (must be a positive integer)\n"
-            + "    " + PREFIX_PHONE + "[PHONE NUMBER or `delete`]\n"
+            + "    " + PREFIX_PHONE + "[PHONE NUMBER or leave empty]\n"
             + "Example (Update new phone number): " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "88888888"
             + "\n"
-            + "Example (Delete current phone number): " + COMMAND_WORD + " 1 " + PREFIX_PHONE + DELETE_WORD;
+            + "Example (Delete current phone number, change nothing if the loan currently has no phone number): "
+            + COMMAND_WORD + " 1 " + PREFIX_PHONE + DELETE_WORD;
     private final Index targetIndex;
     private final Phone updatedPhone;
 
