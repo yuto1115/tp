@@ -44,17 +44,6 @@ public class Loan {
     }
 
     /**
-     * Constructs a new Loan object with the given name, LoanAmount, and tags.
-     */
-    public Loan(Name name, LoanAmount loanAmount, Set<Tag> tags) {
-        requireAllNonNull(name, loanAmount, tags);
-        this.name = name;
-        this.loanAmount = loanAmount;
-        this.tags.addAll(tags);
-        this.phone = Phone.EMPTY_PHONE;
-    }
-
-    /**
      * Constructs a new Loan with the given name, LoanAmount, tags, and phone.
      */
     public Loan(Name name, LoanAmount loanAmount, Set<Tag> tags, Phone phone) {
@@ -202,7 +191,7 @@ public class Loan {
 
         transactions.remove(index.getZeroBased());
 
-        return new Loan(this.name, new LoanAmount(transactions), this.tags);
+        return new Loan(this.name, new LoanAmount(transactions), this.tags, this.phone);
     }
 
     /**
@@ -223,6 +212,6 @@ public class Loan {
 
         transactions.set(index.getZeroBased(), newTransaction);
 
-        return new Loan(this.name, new LoanAmount(transactions), this.tags);
+        return new Loan(this.name, new LoanAmount(transactions), this.tags, this.phone);
     }
 }
