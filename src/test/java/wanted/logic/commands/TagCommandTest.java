@@ -1,6 +1,8 @@
 package wanted.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
