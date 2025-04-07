@@ -31,7 +31,9 @@ public final class BaseEdit {
         assert loanToEdit != null;
         Name updatedName = editDescriptor.getName().orElse(loanToEdit.getName());
         LoanAmount updatedAmount = editDescriptor.getAmount().orElse(loanToEdit.getLoanAmount());
-        Set<Tag> updatedTags = editDescriptor.getTags().orElse(loanToEdit.getTags());
+
+        Set<Tag> previousTags = loanToEdit.getTags();
+        Set<Tag> updatedTags = editDescriptor.getTags(previousTags).orElse(loanToEdit.getTags());
         Phone phone = loanToEdit.getPhone();
 
         return new Loan(updatedName, updatedAmount, updatedTags, phone);
@@ -92,12 +94,31 @@ public final class BaseEdit {
         }
 
         /**
+         * Merges a set of tags with the object's {@code tags}
+         */
+        public void appendTags(Set<Tag> tags) {
+            assert this.tags != null : "null tags should reset all tags";
+            Set<Tag> modifiedTags = new HashSet<>(tags);
+            modifiedTags.addAll(this.tags);
+            this.tags = modifiedTags;
+        }
+
+        /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Tag>> getTags(Set<Tag> previousTags) {
+            if (this.tags == null) {
+                return Optional.empty();
+            }
+            if (this.tags.isEmpty()) {
+                return Optional.of(Collections.unmodifiableSet(new HashSet<>())); // empty input t/
+            }
+            if (previousTags != null) {
+                appendTags(previousTags); //when there is previous input
+            }
+            return Optional.of(Collections.unmodifiableSet(tags));
         }
 
         @Override

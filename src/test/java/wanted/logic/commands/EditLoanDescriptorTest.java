@@ -7,10 +7,16 @@ import static wanted.logic.commands.CommandTestUtil.NEW_DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import wanted.model.loan.exceptions.ExcessRepaymentException;
+import wanted.model.tag.Tag;
 import wanted.testutil.EditLoanDescriptorBuilder;
+
 
 public class EditLoanDescriptorTest {
 
@@ -34,9 +40,6 @@ public class EditLoanDescriptorTest {
         BaseEdit.EditLoanDescriptor editedAmy =
                 new EditLoanDescriptorBuilder(NEW_DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(NEW_DESC_AMY.equals(editedAmy));
-
-        // different amount -> returns false
-
         // different tags -> returns false
         editedAmy = new EditLoanDescriptorBuilder(NEW_DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(NEW_DESC_AMY.equals(editedAmy));
@@ -44,11 +47,20 @@ public class EditLoanDescriptorTest {
 
     @Test
     public void toStringMethod() {
+        Set<Tag> exampleTags = new HashSet<>(); //example tag
         BaseEdit.EditLoanDescriptor editLoanDescriptor = new BaseEdit.EditLoanDescriptor();
         String expected = BaseEdit.EditLoanDescriptor.class.getCanonicalName() + "{name="
                 + editLoanDescriptor.getName().orElse(null) + ", tags="
-                + editLoanDescriptor.getTags().orElse(null) + ", amount="
+                + editLoanDescriptor.getTags(exampleTags).orElse(null) + ", amount="
                 + editLoanDescriptor.getAmount().orElse(null) + "}";
         assertEquals(expected, editLoanDescriptor.toString());
+    }
+
+    @Test
+    public void testGetTags_emptyTags() {
+        //test that when given an empty set an optional.empty() is returned for codecov..
+        BaseEdit.EditLoanDescriptor editLoanDescriptor = new BaseEdit.EditLoanDescriptor();
+        Set<Tag> emptyTags = new HashSet<>();
+        assertEquals(Optional.empty(), editLoanDescriptor.getTags(emptyTags));
     }
 }
