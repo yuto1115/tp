@@ -78,12 +78,12 @@ Command     | Action                           | Format, Examples
 **rename** | Change name of entry             | `rename [ID] n/[NAME]`
 **phone** | Add/change phone number of entry | `phone [ID] p/[PHONE]`
 **tag** | Add/change tags of entry         | `tag [ID] t/[TAG]…`
-**increase** | Add a loan to entry              | `increase [ID] l/[AMOUNT]`
-**repay** | Add a repayment to entry         | `repay [ID] l/[AMOUNT]`
+**increase** | Add a loan to entry              | `increase [ID] l/[AMOUNT] d/[DATE]`
+**repay** | Add a repayment to entry         | `repay [ID] l/[AMOUNT] d/[DATE]`
 **edithist**   | Edit a transaction in entry      |`edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
 **delhist** | Delete a transaction in entry    | `delhist [ID] i/[TRANSACTION ID]`
 **list**   | List all entries                 |`list`
-**find**   | Search entries by name           |`find [NAME]…`
+**find**   | Search entries by name           |`find [KEYWORD]…`
 **delete** | Delete an entry                  |`delete [ID]`
 **sort**   | Sort entries by loaned amount    |`sort`
 **clear**  | Delete all entries               |`clear`
