@@ -138,6 +138,9 @@ public class TagCommandTest {
         // different value -> returns false (editLoanDescriptor is different)
         assertNotEquals(tagCommand1, tagCommand3);
 
+        //not an instance of tagcommand -> returns false
+        assertNotEquals(tagCommand1, null);
+
         //  different index -> returns false
         assertNotEquals(tagCommand1, tagCommand4);
     }
