@@ -148,7 +148,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="750" />
+<puml src="diagrams/StorageClassDiagram.puml" width="850" />
 
 The `Storage` component,
 * can save both loan book data and user preference data in JSON format, and read them back into corresponding objects.
@@ -171,9 +171,9 @@ This section describes some noteworthy details on how certain features are imple
 
 The proposed undo/redo mechanism is facilitated by `VersionedLoanBook`. It extends `LoanBook` with an undo/redo history, stored internally as an `loanBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedLoanBook#commit()` — Saves the current loan book state in its history.
-* `VersionedLoanBook#undo()` — Restores the previous loan book state from its history.
-* `VersionedLoanBook#redo()` — Restores a previously undone loan book state from its history.
+* `VersionedLoanBook#commit()`—Saves the current loan book state in its history.
+* `VersionedLoanBook#undo()`—Restores the previous loan book state from its history.
+* `VersionedLoanBook#redo()`—Restores a previously undone loan book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitLoanBook()`, `Model#undoLoanBook()` and `Model#redoLoanBook()` respectively.
 
@@ -256,14 +256,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the loan being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-[//]: # (_{more aspects and alternatives to be added}_)
-
-[//]: # ()
-[//]: # (### \[Proposed\] Data archiving)
-
-[//]: # ()
-[//]: # (_{Explain here how the data archiving feature will be implemented}_)
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -322,26 +314,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `LoanBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Wanted` application and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: `Add` a New Loan**
+**Use case: UC01 - `Add` a New Loan**
 
 **MSS**
 
 1. User requests to add a new loan with borrower's name.
-
 2. System records the new loan in the loan list.
-
 3. System confirms that the loan has been successfully added.
-Use case ends.
+
+   Use case ends.
 
 **Extensions**
 
-* 1a. The loans details are incomplete or invalid.
-  * 1a.1. System displays an error message and tells the user the correct format to enter.
-  * Use Case Resumes at Step 1.
+* 1a. System detects an error in the command entered.
+  * 1a1. System displays an error message and tells the user the correct format to enter.
+  * Use case resumes from step 1.
 
-**Use case: `Delete` a Loan**
+**Use case: UC02 - `Delete` a Loan**
 
 **MSS**
 
@@ -349,139 +340,143 @@ Use case ends.
 2. System removes the loan from the loan list.
 3. System confirms that the loan has been successfully deleted.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
 * 1a. The loan does not exist in the system.
-  * 1a.1. System displays a message indicating that the loan is not found.
-  * Use Case Ends.
+  * 1a1. System displays a message indicating that the loan is not found.
+  * Use case ends.
 
-**Use case: `List` Current Loans**
+**Use case: UC03 - `List` Current Loans**
 
 **MSS**
 
-1. User requests to view the list of current loans.
+1. User requests to list all loans by name in alphabetical order.
 2. System retrieves and displays the list of loans.
+
+   Use case ends.
+
+**Use case: UC04 - `Sort` Current Loans**
+
+**MSS**
+
+1. User requests to sort all loans by Remaining Loan Amount in decreasing order.
+2. System retrieves and displays the list of loans.
+
+   Use case ends.
+
+**Use Case: UC05 - `Increase` a Loan Amount**
+
+**MSS**
+1. User requests to add an increase transaction of a specified amount and date to a loan.
+2. System creates a new increase transaction.
+3. System adds the transaction to the transaction history of the loan.
+4. System updates and displays Total Amount Loaned and Remaining Loan Amount of the loan.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. No loans exists.
-  * 1a.1. System displays a message indicating that there are no loans that need to be returned.
-  * Use Case Ends
+* 1a. System detects an error in the command entered.
+    * 1a1. System displays an error message and tells the user the correct format to enter.
+    * Use case resumes from step 1.
 
-**Use Case: `Increase` a Loan Amount**
-
-**MSS**
-1. User requests to add a loan amount to a loan ID, and records the date of the transaction
-2. System creates a new add loan transaction
-3. System adds transaction to the loan history
-4. System updates and displays total amount loaned and total amount to be repaid
-
-   Use Case Ends.
-
-**Extensions**
-
-* 1a. No loan with the given ID exists.
-  * 1a.1. System displays a message indicating that an invalid ID is being called.
-  * Use Case Ends.
-
-**Use Case:`Repay` a Loan Amount in Full or Partially**
+**Use Case: UC06 - `Repay` a Loan Amount in Full or Partially**
 
 **MSS**
-1. User requests to repay a loan amount to a loan ID, and records the date of the transaction
-2. System creates a new repay loan transaction
-3. System adds transaction to the loan history, and displays total amount loaned and total amount to be repaid
-4. System display repaid success message.
+1. User requests to add a repayment transaction of a specified amount and date to a loan.
+2. System creates a new repayment transaction.
+3. System adds the transaction to the loan history of the loan.
+4. System updates and displays Total Amount Loaned and Remaining Loan Amount of the loan.
 
-   Use Case Ends.
-
-**Extensions**
-
-* 1a. No loan with the given ID exists.
-  * 1a.1. System displays a message indicating that an invalid ID is being called.
-  * Use Case Ends.
-
-**Use Case: `Rename` a Loan Transaction**
-
-*MSS**
-1. User requests a loans ID to rename a loan borrower
-2. System creates an updated loan
-3. System display rename success message.
-
-   Use Case Ends.
+   Use case ends.
 
 **Extensions**
 
-* 1a. No loan with the given ID exists.
-  * 1a.1. System displays a message indicating that an invalid ID is being called.
-  * Use case ends.
-* 1b. Invalid name field is received as an input
-  * 1b.1. System displays a message indicating that an invalid ID is being called.
-  * Use case ends.
+* 1a. System detects an error in the command entered.
+    * 1a1. System displays an error message and tells the user the correct format to enter.
+    * Use case resumes from step 1.
+* 1b. System detects the repayment amount is greater than the Remaining Loan Amount of the loan.
+    * 1b1. System displays an error message informing the user to key in a valid repayment amount.
+    * Use case resumes from step 1.
 
-**Use Case: `Tag` a Loan Transaction**
-
-*MSS**
-1. User requests a loan ID to tag a loan
-2. System creates an updated loan
-3. System display tag success message.
-
-   Use Case Ends.
-
-**Extensions**
-
-* 1a. No loan with the given ID exists.
-  * 1a.1. System displays a message indicating that an invalid ID is being called.
-  * Use case ends.
-
-**Use Case: Add and Edit a `Phone` Value**
-
-*MSS**
-1. User requests a loan ID to add or edit a borrowers' phone number
-2. System creates an updated loan
-3. System display phone success message.
-
-   Use Case Ends.
-
-**Extensions**
-
-* 1a. No loan with the given ID exists.
-    * 1a.1. System displays a message indicating that an invalid ID is being called.
-    * Use case ends.
-
-**Use Case: `Sort` Loan by Amount Loaned**
+**Use Case: UC07 - Editing a Loan Transaction**
 
 **MSS**
-1. User requests to sort loans
-2. System sort loans by amount owed and displays it to the user.
+1. User requests to modify the amount and/or date of a transaction in a loan.
+2. System updates the transaction.
+3. System updates and displays the updated transaction history, Total Amount Loaned and Remaining Loan Amount of the loan.
 
-   Use Case Ends.
+   Use case ends.
 
 **Extensions**
 
-* 1a. No outstanding loans.
-  * 1a.1. No loans are displayed.
-  * Use Case Ends.
+* 1a. System detects an error in the command entered.
+    * 1a1. System displays an error message and tells the user the correct format to enter.
+    * Use case resumes from step 1.
+* 1b. System detects the modified amount will result in a negative Remaining Loan Amount.
+    * 1b1. System displays an error message informing the user to key in a valid amount.
+    * Use case resumes from step 1.
 
-  Use Case Ends.
-
-**Use Case: `Sort` Loans by Borrowers' Name TBD**
+**Use Case: UC08 - Deleting a Loan Transaction**
 
 **MSS**
-1. User requests to sort loans by borrowers' name
-2. System sort loans and displays it to the user.
+1. User requests to delete a transaction in a loan.
+2. System deletes the transaction.
+3. System updates and displays the updated transaction history, Total Amount Loaned and Remaining Loan Amount of the loan.
 
-   Use Case Ends.
+   Use case ends.
 
 **Extensions**
 
-* 1a. No outstanding loans.
-  * 1a.1. No loans are displayed.
+* 1a. System detects an error in the command entered.
+    * 1a1. System displays an error message and tells the user the correct format to enter.
+    * Use case resumes from step 1.
+* 1b. System detects the deleted transaction will result in a negative Remaining Loan Amount.
+    * 1b1. System displays an error message informing the user to key in a valid amount.
+    * Use case resumes from step 1.
 
-  * Use Case Ends.
+**Use Case: UC09 - `Tag` a Loan**
+
+**MSS**
+1. User requests to add tag(s) to a loan.
+2. System adds the tag(s) to the loan.
+3. System displays the updated loan.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. System detects an error in the command entered.
+    * 1a1. System displays an error message and tells the user the correct format to enter.
+    * Use case resumes from step 1.
+* 1b. User requests to delete all tags from a loan by entering an empty tag.
+    * 1b1. System removes all tags from the loan.
+    * Use case resumes from step 3.
+
+**Use Case: UC10 - Modifying the `Phone` of a Loan**
+
+**MSS**
+1. User requests to modify the phone number of a loan.
+2. System modifies the phone number of the loan.
+3. System display the updated loan.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. System detects an error in the command entered.
+    * 1a1. System displays an error message and tells the user the correct format to enter.
+    * Use case resumes from step 1.
+
+**Use Case: UC11 - `Clear`ing all Loans**
+
+**MSS*
+1. User requests to clear all loans from the list.
+2. System deletes all loans from the list.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
@@ -492,6 +487,7 @@ Use case ends.
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Loan**: A group of information associated with a person the user lends to.
 * **Loan Issuer**: The loan who lends money or items to others and expects repayment or return.
 * **User**: A general term for loan issuers managing their loans.
 * **Forgetful User**: A user who needs additional reminders and tracking features to recall outstanding loans.
@@ -499,12 +495,13 @@ Use case ends.
 * **Cash-Strapped User**: A user who urgently needs to recover loaned money to maintain financial stability.
 * **New User**: Someone who has just started using the system and may require guidance on how to navigate it.
 * **Amount**: A sum of money.
-* **Loan Transaction**: An action to increase or decrease the loan owed to the user.
+* **Total Amount Loaned**: Total amount of money loaned to a person across all transactions associated with them.
+* **Remaining Loan Amount**: Amount of money a person is yet to repay across all transactions associated with them.
+* **Transaction**: An action to increase or repay the loan owed to the user.
 * **Tags**: A method of categorizing individuals based on different attributes such as spending habits, friends, family etc.
 * **Leaderboard**: A visual ranking system displaying individuals with the highest loans.
-* **Loan History**: A record of all loan transactions under a current loan, categorized by increase or repay transactions.
+* **Loan History**: A record of all transactions under a current loan, categorized by increase or repay transactions.
 * **Clear**: The ability to delete all stored loan data, often used to clear test or example entries.
-* **Sorting**: Organizing loan records based on factors such as amount, duration, priority, or borrower.
 * **Example Entries**: Pre-filled sample data to help new users understand how the system works.
 * **Wanted/Not Wanted**: UI element on each loan entry representing whether the loan is fully returned.
 
@@ -572,11 +569,11 @@ testers are expected to do more *exploratory* testing.
 
 5. Adding loans to entries
 
-   1. Test case: `increase 1 l/100.00 d/1st Jan 2025`<br>
-   Expected: The entry for `John` at index 1 has a loan for $100.00 on 1st Jan 2025 recorded in its transaction history, and loan amount is increased by $100.00. <br>
+   1. Test case: `increase 1 l/100.00 d/2025-01-01`<br>
+   Expected: The entry for `John` at index 1 has a loan for $100.00 on 2025-01-01 recorded in its transaction history, and loan amount is increased by $100.00. <br>
    The entry should now show "Wanted" instead of "Not Wanted".
    
-   2. Test case: `increase 1 l/-100.00 d/2nd Jan 2025`<br>
+   2. Test case: `increase 1 l/-100.00 d/2025-02-02`<br>
    Exoected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
 
 ### Repaying a loan
@@ -584,13 +581,13 @@ testers are expected to do more *exploratory* testing.
 
 2. Adding loan repayments to entries
 
-   1. Test case: `repay 1 l/60.00 d/3rd Jan 2025`
+   1. Test case: `repay 1 l/60.00 d/2025-01-03`
    Expected: The first entry on the list now has a loan amount of $40.00. The repayment transaction details are added to the transaction history. 
 
-   2. Test case: `repay 1 l/50.00 d/4th Jan 2025`
+   2. Test case: `repay 1 l/50.00 d/2025-01-04`
    Expected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
 
-   3. Test case: `repay 1 l/40.00 d/4th Jan 2025`
+   3. Test case: `repay 1 l/40.00 d/2025-01-04`
    Expected: The first entry on the list now has a loan amount of $0.00 and shows "Not Wanted". The repayment transaction details are added to the transaction history.
 
 ### Editing loan transaction history
@@ -598,8 +595,8 @@ testers are expected to do more *exploratory* testing.
 
 2. Editing loan transaction history
    
-    1. Test case: `edithist 1 i/2 l/60.00 d/10th Jan 2025`
-   Expected: The repayment transaction is increased to $60.00 and the date is changed to 10th Jan 2025. The loan amount of the entry should be updated to $40.00.
+    1. Test case: `edithist 1 i/2 l/60.00 d/2025-01-10`
+   Expected: The repayment transaction is increased to $60.00 and the date is changed to 2025-01-10. The loan amount of the entry should be updated to $40.00.
    
    2. Test case: `edithist 1 i/1 l/40.00`
    Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
@@ -628,21 +625,21 @@ testers are expected to do more *exploratory* testing.
     2. Test case: `find Jim`
     Expected: No change occurs.
 
-### Displaying all entries
-1. Test case: `list`
-Expected: All entries are displayed. (No change occurs)
+### Displaying all entries by name in alphabetical order
+1. Prerequisites: There are multiple entries on the list with different names
+
+1. Test case: `list`<br>
+Expected: All entries are sorted in alphabetical order of name.
 
 ### Sorting the list
-1. Prerequisites: There are multiple entries on the list with different loan amounts.
+1. Prerequisites: There are multiple entries on the list with different Remaining Loan Amount.
 
-2. Test case: `sort`
-Expected: All entries are sorted in decreasing order of loan amount.
+2. Test case: `sort`<br>
+Expected: All entries are sorted in decreasing order of Remaining Loan Amount.
 
 ### Deleting a loan
 
-1. Deleting a loan while all loans are being shown
-
-   1. Prerequisites: List all loans using the `list` command. Multiple loans in the list.
+1. Prerequisites: Multiple loans in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message.
@@ -659,11 +656,46 @@ Expected: All entries are sorted in decreasing order of loan amount.
 
 Team Size: 5 pax
 
-1. **Display most recent loan transaction at the top of transaction history**: The current transaction history displays
-   loan transactions from oldest to newest. We intend to change the display from newest transaction recorded to oldest recorded transaction.
-2. **Enforce stricter date parsing**: Current string parsing requires three string inputs separated by spaces.
-   We will enhance this by parsing dates as DateTime objects to enforce a consistent format and improve reliability.
-3. **Display total amount loaned to a borrower**: The LoanCard currently displays only the total amount owed by a borrower.
-   We will enhance it to also display the total amount borrowed overall for better financial tracking.
-4. **Update find display**: The `find` command displays output at the top of the Wanted list.
-   We will enhance the display to filter out loan entries with borrowers whose names match none of the find query terms.
+1. Names that do not match exactly, case-sensitive, are currently considered different names and can be added.
+As this may often be a result of user error, we plan to add detection for case-insensitive matches and prevent them from being added or renamed.
+For instance, `add n/john` should fail if an entry for `John` already exists.
+2. Names that contain special characters that are non-alphanumeric are currently not supported.
+As such names do exist, we plan to add support for common special characters in names, such as `/` and `-`.
+3. There are currently no checks for dates in transaction history, allowing transactions to be edited to be out of order.
+We plan to add date checking to ensure transaction editing enforces a sensible timeline.
+4. Likewise, as there are no checks for dates in transaction history, transactions may be recorded out of date order.
+We plan to make transactions displayed by date order in the transaction lists.
+5. Phone numbers are currently required to be alphanumeric.
+We plan to add support for allowing international phone numbers with the `+` character for country code.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+This project involved restructuring the model of AB3 associating information with a Person to our model of associating
+information with a Loan. 
+
+As part of our objective was to automate the calculation of loan amounts for the user, we needed to implement ways to 
+easily track and update information in the Loan. We created several new classes to encompass the new data types of money,
+dates, as well as the LoanAmount and LoanTransaction classes to hold information involving how the user interacts with
+their loanees.
+
+During the MVP phase of our project, we had initially planned to simply track each loan transaction individually, with
+each loan transaction being its own Loan object, allowing our model structure and program to function similarly to AB3. 
+However, we discovered that this would make it difficult to track loans associated with a single person to collate
+information such as Total Amount Loaned and Remaining Loan Amount, and this would not accurately simulate cases where
+a person borrows multiple times before repaying all at once, or partially repaying for multiple loans in amounts that 
+did not match the borrowed amounts exactly.
+
+As such, we embarked on significant code restructuring across v1.4 and v1.5 to get to our current model, allowing us to
+associate all transactions with a single person under a Loan, which also provided much easier ways to display that
+information in a grouped manner that made more realistic sense. This allowed us to then implement easier methods to track
+Total Amount Loaned and Remaining Loan Amount, allowing us to display that information at all times up front.
+This also required modification of the UI to accommodate the grouping of information.
+
+Additionally, unlike AB3, where all information in an entry could be added or edited in a single command, we chose to 
+have each piece of information split out into separate commands. This necessitated creating many additional Command and
+CommandParser classes, as well as many additional test cases. 
+Doing so benefits the user as it splits up the entering or editing of information into individual
+pieces that they are able to perform step-by-step, while also clearly showing the user on the exact pieces of information 
+they wished to input being in an invalid format.

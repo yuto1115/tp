@@ -18,7 +18,7 @@ package "LoanBook Storage" #F4F6F6{
 Class "<<interface>>\nLoanBookStorage" as LoanBookStorage
 Class JsonLoanBookStorage
 Class JsonSerializableLoanBook
-Class JsonAdaptedPerson
+Class JsonAdaptedLoan
 Class JsonAdaptedTag
 Class JsonAdaptedLoanTransaction
 }
@@ -38,8 +38,8 @@ Storage -right-|> LoanBookStorage
 JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonLoanBookStorage .up.|> LoanBookStorage
 JsonLoanBookStorage ..> JsonSerializableLoanBook
-JsonSerializableLoanBook --> "*" JsonAdaptedPerson
-JsonAdaptedPerson --> "*" JsonAdaptedTag
-JsonAdaptedPerson --> "*" JsonAdaptedLoanTransaction
+JsonSerializableLoanBook --> "*" JsonAdaptedLoan
+JsonAdaptedLoan --> "*" JsonAdaptedTag
+JsonAdaptedLoan --> "*" JsonAdaptedLoanTransaction
 
 @enduml
