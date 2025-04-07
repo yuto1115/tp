@@ -43,7 +43,7 @@ With Wanted, you can
     * `add n/John Doe` : Adds a new borrower named `John Doe` to the Wanted list.
 
     * `increase 1 l/19.87 d/2024-12-10` : Increases the amount borrowed by the 1st person in the current list and records the transaction in its loan history.
-    
+
     * `repay 2 l/20.25 d/2025-01-01` : Decreases the amount borrowed by the 2nd person in the current list and records the transaction in its loan history.
 
     * `delete 3` : Deletes the 3rd person shown in the current list.
@@ -178,7 +178,7 @@ Format: `rename [ID] n/[NAME]`
 
 Adds, deletes and edits a borrowers' phone number in the Wanted list.
 
-Format: `phone [ID] p/[PHONE]` (add and edit phone number) 
+Format: `phone [ID] p/[PHONE]` (add and edit phone number)
 
 Format: `phone [ID] p/delete` (delete the phone number)
 
@@ -206,8 +206,8 @@ Format: `tag [ID] t/[TAG]…`
 
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
-* To add a Tag, `TAG` must be non-empty, unique to the tag list, and case-insensitive. 
-<br>When adding multiple tags in a single command: 
+* To add a Tag, `TAG` must be non-empty, unique to the tag list, and case-insensitive.
+<br>When adding multiple tags in a single command:
     - The system checks if all tags in your command already exist in the tag list (case-insensitive)
     - If all tags are already present, no edit will occur
     - If at least one tag is new, then only the unique tags will be added to the list
@@ -221,7 +221,7 @@ Format: `tag [ID] t/[TAG]…`
 **Input:** `tag 1 t/schoolmate`<br>
 
 **Output:**
-```output 
+```output
 Edited loan name: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: [schoolmate]
 ```
 **Scenario 2:** Adding a duplicate tag<br>
@@ -231,7 +231,7 @@ Edited loan name: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 1
 
 **Input:** `tag 1 t/schoolmate` <br>
 
-**Output:** 
+**Output:**
 ```output
 Your requested tag(s) already exist(s) for this person
 ```
@@ -303,8 +303,8 @@ Explanations:
 **Input:** `repay 1 l/50.00 d/2025-01-01`<br>
 
 **Output:**
-```output 
-Loan successfully repaid: John Doe; Remaining Loan Amount: 50.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: 
+```output
+Loan successfully repaid: John Doe; Remaining Loan Amount: 50.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags:
 ```
 
 **Behavior:**
@@ -317,7 +317,7 @@ Loan successfully repaid: John Doe; Remaining Loan Amount: 50.00; Total Loaned A
 
 **Output:**
 ```output
-Loan successfully repaid entirely: John Doe; Remaining Loan Amount: 0.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: 
+Loan successfully repaid entirely: John Doe; Remaining Loan Amount: 0.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags:
 ```
 
 **Behavior:**
@@ -357,7 +357,7 @@ Explanations:
 <box>
 
 > **Note:** In all the scenarios below, assume the first entry is initially as follows:
-> 
+>
 > Remaining loaned amount: $150.00<br>
 > Total loaned amount: $200.00<br>
 > Transaction history:<br>
@@ -370,8 +370,8 @@ Explanations:
 **Input:** `edithist 1 i/2 l/100.00`<br>
 
 **Output:**
-```output 
-Loan successfully updated: John Doe; Remaining Loan Amount: 100.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags: 
+```output
+Loan successfully updated: John Doe; Remaining Loan Amount: 100.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags:
 ```
 
 **Behavior:**
@@ -383,8 +383,8 @@ Loan successfully updated: John Doe; Remaining Loan Amount: 100.00; Total Loaned
 **Input:** `edithist 1 i/2 d/2025-02-02`<br>
 
 **Output:**
-```output 
-Loan successfully updated: John Doe; Remaining Loan Amount: 150.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags: 
+```output
+Loan successfully updated: John Doe; Remaining Loan Amount: 150.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags:
 ```
 
 **Behavior:**
@@ -395,8 +395,8 @@ Loan successfully updated: John Doe; Remaining Loan Amount: 150.00; Total Loaned
 **Input:** `edithist 1 i/3 l/200.00 d/2025-02-02`<br>
 
 **Output:**
-```output 
-Loan successfully updated: John Doe; Remaining Loan Amount: 250.00; Total Loaned Amount: 300.00; Phone Number: --------; Tags: 
+```output
+Loan successfully updated: John Doe; Remaining Loan Amount: 250.00; Total Loaned Amount: 300.00; Phone Number: --------; Tags:
 ```
 
 **Behavior:**
@@ -408,7 +408,7 @@ Loan successfully updated: John Doe; Remaining Loan Amount: 250.00; Total Loaned
 **Input:** `edithist 1 i/1 l/30.00`<br>
 
 **Output:**
-```output 
+```output
 Invalid transaction update: This update would result in a negative remaining loan amount at some point in the history
 ```
 
@@ -448,8 +448,8 @@ Explanations:
 **Input:** `delhist 1 i/2`<br>
 
 **Output:**
-```output 
-Loan successfully updated: John Doe; Remaining Loan Amount: 200.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags: 
+```output
+Loan successfully updated: John Doe; Remaining Loan Amount: 200.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags:
 ```
 
 **Behavior:**
@@ -461,7 +461,7 @@ Loan successfully updated: John Doe; Remaining Loan Amount: 200.00; Total Loaned
 **Input:** `delhist 1 i/1`<br>
 
 **Output:**
-```output 
+```output
 Invalid transaction update: This update would result in a negative remaining loan amount at some point in the history
 ```
 
