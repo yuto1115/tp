@@ -57,7 +57,8 @@ public class SampleDataUtil {
                         new Phone("04385793")),
                 new Loan(new Name("Irfan Ibrahim"),
                         new LoanAmount(),
-                        getTagSet("classmates")),
+                        getTagSet("classmates"),
+                        Phone.EMPTY_PHONE),
                 new Loan(new Name("Roy Balakrishnan"),
                         new LoanAmount(new ArrayList<>(List.of(
                                 new AddLoanTransaction(MoneyInt.fromCent(10000), new LoanDate("1st January 2025")),
