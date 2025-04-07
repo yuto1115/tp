@@ -2,6 +2,11 @@ package wanted.model.loan;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+
 import wanted.commons.core.datatypes.Date;
 
 /**
@@ -12,14 +17,15 @@ import wanted.commons.core.datatypes.Date;
 public class LoanDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date value should be in a string format and contain the day, month, and year.";
+            "Date value should be in format YYYY-MM-DD. (e.g. d/2024-01-21)";
     /*
      * The first character of the date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * There should be 3 alphanumeric inputs to simulate Day-Month-Year
      * To be updated with the addition of a datetime object
      */
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+ \\p{Alnum}+ \\p{Alnum}+";
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     public final Date value;
     /**
@@ -33,10 +39,15 @@ public class LoanDate {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid loan date.
      */
     public static boolean isValidLoanDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            LocalDate.parse(test, dateFormatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     @Override

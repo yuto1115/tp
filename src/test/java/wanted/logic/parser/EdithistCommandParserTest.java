@@ -19,14 +19,14 @@ public class EdithistCommandParserTest {
 
     private static final String VALID_DESC_INDEX = PREFIX_INDEX + "2";
     private static final String VALID_DESC_AMOUNT = PREFIX_AMOUNT + "20.15";
-    private static final String VALID_DESC_DATE = PREFIX_DATE + "1st Apr 2024";
+    private static final String VALID_DESC_DATE = PREFIX_DATE + "2024-04-01";
 
     private static final String INVALID_DESC_INDEX_1 = PREFIX_INDEX + "0";
     private static final String INVALID_DESC_INDEX_2 = PREFIX_INDEX + "-1";
     private static final String INVALID_DESC_INDEX_3 = PREFIX_INDEX + "a";
     private static final String INVALID_DESC_AMOUNT_1 = PREFIX_AMOUNT + "-20.15";
     private static final String INVALID_DESC_AMOUNT_2 = PREFIX_AMOUNT + "20.1";
-    private static final String INVALID_DESC_DATE_1 = PREFIX_DATE + "1st Apr";
+    private static final String INVALID_DESC_DATE_1 = PREFIX_DATE + "1st Apr 2024";
     private static final String INVALID_DESC_DATE_2 = PREFIX_DATE + "01-04-2024";
 
     private EdithistCommandParser parser = new EdithistCommandParser();
@@ -36,7 +36,7 @@ public class EdithistCommandParserTest {
         EdithistCommand.EditTransactionDescriptor expectedDescriptor =
                 new EdithistCommand.EditTransactionDescriptor();
         expectedDescriptor.setAmount(MoneyInt.fromCent(2015));
-        expectedDescriptor.setDate(new LoanDate("1st Apr 2024"));
+        expectedDescriptor.setDate(new LoanDate("2024-04-01"));
         {
             String input = INDEX_FIRST_PERSON.getOneBased()
                     + " " + VALID_DESC_INDEX
@@ -82,7 +82,7 @@ public class EdithistCommandParserTest {
         {
             EdithistCommand.EditTransactionDescriptor expectedDescriptor =
                     new EdithistCommand.EditTransactionDescriptor();
-            expectedDescriptor.setDate(new LoanDate("1st Apr 2024"));
+            expectedDescriptor.setDate(new LoanDate("2024-04-01"));
             String input = INDEX_FIRST_PERSON.getOneBased()
                     + " " + VALID_DESC_INDEX
                     + " " + VALID_DESC_DATE;

@@ -29,7 +29,7 @@ public class IncreaseCommand extends Command {
             + "    d/[DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "l/30.10 " //whitespace before d
-            + "d/10th August 2024";
+            + "d/2024-08-10";
 
 
     private final Index index;

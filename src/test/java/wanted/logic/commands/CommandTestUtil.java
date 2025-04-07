@@ -41,8 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_AMOUNT_AMY = "10.10";
     public static final String VALID_AMOUNT_BOB = "1230.97";
-    public static final String VALID_DATE_AMY = "10th December 2024";
-    public static final String VALID_DATE_BOB = "19th July 2024";
+    public static final String VALID_DATE_AMY = "2024-12-10";
+    public static final String VALID_DATE_BOB = "2024-07-19";
     public static final String VALID_PHONE = "88880000";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -56,7 +56,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "10";
-    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "Febru@ry";
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2099-13-12";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_PHONE_NUMBER = " " + PREFIX_PHONE + "@398@@*";
 
@@ -68,9 +68,9 @@ public class CommandTestUtil {
 
     static {
         ArrayList<LoanTransaction> history = new ArrayList<>(Arrays.asList(
-                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st Jan 2024")),
-                new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2nd Jan 2024")),
-                new RepayLoanTransaction(MoneyInt.fromCent(1250), new LoanDate("3rd Jan 2024"))
+                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("2024-01-01")),
+                new AddLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2024-01-02")),
+                new RepayLoanTransaction(MoneyInt.fromCent(1250), new LoanDate("2024-01-03"))
         ));
 
         try {

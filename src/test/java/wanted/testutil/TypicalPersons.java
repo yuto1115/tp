@@ -47,7 +47,7 @@ public class TypicalPersons {
         try {
             FIONA = new PersonBuilder().withName("Fiona Kunz")
                     .withAmount(new LoanAmount(new ArrayList<>(List.of(
-                            new AddLoanTransaction(MoneyInt.fromCent(23), new LoanDate("13th March 2025"))
+                            new AddLoanTransaction(MoneyInt.fromCent(23), new LoanDate("2025-03-13"))
                     ))))
                     .withPhone(new Phone("12345678"))
                     .build();
@@ -64,13 +64,13 @@ public class TypicalPersons {
         try {
             HOON = new PersonBuilder().withName("Hoon Meier")
                     .withAmount(new LoanAmount(new ArrayList<>(List.of(
-                            new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("24th January 2025"))
+                            new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("2025-01-24"))
                     ))))
                     .withPhone(new Phone("12345678"))
                     .build();
             IDA = new PersonBuilder().withName("Ida Mueller")
                     .withAmount(new LoanAmount(new ArrayList<>(List.of(
-                            new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("24th January 2025"))
+                            new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("2025-01-24"))
                     ))))
                     .withPhone(new Phone("12345678"))
                     .build();
