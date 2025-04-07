@@ -21,17 +21,17 @@ import wanted.model.loan.exceptions.ExcessRepaymentException;
  */
 public class RepayCommand extends Command {
     public static final String COMMAND_WORD = "repay";
-    public static final String MESSAGE_REPAID_SUCCESS = "Loan successfully updated: %1$s";
+    public static final String MESSAGE_REPAID_SUCCESS = "Loan successfully repaid: %1$s";
     public static final String MESSAGE_REPAID_ALL_SUCCESS = "Loan successfully repaid entirely: %1$s";
     public static final String MESSAGE_EXCEED_AMOUNT_RETURNED =
-            "Amount repaid should be less than or equal to the current amount of loan";
+            "Amount repaid should be less than or equal to the current remaining loan amount";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             +
             ": Repays the loan identified by the index number used in the displayed persons list.\n"
             + "Parameters:\n"
             + "    [ID] (must be a positive integer)\n"
             + "    l/[AMOUNT] (must be a non-negative numeric amount with 2 decimal places)\n"
-            + "    d/[DATE]\n"
+            + "    d/[DATE] (must be in the YYYY-MM-DD format)\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "10.00 " + PREFIX_DATE + "2025-01-21";
     private final Index targetIndex;
     private final MoneyInt returnedAmount;

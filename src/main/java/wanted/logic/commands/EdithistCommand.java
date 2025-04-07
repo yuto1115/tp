@@ -36,7 +36,7 @@ public class EdithistCommand extends Command {
             + "Parameters: [ID]\n"
             + "    " + PREFIX_INDEX + "[TRANSACTION ID] (both must be positive integers)\n"
             + "    (" + PREFIX_AMOUNT + "[AMOUNT]) (must be a non-negative numeric amount with 2 decimal places)\n"
-            + "    (" + PREFIX_DATE + "[DATE])\n"
+            + "    (" + PREFIX_DATE + "[DATE]) (must be in the YYYY-MM-DD format)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INDEX + "3 "
             + PREFIX_AMOUNT + "30.10 "

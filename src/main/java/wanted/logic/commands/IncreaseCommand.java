@@ -26,7 +26,7 @@ public class IncreaseCommand extends Command {
             + "Parameters:\n"
             + "    [ID] (must be a positive integer)\n"
             + "    l/[AMOUNT] (must be a non-negative numeric amount with 2 decimal places)\n"
-            + "    d/[DATE]\n"
+            + "    d/[DATE] (must be in the YYYY-MM-DD format)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "l/30.10 " //whitespace before d
             + "d/2024-08-10";

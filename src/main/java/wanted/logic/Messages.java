@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import wanted.logic.parser.Prefix;
 import wanted.model.loan.Loan;
+import wanted.model.loan.Phone;
 
 /**
  * Container for user visible messages.
@@ -18,8 +19,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX =
             "The transaction index provided is invalid";
     public static final String MESSAGE_EXCESS_REPAYMENT_IN_HISTORY =
-            "Invalid transaction update: This update would result in a negative remaining loan balance "
-                    + "at some point in the history.";
+            "Invalid transaction update: This update would result in a negative remaining loan amount "
+                    + "at some point in the history";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_PERSONS_FOUND_OVERVIEW = "%1$d persons found!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
@@ -43,10 +44,12 @@ public class Messages {
     public static String format(Loan person) {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
-                .append("; Total Amount: ")
-                .append(person.getLoanAmount().getTotalAmount().getStringRepresentationWithFixedDecimalPoint())
-                .append("; Remaining Amount: ")
+                .append("; Remaining Loan Amount: ")
                 .append(person.getLoanAmount().getRemainingAmount().getStringRepresentationWithFixedDecimalPoint())
+                .append("; Total Loaned Amount: ")
+                .append(person.getLoanAmount().getTotalAmount().getStringRepresentationWithFixedDecimalPoint())
+                .append("; Phone Number: ")
+                .append(person.getPhone() == null ? Phone.EMPTY_PHONE : person.getPhone())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();
