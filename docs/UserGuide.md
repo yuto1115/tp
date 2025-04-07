@@ -22,6 +22,31 @@ With Wanted, you can
 <!-- * Table of Contents -->
 <page-nav-print />
 
+## Table of Contents
+
+1. [Quickstart](#quick-start)
+2. <a href="#tldr">I want a brief overview! TL;DR</a>
+3. [Command Summary](#command-summary)
+4. [Features](#features)
+    1. [Help](#viewing-help-help)
+    2. [Add](#adding-an-entry-add)
+    3. [Rename](#renaming-an-entry-rename)
+    4. [Phone](#addingupdating-phone-number-phone)
+    5. [Tag](#addingupdating-tags-tag)
+    6. [Increase](#adding-a-loan-increase)
+    7. [Repay](#repaying-a-loan-repay)
+    8. [Edithist](#editing-a-transaction-edithist)
+    9. [Delhist](#deleting-a-transaction-delhist)
+    10. [List](#listing-all-entries-list)
+    11. [Find](#locating-entries-by-name-find)
+    12. [Sort](#sorting-entries-sort)
+    13. [Delete](#deleting-an-entry-delete)
+    14. [Clear](#clearing-all-entries-clear)
+    15. [Exit](#exiting-the-program-exit)
+    16. [Save data](#saving-the-data)
+    17. [Backup data file](#backing-up-data-files)
+5. [Known Issues](#known-issues)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick Start
@@ -65,8 +90,9 @@ Use the add command to add the loanee’s name to the list, then use the loan co
 ___How do I track repayments?___<br>
 Use the repay command when the loanee’s entry is visible on the list.
 
-___I can’t find the entry I want to modify.___<br>
-This is likely due to the list currently being filtered to only show a certain name. If you remember the loanee’s name, use the search command to find the loan. Otherwise, use the list or sort command to look for the entry.
+___How do I find an entry that I want to modify?___<br>
+If you remember the loanee’s name, use the search command to find the loan. Otherwise, use the list command to sort by name
+or the sort command to sort the list by total amount owed.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -135,16 +161,35 @@ Format: `help`
 ### Adding an entry: `add`
 
 Adds a new person as a new entry to the Wanted list.<br>
-A new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
+
+**Explanations:**
+* This command adds a new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
+* This command does not accept names that already exist in the loanbook.
 
 Format: `add n/[NAME]`
 
-Restrictions:
-* The provided name must be unique to the list, case-sensitive.
+**Examples:**
 
-Examples:
-* `add n/John Doe`
-* `add n/Betsy Crowe`
+<box>
+
+**Scenario 1:** Adding a new entry<br>
+
+**Input:** `add n/Cory Ander`<br>
+
+**Output:**
+```output 
+New loan created for: Cory Ander; Total Amount: 0.00; Remaining Amount: 0.00; Tags: 
+```
+**Scenario 2:** Attempting to add an entry with the same name as another entry<br>
+> **Note:** Assume Cory Ander exists at the first index.
+
+**Input:** `add n/Cory Ander`<br>
+
+**Output:**
+```output 
+This person has already loaned out money in the wanted list
+```
+</box>
 
 ### Renaming an entry: `rename`
 
@@ -152,13 +197,98 @@ Changes the name of the specified entry in the Wanted list.
 
 Format: `rename [ID] n/[NAME]`
 
+**Explanations:**
+* This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
+* To update the entry's name, `NAME` must be alpha-numeric and non-empty
+* If a name `n/[NAME]` is equal to the previous name or any other name in the loan book, the name will not be updated.
+
+**Examples:**
+
+<box>
+
+**Scenario 1:** Renaming an entry<br>
+
+**Input:** `rename 1 n/Cory Ander`<br>
+
+**Output:**
+```output 
+Edited loan name: Cory Ander; Total Amount: 1210.10; Remaining Amount: 1209.60; Tags: 
+```
+**Scenario 2:** Renaming an entry with the same name<br>
+> **Note:** Assume Cory Ander exists at the first index.
+
+**Input:** `rename 1 n/Cory Ander`<br>
+
+**Output:**
+```output 
+New name must be different from the old one.
+```
+**Scenario 3:** Renaming an entry with an existing name in the loanbook<br>
+
+**Input:** `rename 1 n/David Li`<br>
+
+**Output:**
+```output 
+This person already exists in the loan book.
+```
+</box>
+
+
 ### Adding/Updating phone number: `phone`
 
-Adds, deletes and edits a borrowers' phone number in the Wanted list.
+This command allows you to add and delete an entry's phone number in the Wanted list.
 
-Format: `phone [ID] p/[PHONE]` (add and edit phone number) 
+<box type="warning" seamless>
+Warning: An empty phone p/ will clear the entries' phone number
+</box>
 
-Format: `phone [ID] p/delete` (delete the phone number)
+Format: `phone [ID] p/[PHONE]`
+
+**Explanations:**
+* This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
+* To add or update a phone number, `PHONE` must be a new number and non-empty 
+* If a phone number `p/[PHONE]` is equal to the previous phone number, the entry will not be updated
+
+**Examples:**
+
+<box>
+
+**Scenario 1:** Adding a new phone number<br>
+
+**Input:** `phone 1 t/98765432`<br>
+
+**Output:**
+```output 
+Phone number successfully updated: Alex Yeoh; Total Amount: 1200.00; Remaining Amount: 1199.50; Tags: 
+```
+**Scenario 2:** Deleting a phone number<br>
+
+**Input:** `phone 1 p/`<br>
+
+**Output:**
+```output 
+This loan now has no phone number: Alex Yeoh; Total Amount: 1200.00; Remaining Amount: 1199.50; Tags:
+```
+
+**Scenario 3:** Attempting to add multiple phone numbers<br>
+> **Note:** This command will only execute when there is one prefix `p/[PHONE]`
+
+**Input:** `phone 1 p/98765432 p/`<br>
+
+**Output:**
+```output 
+Multiple values specified for the following single-valued field(s): p/
+```
+**Scenario 4:** Attempting to update an identical phone numbers<br>
+
+**Input:** `phone 2 p/20242025`<br>
+
+**Output:**
+```output 
+New phone number must be different than the old one
+```
+</box>
+
 
 ### Adding/Updating tags: `tag`
 
@@ -173,12 +303,6 @@ Warning: An empty tag t/ will clear all tags
 
 Format: `tag [ID] t/[TAG]…`
 
-**Restrictions:**
-* The ID **must be a positive integer** 1, 2, 3, …
-* Tag `TAG` must be an alphanumeric input. For example `bus123` is a valid input but `yellow bus`,
-  which contains a space—a non-alphanumeric character—is not.
-
-
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
 * To add a Tag, `TAG` must be non-empty, unique to the tag list, and case-insensitive. 
@@ -189,6 +313,7 @@ Format: `tag [ID] t/[TAG]…`
 * If a `TAG` is empty e.g. `t/` all tags will be deleted
 
 **Examples:**
+
 <box>
 
 **Scenario 1:** Adding a new tag<br>
@@ -239,18 +364,43 @@ Edited loan tags: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
 ```output
 Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
 ```
+
+**Scenario 6:** Add and delete tags in one command failure
+> **Note:** To delete a tag please input only t/ as per scenario 5
+
+**Input:** `tag 1 t/ t/newtag` or `tag 1 t/newtag t/` <br>
+
+**Output:**
+```output
+Tags names should be alphanumeric
+```
 </box>
 
 ### Adding a loan: `increase`
 
-Adds a transaction indicating that the specified amount was loaned at the specified date to an entry.
+This command lets you record an increase in the loan amount for a specific entry, and saves it as a transaction in the entry's transaction history.
 
 Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 
-Restrictions:
-* Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
-* Loaned amount must be a non-negative numeric value with 2 decimal places.
-* Date must be in the format YYYY-MM-DD.
+Explanations:
+* You can add an increase transaction to the entry at the specified ID. The ID refers to the index number shown in the displayed person list
+* The increase command records a new transaction, and can be observed in your entry's transaction history
+
+**Example:**
+
+<box>
+
+**Scenario:** Adding a new increase transaction<br>
+
+**Input:** `increase 1 l/10.10 d/2024-12-12`<br>
+
+**Output:**
+```output 
+Loan successfully updated: Alex Yeoh; Total Amount: 1210.10; Remaining Amount: 1209.60; Tags:
+```
+</box>
+
+![command example](images/increaseCommand.png)
 
 ### Repaying a loan: `repay`
 
@@ -258,7 +408,7 @@ Adds a transaction indicating that the specified amount was returned at the spec
 
 Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 
-Restrictions:
+Explanations:
 * Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
 * Loaned amount must be a non-negative numeric value with 2 decimal places.
 * Date must be in the format YYYY-MM-DD.
@@ -332,22 +482,38 @@ Format: `sort`
 
 Deletes the specified entry from the loan book.
 
-Format: `delete INDEX`
+<box type="warning" seamless>
+Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
+an entry after running any of these commands.
+</box>
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2, 3, …
+Format: `delete [ID]`
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd loan in the loan book.
-* `find Betsy` followed by `delete 1` deletes the 1st loan in the results of the `find` command.
+**Explanations:**
+
+* Deletes the person at the specified `ID`.
+* The `ID` refers to the index number shown in the displayed persons list.
+
+**Example:**
+
+<box>
+
+**Scenario:** Deleting an entry<br>
+
+**Input:** `delete 2`<br>
+
+**Output:**
+```output 
+Deleted Loan: Bernice Yu; Total Amount: 40.49; Remaining Amount: 40.49; Tags: [colleagues][friends]
+```
+</box>
 
 ### Clearing all entries: `clear`
 
 Clears all entries from the loan book.
 
 <box type="warning" seamless>
-**Warning:** No undo for clear command. All loan entries will be wiped.
+Warning: No undo for clear command. All loan entries will be wiped.
 </box>
 
 Format: `clear`
