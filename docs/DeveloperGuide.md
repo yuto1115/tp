@@ -202,7 +202,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `LoanBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Wanted` application and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: UC01 - `Add` a New Loan**
 
@@ -549,8 +549,12 @@ As this may often be a result of user error, we plan to add detection for case-i
 For instance, `add n/john` should fail if an entry for `John` already exists.
 2. Names that contain special characters that are non-alphanumeric are currently not supported.
 As such names do exist, we plan to add support for common special characters in names, such as `/` and `-`.
-3. 
-4. 
+3. There are currently no checks for dates in transaction history, allowing transactions to be edited to be out of order.
+We plan to add date checking to ensure transaction editing enforces a sensible timeline.
+4. Likewise, as there are no checks for dates in transaction history, transactions may be recorded out of date order.
+We plan to make transactions displayed by date order in the transaction lists.
+5. Phone numbers are currently required to be alphanumeric.
+We plan to add support for allowing international phone numbers with the `+` character for country code.
 
 --------------------------------------------------------------------------------------------------------------------
 
