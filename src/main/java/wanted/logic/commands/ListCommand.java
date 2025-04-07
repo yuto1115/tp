@@ -1,8 +1,9 @@
 package wanted.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 import java.util.List;
-import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
 import wanted.model.LoanBook;
