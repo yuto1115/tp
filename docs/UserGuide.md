@@ -101,7 +101,7 @@ Command     | Action                           | Format, Examples
 * Words in square brackets and `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/[NAME]`, `[NAME]` is a parameter which can be used as `add n/John Doe`.
 
-* All command keywords are **case-sensitive**.
+* All command keywords are **case-sensitive**.<br>
   e.g. `add n/[NAME]` cannot be used as `Add n/[NAME]` or `add N/[name]`.
 
 * Items in round brackets are optional.<br>
@@ -115,6 +115,10 @@ Command     | Action                           | Format, Examples
 
 * Extraneous parameters for commands that do not take in parameters (`help`, `list`, `sort`, `clear` and `exit`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+* Extraneous whitespace before or after parameters will be ignored.<br>
+  e.g. in `add n/[NAME]`, `add n/ John Doe ` will be interpreted as `add n/John Doe`.<br>
+  Note that any whitespace within parameters are retained.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
