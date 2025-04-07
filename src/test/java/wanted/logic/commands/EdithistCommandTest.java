@@ -8,6 +8,8 @@ import static wanted.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static wanted.logic.Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX;
 import static wanted.logic.commands.EdithistCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS;
 import static wanted.logic.commands.EdithistCommand.MESSAGE_NOT_EDITED;
+import static wanted.logic.commands.EdithistCommand.MESSAGE_UNCHANGED_AMOUNT;
+import static wanted.logic.commands.EdithistCommand.MESSAGE_UNCHANGED_DATE;
 import static wanted.testutil.Assert.assertThrows;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -83,7 +85,7 @@ public class EdithistCommandTest {
         return new ModelManager(
                 new LoanBookBuilder()
                         .withPerson(ALICE)
-                        .withPerson(new Loan(BOB.getName(), sampleAmount, BOB.getTags()))
+                        .withPerson(new Loan(BOB.getName(), sampleAmount, BOB.getTags(), BOB.getPhone()))
                         .build(),
                 new UserPrefs()
         );
@@ -95,7 +97,8 @@ public class EdithistCommandTest {
             models[i] = new ModelManager(
                     new LoanBookBuilder()
                             .withPerson(ALICE)
-                            .withPerson(new Loan(BOB.getName(), sampleAmountFirstTransactionEdited[i], BOB.getTags()))
+                            .withPerson(new Loan(BOB.getName(), sampleAmountFirstTransactionEdited[i],
+                                    BOB.getTags(), BOB.getPhone()))
                             .build(),
                     new UserPrefs());
         }
@@ -136,6 +139,42 @@ public class EdithistCommandTest {
         EdithistCommand edithistCommand =
                 new EdithistCommand(INDEX_FIRST_PERSON, INDEX_FIRST_PERSON, new EditTransactionDescriptor());
         assertThrows(CommandException.class, MESSAGE_NOT_EDITED, () -> edithistCommand.execute(sampleModel));
+    }
+
+    @Test
+    public void execute_unchangedAmount_throwsCommandException() {
+        Model sampleModel = createSampleModel();
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptor(editTransactionDescriptor[2]);
+        descriptor.setAmount(sampleModel.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getLoanAmount()
+                .getTransactionHistoryCopy().get(INDEX_FIRST_PERSON.getZeroBased()).getAmount());
+        EdithistCommand edithistCommand =
+                new EdithistCommand(INDEX_SECOND_PERSON, INDEX_FIRST_PERSON, descriptor);
+        assertThrows(CommandException.class, MESSAGE_UNCHANGED_AMOUNT, () -> edithistCommand.execute(sampleModel));
+    }
+
+    @Test
+    public void execute_unchangedDate_throwsCommandException() {
+        Model sampleModel = createSampleModel();
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptor(editTransactionDescriptor[2]);
+        descriptor.setDate(sampleModel.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getLoanAmount()
+                .getTransactionHistoryCopy().get(INDEX_FIRST_PERSON.getZeroBased()).getDate());
+        EdithistCommand edithistCommand =
+                new EdithistCommand(INDEX_SECOND_PERSON, INDEX_FIRST_PERSON, descriptor);
+        assertThrows(CommandException.class, MESSAGE_UNCHANGED_DATE, () -> edithistCommand.execute(sampleModel));
+    }
+
+    // both unchanged -> point out unchanged amount
+    @Test
+    public void execute_unchangedAmountAndDate_throwsCommandException() {
+        Model sampleModel = createSampleModel();
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptor(editTransactionDescriptor[2]);
+        descriptor.setAmount(sampleModel.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getLoanAmount()
+                .getTransactionHistoryCopy().get(INDEX_FIRST_PERSON.getZeroBased()).getAmount());
+        descriptor.setDate(sampleModel.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getLoanAmount()
+                .getTransactionHistoryCopy().get(INDEX_FIRST_PERSON.getZeroBased()).getDate());
+        EdithistCommand edithistCommand =
+                new EdithistCommand(INDEX_SECOND_PERSON, INDEX_FIRST_PERSON, descriptor);
+        assertThrows(CommandException.class, MESSAGE_UNCHANGED_AMOUNT, () -> edithistCommand.execute(sampleModel));
     }
 
     @Test

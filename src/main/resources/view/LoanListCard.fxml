@@ -32,12 +32,15 @@
             <Region fx:constant="USE_PREF_SIZE"/>
           </minWidth>
         </Label>
-        <Label fx:id="status" styleClass="cell_small_label" text="\$status"/>
+        <HBox fx:id="statusBox" styleClass="status-container" alignment="CENTER" spacing="2" maxHeight="20">
+          <Label fx:id="status" styleClass="cell_small_label" text="\$status"/>
+        </HBox>
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="amount" styleClass="cell_small_label" text="\$loan" />
+      <Label fx:id="totalAmount" styleClass="cell_small_label" text="\$loan" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-        <ScrollPane fitToWidth="true" maxHeight="100" style="-fx-background-color: #4d0e04;">
+        <ScrollPane fx:id="entryScrollPane" fitToWidth="true" maxHeight="100" style="-fx-background-color: #4d0e04;">
           <VBox fx:id="transactionsBox" spacing="3"/>
             <padding>
               <Insets top="5" right="5" bottom="5" left="5" />

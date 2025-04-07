@@ -12,6 +12,7 @@ import wanted.commons.util.ToStringBuilder;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanAmount;
 import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.loan.transaction.LoanTransaction;
 import wanted.model.tag.Tag;
@@ -30,10 +31,12 @@ public final class BaseEdit {
         assert loanToEdit != null;
         Name updatedName = editDescriptor.getName().orElse(loanToEdit.getName());
         LoanAmount updatedAmount = editDescriptor.getAmount().orElse(loanToEdit.getLoanAmount());
+
         Set<Tag> previousTags = loanToEdit.getTags();
         Set<Tag> updatedTags = editDescriptor.getTags(previousTags).orElse(loanToEdit.getTags());
+        Phone phone = loanToEdit.getPhone();
 
-        return new Loan(updatedName, updatedAmount, updatedTags);
+        return new Loan(updatedName, updatedAmount, updatedTags, phone);
     }
 
     /**

@@ -6,23 +6,23 @@
     "transactions" : [ {
       "type" : "add",
       "amount" : "10.00",
-      "date" : "1st Jan 2024"
+      "date" : "2024-01-01"
     }, {
       "type" : "add",
       "amount" : "5.00",
-      "date" : "2nd Jan 2024"
+      "date" : "2024-01-02"
     }, {
       "type" : "repay",
       "amount" : "15.00",
-      "date" : "3rd Jan 2024"
+      "date" : "2024-01-03"
     }, {
       "type" : "add",
       "amount" : "103.05",
-      "date" : "1st Feb 2024"
+      "date" : "2024-02-01"
     }, {
       "type" : "repay",
       "amount" : "82.34",
-      "date" : "31th Dec 2025"
+      "date" : "2025-12-31"
     } ]
   }, {
     "name" : "Benson Meier",
@@ -30,23 +30,23 @@
     "transactions" : [ {
       "type" : "add",
       "amount" : "10.00",
-      "date" : "1st Jan 2024"
+      "date" : "2024-01-01"
     }, {
       "type" : "add",
       "amount" : "5.00",
-      "date" : "2nd Jan 2024"
+      "date" : "2024-01-02"
     }, {
       "type" : "repay",
       "amount" : "15.00",
-      "date" : "3rd Jan 2024"
+      "date" : "2024-01-03"
     }, {
       "type" : "add",
       "amount" : "103.05",
-      "date" : "1st Feb 2024"
+      "date" : "2024-02-01"
     }, {
       "type" : "repay",
       "amount" : "82.34",
-      "date" : "31th Dec 2025"
+      "date" : "2025-12-31"
     } ]
   }, {
     "name" : "Carl Kurz",
@@ -54,23 +54,23 @@
     "transactions" : [ {
       "type" : "add",
       "amount" : "10.00",
-      "date" : "1st Jan 2024"
+      "date" : "2024-01-01"
     }, {
       "type" : "add",
       "amount" : "5.00",
-      "date" : "2nd Jan 2024"
+      "date" : "2024-01-02"
     }, {
       "type" : "repay",
       "amount" : "3.50",
-      "date" : "3rd Jan 2024"
+      "date" : "2024-01-03"
     }, {
       "type" : "add",
       "amount" : "50.00",
-      "date" : "1st Feb 2024"
+      "date" : "2024-02-01"
     }, {
       "type" : "repay",
       "amount" : "61.50",
-      "date" : "31th Dec 2025"
+      "date" : "2025-12-31"
     } ]
   }, {
     "name" : "Daniel Meier",
@@ -78,23 +78,23 @@
     "transactions" : [ {
       "type" : "add",
       "amount" : "10.00",
-      "date" : "1st Jan 2024"
+      "date" : "2024-01-01"
     }, {
       "type" : "add",
       "amount" : "5.00",
-      "date" : "2nd Jan 2024"
+      "date" : "2024-01-02"
     }, {
       "type" : "repay",
       "amount" : "3.50",
-      "date" : "3rd Jan 2024"
+      "date" : "2024-01-03"
     }, {
       "type" : "add",
       "amount" : "50.00",
-      "date" : "1st Feb 2024"
+      "date" : "2024-02-01"
     }, {
       "type" : "repay",
       "amount" : "61.50",
-      "date" : "31th Dec 2025"
+      "date" : "2025-12-31"
     } ]
   }, {
     "name" : "Elle Meyer",
@@ -106,7 +106,7 @@
     "transactions" : [ {
       "type" : "add",
       "amount" : "0.23",
-      "date" : "13th March 2025"
+      "date" : "2025-03-13"
     } ]
   }]
 }
