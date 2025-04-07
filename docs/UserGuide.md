@@ -186,24 +186,85 @@ Format: `phone [ID] p/delete` (delete the phone number)
 
 <h3 id="tag">Adding/Updating tags: <code>tag</code></h3>
 
-Overwrites the current tags on the specified entry with the tags specified in the command.
+This command allows you to add or delete tag descriptors to each entry
 
 <box type="tip" seamless>
-**Tip:** A person can have any number of tags (including 0)
-**Tip** To clear all tags input an empty tag [INDEX] "t/"
+Tip: A person can have any number of tags (including 0)<br>
 </box>
-
 <box type="warning" seamless>
-**Warning:** Writing tag [INDEX] t/ will clear all tags
+Warning: An empty tag t/ will clear all tags
 </box>
 
-Format: `tag t/[TAG]…`
+Format: `tag [ID] t/[TAG]…`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Examples:
-* `tag 1 t/schoolmate t/nus`
-* `tag 1 t/` 
+**Restrictions:**
+* The ID **must be a positive integer** 1, 2, 3, …
+* Tag `TAG` must be an alphanumeric input. For example `bus123` is a valid input but `yellow bus`,
+  which contains a space—a non-alphanumeric character—is not.
+
+**Explanations:**
+* This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
+* To add a Tag, `TAG` must be non-empty, unique to the tag list, and case-insensitive. 
+<br>When adding multiple tags in a single command: 
+    - The system checks if all tags in your command already exist in the tag list (case-insensitive)
+    - If all tags are already present, no edit will occur
+    - If at least one tag is new, then only the unique tags will be added to the list
+* If a `TAG` is empty e.g. `t/` all tags will be deleted
+
+**Examples:**
+<box>
+
+**Scenario 1:** Adding a new tag<br>
+
+**Input:** `tag 1 t/schoolmate`<br>
+
+**Output:**
+```output 
+Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags: [schoolmate]
+```
+**Scenario 2:** Adding a duplicate tag<br>
+
+> **Note:** Assuming the tag schoolmate already exists. If a tag which does not exist in the current tag list such as `t/home`
+> is added the command will return successfully
+
+**Input:** `tag 1 t/schoolmate` <br>
+
+**Output:** 
+```output
+Your requested tag(s) already exist(s) for this person
+```
+**Scenario 3:** Add a tag<br>
+
+> **Note:** Assuming the tag schoolmate already exists.
+
+**Input:** `tag 1 t/CS2103` <br>
+
+**Output:**
+```output
+Edited loan tags: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags: [schoolmate][CS2103]
+```
+
+**Scenario 4:** Add multiple tags<br>
+
+> **Note:** Assuming the tags schoolmate and CS2103 already exists. Please scroll to see the entire output.
+
+**Input:** `tag 1 t/owesALot t/shopaholic` <br>
+
+**Output:**
+```output
+Edited loan tags: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags: [schoolmate][CS2103][owesALot][shopaholic]
+```
+**Scenario 5:** Delete all tags
+
+**Input:** `tag 1 t/`<br>
+
+**Output:**
+```output
+Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
+```
+</box>
 
 <h3 id="increase">Adding a loan: <code>increase</code></h3>
 

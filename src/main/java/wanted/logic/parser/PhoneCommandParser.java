@@ -40,7 +40,7 @@ public class PhoneCommandParser implements Parser<PhoneCommand> {
         }
         Phone updatedPhone;
         String phoneNumber = argMultimap.getValue(PREFIX_PHONE).get();
-        if (phoneNumber.trim().equalsIgnoreCase("delete")) {
+        if (phoneNumber.trim().equalsIgnoreCase(PhoneCommand.DELETE_WORD)) {
             updatedPhone = Phone.EMPTY_PHONE;
         } else {
             updatedPhone = ParserUtil.parsePhone(phoneNumber);

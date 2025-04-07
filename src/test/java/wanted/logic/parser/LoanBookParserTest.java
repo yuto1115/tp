@@ -85,7 +85,7 @@ public class LoanBookParserTest {
     @Test
     public void parseCommand_increase() throws Exception {
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD
-                + " 1 l/10.10 d/9th September 2024") instanceof IncreaseCommand);
+                + " 1 l/10.10 d/2024-09-09") instanceof IncreaseCommand);
         assertTrue(parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
                 + " " + "l/" + CommandTestUtil.VALID_AMOUNT_AMY
                 + " " + " d/" + CommandTestUtil.VALID_DATE_AMY) instanceof IncreaseCommand);
@@ -128,10 +128,10 @@ public class LoanBookParserTest {
 
     @Test
     public void parseCommand_edithist() throws Exception {
-        String command = EdithistCommand.COMMAND_WORD + " 1 i/2 l/20.25 d/1st Jan 1111";
+        String command = EdithistCommand.COMMAND_WORD + " 1 i/2 l/20.25 d/1111-01-01";
         EditTransactionDescriptor expectedDescriptor = new EditTransactionDescriptor();
         expectedDescriptor.setAmount(MoneyInt.fromCent(2025));
-        expectedDescriptor.setDate(new LoanDate("1st Jan 1111"));
+        expectedDescriptor.setDate(new LoanDate("1111-01-01"));
         EdithistCommand expected = new EdithistCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON,
                 expectedDescriptor);
         assertEquals(expected, parser.parseCommand(command));

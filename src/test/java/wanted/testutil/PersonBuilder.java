@@ -6,6 +6,7 @@ import java.util.Set;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanAmount;
 import wanted.model.loan.Name;
+import wanted.model.loan.Phone;
 import wanted.model.tag.Tag;
 import wanted.model.util.SampleDataUtil;
 
@@ -19,6 +20,7 @@ public class PersonBuilder {
     private Name name;
     private Set<Tag> tags;
     private LoanAmount loanAmount;
+    private Phone phone;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -27,6 +29,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         tags = new HashSet<>();
         loanAmount = new LoanAmount();
+        phone = Phone.EMPTY_PHONE;
     }
 
     /**
@@ -36,6 +39,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         loanAmount = personToCopy.getLoanAmount();
         tags = new HashSet<>(personToCopy.getTags());
+        phone = personToCopy.getPhone();
     }
 
     /**
@@ -62,8 +66,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Phone} of the {@code Loan} that we are building.
+     */
+    public PersonBuilder withPhone(Phone phone) {
+        this.phone = phone;
+        return this;
+    }
+
     public Loan build() {
-        return new Loan(name, loanAmount, tags);
+        return new Loan(name, loanAmount, tags, phone);
     }
 
 }
