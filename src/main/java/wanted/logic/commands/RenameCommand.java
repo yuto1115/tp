@@ -29,6 +29,7 @@ public class RenameCommand extends Command {
     public static final String MESSAGE_RENAME_SUCCESS = "Edited loan name: %1$s";
     public static final String MESSAGE_NOT_EDITED = "The name field must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the loan book.";
+    public static final String MESSAGE_UNCHANGED_NAME = "New amount must be different from the old one.";
 
     private final Index index;
     private final BaseEdit.EditLoanDescriptor editLoanDescriptor;
@@ -53,6 +54,10 @@ public class RenameCommand extends Command {
 
         Loan personToEdit = lastShownList.get(index.getZeroBased());
         Loan editedPerson = BaseEdit.createEditedLoan(personToEdit, editLoanDescriptor);
+
+        if (personToEdit.equals(editedPerson)) {
+            throw new CommandException(MESSAGE_UNCHANGED_NAME);
+        }
 
         if (!personToEdit.equals(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
