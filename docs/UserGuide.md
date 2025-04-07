@@ -188,10 +188,8 @@ Format: `add n/[NAME]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Restrictions:
-* The provided name must be unique to the list, case-sensitive.
-
 <box>
+
 **Scenario 1:** Adding a new entry<br>
 
 **Input:** `add n/Cory Ander`<br>
@@ -217,7 +215,8 @@ Changes the name of the specified entry in the Wanted list.
 
 Format: `rename [ID] n/[NAME]`
 
-(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))<br>
+
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
 * To update the entry's name, `NAME` must be alpha-numeric and non-empty
@@ -414,11 +413,6 @@ This command lets you record an increase in the loan amount for a specific entry
 Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
-
-Restrictions:
-* Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
-* Loaned amount must be a non-negative numeric value with 2 decimal places.
-* Date must be in the format YYYY-MM-DD.
 
 Explanations:
 * You can add an increase transaction to the entry at the specified ID. The ID refers to the index number shown in the displayed person list
@@ -674,20 +668,14 @@ Format: `sort`
 
 Deletes the specified entry from the loan book.
 
-Format: `delete INDEX`
+Format: `delete [ID]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list.
-* The index **must be a positive integer** 1, 2, 3, …
 
 <box type="warning" seamless>
 Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
 an entry after running any of these commands.
 </box>
-
-Format: `delete [ID]`
 
 **Explanations:**
 
