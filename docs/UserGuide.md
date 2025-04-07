@@ -180,13 +180,13 @@ Format: `help`
 
 Adds a new person as a new entry to the Wanted list.<br>
 
-**Explanations:**
-* This command adds a new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
-* This command does not accept names that already exist in the loanbook.
-
 Format: `add n/[NAME]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+
+**Explanations:**
+* This command adds a new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
+* This command does not accept names that already exist in the loanbook.
 
 <box>
 
@@ -196,7 +196,7 @@ Format: `add n/[NAME]`
 
 **Output:**
 ```output 
-New loan created for: Cory Ander; Total Amount: 0.00; Remaining Amount: 0.00; Tags: 
+New loan created for: Cory Ander; Remaining Loan Amount: 0.00; Total Loaned Amount: 0.00; Phone Number: --------; Tags:
 ```
 **Scenario 2:** Attempting to add an entry with the same name as another entry<br>
 > **Note:** Assume Cory Ander exists at the first index.
@@ -232,7 +232,7 @@ Format: `rename [ID] n/[NAME]`
 
 **Output:**
 ```output 
-Edited loan name: Cory Ander; Total Amount: 1210.10; Remaining Amount: 1209.60; Tags: 
+EEdited loan name: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amount: 1200.00; Phone Number: 12345678; Tags: [owesALot][friends] 
 ```
 **Scenario 2:** Renaming an entry with the same name<br>
 > **Note:** Assume Cory Ander exists at the first index.
@@ -284,19 +284,20 @@ Format: `phone [ID] p/[PHONE]`
 
 **Scenario 1:** Adding a new phone number<br>
 
-**Input:** `phone 1 t/98765432`<br>
+**Input:** `phone 1 p/98765432`<br>
 
 **Output:**
 ```output 
-Phone number successfully updated: Alex Yeoh; Total Amount: 1200.00; Remaining Amount: 1199.50; Tags: 
+Phone number successfully updated: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amount: 1200.00; Phone Number: 98765432; Tags: [owesALot][friends]
 ```
+
 **Scenario 2:** Deleting a phone number<br>
 
 **Input:** `phone 1 p/`<br>
 
 **Output:**
-```output 
-This loan now has no phone number: Alex Yeoh; Total Amount: 1200.00; Remaining Amount: 1199.50; Tags:
+```output
+This loan now has no phone number: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amount: 1200.00; Phone Number: --------; Tags: [owesALot][friends]
 ```
 
 **Scenario 3:** Attempting to add multiple phone numbers<br>
@@ -428,7 +429,7 @@ Explanations:
 
 **Output:**
 ```output 
-Loan successfully updated: Alex Yeoh; Total Amount: 1210.10; Remaining Amount: 1209.60; Tags:
+Loan successfully updated: Cory Anderson; Remaining Loan Amount: 1209.60; Total Loaned Amount: 1210.10; Phone Number: --------; Tags: [owesALot][friends]
 ```
 </box>
 
@@ -692,7 +693,7 @@ an entry after running any of these commands.
 
 **Output:**
 ```output 
-Deleted Loan: Bernice Yu; Total Amount: 40.49; Remaining Amount: 40.49; Tags: [colleagues][friends]
+Deleted Loan: Bernice Yu; Remaining Loan Amount: 40.49; Total Loaned Amount: 40.49; Phone Number: 20242025; Tags: [colleagues][friends]
 ```
 </box>
 
