@@ -45,6 +45,8 @@ public class LoanCard extends UiPart<Region> {
     @FXML
     private Label amount;
     @FXML
+    private Label totalAmount;
+    @FXML
     private Label phone;
     @FXML
     private Label date;
@@ -69,6 +71,8 @@ public class LoanCard extends UiPart<Region> {
         status.setText(getStatus());
         name.setText(loan.getName().fullName);
         amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
+                .getStringRepresentationWithFixedDecimalPoint());
+        totalAmount.setText("Total Loaned Amount: " + loan.getLoanAmount().getTotalAmount()
                 .getStringRepresentationWithFixedDecimalPoint());
         transactions = FXCollections.observableArrayList(loan.getLoanAmount().getTransactionHistoryCopy());
 
