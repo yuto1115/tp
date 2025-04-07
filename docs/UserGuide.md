@@ -222,7 +222,7 @@ Format: `tag [ID] t/[TAG]…`
 
 **Output:**
 ```output 
-Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags: [schoolmate]
+Edited loan name: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: [schoolmate]
 ```
 **Scenario 2:** Adding a duplicate tag<br>
 
@@ -243,7 +243,7 @@ Your requested tag(s) already exist(s) for this person
 
 **Output:**
 ```output
-Edited loan tags: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags: [schoolmate][CS2103]
+Edited loan tags: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: [schoolmate][CS2103]
 ```
 
 **Scenario 4:** Add multiple tags<br>
@@ -254,7 +254,7 @@ Edited loan tags: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
 
 **Output:**
 ```output
-Edited loan tags: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags: [schoolmate][CS2103][owesALot][shopaholic]
+Edited loan tags: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: [schoolmate][CS2103][owesALot][shopaholic]
 ```
 **Scenario 5:** Delete all tags
 
@@ -262,7 +262,7 @@ Edited loan tags: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
 
 **Output:**
 ```output
-Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
+Edited loan name: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags:
 ```
 </box>
 
@@ -281,54 +281,194 @@ Restrictions:
 
 <h3 id="repay">Repaying a loan: <code>repay</code></h3>
 
-Adds a transaction indicating that the specified amount was returned at the specified date to an entry.
+This command allows you to repay a loan of an entry by specifying the repayment amount and date.
 
 Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Restrictions:
-* Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
-* Loaned amount must be a non-negative numeric value with 2 decimal places.
-* Date must be in the format YYYY-MM-DD.
+Explanations:
+* This command allows you to reduce the remaining loan amount of the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
+* The entry's remaining loan amount is reduced by `AMOUNT`.
+* A new transaction is appended to the end of the entry's transaction history, indicating that the specified `AMOUNT` was repaid on the given `DATE`.
+* `AMOUNT` must not exceed the current remaining loan amount of the entry.
+
+**Examples:**
+<box>
+
+> **Note:** In all the scenarios below, assume that the remaining loan amount and the total loaned amount of the first entry are initially $100.00.
+
+**Scenario 1:** Partially repaying a loan<br>
+
+**Input:** `repay 1 l/50.00 d/2025-01-01`<br>
+
+**Output:**
+```output 
+Loan successfully repaid: John Doe; Remaining Loan Amount: 50.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: 
+```
+
+**Behavior:**
+- The remaining loan amount of the first entry is reduced by $50.00. (The total loaned amount remains unchanged.)
+- A new transaction, `$50.00 repaid on 2025-01-01`, is appended to the end of the transaction history of the first entry.
+
+**Scenario 2:** Fully repaying a loan<br>
+
+**Input:** `repay 1 l/100.00 d/2025-01-01` <br>
+
+**Output:**
+```output
+Loan successfully repaid entirely: John Doe; Remaining Loan Amount: 0.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: 
+```
+
+**Behavior:**
+- The remaining loan amount of the first entry is reduced by $100.00. (The total loaned amount remains unchanged.)
+- A new transaction, `$100.00 repaid on 2025-01-01`, is appended to the end of the transaction history of the first entry.
+
+**Scenario 3:** Overpayment (invalid input)<br>
+
+**Input:** `repay 1 l/150.00 d/2025-01-01` <br>
+
+**Output:**
+```output
+Amount repaid should be less than or equal to the current remaining loan amount
+```
+
+**Behavior:**
+- No operation is performed.
+</box>
 
 <h3 id="edithist">Editing a transaction: <code>edithist</code></h3>
 
-Edits an existing transaction in the transaction history of an entry.
+This command allows you to edit an existing transaction in the transaction history of an entry.
 
 Format: `edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Explanation:
-* `[ID]` is the index number of the specified entry in the displayed persons list.
-* `[TRANSACTION ID]` is the index number of the edited transaction in the displayed transaction history of the specified entry.
-* If `[AMOUNT]` is supplied, the amount of the specified transactions is replaced by the supplied amount.
-* If `[DATE]` is supplied, the date of the specified transactions is replaced by the supplied date.
+Explanations:
+* This command allows you to edit a transaction of the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
+* The transaction to be edited is specified by `TRANSACTION ID`, which refers to the index number shown in the displayed transaction history of the selected entry.
+* If `AMOUNT` is provided, the transaction amount is updated to the specified value. The new `AMOUNT` must be different from the original.
+* If `DATE` is provided, the transaction date is updated to the specified value. The new `DATE` must be different from the original.
+* At least one of `AMOUNT` or `DATE` must be provided.
+* The update must not result in a negative remaining loan amount at any point in the transaction history.
 
-Restrictions:
-* `[ID]` must be a positive integer between 1 and the number of entries in the Wanted list.
-* `[TRANSACTION ID]` must be a positive integer between 1 and the number of recorded transactions in the specified entry.
-* `[AMOUNT]` must be a non-negative numeric value with **exactly** 2 decimal places.
-* `[DATE]` must be in the format YYYY-MM-DD.
-* This edition must not result in a negative remaining loan balance at any point in the history.
+**Examples:**
+<box>
+
+> **Note:** In all the scenarios below, assume the first entry is initially as follows:
+> 
+> Remaining loaned amount: $150.00<br>
+> Total loaned amount: $200.00<br>
+> Transaction history:<br>
+>   (1.) $100.00 loaned on 2025-01-01<br>
+>   (2.) $50.00 repaid on 2025-02-01<br>
+>   (3.) $100.00 loaned on 2025-03-01
+
+**Scenario 1:** Editing amount<br>
+
+**Input:** `edithist 1 i/2 l/100.00`<br>
+
+**Output:**
+```output 
+Loan successfully updated: John Doe; Remaining Loan Amount: 100.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags: 
+```
+
+**Behavior:**
+- The second transaction of the first entry is changed to `$100.00 repaid on 2025-02-01`.
+- As a result, the remaining loan amount is updated to $100.00.
+
+**Scenario 2:** Editing date<br>
+
+**Input:** `edithist 1 i/2 d/2025-02-02`<br>
+
+**Output:**
+```output 
+Loan successfully updated: John Doe; Remaining Loan Amount: 150.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags: 
+```
+
+**Behavior:**
+- The second transaction of the first entry is changed to `$50.00 repaid on 2025-02-02`.
+
+**Scenario 3:** Editing both amount and date<br>
+
+**Input:** `edithist 1 i/3 l/200.00 d/2025-02-02`<br>
+
+**Output:**
+```output 
+Loan successfully updated: John Doe; Remaining Loan Amount: 250.00; Total Loaned Amount: 300.00; Phone Number: --------; Tags: 
+```
+
+**Behavior:**
+- The third transaction of the first entry is changed to `$200.00 loaned on 2025-02-02`.
+- As a result, the remaining loan amount and the total loaned amount are updated to $250.00 and $300.00, respectively.
+
+**Scenario 4:** Edit resulting in a negative remaining loan amount (invalid input)<br>
+
+**Input:** `edithist 1 i/1 l/30.00`<br>
+
+**Output:**
+```output 
+Invalid transaction update: This update would result in a negative remaining loan amount at some point in the history
+```
+
+**Behavior:**
+- No operation is performed.
+- If the amount of the first transaction were changed to $30.00, the remaining loan amount
+after the second transaction would be $30.00 - $50.00 = $-20.00, which is not allowed.
+  </box>
 
 <h3 id="delhist">Deleting a transaction: <code>delhist</code></h3>
 
-Deletes an existing transaction in the transaction history of an entry.
+This command allows you to delete an existing transaction in the transaction history of an entry.
 
 Format: `delhist [ID] i/[TRANSACTION ID]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Explanation:
-* `[ID]` is the index number of the specified entry in the displayed persons list.
-* `[TRANSACTION ID]` is the index number of the deleted transaction in the displayed transaction history of the specified entry.
+Explanations:
+* This command allows you to delete a transaction from the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
+* The transaction to be deleted is specified by `TRANSACTION ID`, which refers to the index number shown in the displayed transaction history of the selected entry.
+* The deletion must not result in a negative remaining loan amount at any point in the transaction history.
 
-Restrictions:
-* `[ID]` must be a positive integer between 1 and the number of entries in the Wanted list.
-* `[TRANSACTION ID]` must be a positive integer between 1 and the number of recorded transactions in the specified entry.
-* This deletion must not result in a negative remaining loan balance at any point in the history.
+**Examples:**
+<box>
+
+> **Note:** In all the scenarios below, assume the first entry is initially as follows:
+>
+> Remaining loaned amount: $150.00<br>
+> Total loaned amount: $200.00<br>
+> Transaction history:<br>
+>   (1.) $100.00 loaned on 2025-01-01<br>
+>   (2.) $50.00 repaid on 2025-02-01<br>
+>   (3.) $100.00 loaned on 2025-03-01
+
+**Scenario 1:** Deleting a transaction<br>
+
+**Input:** `delhist 1 i/2`<br>
+
+**Output:**
+```output 
+Loan successfully updated: John Doe; Remaining Loan Amount: 200.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags: 
+```
+
+**Behavior:**
+- The second transaction of the first entry is deleted.
+- As a result, the remaining loan amount is updated to $200.00.
+
+**Scenario 2:** Deletion resulting in a negative remaining loan amount (invalid input)<br>
+
+**Input:** `delhist 1 i/1`<br>
+
+**Output:**
+```output 
+Invalid transaction update: This update would result in a negative remaining loan amount at some point in the history
+```
+
+**Behavior:**
+- No operation is performed.
+- If the first transaction were deleted, the remaining loan amount after the second transaction (which would become the new first) would be $-50.00, which is not allowed.
+  </box>
 
 <h3 id="list">Listing all entries: <code>list</code></h3>
 
