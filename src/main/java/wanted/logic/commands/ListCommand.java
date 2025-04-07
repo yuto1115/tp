@@ -1,5 +1,7 @@
 package wanted.logic.commands;
 
+import java.util.Comparator;
+import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
@@ -7,8 +9,6 @@ import wanted.model.LoanBook;
 import wanted.model.Model;
 import wanted.model.loan.Loan;
 
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Lists all persons in the loan book to the user.
