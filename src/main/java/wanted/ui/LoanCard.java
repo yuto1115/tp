@@ -70,7 +70,7 @@ public class LoanCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         status.setText(getStatus());
         name.setText(loan.getName().fullName);
-        amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
+        amount.setText("Remaining Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
                 .getStringRepresentationWithFixedDecimalPoint());
         totalAmount.setText("Total Loaned Amount: " + loan.getLoanAmount().getTotalAmount()
                 .getStringRepresentationWithFixedDecimalPoint());
