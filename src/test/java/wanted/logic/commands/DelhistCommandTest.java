@@ -54,9 +54,9 @@ public class DelhistCommandTest {
         }
     }
 
-    private static final Loan sampleLoan = new Loan(BOB.getName(), sampleAmount, BOB.getTags());
+    private static final Loan sampleLoan = new Loan(BOB.getName(), sampleAmount, BOB.getTags(), BOB.getPhone());
     private static final Loan sampleLoanFirstTransactionDeleted =
-            new Loan(BOB.getName(), sampleAmountFirstTransactionDeleted, BOB.getTags());
+            new Loan(BOB.getName(), sampleAmountFirstTransactionDeleted, BOB.getTags(), BOB.getPhone());
 
     // Recreate sample model everytime since model is modified everytime we execute the command
     private static Model createSampleModel() {
