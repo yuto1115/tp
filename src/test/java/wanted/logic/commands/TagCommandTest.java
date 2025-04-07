@@ -1,6 +1,6 @@
 package wanted.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -117,5 +117,26 @@ public class TagCommandTest {
                 new EditLoanDescriptorBuilder().withTags(tagArray).build());
 
         assertCommandFailure(retagCommand, model, MESSAGE_DUPLICATE_TAG);
+    }
+
+    @Test
+    public void equals() {
+        TagCommand tagCommand1 = new TagCommand(INDEX_FIRST_PERSON, new EditLoanDescriptorBuilder().build());
+        TagCommand tagCommand2 = new TagCommand(INDEX_FIRST_PERSON, new EditLoanDescriptorBuilder().build());
+        TagCommand tagCommand3 = new TagCommand(INDEX_FIRST_PERSON,
+                new EditLoanDescriptorBuilder().withTags("example").build());
+        TagCommand tagCommand4 = new TagCommand(INDEX_SECOND_PERSON, new EditLoanDescriptorBuilder().build());
+
+        // same object -> returns true
+        assertEquals(tagCommand1, tagCommand1);
+
+        // same value -> return true
+        assertEquals(tagCommand1, tagCommand2);
+
+        // different value -> returns false (editLoanDescriptor is different)
+        assertNotEquals(tagCommand1, tagCommand3);
+
+        //  different index -> returns false
+        assertNotEquals(tagCommand1, tagCommand4);
     }
 }
