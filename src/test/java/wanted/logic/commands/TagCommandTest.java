@@ -6,9 +6,15 @@ import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static wanted.logic.commands.CommandTestUtil.assertCommandFailure;
 import static wanted.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static wanted.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static wanted.logic.commands.TagCommand.MESSAGE_DUPLICATE_TAG;
 import static wanted.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static wanted.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static wanted.testutil.TypicalPersons.getTypicalLoanBook;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +26,7 @@ import wanted.model.ModelManager;
 import wanted.model.UserPrefs;
 import wanted.model.loan.Loan;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
+import wanted.model.tag.Tag;
 import wanted.testutil.EditLoanDescriptorBuilder;
 import wanted.testutil.PersonBuilder;
 
@@ -42,7 +49,7 @@ public class TagCommandTest {
 
         TagCommand retagCommand = new TagCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(TagCommand.MESSAGE_RENAME_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(TagCommand.MESSAGE_TAG_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new LoanBook(model.getLoanBook()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
@@ -52,14 +59,19 @@ public class TagCommandTest {
 
     @Test
     public void execute_filteredList_success() {
+        //correctly adds a tag to the list
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Loan personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Loan editedPerson = new PersonBuilder(personInFilteredList).withTags(VALID_TAG_FRIEND).build();
+        Set<Tag> currTags = new HashSet<>(personInFilteredList.getTags());
+        List<String> tagStr = currTags.stream().map(Tag::getTagName).collect(Collectors.toList());
+        tagStr.add(VALID_TAG_FRIEND);
+        String[] tagArray = tagStr.toArray(new String[0]);
+        Loan editedPerson = new PersonBuilder(personInFilteredList).withTags(tagArray).build();
         TagCommand retagCommand = new TagCommand(INDEX_FIRST_PERSON,
                 new EditLoanDescriptorBuilder().withTags(VALID_TAG_FRIEND).build());
 
-        String expectedMessage = String.format(TagCommand.MESSAGE_RENAME_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(TagCommand.MESSAGE_TAG_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new LoanBook(model.getLoanBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
@@ -91,5 +103,19 @@ public class TagCommandTest {
                 new EditLoanDescriptorBuilder().withTags(VALID_TAG_HUSBAND).build());
 
         assertCommandFailure(renameCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_duplicateTagFilteredList_failure() {
+        //identifies duplicate tag
+        Loan personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Set<Tag> currTags = new HashSet<>(personInFilteredList.getTags());
+        List<String> tagStr = currTags.stream().map(Tag::getTagName).collect(Collectors.toList());
+        tagStr.add(tagStr.get(0));
+        String[] tagArray = tagStr.toArray(new String[0]);
+        TagCommand retagCommand = new TagCommand(INDEX_FIRST_PERSON,
+                new EditLoanDescriptorBuilder().withTags(tagArray).build());
+
+        assertCommandFailure(retagCommand, model, MESSAGE_DUPLICATE_TAG);
     }
 }

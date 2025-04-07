@@ -58,6 +58,9 @@ public class EditLoanDescriptorBuilder {
      * that we are building.
      */
     public EditLoanDescriptorBuilder withTags(String... tags) {
+        if (tags.length == 0) {
+            descriptor.setTags(null);
+        }
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;

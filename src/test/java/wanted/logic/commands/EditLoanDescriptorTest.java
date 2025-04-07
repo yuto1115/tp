@@ -7,10 +7,15 @@ import static wanted.logic.commands.CommandTestUtil.NEW_DESC_AMY;
 import static wanted.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static wanted.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import wanted.model.loan.exceptions.ExcessRepaymentException;
+import wanted.model.tag.Tag;
 import wanted.testutil.EditLoanDescriptorBuilder;
+
 
 public class EditLoanDescriptorTest {
 
@@ -44,10 +49,11 @@ public class EditLoanDescriptorTest {
 
     @Test
     public void toStringMethod() {
+        Set<Tag> exampleTags = new HashSet<>(); //example tag
         BaseEdit.EditLoanDescriptor editLoanDescriptor = new BaseEdit.EditLoanDescriptor();
         String expected = BaseEdit.EditLoanDescriptor.class.getCanonicalName() + "{name="
                 + editLoanDescriptor.getName().orElse(null) + ", tags="
-                + editLoanDescriptor.getTags().orElse(null) + ", amount="
+                + editLoanDescriptor.getTags(exampleTags).orElse(null) + ", amount="
                 + editLoanDescriptor.getAmount().orElse(null) + "}";
         assertEquals(expected, editLoanDescriptor.toString());
     }
