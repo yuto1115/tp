@@ -32,7 +32,7 @@ public class RepayCommand extends Command {
             + "    [ID] (must be a positive integer)\n"
             + "    l/[AMOUNT] (must be a non-negative numeric amount with 2 decimal places)\n"
             + "    d/[DATE]\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "10.00 " + PREFIX_DATE + "21st January 2025";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "10.00 " + PREFIX_DATE + "2025-01-21";
     private final Index targetIndex;
     private final MoneyInt returnedAmount;
     private final LoanDate date;

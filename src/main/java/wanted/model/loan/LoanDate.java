@@ -17,7 +17,7 @@ import wanted.commons.core.datatypes.Date;
 public class LoanDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date value should be in a string format and contain the day, month, and year.";
+            "Date value should be in format YYYY-MM-DD. (e.g. d/2024-01-21)";
     /*
      * The first character of the date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
