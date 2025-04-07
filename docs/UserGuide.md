@@ -540,5 +540,10 @@ If you wish to transfer your saved data to another device, install Wanted on the
 
 ## Known Issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only
+the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the
+application before running the application again.
+2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`)
+again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **If your tags overlap with an entry's name**, then download the
+[Special Elite font](https://fonts.google.com/specimen/Special+Elite) and place it in src/main/resources/fonts
