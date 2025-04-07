@@ -28,21 +28,21 @@ With Wanted, you can
 2. <a href="#tldr">I want a brief overview! TL;DR</a>
 3. [Command Summary](#command-summary)
 4. [Features](#features)
-    1. [Help](#viewing-help-help)
-    2. [Add](#adding-an-entry-add)
-    3. [Rename](#renaming-an-entry-rename)
-    4. [Phone](#addingupdating-phone-number-phone)
-    5. [Tag](#addingupdating-tags-tag)
-    6. [Increase](#adding-a-loan-increase)
-    7. [Repay](#repaying-a-loan-repay)
-    8. [Edithist](#editing-a-transaction-edithist)
-    9. [Delhist](#deleting-a-transaction-delhist)
-    10. [List](#listing-all-entries-list)
-    11. [Find](#locating-entries-by-name-find)
-    12. [Sort](#sorting-entries-sort)
-    13. [Delete](#deleting-an-entry-delete)
-    14. [Clear](#clearing-all-entries-clear)
-    15. [Exit](#exiting-the-program-exit)
+    1. <a href="#help">Help</a>
+    2. <a href="#add">Add</a>
+    3. <a href="#rename">Rename</a>
+    4. <a href="#phone">Phone</a>
+    5. <a href="#rename">Rename</a>
+    6. <a href="#increase">Increase</a>
+    7. <a href="#repay">Repay</a>
+    8. <a href="#edithist">Edithist</a>
+    9. <a href="#delhist">Delhist</a>
+    10. <a href="#list">List</a>
+    11. <a href="#find">Find</a>
+    12. <a href="#sort">Sort</a>
+    13. <a href="#delete">Delete</a>
+    14. <a href="#clear">Clear</a>
+    15. <a href="#exit">Exit</a>
     16. [Save data](#saving-the-data)
     17. [Backup data file](#backing-up-data-files)
 5. [Known Issues](#known-issues)
@@ -232,7 +232,7 @@ Format: `rename [ID] n/[NAME]`
 
 **Output:**
 ```output 
-EEdited loan name: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amount: 1200.00; Phone Number: 12345678; Tags: [owesALot][friends] 
+Edited loan name: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amount: 1200.00; Phone Number: 12345678; Tags: [owesALot][friends] 
 ```
 **Scenario 2:** Renaming an entry with the same name<br>
 > **Note:** Assume Cory Ander exists at the first index.
@@ -257,14 +257,6 @@ This person already exists in the loan book.
 
 <h3 id="phone">Adding/Updating phone number: <code>phone</code></h3>
 
-Adds, deletes and edits a borrowers' phone number in the Wanted list.
-
-Format: `phone [ID] p/[PHONE]` (add and edit phone number)
-
-Format: `phone [ID] p/delete` (delete the phone number)
-
-(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
-
 This command allows you to add and delete an entry's phone number in the Wanted list.
 
 <box type="warning" seamless>
@@ -272,6 +264,8 @@ Warning: An empty phone p/ will clear the entries' phone number
 </box>
 
 Format: `phone [ID] p/[PHONE]`
+
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
@@ -415,7 +409,7 @@ Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Explanations:
+**Explanations:**
 * You can add an increase transaction to the entry at the specified ID. The ID refers to the index number shown in the displayed person list
 * The increase command records a new transaction, and can be observed in your entry's transaction history
 
@@ -429,7 +423,7 @@ Explanations:
 
 **Output:**
 ```output 
-Loan successfully updated: Cory Anderson; Remaining Loan Amount: 1209.60; Total Loaned Amount: 1210.10; Phone Number: --------; Tags: [owesALot][friends]
+Loan successfully updated: Alex Yeoh; Remaining Loan Amount: 1209.60; Total Loaned Amount: 1210.10; Phone Number: --------; Tags: [owesALot][friends]
 ```
 </box>
 
@@ -443,7 +437,7 @@ Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Explanations:
+**Explanations:**
 * This command allows you to reduce the remaining loan amount of the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
 * The entry's remaining loan amount is reduced by `AMOUNT`.
 * A new transaction is appended to the end of the entry's transaction history, indicating that the specified `AMOUNT` was repaid on the given `DATE`.
@@ -501,7 +495,7 @@ Format: `edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Explanations:
+**Explanations:**
 * This command allows you to edit a transaction of the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
 * The transaction to be edited is specified by `TRANSACTION ID`, which refers to the index number shown in the displayed transaction history of the selected entry.
 * If `AMOUNT` is provided, the transaction amount is updated to the specified value. The new `AMOUNT` must be different from the original.
@@ -582,7 +576,7 @@ Format: `delhist [ID] i/[TRANSACTION ID]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-Explanations:
+**Explanations:**
 * This command allows you to delete a transaction from the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
 * The transaction to be deleted is specified by `TRANSACTION ID`, which refers to the index number shown in the displayed transaction history of the selected entry.
 * The deletion must not result in a negative remaining loan amount at any point in the transaction history.
@@ -631,12 +625,6 @@ Invalid transaction update: This update would result in a negative remaining loa
 Shows a list of all entries in the Wanted list.
 
 Format: `list`
-
-<h3 id="sort">Sorting entries: <code>sort</code></h3>
-
-Sorts the Wanted list by loaned amount.
-
-Format: `sort`
 
 <h3 id="find">Locating entries by name: <code>find</code></h3>
 
