@@ -112,7 +112,7 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: derive(#2b1f1a, 20%);
-    -fx-border-color: transparent transparent transparent #b32814;
+    -fx-border-color: transparent #b32814;
 }
 
 .split-pane {
@@ -165,15 +165,22 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Special Elite";
-    -fx-font-size: 16px;
+    -fx-font-family: "Garamond";
+    -fx-font-size: 30px;
     -fx-font-weight: 900;
     -fx-text-fill: #e0d5c3;
 }
 
+#name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+    -fx-text-fill: white;
+}
+
 .cell_small_label {
-    -fx-font-family: "Special Elite";
-    -fx-font-size: 8px;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 5px;
     -fx-text-fill: #e0d5c3;
 }
 
