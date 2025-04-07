@@ -27,7 +27,7 @@ public class ListCommand extends Command {
         LoanBook loanBook = (LoanBook) model.getLoanBook();
         ObservableList<Loan> oldList = loanBook.getPersonList();
         Comparator<Loan> comparator =
-                Comparator.comparing(l -> l.getName().toString().toLowerCase());
+                Comparator.nullsLast(Comparator.comparing(l -> l.getName().toString().toLowerCase()));
         List<Loan> sortedList = oldList.sorted(comparator);
         loanBook.setPersons(sortedList);
         return new CommandResult(String.format(MESSAGE_SUCCESS));
