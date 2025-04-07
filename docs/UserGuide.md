@@ -72,23 +72,23 @@ This is likely due to the list currently being filtered to only show a certain n
 
 ## Command Summary
 
-Command     | Action                           | Format, Examples
------------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------
-**add**    | Add new entry                    |`add n/[NAME]`
-**rename** | Change name of entry             | `rename [ID] n/[NAME]`
-**phone** | Add/change phone number of entry | `phone [ID] p/[PHONE]`
-**tag** | Add/change tags of entry         | `tag [ID] t/[TAG]…`
-**increase** | Add a loan to entry              | `increase [ID] l/[AMOUNT] d/[DATE]`
-**repay** | Add a repayment to entry         | `repay [ID] l/[AMOUNT] d/[DATE]`
-**edithist**   | Edit a transaction in entry      |`edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
-**delhist** | Delete a transaction in entry    | `delhist [ID] i/[TRANSACTION ID]`
-**list**   | List all entries                 |`list`
-**find**   | Search entries by name           |`find [KEYWORD]…`
-**delete** | Delete an entry                  |`delete [ID]`
-**sort**   | Sort entries by loaned amount    |`sort`
-**clear**  | Delete all entries               |`clear`
-**help**   | Show help window                 |`help`
-**exit**   | Exit the program                 |`exit`
+Command     | Action                                   | Format
+-----------|------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------
+[**help**](#help)   | Show help window                         |`help`
+[**add**](#add)    | Add new entry                            |`add n/[NAME]`
+[**rename**](#rename) | Change name of entry                     | `rename [ID] n/[NAME]`
+[**phone**](#phone) | Add/change phone number of entry         | `phone [ID] p/[PHONE]`
+[**tag**](#tag) | Add/change tags of entry                 | `tag [ID] t/[TAG]…`
+[**increase**](#increase) | Add a loan to entry                      | `increase [ID] l/[AMOUNT] d/[DATE]`
+[**repay**](#repay) | Add a repayment to entry                 | `repay [ID] l/[AMOUNT] d/[DATE]`
+[**edithist**](#edithist)   | Edit a transaction in entry              |`edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
+[**delhist**](#delhist) | Delete a transaction in entry            | `delhist [ID] i/[TRANSACTION ID]`
+[**list**](#list)   | List entries in alphabetic order of name |`list`
+[**sort**](#sort)   | Sort entries by loaned amount            |`sort`
+[**find**](#find)   | Search entries by name                   |`find [KEYWORD]…`
+[**delete**](#delete) | Delete an entry                          |`delete [ID]`
+[**clear**](#clear)  | Delete all entries                       |`clear`
+[**exit**](#exit)   | Exit the program                         |`exit`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -96,7 +96,7 @@ Command     | Action                           | Format, Examples
 
 <box type="info" seamless>
 
-**Notes about the command format:**<br>
+<span id="note-command-format"></span><big>**Notes about the command formats:**</big><br>
 
 * Words in square brackets and `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/[NAME]`, `[NAME]` is a parameter which can be used as `add n/John Doe`.
@@ -122,7 +122,7 @@ Command     | Action                           | Format, Examples
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-**Restrictions on the parameters:**
+<span id="restrictions"></span><big>**Restrictions on the parameters:**</big><br>
 
 The parameters you provide must meet the following constraints, unless otherwise specified.<br>
 Additionally, excessively long inputs or unusually large values may cause the app to behave unexpectedly.
@@ -141,7 +141,7 @@ Parameter  | Constraints                                                        
 
 </box>
 
-### Viewing help: `help`
+<h3 id="help">Viewing help: <code>help</code></h3>
 
 Shows a message explaining how to access the help page.
 
@@ -150,12 +150,14 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding an entry: `add`
+<h3 id="add">Adding an entry: <code>add</code></h3>
 
 Adds a new person as a new entry to the Wanted list.<br>
 A new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
 
 Format: `add n/[NAME]`
+
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 Restrictions:
 * The provided name must be unique to the list, case-sensitive.
@@ -164,13 +166,15 @@ Examples:
 * `add n/John Doe`
 * `add n/Betsy Crowe`
 
-### Renaming an entry: `rename`
+<h3 id="rename">Renaming an entry: <code>rename</code></h3>
 
 Changes the name of the specified entry in the Wanted list.
 
 Format: `rename [ID] n/[NAME]`
 
-### Adding/Updating phone number: `phone`
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+
+<h3 id="phone">Adding/Updating phone number: <code>phone</code></h3>
 
 Adds, deletes and edits a borrowers' phone number in the Wanted list.
 
@@ -178,7 +182,9 @@ Format: `phone [ID] p/[PHONE]` (add and edit phone number)
 
 Format: `phone [ID] p/delete` (delete the phone number)
 
-### Adding/Updating tags: `tag`
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+
+<h3 id="tag">Adding/Updating tags: <code>tag</code></h3>
 
 Overwrites the current tags on the specified entry with the tags specified in the command.
 
@@ -193,37 +199,45 @@ Overwrites the current tags on the specified entry with the tags specified in th
 
 Format: `tag t/[TAG]…`
 
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+
 Examples:
 * `tag 1 t/schoolmate t/nus`
 * `tag 1 t/` 
 
-### Adding a loan: `increase`
+<h3 id="increase">Adding a loan: <code>increase</code></h3>
 
 Adds a transaction indicating that the specified amount was loaned at the specified date to an entry.
 
 Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+
 Restrictions:
 * Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
 * Loaned amount must be a non-negative numeric value with 2 decimal places.
 * Date must be in the format YYYY-MM-DD.
 
-### Repaying a loan: `repay`
+<h3 id="repay">Repaying a loan: <code>repay</code></h3>
 
 Adds a transaction indicating that the specified amount was returned at the specified date to an entry.
 
 Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+
 Restrictions:
 * Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …
 * Loaned amount must be a non-negative numeric value with 2 decimal places.
 * Date must be in the format YYYY-MM-DD.
 
-### Editing a transaction: `edithist`
+<h3 id="edithist">Editing a transaction: <code>edithist</code></h3>
 
 Edits an existing transaction in the transaction history of an entry.
 
 Format: `edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
+
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 Explanation:
 * `[ID]` is the index number of the specified entry in the displayed persons list.
@@ -238,11 +252,13 @@ Restrictions:
 * `[DATE]` must be in the format YYYY-MM-DD.
 * This edition must not result in a negative remaining loan balance at any point in the history.
 
-### Deleting a transaction: `delhist`
+<h3 id="delhist">Deleting a transaction: <code>delhist</code></h3>
 
 Deletes an existing transaction in the transaction history of an entry.
 
 Format: `delhist [ID] i/[TRANSACTION ID]`
+
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 Explanation:
 * `[ID]` is the index number of the specified entry in the displayed persons list.
@@ -253,17 +269,25 @@ Restrictions:
 * `[TRANSACTION ID]` must be a positive integer between 1 and the number of recorded transactions in the specified entry.
 * This deletion must not result in a negative remaining loan balance at any point in the history.
 
-### Listing all entries: `list`
+<h3 id="list">Listing all entries: <code>list</code></h3>
 
 Shows a list of all entries in the Wanted list.
 
 Format: `list`
 
-### Locating entries by name: `find`
+<h3 id="sort">Sorting entries: <code>sort</code></h3>
+
+Sorts the Wanted list by loaned amount.
+
+Format: `sort`
+
+<h3 id="find">Locating entries by name: <code>find</code></h3>
 
 Finds entries whose names contain any of the given keywords.
 
 Format: `find [KEYWORD]...`
+
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -278,17 +302,13 @@ Examples:
   [TODO: update image below]
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Sorting entries: `sort`
-
-Sorts the Wanted list by loaned amount.
-
-Format: `sort`
-
-### Deleting an entry: `delete`
+<h3 id="delete">Deleting an entry: <code>delete</code></h3>
 
 Deletes the specified entry from the loan book.
 
 Format: `delete INDEX`
+
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed list.
@@ -298,7 +318,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd loan in the loan book.
 * `find Betsy` followed by `delete 1` deletes the 1st loan in the results of the `find` command.
 
-### Clearing all entries: `clear`
+<h3 id="clear">Clearing all entries: <code>clear</code></h3>
 
 Clears all entries from the loan book.
 
@@ -308,7 +328,7 @@ Clears all entries from the loan book.
 
 Format: `clear`
 
-### Exiting the program: `exit`
+<h3 id="exit">Exiting the program: <code>exit</code></h3>
 
 Exits the program.
 
@@ -332,3 +352,7 @@ If you wish to transfer your saved data to another device, install Wanted on the
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+
+[Scroll back to the command summary](#command-summary)
+
+[Scroll back to top](#wanted-user-guide)
