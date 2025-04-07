@@ -88,7 +88,7 @@ Command     | Action                           | Format, Examples
 **sort**   | Sort entries by loaned amount    |`sort`
 **clear**  | Delete all entries               |`clear`
 **help**   | Show help window                 |`help`
-**exot**   | Exit the program                 |`exit`
+**exit**   | Exit the program                 |`exit`
 
 --------------------------------------------------------------------------------------------------------------------
 
