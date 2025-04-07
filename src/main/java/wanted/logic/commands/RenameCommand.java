@@ -29,7 +29,7 @@ public class RenameCommand extends Command {
     public static final String MESSAGE_RENAME_SUCCESS = "Edited loan name: %1$s";
     public static final String MESSAGE_NOT_EDITED = "The name field must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the loan book.";
-    public static final String MESSAGE_UNCHANGED_NAME = "New amount must be different from the old one.";
+    public static final String MESSAGE_UNCHANGED_NAME = "New name must be different from the old one.";
 
     private final Index index;
     private final BaseEdit.EditLoanDescriptor editLoanDescriptor;
