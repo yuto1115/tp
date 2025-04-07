@@ -169,8 +169,10 @@ Restrictions:
 * Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. 
 The index **must be a positive integer** 1, 2, 3, …
 * Tag `TAG` must be an alphanumeric input. For example `bus123` is a valid input but `yellow bus` is not.
-* Tag `TAG` must be unique. If an entire list of tags is already included in the entry, an edit will not occur. 
-If a partial number of tags is not already in the entry the edit will occur, but keep unique tags.
+* Tag `TAG` must be unique to the tag list, case-insensitive. When adding multiple tags in a single command: 
+    - The system checks if all tags in your command already exist in the tag list (case-insensitive)
+    - If all tags are already present, no edit will occur
+    - If at least one tag is new, then only the unique tags will be added to the list
 
 **Examples:**
 <box>
