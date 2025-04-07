@@ -154,22 +154,66 @@ Format: `phone [ID] p/delete` (delete the phone number)
 
 ### Adding/Updating tags: `tag`
 
-Overwrites the current tags on the specified entry with the tags specified in the command.
+This command allows you to add or delete tag descriptors to each entry
 
 <box type="tip" seamless>
-**Tip:** A person can have any number of tags (including 0)
-**Tip** To clear all tags input an empty tag [INDEX] "t/"
+Tip: A person can have any number of tags (including 0)<br>
 </box>
-
 <box type="warning" seamless>
-**Warning:** Writing tag [INDEX] t/ will clear all tags
+Warning: Writing tag [INDEX] t/ will clear all tags
 </box>
 
-Format: `tag t/[TAG]…`
+Format: `tag [INDEX] t/[TAG]…`
 
-Examples:
-* `tag 1 t/schoolmate t/nus`
-* `tag 1 t/` 
+Restrictions:
+* Modifies the entry at the specified `ID`. The index refers to the index number shown in the displayed person list. 
+The index **must be a positive integer** 1, 2, 3, …
+* Tag `TAG` must be an alphanumeric input. For example `bus123` is a valid input but `yellow bus` is not.
+* Tag `TAG` must be unique. If an entire list of tags is already included in the entry, an edit will not occur. 
+If a partial number of tags is not already in the entry the edit will occur, but keep unique tags.
+
+**Examples:**
+<box>
+
+**Scenario 1:** Adding new tags<br>
+
+**Input:** `tag 1 t/schoolmate`<br>
+
+**Output:**
+```output 
+Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags: [schoolmate]
+```
+**Scenario 2:** Adding a duplicate tag<br>
+
+> **Note:** Assuming the tag schoolmate already exists. If a tag which does not exist in the current tag list such as `t/home`
+> is added the command will return successfully
+
+**Input:** `tag 1 t\schoolmate` <br>
+
+**Output:** 
+```output
+Your requested tag(s) already exist(s) for this person
+```
+**Scenario 3:** Updating tags<br>
+
+> **Note:** Assuming the tag schoolmate already exists.
+
+**Input:** `tag 1 t/CS2103` <br>
+
+**Output:**
+```output
+Edited loan tags: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags: [schoolmate][CS2103]
+```
+
+**Scenario 4: Deleting tags**
+
+**Input:** `tag 1 t/`<br>
+
+**Output:**
+```output
+Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
+```
+</box>
 
 ### Adding a loan: `increase`
 
