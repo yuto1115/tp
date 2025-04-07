@@ -2,10 +2,12 @@ package wanted.ui;
 
 import java.util.Comparator;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -43,6 +45,8 @@ public class LoanCard extends UiPart<Region> {
     @FXML
     private Label amount;
     @FXML
+    private Label totalAmount;
+    @FXML
     private Label phone;
     @FXML
     private Label date;
@@ -50,6 +54,8 @@ public class LoanCard extends UiPart<Region> {
     private Label status;
     @FXML
     private VBox transactionsBox;
+    @FXML
+    private ScrollPane entryScrollPane;
 
     private ObservableList<LoanTransaction> transactions;
 
@@ -65,6 +71,8 @@ public class LoanCard extends UiPart<Region> {
         status.setText(getStatus());
         name.setText(loan.getName().fullName);
         amount.setText("Loan Amount: " + loan.getLoanAmount().getRemainingAmount()
+                .getStringRepresentationWithFixedDecimalPoint());
+        totalAmount.setText("Total Loaned Amount: " + loan.getLoanAmount().getTotalAmount()
                 .getStringRepresentationWithFixedDecimalPoint());
         transactions = FXCollections.observableArrayList(loan.getLoanAmount().getTransactionHistoryCopy());
 
@@ -111,6 +119,7 @@ public class LoanCard extends UiPart<Region> {
         //pls work
         transactions.stream()
                 .map(this::createTransactionLabel).forEach(transactionsBox.getChildren()::add);
+        Platform.runLater(() -> entryScrollPane.setVvalue(1.0));
     }
 
     private Label createTransactionLabel(LoanTransaction transaction) {
@@ -119,5 +128,4 @@ public class LoanCard extends UiPart<Region> {
         txnLabel.getStyleClass().add("transaction-label");
         return txnLabel; //same code logic as before
     }
-
 }

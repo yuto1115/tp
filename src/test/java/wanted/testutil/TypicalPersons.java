@@ -14,6 +14,7 @@ import wanted.model.LoanBook;
 import wanted.model.loan.Loan;
 import wanted.model.loan.LoanAmount;
 import wanted.model.loan.LoanDate;
+import wanted.model.loan.Phone;
 import wanted.model.loan.exceptions.ExcessRepaymentException;
 import wanted.model.loan.transaction.AddLoanTransaction;
 
@@ -24,19 +25,22 @@ public class TypicalPersons {
 
     public static final Loan ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_NOT_FULLY_REPAID)
-            .withTags("friends").build();
+            .withTags("friends")
+            .withPhone(new Phone("12345678")).build();
     public static final Loan BENSON = new PersonBuilder().withName("Benson Meier")
             .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_NOT_FULLY_REPAID)
-            .withTags("owesMoney", "friends").build();
+            .withTags("owesMoney", "friends")
+            .withPhone(new Phone("12345678")).build();
     public static final Loan CARL = new PersonBuilder().withName("Carl Kurz")
             .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_FULLY_REPAID)
             .build();
     public static final Loan DANIEL = new PersonBuilder().withName("Daniel Meier")
             .withAmount(TypicalLoanAmount.NON_EMPTY_LOAN_AMOUNT_FULLY_REPAID)
-            .withTags("friends").build();
+            .withTags("friends")
+            .withPhone(new Phone("12345678")).build();
     public static final Loan ELLE = new PersonBuilder().withName("Elle Meyer")
             .withAmount(TypicalLoanAmount.EMPTY_LOAN_AMOUNT)
-            .build();
+            .withPhone(new Phone("12345678")).build();
     public static final Loan FIONA;
 
     static {
@@ -45,6 +49,7 @@ public class TypicalPersons {
                     .withAmount(new LoanAmount(new ArrayList<>(List.of(
                             new AddLoanTransaction(MoneyInt.fromCent(23), new LoanDate("2025-03-13"))
                     ))))
+                    .withPhone(new Phone("12345678"))
                     .build();
         } catch (ExcessRepaymentException e) {
             throw new RuntimeException(e);
@@ -61,11 +66,13 @@ public class TypicalPersons {
                     .withAmount(new LoanAmount(new ArrayList<>(List.of(
                             new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("2025-01-24"))
                     ))))
+                    .withPhone(new Phone("12345678"))
                     .build();
             IDA = new PersonBuilder().withName("Ida Mueller")
                     .withAmount(new LoanAmount(new ArrayList<>(List.of(
                             new AddLoanTransaction(MoneyInt.fromCent(2000), new LoanDate("2025-01-24"))
                     ))))
+                    .withPhone(new Phone("12345678"))
                     .build();
         } catch (ExcessRepaymentException e) {
             throw new RuntimeException(e);
@@ -74,9 +81,11 @@ public class TypicalPersons {
 
     // Manually added - Loan's details found in {@code CommandTestUtil}
     public static final Loan AMY = new PersonBuilder().withName(VALID_NAME_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
+            .withTags(VALID_TAG_FRIEND)
+            .withPhone(new Phone("12345678")).build();
     public static final Loan BOB = new PersonBuilder().withName(VALID_NAME_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withPhone(new Phone("00000000"))
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
