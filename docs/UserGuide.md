@@ -105,7 +105,7 @@ Command     | Action                           | Format, Examples
   e.g. `add n/[NAME]` cannot be used as `Add n/[NAME]` or `add N/[name]`.
 
 * Items in round brackets are optional.<br>
-  e.g `(t/[TAG])` can be used as ` ` (empty string) or as `t/friend`.
+  e.g `(t/[TAG])` can be used as ` ` (blank) or as `t/friend`.
 
 * Items with `…` after them can be used multiple times.<br>
   e.g. `t/[TAG]…` can be used as `t/friend` or as `t/friend t/family`.
@@ -121,7 +121,25 @@ Command     | Action                           | Format, Examples
   Note that any whitespace within parameters are retained.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-  </box>
+
+**Restrictions on the parameters:**
+
+The parameters you provide must meet the following constraints, unless otherwise specified.<br>
+Additionally, excessively long inputs or unusually large values may cause the app to behave unexpectedly.
+
+If you encounter an error message indicating that your input is invalid and you're unsure how to correct it, please refer to the table below along with the detailed explanations of each command further down.
+
+Parameter  | Constraints                                                                                                    | Examples of **valid** input | Examples of **invalid** input
+-----------|----------------------------------------------------------------------------------------------------------------|----------------------|-----
+**ID** / **TRANSACTION ID**     | A positive integer                                                                                             | `1`, `2`, `3`        | `-1`, `0`, `1.2`
+**NAME**   | Must contain only alphanumeric characters and spaces; cannot be blank                                          | `John`,<br>`John y3` | `John-Doe`, ` ` (blank)
+**PHONE**  | Must contain only digits; at least 3 digits required                                                           | `12345678`, `000`    | `+65-12345678`, `00`
+**TAG**    | Must contain only alphanumeric characters; cannot contain spaces or be blank                                   | `friend`, `year1`    | `best friend`, `year-1`,<br>` ` (blank)
+**AMOUNT** | A non-negative numeric value with at least one digit before the decimal point and **exactly** two digits after | `123.45`, `5.30`, `0.00` | `$10.00`, `3`, `3.2`, `3.245`, `-1.00`, `.50`
+**DATE**   | Must be in the `YYYY-MM-DD` format and represent a valid calendar date                                         | `2024-10-15`, `2025-01-01` | `2024-10`, `1st Jan 2025`, `2025-1-10`, `2025-01-50`
+**KEYWORD**| Cannot contain spaces or be blank                                                                              | `John`, `john123+$/` | `John Doe`, ` ` (blank)
+
+</box>
 
 ### Viewing help: `help`
 
