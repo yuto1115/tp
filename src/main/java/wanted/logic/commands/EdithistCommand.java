@@ -40,7 +40,7 @@ public class EdithistCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INDEX + "3 "
             + PREFIX_AMOUNT + "30.10 "
-            + PREFIX_DATE + "10th August 2024";
+            + PREFIX_DATE + "2024-08-10";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Loan successfully updated: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

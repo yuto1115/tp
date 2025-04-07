@@ -21,12 +21,12 @@ public class JsonAdaptedLoanTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TAG = "#friend";
     private static final JsonAdaptedLoanTransaction INVALID_AMOUNT_TRANSACTION =
-            new JsonAdaptedLoanTransaction("add", "10.0", "1st April 2020");
+            new JsonAdaptedLoanTransaction("add", "10.0", "2020-04-01");
     private static final List<JsonAdaptedLoanTransaction> INVALID_TRANSACTIONS_SEQUENCE =
             new ArrayList<>(Arrays.asList(
-                    new JsonAdaptedLoanTransaction("add", "10.00", "1st April 2020"),
-                    new JsonAdaptedLoanTransaction("repay", "12.00", "2nd April 2020"),
-                    new JsonAdaptedLoanTransaction("add", "10.00", "3rd April 2020")
+                    new JsonAdaptedLoanTransaction("add", "10.00", "2020-04-01"),
+                    new JsonAdaptedLoanTransaction("repay", "12.00", "2020-04-02"),
+                    new JsonAdaptedLoanTransaction("add", "10.00", "2020-04-03")
             ));
 
     private static final String VALID_NAME = BENSON.getName().toString();

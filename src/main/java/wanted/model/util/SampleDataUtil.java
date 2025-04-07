@@ -28,30 +28,30 @@ public class SampleDataUtil {
             return new Loan[]{
                 new Loan(new Name("Alex Yeoh"),
                         new LoanAmount(new ArrayList<>(Arrays.asList(
-                                new AddLoanTransaction(MoneyInt.fromCent(100000), new LoanDate("1st January 2025")),
-                                new RepayLoanTransaction(MoneyInt.fromCent(50), new LoanDate("2nd January 2025")),
-                                new AddLoanTransaction(MoneyInt.fromCent(20000), new LoanDate("3rd January 2025"))
+                                new AddLoanTransaction(MoneyInt.fromCent(100000), new LoanDate("2025-01-01")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(50), new LoanDate("2025-01-02")),
+                                new AddLoanTransaction(MoneyInt.fromCent(20000), new LoanDate("2025-01-03"))
                         ))),
                         getTagSet("friends", "owesALot"),
                         new Phone("12345678")),
                 new Loan(new Name("Bernice Yu"),
                         new LoanAmount(new ArrayList<>(Arrays.asList(
-                                new AddLoanTransaction(MoneyInt.fromCent(2024), new LoanDate("1st January 2024")),
-                                new AddLoanTransaction(MoneyInt.fromCent(2025), new LoanDate("1st January 2025"))
+                                new AddLoanTransaction(MoneyInt.fromCent(2024), new LoanDate("2024-01-01")),
+                                new AddLoanTransaction(MoneyInt.fromCent(2025), new LoanDate("2025-01-01"))
                         ))),
                         getTagSet("colleagues", "friends"),
                         new Phone("20242025")),
                 new Loan(new Name("Charlotte Oliveiro"),
                         new LoanAmount(new ArrayList<>(Arrays.asList(
-                                new AddLoanTransaction(MoneyInt.fromCent(15000), new LoanDate("9th August 1965")),
-                                new RepayLoanTransaction(MoneyInt.fromCent(15000), new LoanDate("9th August 2065"))
+                                new AddLoanTransaction(MoneyInt.fromCent(15000), new LoanDate("1965-08-09")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(15000), new LoanDate("2065-08-09"))
                         ))),
                         getTagSet("neighbours"),
                         new Phone("06021819")),
                 new Loan(new Name("David Li"),
                         new LoanAmount(new ArrayList<>(Arrays.asList(
-                                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("1st January 2025")),
-                                new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("3rd March 2025"))
+                                new AddLoanTransaction(MoneyInt.fromCent(1000), new LoanDate("2025-01-01")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(500), new LoanDate("2025-03-03"))
                         ))),
                         getTagSet("family"),
                         new Phone("04385793")),
@@ -61,10 +61,10 @@ public class SampleDataUtil {
                         Phone.EMPTY_PHONE),
                 new Loan(new Name("Roy Balakrishnan"),
                         new LoanAmount(new ArrayList<>(List.of(
-                                new AddLoanTransaction(MoneyInt.fromCent(10000), new LoanDate("1st January 2025")),
-                                new RepayLoanTransaction(MoneyInt.fromCent(5000), new LoanDate("2nd January 2025")),
-                                new AddLoanTransaction(MoneyInt.fromCent(12000), new LoanDate("3rd January 2025")),
-                                new RepayLoanTransaction(MoneyInt.fromCent(17000), new LoanDate("4th January 2025"))
+                                new AddLoanTransaction(MoneyInt.fromCent(10000), new LoanDate("2025-01-01")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(5000), new LoanDate("2025-01-02")),
+                                new AddLoanTransaction(MoneyInt.fromCent(12000), new LoanDate("2025-01-03")),
+                                new RepayLoanTransaction(MoneyInt.fromCent(17000), new LoanDate("2025-01-04"))
                         ))),
                         getTagSet(),
                         new Phone("47821053"))
