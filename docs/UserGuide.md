@@ -190,7 +190,7 @@ Edited loan name: Anna Sue; Total Amount: 100.00; Remaining Amount: 80.00; Tags:
 > **Note:** Assuming the tag schoolmate already exists. If a tag which does not exist in the current tag list such as `t/home`
 > is added the command will return successfully
 
-**Input:** `tag 1 t\schoolmate` <br>
+**Input:** `tag 1 t/schoolmate` <br>
 
 **Output:** 
 ```output
