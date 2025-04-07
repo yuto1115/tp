@@ -25,6 +25,11 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ## **Design**
 
+<box type="info" seamless>
+
+**Note**: In this Developer Guide, the term `loan book` is used with the same meaning as `Wanted list` in the User Guide.
+</box>
+
 ### Architecture
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
@@ -118,15 +123,17 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="520" />
 
 
 The `Model` component,
 
 * stores the loan book data i.e., all `Loan` objects (which are contained in a `UniqueLoanList` object).
-* stores the currently 'selected' `Loan` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Loan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* offers a list of all the stored `Loan` objects to outsiders as an unmodifiable `ObservableList<Loan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+
+`LoanAmount` is a class to manage the loan amount of an entry. Detailed explanation can be found here.
 
 <box type="info" seamless>
 
@@ -141,7 +148,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="750" />
 
 The `Storage` component,
 * can save both loan book data and user preference data in JSON format, and read them back into corresponding objects.
@@ -150,7 +157,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.address.commons` package.
+Classes used by multiple components are in the `wanted.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -176,11 +183,11 @@ Step 1. The user launches the application for the first time. The `VersionedLoan
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th loan in the loan book. The `delete` command calls `Model#commitLoanBook()`, causing the modified state of the loan book after the `delete 5` command executes to be saved in the `loanBookStateList`, and the `currentStatePointer` is shifted to the newly inserted loan book state.
+Step 2. The user executes `delete 5` command to delete the 5th entry in the loan book. The `delete` command calls `Model#commitLoanBook()`, causing the modified state of the loan book after the `delete 5` command executes to be saved in the `loanBookStateList`, and the `currentStatePointer` is shifted to the newly inserted loan book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new loan. The `add` command also calls `Model#commitLoanBook()`, causing another modified loan book state to be saved into the `loanBookStateList`.
+Step 3. The user executes `add n/David` to add a new entry. The `add` command also calls `Model#commitLoanBook()`, causing another modified loan book state to be saved into the `loanBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
@@ -224,11 +231,11 @@ The `redo` command does the opposite — it calls `Model#redoLoanBook()`, wh
 
 </box>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the loan book, such as `list`, will usually not call `Model#commitLoanBook()`, `Model#undoLoanBook()` or `Model#redoLoanBook()`. Thus, the `loanBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `help`. Commands that do not modify the loan book, such as `help`, will usually not call `Model#commitLoanBook()`, `Model#undoLoanBook()` or `Model#redoLoanBook()`. Thus, the `loanBookStateList` remains unchanged.
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitLoanBook()`. Since the `currentStatePointer` is not pointing at the end of the `loanBookStateList`, all loan book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitLoanBook()`. Since the `currentStatePointer` is not pointing at the end of the `loanBookStateList`, all loan book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David` command. This is the behavior that most modern desktop applications follow.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
@@ -249,11 +256,13 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the loan being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+[//]: # (_{more aspects and alternatives to be added}_)
 
-### \[Proposed\] Data archiving
+[//]: # ()
+[//]: # (### \[Proposed\] Data archiving)
 
-_{Explain here how the data archiving feature will be implemented}_
+[//]: # ()
+[//]: # (_{Explain here how the data archiving feature will be implemented}_)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -273,8 +282,8 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* loans and receives money from others
-* prefer desktop apps over other types
+* loans money to others
+* prefers desktop apps over other types
 * can type quickly
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
