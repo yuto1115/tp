@@ -33,20 +33,18 @@ With Wanted, you can
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wanted.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
-
-[//]: # (    * `list` : Lists all loans.)
 
     * `add n/John Doe` : Adds a new borrower named `John Doe` to the Wanted list.
 
-    * `increase 1 l/19.87 d/10th December 2024` : Increases the amount borrowed by the 1st person in the current list and records the transaction in its loan history.
+    * `increase 1 l/19.87 d/2024-12-10` : Increases the amount borrowed by the 1st person in the current list and records the transaction in its loan history.
     
-    * `repay 2 l/20.25 d/1st January 2025` : Decreases the amount borrowed by the 2nd person in the current list and records the transaction in its loan history.
+    * `repay 2 l/20.25 d/2025-01-01` : Decreases the amount borrowed by the 2nd person in the current list and records the transaction in its loan history.
 
     * `delete 3` : Deletes the 3rd person shown in the current list.
 
@@ -58,7 +56,8 @@ With Wanted, you can
 
 --------------------------------------------------------------------------------------------------------------------
 
-## TL;DR
+[//]: # (somehow normal markdown notation disables links to this section, so using html notation)
+<h2 id="tldr">TL;DR</h2>
 
 ___How do I track a loan?___<br>
 Use the add command to add the loanee’s name to the list, then use the loan command to assign the amount loaned to that person’s entry.
@@ -75,10 +74,10 @@ This is likely due to the list currently being filtered to only show a certain n
 
 Command     | Action                           | Format, Examples
 -----------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------
-**add**    | Add new entry                    |`add n/[NAME]​`
+**add**    | Add new entry                    |`add n/[NAME]`
 **rename** | Change name of entry             | `rename [ID] n/[NAME]`
 **phone** | Add/change phone number of entry | `phone [ID] p/[PHONE]`
-**tag** | Add/change tags of entry         | `tag [ID] (t/[TAG]…)`
+**tag** | Add/change tags of entry         | `tag [ID] t/[TAG]…`
 **increase** | Add a loan to entry              | `increase [ID] l/[AMOUNT]`
 **repay** | Add a repayment to entry         | `repay [ID] l/[AMOUNT]`
 **edithist**   | Edit a transaction in entry      |`edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
@@ -86,8 +85,10 @@ Command     | Action                           | Format, Examples
 **list**   | List all entries                 |`list`
 **find**   | Search entries by name           |`find [NAME]…`
 **delete** | Delete an entry                  |`delete [ID]`
+**sort**   | Sort entries by loaned amount    |`sort`
 **clear**  | Delete all entries               |`clear`
 **help**   | Show help window                 |`help`
+**exot**   | Exit the program                 |`exit`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -100,16 +101,19 @@ Command     | Action                           | Format, Examples
 * Words in square brackets and `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/[NAME]`, `[NAME]` is a parameter which can be used as `add n/John Doe`.
 
+* All command keywords are **case-sensitive**.
+  e.g. `add n/[NAME]` cannot be used as `Add n/[NAME]` or `add N/[name]`.
+
 * Items in round brackets are optional.<br>
   e.g `(t/[TAG])` can be used as ` ` (empty string) or as `t/friend`.
 
 * Items with `…` after them can be used multiple times.<br>
-  e.g. `t/[TAG]…` can be used as `t/`, `t/friend`, `t/friend t/family` etc.
+  e.g. `t/[TAG]…` can be used as `t/friend` or as `t/friend t/family`.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `l/[AMOUNT] d/[DATE]`, `d/[DATE] l/[AMOUNT]` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (`help`, `list`, `sort`, `clear` and `exit`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -229,7 +233,7 @@ Restrictions:
 
 ### Listing all entries: `list`
 
-Shows a list of all entries in the address book.
+Shows a list of all entries in the Wanted list.
 
 Format: `list`
 
