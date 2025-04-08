@@ -26,28 +26,34 @@ With Wanted, you can
 ## Table of Contents
 
 1. [Quickstart](#quick-start)
-2. <a href="#tldr">I want a brief overview! TL;DR</a>
+2. [I want a brief overview! TL;DR](#tldr)
 3. [User Interface](#user-interface)
 4. [Command Summary](#command-summary)
-5. [Features](#features)
-    1. <a href="#help">Help</a>
-    2. <a href="#add">Add</a>
-    3. <a href="#rename">Rename</a>
-    4. <a href="#phone">Phone</a>
-    5. <a href="#rename">Rename</a>
-    6. <a href="#increase">Increase</a>
-    7. <a href="#repay">Repay</a>
-    8. <a href="#edithist">Edithist</a>
-    9. <a href="#delhist">Delhist</a>
-    10. <a href="#list">List</a>
-    11. <a href="#find">Find</a>
-    12. <a href="#sort">Sort</a>
-    13. <a href="#delete">Delete</a>
-    14. <a href="#clear">Clear</a>
-    15. <a href="#exit">Exit</a>
-    16. [Save data](#saving-the-data)
-    17. [Backup data file](#backing-up-data-files)
-5. [Known Issues](#known-issues)
+5. [Features](#note-on-features)
+    - **Set up**
+        1. [Help](#help)<br>
+        2. [Add](#add)<br>
+    - **Edit an entry's details**<br>
+        3. [Rename](#rename)<br>
+        4. [Phone](#phone)<br>
+        5. [Tag](#tag)
+    - **Add or edit transactions**<br>
+        6. [Increase](#increase)<br>
+        7. [Repay](#repay)<br>
+        8. [Edithist](#edithist)<br>
+        9. [Delhist](#delhist)
+    - **View your Wanted list**<br>
+        10. [List](#list)<br>
+        11. [Find](#find)<br>
+        12. [Sort](#sort)
+    - **Edit your Wanted list data**<br>
+        13. [Delete](#delete)<br>
+        14. [Clear](#clear)<br>
+        15. [Exit](#exit)<br>
+        16. [Save data](#saving-the-data)<br>
+        17. [Backup data file](#backing-up-data-files)<br>
+6. [Known Issues](#known-issues)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -87,14 +93,14 @@ With Wanted, you can
 <h2 id="tldr">TL;DR</h2>
 
 ___How do I track a loan?___<br>
-Use the add command to add the loanee’s name to the list, then use the loan command to assign the amount loaned to that person’s entry.
+Use the <a href="#add">add</a> command to add the loanee’s name to the list, then use the <a href="#increase">increase</a> command to assign the amount loaned to that person’s entry.
 
 ___How do I track repayments?___<br>
-Use the repay command when the loanee’s entry is visible on the list.
+Use the <a href="#repay">repay</a> command when the loanee’s entry is visible on the list.
 
 ___How do I find an entry that I want to modify?___<br>
-If you remember the loanee’s name, use the search command to find the loan. Otherwise, use the list command to sort by name
-or the sort command to sort the list by total amount owed.
+If you remember the loanee’s name, use the <a href="#find">find</a> command to find the loan.
+To organize your Wanted list, you can use <a href="#list">list</a> to arrange by name, or <a href="#sort">sort</a> to arrange by the total amount owed.
 
 --------------------------------------------------------------------------------------------------------------------
 ## User Interface
@@ -134,10 +140,10 @@ An entry contains the following components:
 
 * **Transaction history**: Lists all transactions associated with the person.  
   Each transaction appears in one of the following formats:
-    * `[amount] loaned on [date]` — Indicates that the specified amount was loaned on the given date.  
+    * `[amount] loaned on [date]` — Indicates that an amount was loaned on the given date.  
       Example: `$100.00 loaned on 2025-01-01`
 
-    * `[amount] repaid on [date]` — Indicates that the specified amount was repaid on the given date.  
+    * `[amount] repaid on [date]` — Indicates that an amount was repaid on the given date.  
       Example: `$50.00 repaid on 2025-02-01`
 
   The number to the left of each transaction indicates its index within the transaction history.  
@@ -253,6 +259,10 @@ Format: `add n/[NAME]`
 ```output 
 New loan created for: Cory Ander; Remaining Loan Amount: 0.00; Total Loaned Amount: 0.00; Phone Number: --------; Tags:
 ```
+**Behaviour:**
+You will see a new entry with the name Cory Ander, however take note the money loaned and the money to be returned will be initialised to zero.
+The transaction history and tags will also be empty.
+
 **Scenario 2:** Attempting to add an entry with the same name as another entry<br>
 > **Note:** Assume Cory Ander exists at the first index.
 
@@ -262,6 +272,9 @@ New loan created for: Cory Ander; Remaining Loan Amount: 0.00; Total Loaned Amou
 ```output 
 This person has already loaned out money in the wanted list
 ```
+**Behaviour:**
+You will receive an error message.
+
 </box>
 
 <h3 id="rename">Renaming an entry: <code>rename</code></h3>
@@ -289,6 +302,9 @@ Format: `rename [ID] n/[NAME]`
 ```output 
 Edited loan name: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amount: 1200.00; Phone Number: 12345678; Tags: [owesALot][friends] 
 ```
+**Behaviour:**
+The first entry will be renamed to Cory Ander.
+
 **Scenario 2:** Renaming an entry with the same name<br>
 > **Note:** Assume Cory Ander exists at the first index.
 
@@ -298,6 +314,9 @@ Edited loan name: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amoun
 ```output 
 New name must be different from the old one.
 ```
+**Behaviour:**
+You will receive an error message.
+
 **Scenario 3:** Renaming an entry with an existing name in the loanbook<br>
 
 **Input:** `rename 1 n/David Li`<br>
@@ -306,6 +325,8 @@ New name must be different from the old one.
 ```output 
 This person already exists in the loan book.
 ```
+**Behaviour:**
+You will receive an error message.
 </box>
 
 
@@ -340,6 +361,8 @@ Format: `phone [ID] p/[PHONE]`
 ```output 
 Phone number successfully updated: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amount: 1200.00; Phone Number: 98765432; Tags: [owesALot][friends]
 ```
+**Behaviour:**
+The phone number of your first entry will be updated to `98765432`.
 
 **Scenario 2:** Deleting a phone number<br>
 
@@ -349,6 +372,8 @@ Phone number successfully updated: Cory Ander; Remaining Loan Amount: 1199.50; T
 ```output
 This loan now has no phone number: Cory Ander; Remaining Loan Amount: 1199.50; Total Loaned Amount: 1200.00; Phone Number: --------; Tags: [owesALot][friends]
 ```
+**Behaviour:**
+The phone number of your first entry will be deleted and instead display `No phone number available`.
 
 **Scenario 3:** Attempting to add multiple phone numbers<br>
 > **Note:** This command will only execute when there is one prefix `p/[PHONE]`
@@ -359,6 +384,9 @@ This loan now has no phone number: Cory Ander; Remaining Loan Amount: 1199.50; T
 ```output 
 Multiple values specified for the following single-valued field(s): p/
 ```
+**Behaviour:**
+You will receive an error message.
+
 **Scenario 4:** Attempting to update an identical phone numbers<br>
 
 **Input:** `phone 2 p/20242025`<br>
@@ -367,6 +395,9 @@ Multiple values specified for the following single-valued field(s): p/
 ```output 
 New phone number must be different than the old one
 ```
+**Behaviour:**
+You will receive an error message.
+
 </box>
 
 <h3 id="tag">Adding/Updating tags: <code>tag</code></h3>
@@ -407,6 +438,9 @@ Format: `tag [ID] t/[TAG]…`
 ```output
 Edited loan name: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: [schoolmate]
 ```
+**Behaviour:**
+The tags of the first entry will be updated and show `schoolmate`.
+
 **Scenario 2:** Adding a duplicate tag<br>
 
 > **Note:** Assuming the tag schoolmate already exists. If a tag which does not exist in the current tag list such as `t/home`
@@ -418,6 +452,9 @@ Edited loan name: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 1
 ```output
 Your requested tag(s) already exist(s) for this person
 ```
+**Behaviour:**
+You will receive an error message.
+
 **Scenario 3:** Add a tag<br>
 
 > **Note:** Assuming the tag schoolmate already exists.
@@ -428,6 +465,8 @@ Your requested tag(s) already exist(s) for this person
 ```output
 Edited loan tags: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: [schoolmate][CS2103]
 ```
+**Behaviour:**
+You will see an updated tags list which includes CS2103.
 
 **Scenario 4:** Add multiple tags<br>
 
@@ -439,6 +478,9 @@ Edited loan tags: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 1
 ```output
 Edited loan tags: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags: [schoolmate][CS2103][owesALot][shopaholic]
 ```
+**Behaviour:**
+You will see an updated tags list which includes owesALot and shopaholic.
+
 **Scenario 5:** Delete all tags
 
 **Input:** `tag 1 t/`<br>
@@ -447,6 +489,8 @@ Edited loan tags: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 1
 ```output
 Edited loan name: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags:
 ```
+**Behaviour:**
+All tags for the first entry will be deleted.
 
 **Scenario 6:** Add and delete tags in one command failure
 > **Note:** To delete a tag please input only t/ as per scenario 5
@@ -457,6 +501,9 @@ Edited loan name: Anna Sue; Remaining Loan Amount: 80.00; Total Loaned Amount: 1
 ```output
 Tags names should be alphanumeric
 ```
+**Behaviour:**
+You will receive an error message.
+
 </box>
 
 <h3 id="increase">Adding a loan: <code>increase</code></h3>
@@ -489,6 +536,9 @@ This issue will be addressed in future releases.
 ```output 
 Loan successfully updated: Alex Yeoh; Remaining Loan Amount: 1209.60; Total Loaned Amount: 1210.10; Phone Number: --------; Tags: [owesALot][friends]
 ```
+**Behaviour:**
+The total loan amount increases by `$10.10`. A new transaction, `$10.10 loaned on 2024-12-12` will be appended to the end
+of the transaction history of the first entry.
 </box>
 
 ![command example](images/increaseCommand.png)
@@ -527,9 +577,9 @@ This issue will be addressed in future releases.
 Loan successfully repaid: John Doe; Remaining Loan Amount: 50.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags:
 ```
 
-**Behavior:**
-- The remaining loan amount of the first entry is reduced by $50.00. (The total loaned amount remains unchanged.)
-- A new transaction, `$50.00 repaid on 2025-01-01`, is appended to the end of the transaction history of the first entry.
+**Behaviour:**
+The remaining loan amount of the first entry is reduced by $50.00 (the total loaned amount remains unchanged).
+A new transaction, `$50.00 repaid on 2025-01-01`, is appended to the end of the transaction history of the first entry.
 
 **Scenario 2:** Fully repaying a loan<br>
 
@@ -540,9 +590,9 @@ Loan successfully repaid: John Doe; Remaining Loan Amount: 50.00; Total Loaned A
 Loan successfully repaid entirely: John Doe; Remaining Loan Amount: 0.00; Total Loaned Amount: 100.00; Phone Number: --------; Tags:
 ```
 
-**Behavior:**
-- The remaining loan amount of the first entry is reduced by $100.00. (The total loaned amount remains unchanged.)
-- A new transaction, `$100.00 repaid on 2025-01-01`, is appended to the end of the transaction history of the first entry.
+**Behaviour:**
+The remaining loan amount of the first entry is reduced by $100.00. (The total loaned amount remains unchanged.)
+A new transaction, `$100.00 repaid on 2025-01-01`, is appended to the end of the transaction history of the first entry.
 
 **Scenario 3:** Overpayment (invalid input)<br>
 
@@ -553,8 +603,8 @@ Loan successfully repaid entirely: John Doe; Remaining Loan Amount: 0.00; Total 
 Amount repaid should be less than or equal to the current remaining loan amount
 ```
 
-**Behavior:**
-- No operation is performed.
+**Behaviour:**
+You will receive an error message.
 </box>
 
 <h3 id="edithist">Editing a transaction: <code>edithist</code></h3>
@@ -600,9 +650,9 @@ This issue will be addressed in future releases.
 Loan successfully updated: John Doe; Remaining Loan Amount: 100.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags:
 ```
 
-**Behavior:**
-- The second transaction of the first entry is changed to `$100.00 repaid on 2025-02-01`.
-- As a result, the remaining loan amount is updated to $100.00.
+**Behaviour:**
+The second transaction of the first entry is changed to `$100.00 repaid on 2025-02-01`.
+As a result, the remaining loan amount is updated to $100.00.
 
 **Scenario 2:** Editing date<br>
 
@@ -613,8 +663,8 @@ Loan successfully updated: John Doe; Remaining Loan Amount: 100.00; Total Loaned
 Loan successfully updated: John Doe; Remaining Loan Amount: 150.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags:
 ```
 
-**Behavior:**
-- The second transaction of the first entry is changed to `$50.00 repaid on 2025-02-02`.
+**Behaviour:**
+The second transaction of the first entry is changed to `$50.00 repaid on 2025-02-02`.
 
 **Scenario 3:** Editing both amount and date<br>
 
@@ -625,9 +675,9 @@ Loan successfully updated: John Doe; Remaining Loan Amount: 150.00; Total Loaned
 Loan successfully updated: John Doe; Remaining Loan Amount: 250.00; Total Loaned Amount: 300.00; Phone Number: --------; Tags:
 ```
 
-**Behavior:**
-- The third transaction of the first entry is changed to `$200.00 loaned on 2025-02-02`.
-- As a result, the remaining loan amount and the total loaned amount are updated to $250.00 and $300.00, respectively.
+**Behaviour:**
+The third transaction of the first entry is changed to `$200.00 loaned on 2025-02-02`.
+As a result, the remaining loan amount and the total loaned amount are updated to $250.00 and $300.00, respectively.
 
 **Scenario 4:** Edit resulting in a negative remaining loan amount (invalid input)<br>
 
@@ -638,9 +688,9 @@ Loan successfully updated: John Doe; Remaining Loan Amount: 250.00; Total Loaned
 Invalid transaction update: This update would result in a negative remaining loan amount at some point in the history
 ```
 
-**Behavior:**
-- No operation is performed.
-- If the amount of the first transaction were changed to $30.00, the remaining loan amount
+**Behaviour:**
+No operation is performed, since the total loan amount would be negative.
+If the amount of the first transaction were changed to $30.00, the remaining loan amount
 after the second transaction would be $30.00 - $50.00 = $-20.00, which is not allowed.
   </box>
 
@@ -684,9 +734,8 @@ This issue will be addressed in future releases.
 Loan successfully updated: John Doe; Remaining Loan Amount: 200.00; Total Loaned Amount: 200.00; Phone Number: --------; Tags:
 ```
 
-**Behavior:**
-- The second transaction of the first entry is deleted.
-- As a result, the remaining loan amount is updated to $200.00.
+**Behaviour:**
+The second transaction of the first entry is deleted. As a result, the remaining loan amount is updated to $200.00.
 
 **Scenario 2:** Deletion resulting in a negative remaining loan amount (invalid input)<br>
 
@@ -697,9 +746,9 @@ Loan successfully updated: John Doe; Remaining Loan Amount: 200.00; Total Loaned
 Invalid transaction update: This update would result in a negative remaining loan amount at some point in the history
 ```
 
-**Behavior:**
-- No operation is performed.
-- If the first transaction were deleted, the remaining loan amount after the second transaction (which would become the new first) would be $-50.00, which is not allowed.
+**Behaviour:**
+You will receive an error message. No operation is performed.
+If the first transaction were deleted, the remaining loan amount after the second transaction (which would become the new first) would be $-50.00, which is not allowed.
   </box>
 
 <h3 id="list">Listing all entries: <code>list</code></h3>
@@ -784,10 +833,10 @@ an entry after running any of these commands.
 2 persons found!
 ```
 
-**Behavior:**
-- The best match, John will be sorted to the top of the Wanted list.
-- John Mayer will be sorted to the second place on the Wanted list.
-- Remaining entries will keep their relative positions.
+**Behaviour:**
+The best match, John will be sorted to the top of the Wanted list.
+John Mayer for example will be sorted to the second place on the Wanted list.
+Remaining entries will keep their relative positions.
 
 **Scenario 2:** Finding by name (partial) <br>
 
@@ -797,7 +846,7 @@ an entry after running any of these commands.
 ```output
 0 persons found!
 ```
-**Behavior:**
+**Behaviour:**
 - Since there are no complete matches to any keywords entered, the output message will indicate that there are 0 full matches.
 - Names that partially contain 'jo' will be moved up on the Wanted List.
 - In this example, the output list is
@@ -847,7 +896,7 @@ an entry after running any of these commands.
 Sort success
 ```
 
-**Behavior:**
+**Behaviour:**
 - The entries will be sorted by highest total loan amount
 - The list of names will be reordered as follows.
 >   (1.) John
@@ -890,6 +939,8 @@ an entry after running any of these commands.
 ```output 
 Deleted Loan: Bernice Yu; Remaining Loan Amount: 40.49; Total Loaned Amount: 40.49; Phone Number: 20242025; Tags: [colleagues][friends]
 ```
+**Behaviour:**
+The second entry is deleted from the Wanted list.
 </box>
 
 <h3 id="clear">Clearing all entries: <code>clear</code></h3>
@@ -898,7 +949,7 @@ Clears all entries from the loan book.
 
 <box type="warning" seamless>
 
-**Warning**: This action cannot be undone. All loan entries will be wiped.
+**Warning**: All loan entries will be wiped. After this command has been run we cannot recover your data.
 </box>
 
 Format: `clear`
