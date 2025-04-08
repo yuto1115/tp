@@ -481,7 +481,7 @@ This issue will be addressed in future releases.
 <box>
 
 **Scenario:** Adding a new increase transaction<br>
-f
+
 **Input:** `increase 1 l/10.10 d/2024-12-12`<br>
 
 **Output:**
@@ -505,6 +505,12 @@ Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 * The entry's remaining loan amount is reduced by `AMOUNT`.
 * A new transaction is appended to the end of the entry's transaction history, indicating that the specified `AMOUNT` was repaid on the given `DATE`.
 * `AMOUNT` must not exceed the current remaining loan amount of the entry.
+
+<box type="warning" seamless>
+
+**Warning**: The current version of the Wanted app does **not** validate whether the dates in a transaction history are in chronological order.  
+This issue will be addressed in future releases.
+</box>
 
 **Examples:**
 <box>
@@ -565,6 +571,12 @@ Format: `edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
 * If `DATE` is provided, the transaction date is updated to the specified value. The new `DATE` must be different from the original.
 * At least one of `AMOUNT` or `DATE` must be provided.
 * The update must not result in a negative remaining loan amount at any point in the transaction history.
+
+<box type="warning" seamless>
+
+**Warning**: The current version of the Wanted app does **not** validate whether the dates in a transaction history are in chronological order.  
+This issue will be addressed in future releases.
+</box>
 
 **Examples:**
 <box>
@@ -643,6 +655,12 @@ Format: `delhist [ID] i/[TRANSACTION ID]`
 * This command allows you to delete a transaction from the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
 * The transaction to be deleted is specified by `TRANSACTION ID`, which refers to the index number shown in the displayed transaction history of the selected entry.
 * The deletion must not result in a negative remaining loan amount at any point in the transaction history.
+
+<box type="warning" seamless>
+
+**Warning**: The current version of the Wanted app does **not** validate whether the dates in a transaction history are in chronological order.  
+This issue will be addressed in future releases.
+</box>
 
 **Examples:**
 <box>
