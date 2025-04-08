@@ -142,6 +142,10 @@ An entry contains the following components:
   If the transaction list exceeds the height of the display area, the most recent transactions (those with higher indices) are shown by default.  
   You can scroll upward using the scrollbar on the right to view older transactions.
 
+<box type="tip" seamless>
+
+**Tip**: The background image of an entry changes depending on whether the person is in the `Wanted` or `Not Wanted` status.<br>
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -309,7 +313,8 @@ This person already exists in the loan book.
 This command allows you to add and delete an entry's phone number in the Wanted list.
 
 <box type="warning" seamless>
-Warning: An empty phone p/ will clear the entries' phone number
+
+**Warning**: An empty phone p/ will clear the entries' phone number.
 </box>
 
 Format: `phone [ID] p/[PHONE]`
@@ -318,8 +323,8 @@ Format: `phone [ID] p/[PHONE]`
 
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
-* To add or update a phone number, `PHONE` must be a new number and non-empty
-* If a phone number `p/[PHONE]` is equal to the previous phone number, the entry will not be updated
+* To add or update a phone number, `PHONE` must be a new number and non-empty.
+* If a phone number `p/[PHONE]` is equal to the previous phone number, the entry will not be updated.
 
 **Examples:**
 
@@ -364,13 +369,15 @@ New phone number must be different than the old one
 
 <h3 id="tag">Adding/Updating tags: <code>tag</code></h3>
 
-This command allows you to add or delete tag descriptors to each entry
+This command allows you to add or delete tag descriptors to each entry.
 
 <box type="tip" seamless>
-Tip: A person can have any number of tags (including 0)<br>
+
+**Tip**: A person can have any number of tags (including 0)<br>
 </box>
 <box type="warning" seamless>
-Warning: An empty tag t/ will clear all tags
+
+**Warning**: An empty tag t/ will clear all tags
 </box>
 
 Format: `tag [ID] t/[TAG]…`
@@ -711,7 +718,8 @@ Format: `delete [ID]`
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 <box type="warning" seamless>
-Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
+
+**Warning**: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
 an entry after running any of these commands.
 </box>
 
@@ -739,7 +747,8 @@ Deleted Loan: Bernice Yu; Remaining Loan Amount: 40.49; Total Loaned Amount: 40.
 Clears all entries from the loan book.
 
 <box type="warning" seamless>
-Warning: No undo for clear command. All loan entries will be wiped.
+
+**Warning**: This action cannot be undone. All loan entries will be wiped.
 </box>
 
 Format: `clear`
@@ -772,7 +781,7 @@ application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`)
 again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 3. **If your tags overlap with an entry's name**, then download the
-[Special Elite font](https://fonts.google.com/specimen/Special+Elite) and place it in src/main/resources/fonts
+[Special Elite font](https://fonts.google.com/specimen/Special+Elite) and place it in src/main/resources/fonts.
 
 [Scroll back to the command summary](#command-summary)
 
