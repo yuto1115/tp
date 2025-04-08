@@ -93,7 +93,7 @@ class JsonAdaptedLoan {
 
         final Phone phone;
         if (phoneValue == null || !Phone.isValidPhone(phoneValue)) {
-            phone = null;
+            phone = Phone.EMPTY_PHONE;
         } else {
             phone = new Phone(phoneValue);
         }
