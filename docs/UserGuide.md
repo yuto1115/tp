@@ -786,7 +786,7 @@ Format: `list`
 >   (4.) Bernice Chua <br>
 >   (5.) Alex Yeoh <br>
 
-** Scenario 1: Listing all entries **
+**Scenario 1:** Listing all entries <br>
 
 **Input:** `list`<br>
 
@@ -869,7 +869,6 @@ Remaining entries will keep their relative positions.
 >   (4.) Bernice Chua <br>
 >   (5.) Alex Yeoh <br>
 - Partial matches are displayed in alphabetical order.
-  [TODO: update image below]
   ![result for 'find jo'](images/findjo.png)
 
 <h3 id="sort">Sorting entries: <code>sort</code></h3>
@@ -890,14 +889,14 @@ Format: `sort`
 * People with the highest loans will be sorted to the top of the Wanted list.
 
 > **Note:** Assume there are a list of names as follows:
->   (1.) John 
->           Remaining Loan Amount: 21.05
+>   (1.) John <br>
+>           Remaining Loan Amount: 21.05 <br>
 >           Total Loaned Amount: 23.05 <br>
->   (2.) Alex Yeoh
->           Remaining Loan Amount: 0.00
+>   (2.) Alex Yeoh <br>
+>           Remaining Loan Amount: 0.00 <br>
 >           Total Loaned Amount: 0.00 <br>
 >   (3.) Bernice Chua <br>
->           Remaining Loan Amount: 21.05
+>           Remaining Loan Amount: 21.05 <br>
 >           Total Loaned Amount: 21.05 <br>
 
 **Scenario 1:** Sorting <br>
@@ -912,14 +911,14 @@ Sort success
 **Behaviour:**
 - The entries will be sorted by highest total loan amount
 - The list of names will be reordered as follows.
->   (1.) John
->           Remaining Loan Amount: 21.05
+>   (1.) John <br>
+>           Remaining Loan Amount: 21.05 <br>
 >           Total Loaned Amount: 23.05 <br>
 >   (2.) Bernice Chua <br>
->           Remaining Loan Amount: 21.05
+>           Remaining Loan Amount: 21.05 <br>
 >           Total Loaned Amount: 21.05 <br>
->   (3.) Alex Yeoh
->           Remaining Loan Amount: 0.00
+>   (3.) Alex Yeoh <br>
+>           Remaining Loan Amount: 0.00 <br>
 >           Total Loaned Amount: 0.00 <br>
 
 <h3 id="delete">Deleting an entry: <code>delete</code></h3>
