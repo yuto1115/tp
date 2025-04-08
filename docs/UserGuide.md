@@ -6,11 +6,12 @@
 
 # Wanted User Guide
 
-Wanted is a loan tracking application meant for personal use, for those of you who lend out money to others but find it difficult to keep track of what they owe you.
+Wanted is a loan tracking application meant for personal use, for anyone who wants to keep track of these loans.
 
-This guide assumes cursory knowledge of operating a Command Line Interface (CLI). In short, almost all actions in the program are performed by typing in a command in the specified formats below and pressing the Enter key.
+This guide assumes cursory knowledge of operating a Command Line Interface (CLI). 
+In short, almost all actions in the program are performed by typing in a command in the specified formats below and pressing the Enter key.
 
-The link to this guide can be found on the Github page or the Help window of the program.
+This guide can be accessed from the project's Github page or the Help window of the application.
 
 ## Value Proposition
 With Wanted, you can
@@ -54,15 +55,15 @@ With Wanted, you can
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F11-4/tp/releases).
+2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F11-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for Wanted.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wanted.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br><br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wanted.jar` command to run the application.<br>
+   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `add n/John Doe` : Adds a new borrower named `John Doe` to the Wanted list.
@@ -77,7 +78,7 @@ With Wanted, you can
 
     * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -171,7 +172,7 @@ Command     | Action                                   | Format
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## Note on Features
 
 <box type="info" seamless>
 
@@ -180,7 +181,7 @@ Command     | Action                                   | Format
 * Words in square brackets and `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/[NAME]`, `[NAME]` is a parameter which can be used as `add n/John Doe`.
 
-* All command keywords are **case-sensitive**.<br>
+* All **command** keywords are **case-sensitive**.<br>
   e.g. `add n/[NAME]` cannot be used as `Add n/[NAME]` or `add N/[name]`.
 
 * Items in round brackets are optional.<br>
@@ -199,11 +200,12 @@ Command     | Action                                   | Format
   e.g. in `add n/[NAME]`, `add n/ John Doe ` will be interpreted as `add n/John Doe`.<br>
   Note that any whitespace within parameters are retained.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* If you are using a PDF version of this document, note that copying and pasting commands that span multiple lines may not work as intended as space characters surrounding line-breaks may be omitted.
 
 <span id="restrictions"></span><big>**Restrictions on the parameters:**</big><br>
 
 The parameters you provide must meet the following constraints, unless otherwise specified.<br>
+
 Additionally, excessively long inputs or unusually large values may cause the app to behave unexpectedly.
 
 If you encounter an error message indicating that your input is invalid and you're unsure how to correct it, please refer to the table below along with the detailed explanations of each command further down.
@@ -227,7 +229,6 @@ Shows a message explaining how to access the help page.
 ![help message](images/helpMessage.png)
 
 Format: `help`
-
 
 <h3 id="add">Adding an entry: <code>add</code></h3>
 
@@ -682,6 +683,41 @@ Shows a list of all entries in the Wanted list.
 
 Format: `list`
 
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+
+<box type="warning" seamless>
+Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
+an entry after running any of these commands.
+</box>
+
+**Explanations**:
+* List will return a Wanted list with all names in alphabetical order.
+
+> **Note:** In all the scenarios below, assume there are a list of names as follows:
+>
+>   (1.) John <br>
+>   (2.) John Mayer <br>
+>   (3.) Joanna Lee <br>
+>   (4.) Bernice Chua <br>
+>   (5.) Alex Yeoh <br>
+
+** Scenario 1: Listing all entries **
+
+**Input:** `list`<br>
+
+**Output:**
+```output
+Listed all persons (Sort alphabetically)
+```
+**Behaviour** 
+An alphabetical sorting of all persons will take place.
+The Wanted list will be arranged as follows
+>   (1.) Alex Yeoh <br>
+>   (2.) Bernice Chua <br>
+>   (3.) Joanna Lee <br>
+>   (4.) John <br>
+>   (5.) John Mayer <br>
+
 <h3 id="find">Locating entries by name: <code>find</code></h3>
 
 Finds entries whose names contain any of the given keywords.
@@ -690,24 +726,114 @@ Format: `find [KEYWORD]...`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
+<box type="warning" seamless>
+Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
+an entry after running any of these commands.
+</box>
+
+**Explanations**:
+* Find will sort the best match to the keywords entered at the top of the Wanted list.
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned at the top of the Wanted list(i.e. `OR` search).
+* Only the name is searched and matched.
+* Partial matches will be returned e.g. `Han` will also match `Hans`
+* The best match to the keywords will be returned at the top of the Wanted list(i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The output message will display the number of full matches. 
+  e.g. 
 
-Examples:
-* `find John` returns entries with borrower names `john` and `John Doe`
-* `find alex david` returns entries with borrower names `Alex Yeoh`, `David Li`<br>
+> **Note:** In all the scenarios below, assume there are a list of names as follows:
+>
+>   (1.) John <br>
+>   (2.) John Mayer <br>
+>   (3.) Joanna Lee <br>
+>   (4.) Bernice Chua <br>
+>   (5.) Alex Yeoh <br>
+
+**Scenario 1:** Finding by name<br>
+
+**Input:** `find John`<br>
+
+**Output:**
+```output
+2 persons found!
+```
+
+**Behavior:**
+- The best match, John will be sorted to the top of the Wanted list.
+- John Mayer will be sorted to the second place on the Wanted list.
+- Remaining entries will keep their relative positions.
+
+**Scenario 2:** Finding by name (partial) <br>
+
+**Input:** `find jo`<br>
+
+**Output:**
+```output
+0 persons found!
+```
+**Behavior:**
+- Since there are no complete matches to any keywords entered, the output message will indicate that there are 0 full matches.
+- Names that partially contain 'jo' will be moved up on the Wanted List.
+- In this example, the output list is
+>   (1.) Joanna Lee <br>
+>   (2.) John <br>
+>   (3.) John Mayer <br>
+>   (4.) Bernice Chua <br>
+>   (5.) Alex Yeoh <br>
+- Partial matches are displayed in alphabetical order.
   [TODO: update image below]
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+  ![result for 'find jo'](images/findjo.png)
 
-### Sorting entries: `sort`
+<h3 id="sort">Sorting entries: <code>sort</code></h3>
 
 Sorts the Wanted list by loaned amount.
 
 Format: `sort`
+
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+
+<box type="warning" seamless>
+Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
+an entry after running any of these commands.
+</box>
+
+**Explanations**:
+* Sort will sort the entries by current 'Loan Amount'
+* People with the highest loans will be sorted to the top of the Wanted list.
+
+> **Note:** Assume there are a list of names as follows:
+>   (1.) John 
+>           Remaining Loan Amount: 21.05
+>           Total Loaned Amount: 23.05 <br>
+>   (2.) Alex Yeoh
+>           Remaining Loan Amount: 0.00
+>           Total Loaned Amount: 0.00 <br>
+>   (3.) Bernice Chua <br>
+>           Remaining Loan Amount: 21.05
+>           Total Loaned Amount: 21.05 <br>
+
+**Scenario 1:** Sorting <br>
+
+**Input:** `sort`<br>
+
+**Output:**
+```output
+Sort success
+```
+
+**Behavior:**
+- The entries will be sorted by highest total loan amount
+- The list of names will be reordered as follows.
+>   (1.) John
+>           Remaining Loan Amount: 21.05
+>           Total Loaned Amount: 23.05 <br>
+>   (2.) Bernice Chua <br>
+>           Remaining Loan Amount: 21.05
+>           Total Loaned Amount: 21.05 <br>
+>   (3.) Alex Yeoh
+>           Remaining Loan Amount: 0.00
+>           Total Loaned Amount: 0.00 <br>
 
 <h3 id="delete">Deleting an entry: <code>delete</code></h3>
 
@@ -718,8 +844,7 @@ Format: `delete [ID]`
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 <box type="warning" seamless>
-
-**Warning**: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
+Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
 an entry after running any of these commands.
 </box>
 
