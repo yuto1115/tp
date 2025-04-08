@@ -69,7 +69,7 @@ With Wanted, you can
 
 4. Open a command terminal. On Windows, this can be done by clicking the Windows button, typing `cmd` and selecting Command Prompt.
 
-5. Use the `cd` command to navigate to the folder with `wanted.jar`. On Windows, if you have the folder containing `wanted.jar` open in File Ezplorer,
+5. Use the `cd` command to navigate to the folder with `wanted.jar`. On Windows, if you have the folder containing `wanted.jar` open in File Explorer,
    you can right-click the folder name in the address bar near the top and select Copy Address, then type `cd`, a space, then Ctrl-V.
 
 6. Run `java -jar wanted.jar` in the command terminal to run the application.<br>
