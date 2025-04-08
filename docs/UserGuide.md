@@ -60,13 +60,19 @@ With Wanted, you can
 ## Quick Start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
+   You can find a guide for how to install Java 17 on Windows [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F11-4/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for Wanted.
+3. Copy the file to the folder you want to use as the _home folder_ for Wanted. We recommend creating a new folder on your Desktop.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wanted.jar` command to run the application.<br>
+4. Open a command terminal. On Windows, this can be done by clicking the Windows button, typing `cmd` and selecting Command Prompt.
+
+5. Use the `cd` command to navigate to the folder with `wanted.jar`. On Windows, if you have the folder containing `wanted.jar` open in File Ezplorer,
+   you can right-click the folder name in the address bar near the top and select Copy Address, then type `cd`, a space, then Ctrl-V.
+
+6. Run `java -jar wanted.jar` in the command terminal to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -247,7 +253,7 @@ Format: `add n/[NAME]`
 
 **Explanations:**
 * This command adds a new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
-* This command does not accept names that already exist in the loanbook.
+* This command does not accept names that already exist in the Wanted List.
 
 <box>
 
@@ -270,12 +276,14 @@ The transaction history and tags will also be empty.
 
 **Output:**
 ```output 
-This person has already loaned out money in the wanted list
+This person has already loaned out money in the Wanted list.
 ```
 **Behaviour:**
 You will receive an error message.
 
 </box>
+
+![command example](images/addCommand.png)
 
 <h3 id="rename">Renaming an entry: <code>rename</code></h3>
 
@@ -288,7 +296,7 @@ Format: `rename [ID] n/[NAME]`
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
 * To update the entry's name, `NAME` must be alpha-numeric and non-empty
-* If a name `n/[NAME]` is equal to the previous name or any other name in the loan book, the name will not be updated.
+* If a name `n/[NAME]` is equal to the previous name or any other name in the Wanted list, the name will not be updated.
 
 **Examples:**
 
@@ -317,13 +325,13 @@ New name must be different from the old one.
 **Behaviour:**
 You will receive an error message.
 
-**Scenario 3:** Renaming an entry with an existing name in the loanbook<br>
+**Scenario 3:** Renaming an entry with an existing name in the Wanted List<br>
 
 **Input:** `rename 1 n/David Li`<br>
 
 **Output:**
 ```output 
-This person already exists in the loan book.
+This person already exists in the Wanted list.
 ```
 **Behaviour:**
 You will receive an error message.
@@ -337,7 +345,7 @@ This command allows you to add and delete an entry's phone number in the Wanted 
 
 <box type="warning" seamless>
 
-**Warning**: An empty phone p/ will clear the entries' phone number.
+**Warning**: An empty phone p/ will clear the entry's phone number.
 </box>
 
 Format: `phone [ID] p/[PHONE]`
@@ -753,21 +761,24 @@ If the first transaction were deleted, the remaining loan amount after the secon
 
 <h3 id="list">Listing all entries: <code>list</code></h3>
 
-Shows a list of all entries in the Wanted list.
+This command allows you to list all entries in the Wanted list in alphabetical order.
 
 Format: `list`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 <box type="warning" seamless>
-Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
-an entry after running any of these commands.
+
+**Warning**: The list command changes the IDs of each entry. Be careful to use the correct IDs when editing or deleting entries.
 </box>
 
 **Explanations**:
 * List will return a Wanted list with all names in alphabetical order.
 
-> **Note:** In all the scenarios below, assume there are a list of names as follows:
+**Examples:**
+<box>
+
+> **Note:** In all the scenarios below, assume there are a list of entries with names as follows:
 >
 >   (1.) John <br>
 >   (2.) John Mayer <br>
@@ -792,6 +803,8 @@ The Wanted list will be arranged as follows
 >   (4.) John <br>
 >   (5.) John Mayer <br>
 
+</box>
+
 <h3 id="find">Locating entries by name: <code>find</code></h3>
 
 Finds entries whose names contain any of the given keywords.
@@ -801,8 +814,8 @@ Format: `find [KEYWORD]...`
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 <box type="warning" seamless>
-Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
-an entry after running any of these commands.
+
+**Warning**: The find command changes the IDs of each entry. Be careful to use the correct IDs when editing or deleting entries.
 </box>
 
 **Explanations**:
@@ -835,7 +848,7 @@ an entry after running any of these commands.
 
 **Behaviour:**
 The best match, John will be sorted to the top of the Wanted list.
-John Mayer for example will be sorted to the second place on the Wanted list.
+John Mayer will be sorted to the second place on the Wanted list.
 Remaining entries will keep their relative positions.
 
 **Scenario 2:** Finding by name (partial) <br>
@@ -868,8 +881,8 @@ Format: `sort`
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 <box type="warning" seamless>
-Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
-an entry after running any of these commands.
+
+**Warning**: The sort command changes the IDs of each entry. Be careful to use the correct IDs when editing or deleting entries.
 </box>
 
 **Explanations**:
@@ -911,15 +924,15 @@ Sort success
 
 <h3 id="delete">Deleting an entry: <code>delete</code></h3>
 
-Deletes the specified entry from the loan book.
+Deletes the specified entry from the Wanted list.
 
 Format: `delete [ID]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 <box type="warning" seamless>
-Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
-an entry after running any of these commands.
+
+**Warning**: The list, sort, and find commands change the IDs of each entry. Be careful to use the correct IDs when editing or deleting entries.
 </box>
 
 **Explanations:**
@@ -945,11 +958,11 @@ The second entry is deleted from the Wanted list.
 
 <h3 id="clear">Clearing all entries: <code>clear</code></h3>
 
-Clears all entries from the loan book.
+Clears all entries from the Wanted list.
 
 <box type="warning" seamless>
 
-**Warning**: All loan entries will be wiped. After this command has been run we cannot recover your data.
+**Warning**: All loan entries will be wiped. This command is irreversible. You should exercise caution when running this command.
 </box>
 
 Format: `clear`
@@ -976,13 +989,11 @@ If you wish to transfer your saved data to another device, install Wanted on the
 
 ## Known Issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only
-the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the
-application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`)
-again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. **If your tags overlap with an entry's name**, then download the
-[Special Elite font](https://fonts.google.com/specimen/Special+Elite) and place it in src/main/resources/fonts.
+1. **The GUI may not be visible and appear off-screen** if you use multiple screens, move the application to a secondary screen, and later switch to using only
+the primary screen. To resolve this, you should delete the `preferences.json` file created by the
+application in the same folder as `wanted.jar` before running the application again.
+2. **The Help Window may not appear** if you minimize the Help Window and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`)
+again. To resolve this, you should open the Help Window again by selecting it. If it is not visible in the sidebar, you should try finding it by holding down the Alt key and pressing Tab.
 
 [Scroll back to the command summary](#command-summary)
 
