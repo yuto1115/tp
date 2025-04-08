@@ -26,8 +26,9 @@ With Wanted, you can
 
 1. [Quickstart](#quick-start)
 2. <a href="#tldr">I want a brief overview! TL;DR</a>
-3. [Command Summary](#command-summary)
-4. [Features](#features)
+3. [User Interface](#user-interface)
+4. [Command Summary](#command-summary)
+5. [Features](#features)
     1. <a href="#help">Help</a>
     2. <a href="#add">Add</a>
     3. <a href="#rename">Rename</a>
@@ -388,10 +389,10 @@ Format: `tag [ID] t/[TAG]…`
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
 * To add a Tag, `TAG` must be non-empty, unique to the tag list, and case-insensitive.
 <br>When adding multiple tags in a single command:
-    - The system checks if all tags in your command already exist in the tag list (case-insensitive)
-    - If all tags are already present, no edit will occur
-    - If at least one tag is new, then only the unique tags will be added to the list
-* If a `TAG` is empty e.g. `t/` all tags will be deleted
+    - The system checks if all tags in your command already exist in the tag list (case-insensitive).
+    - If all tags are already present, no edit will occur.
+    - If at least one tag is new, then only the unique tags will be added to the list.
+* If a `TAG` is empty e.g. `t/` all tags will be deleted.
 
 **Examples:**
 
@@ -466,15 +467,21 @@ Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 **Explanations:**
-* You can add an increase transaction to the entry at the specified ID. The ID refers to the index number shown in the displayed person list
-* The increase command records a new transaction, and can be observed in your entry's transaction history
+* You can add an increase transaction to the entry at the specified ID. The ID refers to the index number shown in the displayed person list.
+* The increase command records a new transaction, and can be observed in your entry's transaction history.
+
+<box type="warning" seamless>
+
+**Warning**: The current version of the Wanted app does **not** validate whether the dates in a transaction history are in chronological order.  
+This issue will be addressed in future releases.
+</box>
 
 **Example:**
 
 <box>
 
 **Scenario:** Adding a new increase transaction<br>
-
+f
 **Input:** `increase 1 l/10.10 d/2024-12-12`<br>
 
 **Output:**
