@@ -27,8 +27,9 @@ With Wanted, you can
 
 1. [Quickstart](#quick-start)
 2. <a href="#tldr">I want a brief overview! TL;DR</a>
-3. [Command Summary](#command-summary)
-4. [Features](#features)
+3. [User Interface](#user-interface)
+4. [Command Summary](#command-summary)
+5. [Features](#features)
     1. <a href="#help">Help</a>
     2. <a href="#add">Add</a>
     3. <a href="#rename">Rename</a>
@@ -389,10 +390,10 @@ Format: `tag [ID] t/[TAG]…`
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
 * To add a Tag, `TAG` must be non-empty, unique to the tag list, and case-insensitive.
 <br>When adding multiple tags in a single command:
-    - The system checks if all tags in your command already exist in the tag list (case-insensitive)
-    - If all tags are already present, no edit will occur
-    - If at least one tag is new, then only the unique tags will be added to the list
-* If a `TAG` is empty e.g. `t/` all tags will be deleted
+    - The system checks if all tags in your command already exist in the tag list (case-insensitive).
+    - If all tags are already present, no edit will occur.
+    - If at least one tag is new, then only the unique tags will be added to the list.
+* If a `TAG` is empty e.g. `t/` all tags will be deleted.
 
 **Examples:**
 
@@ -467,8 +468,14 @@ Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 **Explanations:**
-* You can add an increase transaction to the entry at the specified ID. The ID refers to the index number shown in the displayed person list
-* The increase command records a new transaction, and can be observed in your entry's transaction history
+* You can add an increase transaction to the entry at the specified ID. The ID refers to the index number shown in the displayed person list.
+* The increase command records a new transaction, and can be observed in your entry's transaction history.
+
+<box type="warning" seamless>
+
+**Warning**: The current version of the Wanted app does **not** validate whether the dates in a transaction history are in chronological order.  
+This issue will be addressed in future releases.
+</box>
 
 **Example:**
 
@@ -499,6 +506,12 @@ Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 * The entry's remaining loan amount is reduced by `AMOUNT`.
 * A new transaction is appended to the end of the entry's transaction history, indicating that the specified `AMOUNT` was repaid on the given `DATE`.
 * `AMOUNT` must not exceed the current remaining loan amount of the entry.
+
+<box type="warning" seamless>
+
+**Warning**: The current version of the Wanted app does **not** validate whether the dates in a transaction history are in chronological order.  
+This issue will be addressed in future releases.
+</box>
 
 **Examples:**
 <box>
@@ -559,6 +572,12 @@ Format: `edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
 * If `DATE` is provided, the transaction date is updated to the specified value. The new `DATE` must be different from the original.
 * At least one of `AMOUNT` or `DATE` must be provided.
 * The update must not result in a negative remaining loan amount at any point in the transaction history.
+
+<box type="warning" seamless>
+
+**Warning**: The current version of the Wanted app does **not** validate whether the dates in a transaction history are in chronological order.  
+This issue will be addressed in future releases.
+</box>
 
 **Examples:**
 <box>
@@ -637,6 +656,12 @@ Format: `delhist [ID] i/[TRANSACTION ID]`
 * This command allows you to delete a transaction from the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
 * The transaction to be deleted is specified by `TRANSACTION ID`, which refers to the index number shown in the displayed transaction history of the selected entry.
 * The deletion must not result in a negative remaining loan amount at any point in the transaction history.
+
+<box type="warning" seamless>
+
+**Warning**: The current version of the Wanted app does **not** validate whether the dates in a transaction history are in chronological order.  
+This issue will be addressed in future releases.
+</box>
 
 **Examples:**
 <box>
