@@ -815,8 +815,7 @@ This commands allows you to sort the entries in descending order of remaining lo
 
 <box type="warning" seamless>
 
-**Warning**: The `list`, `sort`, and `find` commands change the ID's of each entry. So, be cautious when deleting
-an entry after running any of these commands.
+**Warning**: The `sort` command changes the IDs of each entry. Be careful to use the correct IDs when editing or deleting entries.
 </box>
 
 **Explanations**:
@@ -927,56 +926,7 @@ Remaining entries will keep their relative positions.
 >   (5.) Alex Yeoh <br>
 - Partial matches are displayed in alphabetical order.
   ![result for 'find jo'](images/findjo.png)
-
-<h3 id="sort">Sorting entries: <code>sort</code></h3>
-
-Sorts the Wanted list by loaned amount.
-
-Format: `sort`
-
-(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
-
-<box type="warning" seamless>
-
-**Warning**: The sort command changes the IDs of each entry. Be careful to use the correct IDs when editing or deleting entries.
 </box>
-
-**Explanations**:
-* Sort will sort the entries by current 'Loan Amount'
-* People with the highest loans will be sorted to the top of the Wanted list.
-
-> **Note:** Assume there are a list of names as follows:
->   (1.) John <br>
->           Remaining Loan Amount: 21.05 <br>
->           Total Loaned Amount: 23.05 <br>
->   (2.) Alex Yeoh <br>
->           Remaining Loan Amount: 0.00 <br>
->           Total Loaned Amount: 0.00 <br>
->   (3.) Bernice Chua <br>
->           Remaining Loan Amount: 21.05 <br>
->           Total Loaned Amount: 21.05 <br>
-
-**Scenario 1:** Sorting <br>
-
-**Input:** `sort`<br>
-
-**Output:**
-```output
-Sort success
-```
-
-**Behaviour:**
-- The entries will be sorted by highest total loan amount
-- The list of names will be reordered as follows.
->   (1.) John <br>
->           Remaining Loan Amount: 21.05 <br>
->           Total Loaned Amount: 23.05 <br>
->   (2.) Bernice Chua <br>
->           Remaining Loan Amount: 21.05 <br>
->           Total Loaned Amount: 21.05 <br>
->   (3.) Alex Yeoh <br>
->           Remaining Loan Amount: 0.00 <br>
->           Total Loaned Amount: 0.00 <br>
 
 <h3 id="delete">Deleting an entry: <code>delete</code></h3>
 
