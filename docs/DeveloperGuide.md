@@ -25,6 +25,11 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ## **Design**
 
+<box type="info" seamless>
+
+**Note**: In this Developer Guide, the term `loan book` is used with the same meaning as `Wanted list` in the User Guide.
+</box>
+
 ### Architecture
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
@@ -118,15 +123,36 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="520" />
 
 
 The `Model` component,
 
 * stores the loan book data i.e., all `Loan` objects (which are contained in a `UniqueLoanList` object).
-* stores the currently 'selected' `Loan` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Loan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* offers a list of all the stored `Loan` objects to outsiders as an unmodifiable `ObservableList<Loan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+
+Explanation of the `LoanAmount` class and its related components:
+
+* `LoanAmount` is a class responsible for managing the loan amount of an entry. Each `LoanAmount` instance consists of a list of `LoanTransaction` objects.
+
+* `LoanTransaction` is an abstract class representing a loan-related transaction. It is extended by two concrete subclasses: `AddLoanTransaction` and `RepayLoanTransaction`. Each subclass instance:
+    * stores the transaction date using the `LoanDate` class, which encapsulates dates in a specific, consistent format.
+    * stores the transaction amount using the `MoneyInt` class, which ensures exact representation of values with two decimal places (i.e. no precision loss).
+
+* The constructor of `LoanAmount` takes an array of `LoanTransaction` objects and automatically computes the total loaned amount and the remaining loan amount of the entry.
+  If the remaining loan amount becomes negative at any point during this calculation, the constructor throws an exception and the `LoanAmount` object is not created.
+
+* The only way to create a `LoanAmount` object is through the constructor described above. This design ensures that even when users modify the transaction history via commands, no invalid transaction history can be formed.
+
+<box type="info" seamless>
+
+**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `LoanBook`, which `Loan` references. This allows `LoanBook` to only require one `Tag` object per unique tag, instead of each `Loan` needing their own `Tag` objects.<br>
+
+<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
+
+</box>
 
 
 ### Storage component
@@ -146,6 +172,103 @@ Classes used by multiple components are in the `wanted.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **Proposed feature**
+
+This section describes a proposed feature and how it can be implemented.
+
+### \[Proposed\] Undo/redo feature
+
+#### Proposed Implementation
+
+The proposed undo/redo mechanism is facilitated by `VersionedLoanBook`. It extends `LoanBook` with an undo/redo history, stored internally as an `loanBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+
+* `VersionedLoanBook#commit()`—Saves the current loan book state in its history.
+* `VersionedLoanBook#undo()`—Restores the previous loan book state from its history.
+* `VersionedLoanBook#redo()`—Restores a previously undone loan book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitLoanBook()`, `Model#undoLoanBook()` and `Model#redoLoanBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedLoanBook` will be initialized with the initial loan book state, and the `currentStatePointer` pointing to that single loan book state.
+
+<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
+
+Step 2. The user executes `delete 5` command to delete the 5th entry in the loan book. The `delete` command calls `Model#commitLoanBook()`, causing the modified state of the loan book after the `delete 5` command executes to be saved in the `loanBookStateList`, and the `currentStatePointer` is shifted to the newly inserted loan book state.
+
+<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
+
+Step 3. The user executes `add n/David` to add a new entry. The `add` command also calls `Model#commitLoanBook()`, causing another modified loan book state to be saved into the `loanBookStateList`.
+
+<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
+
+<box type="info" seamless>
+
+**Note:** If a command fails its execution, it will not call `Model#commitLoanBook()`, so the loan book state will not be saved into the `loanBookStateList`.
+
+</box>
+
+Step 4. The user now decides that adding the loan was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoLoanBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous loan book state, and restores the loan book to that state.
+
+<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+
+
+<box type="info" seamless>
+
+**Note:** If the `currentStatePointer` is at index 0, pointing to the initial LoanBook state, then there are no previous LoanBook states to restore. The `undo` command uses `Model#canUndoLoanBook()` to check if this is the case. If so, it will return an error to the user rather
+than attempting to perform the undo.
+
+</box>
+
+The following sequence diagram shows how an undo operation goes through the `Logic` component:
+
+<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+
+<box type="info" seamless>
+
+**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</box>
+
+Similarly, how an undo operation goes through the `Model` component is shown below:
+
+<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
+
+The `redo` command does the opposite—it calls `Model#redoLoanBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the loan book to that state.
+
+<box type="info" seamless>
+
+**Note:** If the `currentStatePointer` is at index `loanBookStateList.size() - 1`, pointing to the latest loan book state, then there are no undone LoanBook states to restore. The `redo` command uses `Model#canRedoLoanBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+</box>
+
+Step 5. The user then decides to execute the command `help`. Commands that do not modify the loan book, such as `help`, will usually not call `Model#commitLoanBook()`, `Model#undoLoanBook()` or `Model#redoLoanBook()`. Thus, the `loanBookStateList` remains unchanged.
+
+<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
+
+Step 6. The user executes `clear`, which calls `Model#commitLoanBook()`. Since the `currentStatePointer` is not pointing at the end of the `loanBookStateList`, all loan book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David` command. This is the behavior that most modern desktop applications follow.
+
+<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
+
+#### Design considerations:
+
+**Aspect: How undo & redo executes:**
+
+* **Alternative 1 (current choice):** Saves the entire loan book.
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Individual command knows how to undo/redo by
+  itself.
+  * Pros: Will use less memory (e.g. for `delete`, just save the loan being deleted).
+  * Cons: We must ensure that the implementation of each individual command are correct.
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
@@ -162,8 +285,8 @@ Classes used by multiple components are in the `wanted.commons` package.
 
 **Target user profile**:
 
-* loans and receives money from others
-* prefer desktop apps over other types
+* loans money to others
+* prefers desktop apps over other types
 * can type quickly
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
@@ -260,7 +383,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to add an increase transaction of a specified amount and date to a loan.
 2. System creates a new increase transaction.
 3. System adds the transaction to the transaction history of the loan.
-4. System updates and displays Total Amount Loaned and Remaining Loan Amount of the loan.
+4. System updates and displays Total Loaned Amount and Remaining Loan Amount of the loan.
 
    Use case ends.
 
@@ -275,8 +398,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User requests to add a repayment transaction of a specified amount and date to a loan.
 2. System creates a new repayment transaction.
-3. System adds the transaction to the loan history of the loan.
-4. System updates and displays Total Amount Loaned and Remaining Loan Amount of the loan.
+3. System adds the transaction to the Transaction History of the loan.
+4. System updates and displays Total Loaned Amount and Remaining Loan Amount of the loan.
 
    Use case ends.
 
@@ -294,7 +417,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User requests to modify the amount and/or date of a transaction in a loan.
 2. System updates the transaction.
-3. System updates and displays the updated transaction history, Total Amount Loaned and Remaining Loan Amount of the loan.
+3. System updates and displays the updated transaction history, Total Loaned Amount and Remaining Loan Amount of the loan.
 
    Use case ends.
 
@@ -312,7 +435,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User requests to delete a transaction in a loan.
 2. System deletes the transaction.
-3. System updates and displays the updated transaction history, Total Amount Loaned and Remaining Loan Amount of the loan.
+3. System updates and displays the updated transaction history, Total Loaned Amount and Remaining Loan Amount of the loan.
 
    Use case ends.
 
@@ -383,12 +506,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Cash-Strapped User**: A user who urgently needs to recover loaned money to maintain financial stability.
 * **New User**: Someone who has just started using the system and may require guidance on how to navigate it.
 * **Amount**: A sum of money.
-* **Total Amount Loaned**: Total amount of money loaned to a person across all transactions associated with them.
+* **Total Loaned Amount**: Total amount of money loaned to a person across all transactions associated with them.
 * **Remaining Loan Amount**: Amount of money a person is yet to repay across all transactions associated with them.
 * **Transaction**: An action to increase or repay the loan owed to the user.
 * **Tags**: A method of categorizing individuals based on different attributes such as spending habits, friends, family etc.
 * **Leaderboard**: A visual ranking system displaying individuals with the highest loans.
-* **Loan History**: A record of all transactions under a current loan, categorized by increase or repay transactions.
+* **Transaction History**: A record of all transactions under a current loan, categorized by increase or repay transactions.
 * **Clear**: The ability to delete all stored loan data, often used to clear test or example entries.
 * **Example Entries**: Pre-filled sample data to help new users understand how the system works.
 * **Wanted/Not Wanted**: UI element on each loan entry representing whether the loan is fully returned.
@@ -438,79 +561,79 @@ testers are expected to do more *exploratory* testing.
 
 3. Adding a phone number to entries
 
-   1. Test case: `phone 1 p/98765432`
+   1. Test case: `phone 1 p/98765432`<br>
    Expected: Adds the phone number `98765432` to the entry for `John`.
    
-   2. Test case: `phone 1 p/delete`
+   2. Test case: `phone 1 p/`<br>
    Expected: Deletes the phone number and removes it from the display for the entry for `John`.
    
-   3. Test case: `phone 2 p/abcdefgh`
+   3. Test case: `phone 2 p/abcdefgh`<br>
    Expected: No phone number is updated. Error details shown in status message. Command is not erased from input field.
 
 4. Adding tags to entries
 
-   1. Test case: `tag 1 t/friend t/frequentloaner`
+   1. Test case: `tag 1 t/friend t/frequentloaner`<br>
    Expected: Adds the tags `friend` and `frequentloaner` to the entry for `John`.
    
-   2. Test case: `tag 1 t/`
+   2. Test case: `tag 1 t/`<br>
    Expected: Removes all tags from the entry for `John`.
 
 5. Adding loans to entries
 
    1. Test case: `increase 1 l/100.00 d/2025-01-01`<br>
-   Expected: The entry for `John` at index 1 has a loan for $100.00 on 2025-01-01 recorded in its transaction history, and loan amount is increased by $100.00. <br>
+   Expected: The entry for `John` at index 1 has a loan for $100.00 on 2025-01-01 recorded in its transaction history, and the remaining loan amount and the total loaned amount are increased by $100.00. <br>
    The entry should now show "Wanted" instead of "Not Wanted".
    
    2. Test case: `increase 1 l/-100.00 d/2025-02-02`<br>
-   Exoected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
+   Expected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
 
 ### Repaying a loan
-1. Prerequisites: The first entry on the currently displayed list has a loan amount of $100.00.
+1. Prerequisites: The first entry on the currently displayed list has a remaining loan amount of $100.00.
 
 2. Adding loan repayments to entries
 
-   1. Test case: `repay 1 l/60.00 d/2025-01-03`
-   Expected: The first entry on the list now has a loan amount of $40.00. The repayment transaction details are added to the transaction history. 
+   1. Test case: `repay 1 l/60.00 d/2025-01-03`<br>
+   Expected: The first entry on the list now has a remaining loan amount of $40.00. The repayment transaction details are added to the transaction history. 
 
-   2. Test case: `repay 1 l/50.00 d/2025-01-04`
+   2. Test case: `repay 1 l/50.00 d/2025-01-04`<br>
    Expected: No transaction is created. Error details shown in the status message. Command is not erased from input field.
 
-   3. Test case: `repay 1 l/40.00 d/2025-01-04`
-   Expected: The first entry on the list now has a loan amount of $0.00 and shows "Not Wanted". The repayment transaction details are added to the transaction history.
+   3. Test case: `repay 1 l/40.00 d/2025-01-04`<br>
+   Expected: The first entry on the list now has a remaining loan amount of $0.00 and shows "Not Wanted". The repayment transaction details are added to the transaction history.
 
 ### Editing loan transaction history
 1. Prerequisites: The first entry on the currently displayed list has a transaction history of exactly a $100.00 loan in the first slot and a $50.00 repayment in the second slot.
 
 2. Editing loan transaction history
    
-    1. Test case: `edithist 1 i/2 l/60.00 d/2025-01-10`
-   Expected: The repayment transaction is increased to $60.00 and the date is changed to 2025-01-10. The loan amount of the entry should be updated to $40.00.
+    1. Test case: `edithist 1 i/2 l/60.00 d/2025-01-10`<br>
+   Expected: The repayment transaction is increased to $60.00 and the date is changed to 2025-01-10. The remaining loan amount of the entry should be updated to $40.00.
    
-   2. Test case: `edithist 1 i/1 l/40.00`
+   2. Test case: `edithist 1 i/1 l/40.00`<br>
    Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
    
-   3. Test case: `edithist 1 i/1 l/250.00`
-   Expected: The loan transaction is increased to $250.00. The date is unchanged. The loan amount of the entry should be updated to $190.00.
+   3. Test case: `edithist 1 i/1 l/250.00`<br>
+   Expected: The loan transaction is increased to $250.00. The date is unchanged. The remaining loan amount and the total loaned amount of the entry should be updated to $190.00 and $250.00, respectively.
 
-   4. Test case: `edithist 1 i/5 l/100.00`
+   4. Test case: `edithist 1 i/5 l/100.00`<br>
       Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
 
 ### Deleting loan transaction history
 1. Prerequisites: The first entry on the currently displayed list has a transaction history of exactly a $100.00 loan in the first slot and a $50.00 repayment in the second slot.
     
-    1. Test case: `delhist 1 i/1`
+    1. Test case: `delhist 1 i/1`<br>
    Expected: No change occurs. Error details shown in the status message. Command is not erased from input field.
 
-   2. Test case: `delhist 1 i/2`
-      Expected: The transaction for the repayment is deleted. The loan amount is reverted to $100.00.
+   2. Test case: `delhist 1 i/2`<br>
+      Expected: The transaction for the repayment is deleted. The remaining loan amount is reverted to $100.00.
 
 ### Finding specific entries
 1. Prerequisites: There are multiple entries on the list with different names, with at least one entry containing `John` in the name and no entries containing `Jim`.
 
-   1. Test case: `find John`
+   1. Test case: `find John`<br>
    Expected: Entries containing the name `John` (case-insensitive) are moved to the top of the list.
    
-    2. Test case: `find Jim`
+    2. Test case: `find Jim`<br>
     Expected: No change occurs.
 
 ### Displaying all entries by name in alphabetical order
@@ -571,15 +694,19 @@ their loanees.
 During the MVP phase of our project, we had initially planned to simply track each loan transaction individually, with
 each loan transaction being its own Loan object, allowing our model structure and program to function similarly to AB3. 
 However, we discovered that this would make it difficult to track loans associated with a single person to collate
-information such as Total Amount Loaned and Remaining Loan Amount, and this would not accurately simulate cases where
+information such as Total Loaned Amount and Remaining Loan Amount, and this would not accurately simulate cases where
 a person borrows multiple times before repaying all at once, or partially repaying for multiple loans in amounts that 
 did not match the borrowed amounts exactly.
 
 As such, we embarked on significant code restructuring across v1.4 and v1.5 to get to our current model, allowing us to
 associate all transactions with a single person under a Loan, which also provided much easier ways to display that
 information in a grouped manner that made more realistic sense. This allowed us to then implement easier methods to track
-Total Amount Loaned and Remaining Loan Amount, allowing us to display that information at all times up front.
+Total Loaned Amount and Remaining Loan Amount, allowing us to display that information at all times up front.
 This also required modification of the UI to accommodate the grouping of information.
+
+In addition to the code restructuring, we introduced new features to edit and delete transaction history.
+Implementing these features required us to revisit the design of the Loan model and the command execution mechanism, ensuring that the model itself enforces the validity of the transaction history.
+This design choice eliminated the need for each individual command to perform its own validity checks when modifying loans.
 
 Additionally, unlike AB3, where all information in an entry could be added or edited in a single command, we chose to 
 have each piece of information split out into separate commands. This necessitated creating many additional Command and

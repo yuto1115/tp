@@ -13,7 +13,7 @@ In short, almost all actions in the program are performed by typing in a command
 
 This guide can be accessed from the project's Github page or the Help window of the application.
 
-### Value Proposition
+## Value Proposition
 With Wanted, you can
 1. Track monetary loans by name
 2. Repay loans in small amounts
@@ -44,8 +44,8 @@ With Wanted, you can
     13. <a href="#delete">Delete</a>
     14. <a href="#clear">Clear</a>
     15. <a href="#exit">Exit</a>
-   16. [Save data](#saving-the-data)
-   17. [Backup data file](#backing-up-data-files)
+    16. [Save data](#saving-the-data)
+    17. [Backup data file](#backing-up-data-files)
 5. [Known Issues](#known-issues)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -91,8 +91,62 @@ Use the add command to add the loanee’s name to the list, then use the loan co
 ___How do I track repayments?___<br>
 Use the repay command when the loanee’s entry is visible on the list.
 
-___I can’t find the entry I want to modify.___<br>
-This is likely due to the list currently being filtered to only show a certain name. If you remember the loanee’s name, use the search command to find the loan. Otherwise, use the list or sort command to look for the entry.
+___How do I find an entry that I want to modify?___<br>
+If you remember the loanee’s name, use the search command to find the loan. Otherwise, use the list command to sort by name
+or the sort command to sort the list by total amount owed.
+
+--------------------------------------------------------------------------------------------------------------------
+## User Interface
+
+#### Overview
+
+![Ui Overview](images/UiOverview.png)
+
+The GUI of the Wanted app consists of three main components: **Command Box**, **Message Display**, and **Wanted List**.
+
+* **Command Box**: This is where you type your commands.
+
+* **Message Display**: When you execute a command (by typing and pressing Enter), the result will appear here.  
+  This may include confirmation messages for successful commands or error messages if the input is invalid.
+
+* **Wanted List**: This displays a list of **entries** currently stored in the app.  
+  If the list exceeds the height of the screen, a scrollbar on the right allows you to scroll through it.
+
+#### Entries
+
+![Ui Entry](images/UiEntry.png)
+
+Each **entry** represents a person and displays their information along with their transaction history.  
+An entry contains the following components:
+
+* **Name**: Displays the name of the person. The number to the left indicates the index of the entry.
+
+* **Wanted badge**: Indicates whether the person has fully repaid their loan.  
+  It shows `Wanted` if any amount is still unpaid, and `Not Wanted` otherwise.
+
+* **Tags**: Displays a list of tags associated with the person.
+
+* **Information bar**: Shows key details about the person, including Remaining Loan Amount, Total Loaned Amount, and phone number.
+    * **Remaining Loan Amount** refers to the total amount the person still owes across all transactions.
+
+    * **Total Loaned Amount** refers to the total sum loaned to the person across all transactions.
+
+* **Transaction history**: Lists all transactions associated with the person.  
+  Each transaction appears in one of the following formats:
+    * `[amount] loaned on [date]` — Indicates that the specified amount was loaned on the given date.  
+      Example: `$100.00 loaned on 2025-01-01`
+
+    * `[amount] repaid on [date]` — Indicates that the specified amount was repaid on the given date.  
+      Example: `$50.00 repaid on 2025-02-01`
+
+  The number to the left of each transaction indicates its index within the transaction history.  
+  If the transaction list exceeds the height of the display area, the most recent transactions (those with higher indices) are shown by default.  
+  You can scroll upward using the scrollbar on the right to view older transactions.
+
+<box type="tip" seamless>
+
+**Tip**: The background image of an entry changes depending on whether the person is in the `Wanted` or `Not Wanted` status.<br>
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -179,7 +233,6 @@ Format: `help`
 <h3 id="add">Adding an entry: <code>add</code></h3>
 
 Adds a new person as a new entry to the Wanted list.<br>
-A new entry starts with no money loaned and no money to be returned, no transaction history and no tags.
 
 Format: `add n/[NAME]`
 
@@ -216,7 +269,7 @@ Changes the name of the specified entry in the Wanted list.
 
 Format: `rename [ID] n/[NAME]`
 
-(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
+(See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))<br>
 
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
@@ -254,12 +307,15 @@ This person already exists in the loan book.
 ```
 </box>
 
+
+
 <h3 id="phone">Adding/Updating phone number: <code>phone</code></h3>
 
 This command allows you to add and delete an entry's phone number in the Wanted list.
 
 <box type="warning" seamless>
-Warning: An empty phone p/ will clear the entries' phone number
+
+**Warning**: An empty phone p/ will clear the entries' phone number.
 </box>
 
 Format: `phone [ID] p/[PHONE]`
@@ -268,8 +324,8 @@ Format: `phone [ID] p/[PHONE]`
 
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
-* To add or update a phone number, `PHONE` must be a new number and non-empty
-* If a phone number `p/[PHONE]` is equal to the previous phone number, the entry will not be updated
+* To add or update a phone number, `PHONE` must be a new number and non-empty.
+* If a phone number `p/[PHONE]` is equal to the previous phone number, the entry will not be updated.
 
 **Examples:**
 
@@ -314,21 +370,25 @@ New phone number must be different than the old one
 
 <h3 id="tag">Adding/Updating tags: <code>tag</code></h3>
 
-This command allows you to add or delete tag descriptors to each entry
+This command allows you to add or delete tag descriptors to each entry.
 
 <box type="tip" seamless>
-Tip: A person can have any number of tags (including 0)<br>
+
+**Tip**: A person can have any number of tags (including 0)<br>
 </box>
 <box type="warning" seamless>
-Warning: An empty tag t/ will clear all tags
+
+**Warning**: An empty tag t/ will clear all tags
 </box>
+
+Format: `tag [ID] t/[TAG]…`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
 * To add a Tag, `TAG` must be non-empty, unique to the tag list, and case-insensitive.
-  <br>When adding multiple tags in a single command:
+<br>When adding multiple tags in a single command:
     - The system checks if all tags in your command already exist in the tag list (case-insensitive)
     - If all tags are already present, no edit will occur
     - If at least one tag is new, then only the unique tags will be added to the list
@@ -400,7 +460,7 @@ Tags names should be alphanumeric
 
 <h3 id="increase">Adding a loan: <code>increase</code></h3>
 
-Adds a transaction indicating that the specified amount was loaned at the specified date to an entry.
+This command lets you record an increase in the loan amount for a specific entry, and saves it as a transaction in the entry's transaction history.
 
 Format: `increase [ID] l/[AMOUNT] d/[DATE]`
 
@@ -434,7 +494,7 @@ Format: `repay [ID] l/[AMOUNT] d/[DATE]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-**Explanations**:
+**Explanations:**
 * This command allows you to reduce the remaining loan amount of the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
 * The entry's remaining loan amount is reduced by `AMOUNT`.
 * A new transaction is appended to the end of the entry's transaction history, indicating that the specified `AMOUNT` was repaid on the given `DATE`.
@@ -492,7 +552,7 @@ Format: `edithist [ID] i/[TRANSACTION ID] (l/[AMOUNT]) (d/[DATE])`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-**Explanations**:
+**Explanations:**
 * This command allows you to edit a transaction of the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
 * The transaction to be edited is specified by `TRANSACTION ID`, which refers to the index number shown in the displayed transaction history of the selected entry.
 * If `AMOUNT` is provided, the transaction amount is updated to the specified value. The new `AMOUNT` must be different from the original.
@@ -573,7 +633,7 @@ Format: `delhist [ID] i/[TRANSACTION ID]`
 
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
-**Explanations**:
+**Explanations:**
 * This command allows you to delete a transaction from the entry at the specified `ID`. The ID refers to the index number shown in the displayed persons list.
 * The transaction to be deleted is specified by `TRANSACTION ID`, which refers to the index number shown in the displayed transaction history of the selected entry.
 * The deletion must not result in a negative remaining loan amount at any point in the transaction history.
@@ -812,7 +872,8 @@ Deleted Loan: Bernice Yu; Remaining Loan Amount: 40.49; Total Loaned Amount: 40.
 Clears all entries from the loan book.
 
 <box type="warning" seamless>
-**Warning:** No undo for clear command. All loan entries will be wiped.
+
+**Warning**: This action cannot be undone. All loan entries will be wiped.
 </box>
 
 Format: `clear`
@@ -839,8 +900,13 @@ If you wish to transfer your saved data to another device, install Wanted on the
 
 ## Known Issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only
+the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the
+application before running the application again.
+2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`)
+again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **If your tags overlap with an entry's name**, then download the
+[Special Elite font](https://fonts.google.com/specimen/Special+Elite) and place it in src/main/resources/fonts.
 
 [Scroll back to the command summary](#command-summary)
 
