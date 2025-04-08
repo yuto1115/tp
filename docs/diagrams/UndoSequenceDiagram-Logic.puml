@@ -30,7 +30,7 @@ deactivate LoanBookParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : undoLoanBook()
 activate Model
 
 Model --> UndoCommand

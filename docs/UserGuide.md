@@ -59,7 +59,7 @@ With Wanted, you can
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wanted.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br><br>
    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
@@ -93,6 +93,59 @@ Use the repay command when the loanee’s entry is visible on the list.
 ___How do I find an entry that I want to modify?___<br>
 If you remember the loanee’s name, use the search command to find the loan. Otherwise, use the list command to sort by name
 or the sort command to sort the list by total amount owed.
+
+--------------------------------------------------------------------------------------------------------------------
+## User Interface
+
+#### Overview
+
+![Ui Overview](images/UiOverview.png)
+
+The GUI of the Wanted app consists of three main components: **Command Box**, **Message Display**, and **Wanted List**.
+
+* **Command Box**: This is where you type your commands.
+
+* **Message Display**: When you execute a command (by typing and pressing Enter), the result will appear here.  
+  This may include confirmation messages for successful commands or error messages if the input is invalid.
+
+* **Wanted List**: This displays a list of **entries** currently stored in the app.  
+  If the list exceeds the height of the screen, a scrollbar on the right allows you to scroll through it.
+
+#### Entries
+
+![Ui Entry](images/UiEntry.png)
+
+Each **entry** represents a person and displays their information along with their transaction history.  
+An entry contains the following components:
+
+* **Name**: Displays the name of the person. The number to the left indicates the index of the entry.
+
+* **Wanted badge**: Indicates whether the person has fully repaid their loan.  
+  It shows `Wanted` if any amount is still unpaid, and `Not Wanted` otherwise.
+
+* **Tags**: Displays a list of tags associated with the person.
+
+* **Information bar**: Shows key details about the person, including Remaining Loan Amount, Total Loaned Amount, and phone number.
+    * **Remaining Loan Amount** refers to the total amount the person still owes across all transactions.
+
+    * **Total Loaned Amount** refers to the total sum loaned to the person across all transactions.
+
+* **Transaction history**: Lists all transactions associated with the person.  
+  Each transaction appears in one of the following formats:
+    * `[amount] loaned on [date]` — Indicates that the specified amount was loaned on the given date.  
+      Example: `$100.00 loaned on 2025-01-01`
+
+    * `[amount] repaid on [date]` — Indicates that the specified amount was repaid on the given date.  
+      Example: `$50.00 repaid on 2025-02-01`
+
+  The number to the left of each transaction indicates its index within the transaction history.  
+  If the transaction list exceeds the height of the display area, the most recent transactions (those with higher indices) are shown by default.  
+  You can scroll upward using the scrollbar on the right to view older transactions.
+
+<box type="tip" seamless>
+
+**Tip**: The background image of an entry changes depending on whether the person is in the `Wanted` or `Not Wanted` status.<br>
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -260,7 +313,8 @@ This person already exists in the loan book.
 This command allows you to add and delete an entry's phone number in the Wanted list.
 
 <box type="warning" seamless>
-Warning: An empty phone p/ will clear the entries' phone number
+
+**Warning**: An empty phone p/ will clear the entries' phone number.
 </box>
 
 Format: `phone [ID] p/[PHONE]`
@@ -269,8 +323,8 @@ Format: `phone [ID] p/[PHONE]`
 
 **Explanations:**
 * This command allows you to modify the entry at the specified `ID`. The ID refers to the index number shown in the displayed person list.
-* To add or update a phone number, `PHONE` must be a new number and non-empty
-* If a phone number `p/[PHONE]` is equal to the previous phone number, the entry will not be updated
+* To add or update a phone number, `PHONE` must be a new number and non-empty.
+* If a phone number `p/[PHONE]` is equal to the previous phone number, the entry will not be updated.
 
 **Examples:**
 
@@ -315,13 +369,15 @@ New phone number must be different than the old one
 
 <h3 id="tag">Adding/Updating tags: <code>tag</code></h3>
 
-This command allows you to add or delete tag descriptors to each entry
+This command allows you to add or delete tag descriptors to each entry.
 
 <box type="tip" seamless>
-Tip: A person can have any number of tags (including 0)<br>
+
+**Tip**: A person can have any number of tags (including 0)<br>
 </box>
 <box type="warning" seamless>
-Warning: An empty tag t/ will clear all tags
+
+**Warning**: An empty tag t/ will clear all tags
 </box>
 
 Format: `tag [ID] t/[TAG]…`
@@ -662,7 +718,8 @@ Format: `delete [ID]`
 (See [Notes about the command formats](#note-command-format) and [Restrictions on the parameters](#restrictions))
 
 <box type="warning" seamless>
-Warning: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
+
+**Warning**: The list, sort, and find commands change the ID's of each entry. So, be cautious when deleting
 an entry after running any of these commands.
 </box>
 
@@ -690,7 +747,8 @@ Deleted Loan: Bernice Yu; Remaining Loan Amount: 40.49; Total Loaned Amount: 40.
 Clears all entries from the loan book.
 
 <box type="warning" seamless>
-Warning: No undo for clear command. All loan entries will be wiped.
+
+**Warning**: This action cannot be undone. All loan entries will be wiped.
 </box>
 
 Format: `clear`
@@ -723,7 +781,7 @@ application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`)
 again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 3. **If your tags overlap with an entry's name**, then download the
-[Special Elite font](https://fonts.google.com/specimen/Special+Elite) and place it in src/main/resources/fonts
+[Special Elite font](https://fonts.google.com/specimen/Special+Elite) and place it in src/main/resources/fonts.
 
 [Scroll back to the command summary](#command-summary)
 
