@@ -14,7 +14,7 @@ import wanted.model.loan.Loan;
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_SUCCESS = "Sort success";
+    public static final String MESSAGE_SUCCESS = "Sorted the persons in descending order of remaining loan amount";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

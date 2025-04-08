@@ -22,7 +22,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe ";
 
-    public static final String MESSAGE_SUCCESS = "New loan created for: %1$s"; //add in persons name
+    public static final String MESSAGE_SUCCESS = "New entry created for: %1$s"; //add in persons name
     public static final String MESSAGE_DUPLICATE_PERSON = "This person has already loaned out money in the wanted list";
 
     private final Loan toAdd;
